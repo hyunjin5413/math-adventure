@@ -1,0 +1,148 @@
+/* 수학 어드벤처 프로토타입 — 태블릿 가로 우선, 큰 터치 타깃(PRD §8) */
+:root {
+  --bg: #fdf6e3;
+  --card: #ffffff;
+  --ink: #2b2b3a;
+  --blue: #5b8def;
+  --green: #4caf72;
+  --red: #ff7a7a;
+  --yellow: #ffce4f;
+  --purple: #9b6dff;
+  --shadow: 0 6px 0 rgba(0, 0, 0, 0.12);
+  --radius: 22px;
+  --tap: 64px; /* 최소 터치 타깃 */
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+  user-select: none;
+}
+#root { height: 100vh; width: 100vw; }
+.boot { display: grid; place-items: center; height: 100vh; font-size: 24px; }
+
+/* 공통 버튼 */
+button { font-family: inherit; cursor: pointer; border: none; }
+.btn {
+  min-height: var(--tap);
+  padding: 0 28px;
+  border-radius: var(--radius);
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--blue);
+  box-shadow: var(--shadow);
+  transition: transform 0.05s;
+}
+.btn:active { transform: translateY(3px); box-shadow: 0 3px 0 rgba(0,0,0,0.12); }
+.btn.ghost { background: #fff; color: var(--ink); border: 3px solid #e6e0cf; box-shadow: none; }
+.btn.green { background: var(--green); }
+.btn.purple { background: var(--purple); }
+
+/* ===== 상단 바 ===== */
+.topbar {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 20px; background: var(--card);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+.topbar .title { font-size: 22px; font-weight: 900; }
+.topbar .spacer { flex: 1; }
+.pill { background: #fff4cf; border-radius: 999px; padding: 8px 16px; font-weight: 800; font-size: 18px; }
+
+/* ===== 월드 맵 ===== */
+.map { height: calc(100vh - 70px); overflow-y: auto; padding: 20px 28px 60px; }
+.world { margin-bottom: 30px; }
+.world h2 { font-size: 24px; margin: 8px 0 14px; }
+.stage-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 14px; }
+.stage-node {
+  aspect-ratio: 1; border-radius: 18px; background: var(--card);
+  display: grid; place-content: center; position: relative;
+  font-size: 26px; font-weight: 900; box-shadow: var(--shadow);
+  border: 4px solid transparent;
+}
+.stage-node.locked { background: #e9e4d4; color: #b3ab93; box-shadow: none; }
+.stage-node.boss { border-color: var(--purple); background: #f3ecff; }
+.stage-node.mini { border-color: var(--yellow); background: #fff8e1; }
+.stage-node.cleared { border-color: var(--green); }
+.stage-node .stars { position: absolute; bottom: 4px; font-size: 12px; letter-spacing: -1px; }
+.stage-node .lock { font-size: 22px; }
+.stage-node.tappable:active { transform: translateY(3px); }
+
+/* ===== 플레이 화면 ===== */
+.play { display: grid; grid-template-rows: auto 1fr auto; height: 100vh; }
+.progress { height: 14px; background: #eee6d2; }
+.progress > div { height: 100%; background: var(--green); transition: width 0.3s; }
+.play-head { display: flex; align-items: center; gap: 14px; padding: 12px 20px; }
+.combo { font-weight: 900; color: var(--purple); font-size: 20px; }
+.stage-main {
+  display: grid; place-items: center; gap: 18px; padding: 10px 24px; overflow: hidden;
+}
+.prompt {
+  font-size: clamp(30px, 6vw, 60px); font-weight: 900; text-align: center;
+  background: #fff; border-radius: var(--radius); padding: 18px 30px; box-shadow: var(--shadow);
+}
+.speak-btn {
+  width: var(--tap); height: var(--tap); border-radius: 50%; font-size: 30px;
+  background: var(--yellow); box-shadow: var(--shadow);
+}
+
+/* 보기 */
+.choices { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+.choice {
+  min-width: 110px; min-height: 90px; padding: 0 24px; border-radius: var(--radius);
+  font-size: 42px; font-weight: 900; background: #fff; color: var(--ink);
+  border: 4px solid #e6e0cf; box-shadow: var(--shadow);
+}
+.choice:active { transform: translateY(3px); }
+.choice.correct { background: var(--green); color: #fff; border-color: var(--green); }
+.choice.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* 키패드 */
+.keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 320px; }
+.key { min-height: 70px; border-radius: 16px; font-size: 32px; font-weight: 900; background: #fff; border: 3px solid #e6e0cf; }
+.key:active { transform: translateY(2px); }
+.key.wide { grid-column: span 1; }
+.answerbox {
+  min-width: 200px; min-height: 80px; font-size: 48px; font-weight: 900; text-align: center;
+  background: #fff; border-radius: 16px; border: 4px solid var(--blue); display: grid; place-content: center;
+}
+
+/* 시각 보조 */
+.visual { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 80vw; }
+.obj { font-size: 40px; }
+.tenframe { display: grid; grid-template-columns: repeat(5, 44px); grid-auto-rows: 44px; gap: 6px; background: #eee; padding: 8px; border-radius: 12px; }
+.cell { border: 2px solid #cfc8b4; border-radius: 8px; display: grid; place-content: center; font-size: 26px; background:#fff; }
+.cell.f1 { background: var(--blue); }
+.cell.f2 { background: var(--yellow); }
+.array { display: grid; gap: 8px; }
+.array .row { display: flex; gap: 8px; }
+.dot { width: 30px; height: 30px; border-radius: 50%; background: var(--purple); }
+.bond { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 900; }
+.bond .whole { width: 90px; height: 90px; border-radius: 50%; background: var(--yellow); display: grid; place-content: center; }
+.bond .part { width: 70px; height: 70px; border-radius: 50%; background: #fff; border: 4px solid var(--blue); display: grid; place-content: center; }
+.cmp { display: flex; gap: 40px; align-items: flex-end; }
+.cmp .stack { display: flex; flex-direction: column-reverse; gap: 4px; }
+.cmp .blk { width: 40px; height: 30px; background: var(--green); border-radius: 6px; }
+
+.feedback { font-size: 40px; font-weight: 900; height: 50px; }
+.feedback.ok { color: var(--green); }
+.feedback.no { color: var(--red); }
+
+/* ===== 결과 화면 ===== */
+.result { display: grid; place-items: center; height: 100vh; gap: 18px; text-align: center; padding: 24px; }
+.result .stars-big { font-size: 80px; }
+.result .reward { font-size: 60px; }
+.result .stats { display: flex; gap: 24px; font-size: 22px; font-weight: 800; }
+.result .stat { background: #fff; border-radius: 16px; padding: 14px 22px; box-shadow: var(--shadow); }
+.result .actions { display: flex; gap: 16px; margin-top: 10px; }
+
+.rotate-hint { display: none; }
+@media (orientation: portrait) {
+  .rotate-hint {
+    display: grid; place-items: center; position: fixed; inset: 0; background: var(--blue);
+    color: #fff; font-size: 26px; font-weight: 900; z-index: 99; text-align: center; padding: 30px;
+  }
+}

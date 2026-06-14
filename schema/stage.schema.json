@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-adventure/schema/stage.schema.json",
+  "title": "수학 어드벤처 스테이지/문제 콘텐츠 스키마",
+  "description": "PRD §6, §11, §12 기반. 스테이지와 문제를 데이터로 분리해 비개발자도 저작/검수 가능하게 한다.",
+  "type": "object",
+  "required": ["worlds", "stages"],
+  "properties": {
+    "worlds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "mood", "range"],
+        "properties": {
+          "id": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "name": { "type": "string" },
+          "mood": { "type": "string", "description": "장르 무드(공룡/변신 로봇 등). IP는 오리지널(PRD §13)." },
+          "icon": { "type": "string" },
+          "range": {
+            "type": "array",
+            "items": { "type": "integer" },
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "[시작 스테이지, 끝 스테이지]"
+          }
+        }
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/stage" }
+    }
+  },
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "required": ["id", "n", "world", "type", "title", "phase", "primary", "problemCount", "problems"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^W[1-5]-S[0-9]{3}$" },
+        "n": { "type": "integer", "minimum": 1, "maximum": 100, "description": "전역 스테이지 번호" },
+        "world": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "stageInWorld": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "type": {
+          "enum": ["normal", "mini_review", "boss"],
+          "description": "10번째=mini_review, 20번째=boss (PRD §4.5)"
+        },
+        "title": { "type": "string" },
+        "concept": { "type": "string" },
+        "phase": { "type": "integer", "minimum": 0, "maximum": 6, "description": "PRD §4.2 Phase" },
+        "primary": {
+          "type": "object",
+          "required": ["skill", "input"],
+          "properties": {
+            "skill": { "$ref": "#/$defs/skillName" },
+            "params": { "type": "object", "description": "스킬별 생성 파라미터(범위/단/받아올림 여부 등)" },
+            "input": { "$ref": "#/$defs/inputType" }
+          }
+        },
+        "review": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/skillName" },
+          "description": "간격 반복 풀(PRD §4.1-4). 직전 스테이지 개념을 섞어 재노출."
+        },
+        "problemCount": { "type": "integer", "minimum": 1, "maximum": 30 },
+        "reviewRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "reward": { "$ref": "#/$defs/reward" },
+        "problems": { "type": "array", "items": { "$ref": "#/$defs/problem" } },
+        "variantSets": {
+          "type": "array",
+          "description": "매 시도 다른 문제를 위한 변형 세트(PRD §12). 각 원소는 problems 배열.",
+          "items": { "type": "array", "items": { "$ref": "#/$defs/problem" } }
+        }
+      }
+    },
+    "problem": {
+      "type": "object",
+      "required": ["id", "skill", "inputType", "prompt", "answer"],
+      "properties": {
+        "id": { "type": "string" },
+        "skill": { "$ref": "#/$defs/skillName" },
+        "skillLabel": { "type": "string" },
+        "phase": { "type": "integer" },
+        "inputType": { "$ref": "#/$defs/inputType" },
+        "isReview": { "type": "boolean" },
+        "prompt": {
+          "type": "object",
+          "required": ["text"],
+          "properties": {
+            "text": { "type": "string", "description": "화면 표시(짧게)" },
+            "tts": { "type": "string", "description": "음성 안내 텍스트(PRD §8.3)" }
+          }
+        },
+        "operands": { "type": "array", "items": { "type": "number" }, "description": "검수/분석용" },
+        "operator": { "type": "string" },
+        "answer": { "type": ["number", "string"] },
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "description": "보기형(choice/drag_match)에서 사용. 반드시 answer 포함, 중복 없음.",
+          "items": { "type": ["number", "string"] }
+        },
+        "visual": {
+          "type": ["object", "null"],
+          "description": "시각 보조 렌더 지시(사물/텐프레임/배열/수직선 등). type 키로 컴포넌트 선택.",
+          "properties": { "type": { "type": "string" } }
+        },
+        "hintRef": {
+          "type": ["string", "null"],
+          "description": "힌트 타입 키(PRD §6.3). 예: make_ten, count_on, array, number_line"
+        }
+      }
+    },
+    "reward": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["shard", "rare_character", "coin", "star"] },
+        "mood": { "type": "string" },
+        "amount": { "type": "integer", "minimum": 1 },
+        "condition": { "enum": ["clear", "three_star"], "description": "획득 조건(별 3개/클리어)" }
+      }
+    },
+    "skillName": {
+      "enum": [
+        "count_objects", "number_recognition", "compare",
+        "add_within_10", "make_10", "compose", "add_three", "add_missing",
+        "sub_within_10", "sub_from_10", "decompose", "sub_missing",
+        "add_carry", "sub_borrow",
+        "place_value", "two_digit_add_one", "two_digit_add_two", "two_digit_sub",
+        "skip_count", "group_count", "repeated_add", "repeated_to_mult", "times_concept",
+        "mult_concept", "multiplication", "mult_missing", "mult_word",
+        "mixed"
+      ]
+    },
+    "inputType": {
+      "enum": ["choice", "keypad", "drag_match", "tap_count", "fill_blank", "mixed"],
+      "description": "PRD §6.2 문제 유형"
+    }
+  }
+}

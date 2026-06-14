@@ -1,0 +1,13 @@
+{
+  "name": "수학 어드벤처",
+  "short_name": "수학모험",
+  "description": "7세를 위한 게임형 수학 학습 (프로토타입)",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#fdf6e3",
+  "theme_color": "#5b8def",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

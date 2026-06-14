@@ -1,0 +1,11 @@
+# Netlify 배포 설정 — web/ 폴더를 그대로 정적 배포 (빌드 불필요)
+# Git 연결 시 자동 배포되며, 드래그&드롭이면 이 파일 없이 web/ 폴더만 올려도 됩니다.
+[build]
+  publish = "web"
+  command = "node build.mjs"   # 콘텐츠 재생성 후 web/stages.json 갱신
+
+# 정적 자산 캐시 (콘텐츠 데이터는 자주 바뀌지 않음)
+[[headers]]
+  for = "/stages.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"

@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+# 생성물(재생성 가능). 배포본 web/stages.json 은 추적 유지.
+output/
+*.log
+
+# 로컬 도구 설정
+.claude/
