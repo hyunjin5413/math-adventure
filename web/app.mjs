@@ -29,13 +29,68 @@ async function fetchStages() {
   throw lastErr || new Error('stages.json not found');
 }
 
-// ---- 진척도 저장 (localStorage) --------------------------------------------
-const SAVE_KEY = 'math-adventure-progress';
-function loadProgress() {
-  try { return JSON.parse(localStorage.getItem(SAVE_KEY)) || { stars: {} }; }
+// ===========================================================================
+// 로컬 계정 (localStorage 기반)
+//  ※ 백엔드 없는 정적 사이트라 "그 기기 안에서만" 유효한 로컬 프로필입니다.
+//    비밀번호는 PBKDF2 해시로 저장(평문 저장 안 함)하지만 서버 검증은 없습니다.
+//    기기 간 동기화/진짜 보안 인증이 필요하면 백엔드(Firebase/Supabase 등)가 필요.
+// ===========================================================================
+const ACCOUNTS_KEY = 'ma-accounts';
+const SESSION_KEY = 'ma-session';
+
+function loadAccounts() {
+  try { return JSON.parse(localStorage.getItem(ACCOUNTS_KEY)) || {}; }
+  catch { return {}; }
+}
+function saveAccounts(a) { localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(a)); }
+
+const hex = (buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+const fromHex = (s) => new Uint8Array(s.match(/.{2}/g).map((h) => parseInt(h, 16)));
+function randomSaltHex() {
+  const a = new Uint8Array(16);
+  crypto.getRandomValues(a);
+  return hex(a.buffer);
+}
+async function hashPassword(password, saltHex) {
+  const enc = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt: fromHex(saltHex), iterations: 100000, hash: 'SHA-256' },
+    keyMaterial, 256,
+  );
+  return hex(bits);
+}
+
+// 계정 생성/로그인. 결과: { ok, error? }
+async function createAccount(id, password) {
+  id = id.trim();
+  if (!id) return { ok: false, error: '아이디를 입력하세요.' };
+  if (password.length < 4) return { ok: false, error: '비밀번호는 4자 이상으로 해주세요.' };
+  const accounts = loadAccounts();
+  if (accounts[id]) return { ok: false, error: '이미 있는 아이디예요.' };
+  const salt = randomSaltHex();
+  const hashv = await hashPassword(password, salt);
+  accounts[id] = { salt, hash: hashv, createdAt: Date.now() };
+  saveAccounts(accounts);
+  return { ok: true };
+}
+async function verifyLogin(id, password) {
+  id = id.trim();
+  const accounts = loadAccounts();
+  const acc = accounts[id];
+  if (!acc) return { ok: false, error: '없는 아이디예요. 새 계정을 만들어 주세요.' };
+  const hashv = await hashPassword(password, acc.salt);
+  if (hashv !== acc.hash) return { ok: false, error: '비밀번호가 달라요.' };
+  return { ok: true };
+}
+
+// ---- 진척도 저장 (계정별) --------------------------------------------------
+const progKey = (id) => `ma-progress:${id}`;
+function loadProgress(id) {
+  try { return JSON.parse(localStorage.getItem(progKey(id))) || { stars: {} }; }
   catch { return { stars: {} }; }
 }
-function saveProgress(p) { localStorage.setItem(SAVE_KEY, JSON.stringify(p)); }
+function saveProgress(id, p) { localStorage.setItem(progKey(id), JSON.stringify(p)); }
 
 // ---- TTS (읽기 보조, §8.3) -------------------------------------------------
 function speak(text) {
@@ -324,13 +379,15 @@ function rewardLabel(r) {
 // ===========================================================================
 // 월드 맵
 // ===========================================================================
-function WorldMap({ data, progress, onPlay }) {
+function WorldMap({ data, progress, onPlay, user, onLogout }) {
   const maxN = highestUnlocked(progress);
   return html`<div>
     <div class="topbar">
       <div class="title">🧮 수학 어드벤처</div>
       <div class="spacer"></div>
+      <div class="pill">👤 ${user}</div>
       <div class="pill">획득 별 ⭐ ${totalStars(progress)}</div>
+      <button class="btn ghost" style=${{ minHeight: '48px', fontSize: '18px' }} onClick=${onLogout}>로그아웃</button>
     </div>
     <div class="map">
       ${data.worlds.map((w) => html`<div class="world" key=${w.id}>
@@ -367,11 +424,70 @@ function totalStars(progress) {
 }
 
 // ===========================================================================
+// 로그인 / 계정 만들기 화면
+// ===========================================================================
+function LoginScreen({ onLogin }) {
+  const [mode, setMode] = useState('login'); // 'login' | 'signup'
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  const existing = Object.keys(loadAccounts());
+
+  const submit = async () => {
+    setError(''); setBusy(true);
+    try {
+      if (mode === 'signup') {
+        const r = await createAccount(id, pw);
+        if (!r.ok) { setError(r.error); return; }
+        await verifyLogin(id, pw);
+        onLogin(id.trim());
+      } else {
+        const r = await verifyLogin(id, pw);
+        if (!r.ok) { setError(r.error); return; }
+        onLogin(id.trim());
+      }
+    } finally { setBusy(false); }
+  };
+
+  return html`<div class="login">
+    <div class="login-card">
+      <div class="login-logo">🧮</div>
+      <h1>수학 어드벤처</h1>
+      <p class="login-sub">${mode === 'login' ? '아이디로 로그인해요' : '새 계정을 만들어요'}</p>
+
+      ${existing.length > 0 && mode === 'login' ? html`<div class="acc-chips">
+        ${existing.map((a) => html`<button key=${a} class="acc-chip" onClick=${() => setId(a)}>👤 ${a}</button>`)}
+      </div>` : null}
+
+      <input class="login-input" placeholder="아이디" value=${id}
+        autocapitalize="off" autocorrect="off"
+        onInput=${(e) => setId(e.target.value)} />
+      <input class="login-input" placeholder="비밀번호" type="password" value=${pw}
+        onInput=${(e) => setPw(e.target.value)}
+        onKeyDown=${(e) => e.key === 'Enter' && submit()} />
+
+      ${error ? html`<div class="login-error">${error}</div>` : null}
+
+      <button class="btn green" style=${{ width: '100%' }} disabled=${busy || !id || !pw} onClick=${submit}>
+        ${busy ? '잠시만요…' : mode === 'login' ? '로그인 ▶' : '계정 만들기 ▶'}
+      </button>
+
+      <button class="link-btn" onClick=${() => { setMode(mode === 'login' ? 'signup' : 'login'); setError(''); }}>
+        ${mode === 'login' ? '계정이 없어요 · 새로 만들기' : '이미 계정이 있어요 · 로그인'}
+      </button>
+      <p class="login-note">기록은 이 기기에 저장돼요.</p>
+    </div>
+  </div>`;
+}
+
+// ===========================================================================
 // 루트 앱
 // ===========================================================================
 function App() {
   const [data, setData] = useState(null);
-  const [progress, setProgress] = useState(loadProgress);
+  const [user, setUser] = useState(() => localStorage.getItem(SESSION_KEY) || null);
+  const [progress, setProgress] = useState({ stars: {} });
   const [view, setView] = useState({ name: 'map' });
 
   useEffect(() => {
@@ -382,25 +498,52 @@ function App() {
     });
   }, []);
 
+  // 로그인한 계정의 진척도 로드
+  useEffect(() => {
+    if (user) setProgress(loadProgress(user));
+  }, [user]);
+
+  const login = useCallback((id) => {
+    localStorage.setItem(SESSION_KEY, id);
+    setProgress(loadProgress(id));
+    setUser(id);
+    setView({ name: 'map' });
+  }, []);
+
+  const logout = useCallback(() => {
+    localStorage.removeItem(SESSION_KEY);
+    setUser(null);
+    setProgress({ stars: {} });
+    setView({ name: 'map' });
+  }, []);
+
   const playStage = useCallback((stage) => setView({ name: 'play', stage }), []);
 
   const completeStage = useCallback((stage, result) => {
     setProgress((prev) => {
       const next = { ...prev, stars: { ...prev.stars } };
       next.stars[stage.n] = Math.max(next.stars[stage.n] || 0, result.stars);
-      saveProgress(next);
+      if (user) saveProgress(user, next);
       return next;
     });
     setView({ name: 'result', stage, result });
-  }, []);
+  }, [user]);
 
   if (!data) return html`<div class="boot">불러오는 중…</div>`;
+
+  // 로그인 전이면 로그인 화면
+  if (!user) {
+    return html`<div>
+      <${LoginScreen} onLogin=${login} />
+      <div class="rotate-hint">📱➡️ 태블릿을 가로로 돌려주세요!</div>
+    </div>`;
+  }
 
   const moodOf = (worldId) => data.worlds.find((w) => w.id === worldId)?.mood;
 
   let screen;
   if (view.name === 'map') {
-    screen = html`<${WorldMap} data=${data} progress=${progress} onPlay=${playStage} />`;
+    screen = html`<${WorldMap} data=${data} progress=${progress} onPlay=${playStage} user=${user} onLogout=${logout} />`;
   } else if (view.name === 'play') {
     screen = html`<${StagePlay}
       key=${view.stage.n}
