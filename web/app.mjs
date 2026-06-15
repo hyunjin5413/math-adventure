@@ -8,6 +8,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
+import { Character, WORLD_THEME, CHAR_NAME, COLLECTION } from './characters.mjs';
 
 const html = htm.bind(React.createElement);
 const { useRef } = React;
@@ -240,7 +241,7 @@ function starsFor(accuracy) {
 // ===========================================================================
 // 스테이지 플레이 화면
 // ===========================================================================
-function StagePlay({ stage, mood, onExit, onComplete }) {
+function StagePlay({ stage, mood, world, onExit, onComplete }) {
   const [idx, setIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
@@ -304,10 +305,12 @@ function StagePlay({ stage, mood, onExit, onComplete }) {
     onComplete({ score, maxCombo, accuracy, stars, finalCorrect, total });
   }
 
-  return html`<div class="play">
+  const t = WORLD_THEME[world] || WORLD_THEME[1];
+  const buddyAnim = feedback === 'ok' ? 'bounce' : feedback === 'no' ? 'wiggle' : 'float';
+  return html`<div class="play theme" style=${{ '--wc1': t.c1 }}>
     <div class="progress"><div style=${{ width: `${(idx / total) * 100}%` }}></div></div>
     <div class="play-head">
-      <button class="btn ghost" onClick=${onExit}>← 나가기</button>
+      <button class="btn ghost" style=${{ minHeight: '48px', fontSize: '18px', padding: '0 18px' }} onClick=${onExit}>← 나가기</button>
       <div class="spacer"></div>
       <div class="pill">${idx + 1} / ${total}</div>
       ${combo >= 2 ? html`<div class="combo">🔥 ${combo} 콤보</div>` : null}
@@ -320,14 +323,16 @@ function StagePlay({ stage, mood, onExit, onComplete }) {
         <div class="prompt">${problem.prompt.text}</div>
       </div>
       <${Visual} v=${problem.visual} mood=${mood} />
-      ${showHint ? html`<div style=${{ fontSize:'20px', color:'#9b6dff', fontWeight:800 }}>💡 힌트: ${hintText(problem.hintRef)}</div>` : null}
-      <div class=${`feedback ${feedback === 'ok' ? 'ok' : feedback === 'no' ? 'no' : ''}`}>
-        ${feedback === 'ok' ? '정답! 🎉' : feedback === 'no' ? '다시 해봐요 💪' : ''}
-      </div>
+      ${showHint ? html`<div style=${{ fontSize:'20px', color: t.accent, fontWeight:800 }}>💡 힌트: ${hintText(problem.hintRef)}</div>` : null}
     </div>
 
-    <div style=${{ display:'grid', placeItems:'center', padding:'10px 0 26px' }}>
+    <div style=${{ display:'grid', placeItems:'center', padding:'6px 0 24px' }}>
       <${InputArea} problem=${problem} locked=${locked} onAnswer=${handleAnswer} />
+    </div>
+
+    <div class="buddy">
+      ${feedback ? html`<div class=${`bubble ${feedback}`}>${feedback === 'ok' ? '정답! 🎉' : '괜찮아 💪'}</div>` : null}
+      <${Character} key=${buddyAnim + idx} kind=${t.mascot} world=${world} size=${96} anim=${buddyAnim} />
     </div>
   </div>`;
 }
@@ -350,29 +355,58 @@ function hintText(ref) {
 // ===========================================================================
 // 결과 화면 (PRD §7.3)
 // ===========================================================================
-function ResultScreen({ stage, result, onNext, onRetry, onMap }) {
+const CONFETTI_COLORS = ['#ff7a7a', '#ffce4f', '#44c47d', '#5b8def', '#9b6dff', '#ff8fc7'];
+function Confetti() {
+  // 결정적 배치(렌더마다 동일) — 좌우/지연/색을 인덱스로 분산
+  const pieces = range(40).map((i) => ({
+    left: (i * 53) % 100,
+    delay: (i % 10) * 0.18,
+    dur: 2.4 + (i % 5) * 0.4,
+    color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+    rot: (i * 37) % 360,
+  }));
+  return html`<div>${pieces.map((p, i) => html`<div key=${i} class="confetti"
+    style=${{ left: `${p.left}%`, background: p.color,
+      animationDelay: `${p.delay}s`, animationDuration: `${p.dur}s`,
+      transform: `rotate(${p.rot}deg)` }}></div>`)}</div>`;
+}
+
+function ResultScreen({ stage, result, world, onNext, onRetry, onMap }) {
   const passed = result.stars > 0;
+  const t = WORLD_THEME[world] || WORLD_THEME[1];
   useEffect(() => { speak(passed ? '참 잘했어요!' : '다시 도전해 볼까요?'); }, []);
+  const rewardChar = stage.reward?.kind === 'rare_character' ? t.mascot : t.mascot;
   return html`<div class="result">
-    <div class="stars-big">${'⭐'.repeat(result.stars)}${'☆'.repeat(3 - result.stars)}</div>
-    <h1 style=${{ margin:0 }}>${passed ? '클리어!' : '아쉬워요'}</h1>
-    ${passed && stage.reward ? html`<div class="reward">🎁 ${rewardLabel(stage.reward)}</div>` : null}
+    ${passed ? html`<${Confetti} />` : null}
+    <${Character} kind=${rewardChar} world=${world} size=${passed ? 130 : 96}
+      anim=${passed ? 'bounce' : 'float'} />
+    <div class="stars-big">
+      ${range(3).map((i) => html`<span key=${i}>${i < result.stars ? '⭐' : '☆'}</span>`)}
+    </div>
+    <h1>${passed ? '클리어! 🎉' : '아쉬워요'}</h1>
+    ${passed && stage.reward ? html`<div class="reward-card">
+      <div style=${{ fontSize: '14px', fontWeight: 800, color: t.accent }}>${rewardHead(stage.reward)}</div>
+      <div class="rname">🎁 ${rewardLabel(stage.reward, t)}</div>
+    </div>` : null}
     <div class="stats">
-      <div class="stat">총점<br/>${result.score}</div>
-      <div class="stat">최대 콤보<br/>${result.maxCombo}</div>
-      <div class="stat">정답률<br/>${Math.round(result.accuracy * 100)}%</div>
+      <div class="stat">총점<b>${result.score}</b></div>
+      <div class="stat">최대 콤보<b>${result.maxCombo}</b></div>
+      <div class="stat">정답률<b>${Math.round(result.accuracy * 100)}%</b></div>
     </div>
     <div class="actions">
-      <button class="btn ghost" onClick=${onMap}>도감/맵</button>
+      <button class="btn ghost" onClick=${onMap}>맵으로</button>
       <button class="btn purple" onClick=${onRetry}>다시 도전</button>
       ${passed ? html`<button class="btn green" onClick=${onNext}>다음 ▶</button>` : null}
     </div>
   </div>`;
 }
 
-function rewardLabel(r) {
-  if (r.kind === 'rare_character') return `${r.mood} 희귀 캐릭터 획득!`;
-  if (r.kind === 'shard') return `${r.mood} 캐릭터 조각 ×${r.amount}`;
+function rewardHead(r) {
+  return r.kind === 'rare_character' ? '희귀 친구 획득!' : '친구 조각 획득';
+}
+function rewardLabel(r, t) {
+  if (r.kind === 'rare_character') return `${CHAR_NAME[t.mascot]} 친구를 얻었어요!`;
+  if (r.kind === 'shard') return `${CHAR_NAME[t.mascot]} 조각 ×${r.amount}`;
   return '보상 획득';
 }
 
@@ -385,31 +419,51 @@ function WorldMap({ data, progress, onPlay, user, onLogout }) {
     <div class="topbar">
       <div class="title">🧮 수학 어드벤처</div>
       <div class="spacer"></div>
-      <div class="pill">👤 ${user}</div>
-      <div class="pill">획득 별 ⭐ ${totalStars(progress)}</div>
-      <button class="btn ghost" style=${{ minHeight: '48px', fontSize: '18px' }} onClick=${onLogout}>로그아웃</button>
+      <div class="pill user">👤 ${user}</div>
+      <div class="pill">⭐ ${totalStars(progress)}</div>
+      <button class="btn ghost" style=${{ minHeight: '48px', fontSize: '18px', padding: '0 18px' }} onClick=${onLogout}>로그아웃</button>
     </div>
     <div class="map">
-      ${data.worlds.map((w) => html`<div class="world" key=${w.id}>
-        <h2>${w.icon} ${w.name}</h2>
-        <div class="stage-grid">
-          ${data.stages.filter((s) => s.world === w.id).map((s) => {
-            const unlocked = s.n <= maxN;
-            const stars = progress.stars[s.n] || 0;
-            const cls = ['stage-node'];
-            if (!unlocked) cls.push('locked');
-            else cls.push('tappable');
-            if (s.type === 'boss') cls.push('boss');
-            if (s.type === 'mini_review') cls.push('mini');
-            if (stars > 0) cls.push('cleared');
-            return html`<div key=${s.n} class=${cls.join(' ')}
-              onClick=${() => unlocked && onPlay(s)}>
-              ${unlocked ? (s.type === 'boss' ? '👑' : s.type === 'mini_review' ? '🔁' : s.stageInWorld) : html`<span class="lock">🔒</span>`}
-              ${stars > 0 ? html`<div class="stars">${'⭐'.repeat(stars)}</div>` : null}
-            </div>`;
-          })}
-        </div>
-      </div>`)}
+      ${data.worlds.map((w) => {
+        const t = WORLD_THEME[w.id];
+        return html`<div class="world" key=${w.id}
+          style=${{ background: `linear-gradient(180deg, ${t.c1}, #fff)` }}>
+          <div class="world-banner">
+            <${Character} kind=${t.mascot} world=${w.id} size=${64} anim="float" />
+            <div>
+              <h2 style=${{ color: t.accent }}>${w.name}</h2>
+              <div class="wsub">대표 친구 · ${CHAR_NAME[t.mascot]}</div>
+            </div>
+          </div>
+          <div class="stage-grid">
+            ${data.stages.filter((s) => s.world === w.id).map((s) => {
+              const unlocked = s.n <= maxN;
+              const stars = progress.stars[s.n] || 0;
+              const cls = ['stage-node'];
+              if (!unlocked) cls.push('locked');
+              else cls.push('tappable');
+              if (s.type === 'boss') cls.push('boss');
+              if (s.type === 'mini_review') cls.push('mini');
+              const grad = s.type === 'boss'
+                ? `radial-gradient(circle at 35% 30%, ${t.c2}, ${t.accent})`
+                : s.type === 'mini_review'
+                ? 'radial-gradient(circle at 35% 30%, #ffe27a, #f0a800)'
+                : `radial-gradient(circle at 35% 30%, ${t.c2}, ${t.accent})`;
+              const shadow = `0 6px 0 ${t.accent}, 0 8px 12px rgba(0,0,0,.12)`;
+              return html`<div key=${s.n} class=${cls.join(' ')}
+                style=${unlocked ? { background: grad, boxShadow: shadow } : {}}
+                onClick=${() => unlocked && onPlay(s)}>
+                ${unlocked
+                  ? (s.type === 'boss'
+                      ? html`<${Character} kind=${t.mascot} world=${w.id} size=${42} anim="none" />`
+                      : s.stageInWorld)
+                  : html`<span class="lock">🔒</span>`}
+                ${stars > 0 ? html`<div class="stars">${'⭐'.repeat(stars)}</div>` : null}
+              </div>`;
+            })}
+          </div>
+        </div>`;
+      })}
     </div>
   </div>`;
 }
@@ -451,8 +505,13 @@ function LoginScreen({ onLogin }) {
   };
 
   return html`<div class="login">
+    <div class="login-mascots">
+      ${['carbot', 'spark', 'aqua', 'ranger', 'hero', 'flora', 'flame'].map((k, i) => html`<${Character}
+        key=${k} kind=${k} world=${1} size=${78} anim="float"
+        style=${{ animationDelay: `${(i % 4) * 0.4}s` }} />`)}
+    </div>
     <div class="login-card">
-      <div class="login-logo">🧮</div>
+      <div class="login-top"><${Character} kind="dino" world=${1} size=${110} anim="wiggle" /></div>
       <h1>수학 어드벤처</h1>
       <p class="login-sub">${mode === 'login' ? '아이디로 로그인해요' : '새 계정을 만들어요'}</p>
 
@@ -549,6 +608,7 @@ function App() {
       key=${view.stage.n}
       stage=${view.stage}
       mood=${moodOf(view.stage.world)}
+      world=${view.stage.world}
       onExit=${() => setView({ name: 'map' })}
       onComplete=${(result) => completeStage(view.stage, result)} />`;
   } else if (view.name === 'result') {
@@ -556,6 +616,7 @@ function App() {
     screen = html`<${ResultScreen}
       stage=${view.stage}
       result=${view.result}
+      world=${view.stage.world}
       onMap=${() => setView({ name: 'map' })}
       onRetry=${() => setView({ name: 'play', stage: view.stage })}
       onNext=${() => next ? setView({ name: 'play', stage: next }) : setView({ name: 'map' })} />`;

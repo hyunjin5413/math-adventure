@@ -113,8 +113,25 @@ function generateStage(stage, variant) {
   // 시드: 스테이지 번호와 변형 번호로 결정 → 재현 가능 (PRD §12 검수 용이)
   const rng = mulberry32(stage.n * 1000 + variant * 7 + 13);
   const problems = [];
+  const seen = new Set();      // 스테이지 내 이미 쓴 문제(시그니처)
+  let prevSig = null;          // 직전 문제 — 연속 반복 방지
+  // 문제 정체성: 연산자+피연산자+정답 (※ 프롬프트 텍스트가 같아도 숫자가 다르면 다른 문제)
+  const sig = (p) => `${p.operator}|${(p.operands || []).join(',')}|${p.answer}`;
   for (let slot = 0; slot < stage.problemCount; slot++) {
-    problems.push(makeProblem(stage, slot, variant, rng));
+    // 최대 40회 재추첨: ① 처음 보는 문제 & ② 직전과 다른 문제 우선.
+    // 도메인이 작아(예: 10 만들기=9종) 모두 소진되면, 최소한 직전과 다른 것을 고른다.
+    let chosen = null;
+    let fallback = null;
+    for (let a = 0; a < 40; a++) {
+      const p = makeProblem(stage, slot, variant, rng);
+      const s = sig(p);
+      if (!fallback || (s !== prevSig && sig(fallback) === prevSig)) fallback = p; // 직전과 다른 후보 확보
+      if (s !== prevSig && !seen.has(s)) { chosen = p; break; }
+    }
+    const p = chosen || fallback;
+    seen.add(sig(p));
+    prevSig = sig(p);
+    problems.push(p);
   }
   return problems;
 }
