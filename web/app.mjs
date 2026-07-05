@@ -455,8 +455,9 @@ function StagePlay({ stage, world, onExit, onComplete }) {
 
   const wt = WORLD_THEME[world] || WORLD_THEME[1];
   const buddyAnim = feedback === 'ok' ? 'bounce' : feedback === 'no' ? 'wiggle' : 'float';
-  const blocks = stage.themes || [];
-  const curBlock = Math.min(blocks.length - 1, Math.floor(idx / 10));
+  // 칩: 친구 블록들 + 마지막 보스 칩
+  const blocks = [...(stage.themes || []), bossChar];
+  const curBlock = isBoss ? blocks.length - 1 : Math.min(blocks.length - 2, Math.floor(idx / 10));
   return html`<div class=${`play theme ${isBoss ? 'bossmode' : ''}`} style=${{ '--wc1': isBoss ? '#d9ccff' : wt.c1, '--wc2': wt.c2 }}>
     ${feedback === 'ok' ? html`<${CorrectBurst} key=${burst} color=${ct.accent} /> ` : null}
     <div class="progress"><div style=${{ width: `${(idx / total) * 100}%` }}></div></div>
@@ -464,7 +465,7 @@ function StagePlay({ stage, world, onExit, onComplete }) {
       <button class="btn ghost back" onClick=${onExit}><${Icon} name="back" size=${24} color="#8a8472" /> 나가기</button>
       <div class="blockbar">
         ${blocks.map((b, i) => html`<div key=${i} class=${`block-chip ${i === curBlock ? 'on' : ''} ${i < curBlock ? 'done' : ''}`}>
-          <${Character} kind=${i === blocks.length - 1 ? bossChar : b} size=${30} anim="none" />
+          <${Character} kind=${b} size=${30} anim="none" />
         </div>`)}
       </div>
       <div class="spacer"></div>
@@ -548,11 +549,25 @@ function ResultScreen({ stage, result, world, discovery, onNext, onRetry, onMap 
   const passed = result.stars > 0;
   const t = WORLD_THEME[world] || WORLD_THEME[1];
   const chars = stage.themes && stage.themes.length ? stage.themes : [WORLD_MASCOT[world]];
+  const [showPopup, setShowPopup] = useState(!!discovery); // 새 친구 발견 팝업
   useEffect(() => {
-    speak(passed ? '참 잘했어요!' : '다시 도전해 볼까요?');
-    if (discovery) setTimeout(() => speakAs(discovery.id, `새 친구 발견! ${CHAR_NAME[discovery.id]}! ${pickLine(discovery.id, 'hi', 0)}`), 1400);
+    if (discovery) {
+      speakAs(discovery.id, `새 친구 발견! ${CHAR_NAME[discovery.id]}! ${pickLine(discovery.id, 'hi', 0)}`);
+    } else {
+      speak(passed ? '참 잘했어요!' : '다시 도전해 볼까요?');
+    }
   }, []);
   return html`<div class="result">
+    ${showPopup && discovery ? html`<div class="discover" onClick=${() => setShowPopup(false)}>
+      <div class="discover-card" style=${{ background: `linear-gradient(180deg, ${CHAR_THEME[discovery.id].c1}, #fff)` }}>
+        <div class="discover-title">새 친구 발견!</div>
+        <${Character} kind=${discovery.id} size=${150} anim="bounce" />
+        <div class="discover-name">${CHAR_NAME[discovery.id]}</div>
+        <div class="discover-reason">${discovery.reason}</div>
+        <button class="btn green" style=${{ minHeight: '52px', marginTop: '6px' }}
+          onClick=${() => setShowPopup(false)}>확인</button>
+      </div>
+    </div>` : null}
     ${passed ? html`<${Confetti} />` : null}
     ${discovery
       ? html`<div class="discover-card result-discover"

@@ -117,7 +117,7 @@ const WORLD_CHARS = {
   5: ['ppika', 'ppokkattu', 'andongki', 'bugeul', 'mongsil'],
 };
 const THEME_BLOCK = 10; // 10문제마다 테마(캐릭터) 전환
-const BOSS_TAIL = 10;   // 각 스테이지 마지막 10문제 = 대왕 구간(조금 어렵게)
+const BOSS_TAIL = 5;    // 각 스테이지 마지막 5문제 = 보스 구간(조금 어렵게)
 function themesFor(stage) {
   // 자기 월드 친구들이 스테이지마다 돌아가며 등장
   const pool = WORLD_CHARS[stage.world] || WORLD_CHARS[1];
