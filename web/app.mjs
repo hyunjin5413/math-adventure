@@ -368,6 +368,7 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
   const [bubble, setBubble] = useState('');          // 캐릭터 대사
   const [burst, setBurst] = useState(0);             // 정답 이펙트 트리거
   const [discovery, setDiscovery] = useState(null);  // 플레이 중 친구 발견 팝업
+  const [charInfo, setCharInfo] = useState(null);    // 캐릭터 탭 정보 팝업
   const [locked, setLocked] = useState(false);
   const startRef = useRef(performance.now());
   const ownedRef = useRef(new Set(collectedIds));
@@ -469,21 +470,23 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
     ${feedback === 'ok' ? html`<${CorrectBurst} key=${burst} color=${ct.accent} /> ` : null}
     ${discovery ? html`<${DiscoveryPopup} d=${discovery} onClose=${() => setDiscovery(null)} />` : null}
     <div class="progress"><div style=${{ width: `${(idx / total) * 100}%` }}></div></div>
+    ${charInfo ? html`<${CharInfoPopup} id=${charInfo} onClose=${() => setCharInfo(null)} />` : null}
     <div class="play-head">
       <button class="btn ghost back" onClick=${onExit}><${Icon} name="back" size=${24} color="#8a8472" /> 나가기</button>
       <div class="blockbar">
-        ${blocks.map((b, i) => html`<div key=${i} class=${`block-chip ${i === curBlock ? 'on' : ''} ${i < curBlock ? 'done' : ''}`}>
+        ${blocks.map((b, i) => html`<button key=${i} class=${`block-chip ${i === curBlock ? 'on' : ''} ${i < curBlock ? 'done' : ''}`}
+          onClick=${() => setCharInfo(b)} title=${CHAR_NAME[b]}>
           <${Character} kind=${b} size=${30} anim="none" />
-        </div>`)}
+        </button>`)}
       </div>
       <div class="spacer"></div>
+      ${isBoss ? html`<div class="pill boss-pill">${CHAR_NAME[bossChar]}의 도전!</div>` : null}
       <div class="pill">${idx + 1} / ${total}</div>
       ${combo >= 2 ? html`<div class="combo"><${Icon} name="bolt" size=${22} color="#ff8f3f" /> ${combo}</div>` : null}
       <div class="pill"><${Icon} name="star" size=${20} color="#ffce4f" /> ${score}</div>
     </div>
 
     <div class="stage-main">
-      ${isBoss ? html`<div class="boss-banner">${CHAR_NAME[bossChar]}의 도전!</div>` : null}
       <div class="prompt-row">
         <button class="speak-btn" onClick=${() => speak(problem.prompt.tts || problem.prompt.text)}><${Icon} name="speaker" size=${32} color="#7a5a16" /></button>
         <div class="prompt">${problem.prompt.text}</div>
@@ -496,9 +499,28 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
       <${InputArea} problem=${problem} locked=${locked} onAnswer=${handleAnswer} />
     </div>
 
-    <div class=${`buddy ${isBoss ? 'boss' : ''}`}>
+    <button class=${`buddy ${isBoss ? 'boss' : ''}`} onClick=${() => setCharInfo(theme)} title="이 친구는 누구?">
       ${bubble ? html`<div class=${`bubble ${feedback || ''}`}>${bubble}</div>` : null}
-      <${Character} key=${buddyAnim + idx + (feedback || '')} kind=${theme} size=${isBoss ? 140 : 104} anim=${buddyAnim} />
+      <${Character} key=${buddyAnim + idx + (feedback || '')} kind=${theme} size=${isBoss ? 120 : 104} anim=${buddyAnim} />
+    </button>
+  </div>`;
+}
+
+// 캐릭터 정보 팝업 (플레이 중 캐릭터 탭 → 도감과 동일한 카드)
+function CharInfoPopup({ id, onClose }) {
+  const ct = CHAR_THEME[id] || WORLD_THEME[1];
+  const isBoss = SPECIALS.includes(id);
+  return html`<div class="dex-modal" onClick=${onClose}>
+    <div class="dex-modal-card" style=${{ background: `linear-gradient(180deg, ${ct.c1}, #fff)` }}
+      onClick=${(e) => e.stopPropagation()}>
+      <${Character} kind=${id} size=${140} anim="bounce" />
+      <div class="dex-modal-name">${CHAR_NAME[id] || '친구'}</div>
+      <div class="dex-modal-reason">${isBoss ? '강력한 보스 친구!' : '문제를 내주는 친구'}</div>
+      ${VOICE[id] ? html`<button class="btn ghost" style=${{ minHeight: '46px', fontSize: '16px' }}
+        onClick=${() => speakAs(id, pickLine(id, 'hi', 0))}>
+        <${Icon} name="speaker" size=${18} color="#8a8472" /> 인사 듣기
+      </button>` : null}
+      <button class="btn green" style=${{ minHeight: '48px' }} onClick=${onClose}>닫기</button>
     </div>
   </div>`;
 }

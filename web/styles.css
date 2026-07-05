@@ -205,14 +205,19 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
   opacity: .45; box-shadow: 0 3px 0 #e6dcc4; transition: all .2s; }
 .block-chip.on { opacity: 1; transform: scale(1.15); box-shadow: 0 0 0 3px var(--sun), 0 4px 0 #e0a400; }
 .block-chip.done { opacity: .85; background: #e9f5db; box-shadow: 0 0 0 2px var(--leaf), 0 3px 0 var(--leaf-d); }
+.block-chip { border: none; cursor: pointer; padding: 0; }
+.block-chip:active { transform: scale(0.94); }
 
 /* ===== 대왕 구간 ===== */
 .play.bossmode { background: radial-gradient(120vw 70vh at 50% -10%, #d9ccff 0%, #efe8ff 65%); }
 .play.bossmode::before { filter: hue-rotate(210deg) saturate(.7); }
-.boss-banner { font-size: clamp(20px,3vw,28px); font-weight: 700; color: #4a2fa8; background: #fff;
-  border-radius: 999px; padding: 6px 26px; box-shadow: 0 5px 0 #cbb8f5, 0 8px 12px rgba(74,47,168,.15);
-  animation: pulse 1.6s ease-in-out infinite; }
-.buddy.boss { filter: drop-shadow(0 0 18px rgba(138,109,240,.55)); }
+.boss-pill { background: #efe6ff; color: #4a2fa8; animation: pulse 1.8s ease-in-out infinite; }
+.buddy { border: none; background: none; padding: 0; cursor: pointer; }
+.buddy:active { transform: scale(0.95); transform-origin: bottom left; }
+.buddy.boss { filter: drop-shadow(0 0 16px rgba(138,109,240,.5)); }
+/* 시각 보조가 stage-main을 넘지 않도록 상한 */
+.stage-main .visual, .stage-main .array, .stage-main .tenframe, .stage-main .bond, .stage-main .cmp,
+.stage-main svg { max-height: 26vh; }
 
 /* ===== 친구 발견 팝업 ===== */
 .discover { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center;
@@ -304,7 +309,7 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
   .stage-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 /* ===== 컴팩트 가로 모드 (모바일 가로: 높이가 낮은 화면) ===== */
-@media (max-height: 520px) {
+@media (max-height: 640px) {
   .progress { height: 8px; }
   .play-head { padding: 6px clamp(8px,2vw,16px); gap: 6px; }
   .pill { padding: 4px 10px; font-size: 14px; }
