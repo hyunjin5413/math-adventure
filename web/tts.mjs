@@ -1,22 +1,26 @@
 // =============================================================================
-// tts.mjs — 오픈소스 한국어 TTS (Meta MMS ko VITS, ONNX → transformers.js/WASM)
+// tts.mjs — 오픈소스 한국어 TTS (Meta MMS ko VITS, ONNX/WASM)
 //
+//  - 합성은 웹워커(tts-worker.js)에서 수행 → UI가 절대 멈추지 않음
 //  - 모델: Xenova/mms-tts-kor (quantized ~37MB, 최초 1회 다운로드 후 브라우저 캐시)
-//  - MMS 한국어 모델은 로마자 입력을 받으므로 한글→로마자(uroman식) 전처리 포함
+//  - MMS 한국어 모델은 로마자 입력이라 한글→로마자(uroman식) 전처리 포함
 //  - 로딩 전/실패 시엔 기기 Web Speech API로 자동 폴백 → 앱은 항상 소리 남
-//  - 캐릭터 개성: 재생 속도(playbackRate)로 음높이+속도 변주, 합성음은 텍스트별 캐시
+//  - 텍스트별 오디오 캐시(LRU) + 사전 합성(prefetch/prewarm)으로 체감 지연 제거
 //  ※ 라이선스: MMS 모델은 CC-BY-NC 4.0(비상업). 상업 출시 시 교체 필요.
 // =============================================================================
 
 let state = 'idle'; // idle | loading | ready | failed
-let synthPipe = null;
+let worker = null;
 let audioCtx = null;
 let currentSrc = null;
 const cache = new Map(); // text → AudioBuffer (LRU)
 const CACHE_MAX = 150;
-let seq = 0; // 최신 요청만 재생
+let seq = 0;      // 최신 재생 요청만 유효
+let msgId = 0;    // 워커 요청 id
+const pending = new Map(); // msgId → {resolve, reject}
 
 export function ttsStatus() { return state; }
+export function ttsBackend() { return state === 'ready' ? 'wasm-worker' : 'none'; }
 
 // ---- 한글 → 로마자 (uroman식 개정로마자) -----------------------------------
 const CHO = ['g','kk','n','d','tt','r','m','b','pp','s','ss','','j','jj','ch','k','t','p','h'];
@@ -40,7 +44,6 @@ function numToKorean(n) {
 }
 
 export function romanizeKorean(text) {
-  // 숫자 → 한글 수사
   let t = String(text).replace(/\d+/g, (m) => numToKorean(m));
   let out = '';
   for (const ch of t) {
@@ -51,32 +54,46 @@ export function romanizeKorean(text) {
     } else if (/[a-zA-Z' -]/.test(ch)) {
       out += ch.toLowerCase();
     } else if (/[.,!?…~·]/.test(ch)) {
-      out += ' '; // 문장부호는 쉼으로
+      out += ' ';
     }
-    // 그 외 기호(×, □ 등)는 무시
   }
   return out.replace(/\s+/g, ' ').trim();
 }
 
-// ---- 모델 로딩 (백그라운드) --------------------------------------------------
+// ---- 워커 통신 ---------------------------------------------------------------
+function callWorker(type, payload = {}) {
+  return new Promise((resolve, reject) => {
+    const id = ++msgId;
+    pending.set(id, { resolve, reject });
+    worker.postMessage({ id, type, ...payload });
+  });
+}
+
 export async function initOpenTTS() {
   if (state === 'loading' || state === 'ready') return;
   state = 'loading';
   try {
-    const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
-    env.allowLocalModels = false;
-    synthPipe = await pipeline('text-to-speech', 'Xenova/mms-tts-kor', { quantized: true });
-    // 워밍업(첫 합성 지연 감소) + 동작 검증
-    const warm = await synthPipe(romanizeKorean('안녕'));
-    if (!warm || !warm.audio || !warm.audio.length) throw new Error('empty audio');
+    worker = new Worker(new URL('./tts-worker.js', import.meta.url), { type: 'module' });
+    worker.onmessage = (e) => {
+      const { id, type, message } = e.data;
+      const p = pending.get(id);
+      if (!p) return;
+      pending.delete(id);
+      if (type === 'error') p.reject(new Error(message));
+      else p.resolve(e.data);
+    };
+    worker.onerror = (e) => { console.warn('TTS worker error', e); };
+    await callWorker('init'); // 모델 다운로드 + 워밍업 (워커 안에서)
     state = 'ready';
+    console.info('open TTS ready (wasm-worker)');
+    drainPrefetch();
   } catch (e) {
     console.warn('open TTS load failed → Web Speech 폴백 유지', e);
     state = 'failed';
   }
 }
 
-// ---- 합성 + 재생 -------------------------------------------------------------
+// ---- 합성 + 재생 ---------------------------------------------------------------
 function ensureCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
@@ -86,35 +103,47 @@ function ensureCtx() {
 async function synthToBuffer(text) {
   if (cache.has(text)) {
     const b = cache.get(text);
-    cache.delete(text); cache.set(text, b); // LRU 갱신
+    cache.delete(text); cache.set(text, b);
     return b;
   }
   const roman = romanizeKorean(text);
   if (!roman) return null;
-  const out = await synthPipe(roman);
+  const out = await callWorker('synth', { text: roman });
   const ctx = ensureCtx();
-  const buf = ctx.createBuffer(1, out.audio.length, out.sampling_rate);
+  const buf = ctx.createBuffer(1, out.audio.length, out.sr);
   buf.getChannelData(0).set(out.audio);
   cache.set(text, buf);
   if (cache.size > CACHE_MAX) cache.delete(cache.keys().next().value);
   return buf;
 }
 
-// 재생 없이 미리 합성해 캐시에 넣기 (다음 문제 선낭독 대비)
-let prefetching = false;
-export async function prefetchSpeech(text) {
-  if (state !== 'ready' || !text || cache.has(text) || prefetching) return;
-  prefetching = true;
-  try { await synthToBuffer(text); } catch { /* noop */ }
-  prefetching = false;
+// 재생 없이 미리 합성해 캐시에 넣기 — 순차 대기열(중복 제거)
+const prefetchQ = [];
+let prefetchBusy = false;
+async function drainPrefetch() {
+  if (prefetchBusy || state !== 'ready') return;
+  prefetchBusy = true;
+  while (prefetchQ.length) {
+    const text = prefetchQ.shift();
+    if (!cache.has(text)) {
+      try { await synthToBuffer(text); } catch { /* noop */ }
+    }
+  }
+  prefetchBusy = false;
 }
+export function prefetchSpeech(text) {
+  if (!text || cache.has(text) || prefetchQ.includes(text)) return;
+  prefetchQ.push(text);
+  if (state === 'ready') drainPrefetch();
+}
+export function prewarmLines(texts) { for (const t of texts || []) prefetchSpeech(t); }
 
 export function stopOpenSpeech() {
   seq++;
   if (currentSrc) { try { currentSrc.stop(); } catch { /* noop */ } currentSrc = null; }
 }
 
-// 캐릭터 개성: pitch/rate → 재생 속도로 근사 (높으면 빠르고 높은 목소리)
+// 캐릭터 개성: pitch/rate → 재생 속도로 근사
 function playbackRateOf({ pitch = 1, rate = 0.95 } = {}) {
   const r = pitch * 0.75 + rate * 0.3;
   return Math.min(1.45, Math.max(0.62, r));

@@ -10,7 +10,7 @@ import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
 import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs';
 import { serverGet, serverPut } from './sync.mjs';
-import { initOpenTTS, speakOpen, stopOpenSpeech, prefetchSpeech, ttsStatus } from './tts.mjs';
+import { initOpenTTS, speakOpen, stopOpenSpeech, prefetchSpeech, prewarmLines, ttsStatus } from './tts.mjs';
 
 const html = htm.bind(React.createElement);
 const { useRef } = React;
@@ -371,6 +371,18 @@ function StagePlay({ stage, world, onExit, onComplete }) {
   const [burst, setBurst] = useState(0);             // 정답 이펙트 트리거
   const [locked, setLocked] = useState(false);
   const startRef = useRef(performance.now());
+
+  // 스테이지 시작 시 이 스테이지 캐릭터 대사를 미리 합성(첫 재생 지연 제거)
+  useEffect(() => {
+    const chars = [...(stage.themes || []), stage.type === 'boss' ? (WORLD_BOSS[world] || 'daewang') : 'daewang'];
+    const lines = [];
+    for (const c of new Set(chars)) {
+      const v = VOICE[c]; if (!v) continue;
+      lines.push(...(v.hi || []), ...(v.ok || []).slice(0, 2), ...(v.no || []).slice(0, 1), ...(v.win || []));
+    }
+    const t = setTimeout(() => prewarmLines(lines), 4000); // 첫 문제 프리페치 이후에
+    return () => clearTimeout(t);
+  }, [stage.n]);
 
   const problem = stage.problems[idx];
   const total = stage.problems.length;
