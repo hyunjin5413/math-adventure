@@ -88,7 +88,7 @@ export const SKILLS = {
   count_objects: {
     phase: 0, label: '사물 세기', inputs: ['tap_count', 'choice'],
     gen(p, rng) {
-      const n = ri(rng, p.min ?? 1, p.max ?? 10);
+      const n = ri(rng, Math.max(1, p.min ?? 1), p.max ?? 10); // 최소 1개(빈 그림 방지)
       return {
         kind: 'num', operands: [n], operator: 'count', answer: n,
         promptText: '모두 몇 개일까요?',
@@ -104,7 +104,7 @@ export const SKILLS = {
     phase: 0, label: '숫자 인식', inputs: ['choice'],
     gen(p, rng) {
       // 사물을 눈으로 세고, 알맞은 "숫자"를 보기에서 고른다 (소리 없이 시각으로)
-      const n = ri(rng, p.min ?? 1, p.max ?? 10);
+      const n = ri(rng, Math.max(1, p.min ?? 1), p.max ?? 10); // 최소 1개(빈 그림 방지)
       const confus = { 6: 9, 9: 6, 2: 5, 5: 2, 0: 8, 8: 0, 3: 8, 7: 1, 1: 7 };
       return {
         kind: 'num', operands: [n], operator: 'count', answer: n,
@@ -140,8 +140,9 @@ export const SKILLS = {
     phase: 1, label: '합 10 이하 덧셈', inputs: ['choice', 'keypad'],
     gen(p, rng) {
       const maxSum = p.maxSum ?? 10;
-      const a = ri(rng, p.minA ?? 0, p.maxA ?? maxSum);
-      const b = ri(rng, 0, Math.max(0, maxSum - a));
+      let a = ri(rng, p.minA ?? 0, p.maxA ?? maxSum);
+      let b = ri(rng, 0, Math.max(0, maxSum - a));
+      if (p.concrete && a + b === 0) b = 1; // 그림 문제는 최소 1개(빈 그림 방지)
       const answer = a + b;
       return {
         kind: 'num', operands: [a, b], operator: '+', answer,

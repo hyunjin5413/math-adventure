@@ -8,7 +8,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs';
 import { serverGet, serverPut } from './sync.mjs';
 import { initOpenTTS, speakOpen, stopOpenSpeech, prefetchSpeech, prewarmLines, ttsStatus } from './tts.mjs';
 
@@ -722,22 +722,34 @@ function Collection({ progress, onBack }) {
       <div class="pill">${entries.size} / ${DEX.length}</div>
     </div>
     <div class="collection-scroll">
-      ${[1, 2, 3, 4, 5].map((w) => {
-        const chars = WORLD_CHARS[w];
-        const ownedCount = chars.filter((k) => entries.has(k)).length;
+      ${[1, 2, 3, 4, 5].flatMap((w) => {
         const wt = WORLD_THEME[w];
-        return html`<div key=${w} class="dex-section">
-          <div class="dex-sec-head" style=${{ color: wt.accent }}>
-            W${w} ${WORLD_LABEL[w]} <span class="dex-sec-count">${ownedCount}/${chars.length}</span>
-          </div>
-          <div class="collection">
-            ${chars.map((k) => html`<${DexCard} key=${k} k=${k} entry=${entries.get(k)} onSelect=${setSelected} />`)}
-          </div>
-        </div>`;
+        const hosts = WORLD_HOSTS[w];
+        const specials = WORLD_SPECIALS[w];
+        const hostN = hosts.filter((k) => entries.has(k)).length;
+        const spN = specials.filter((k) => entries.has(k)).length;
+        return [
+          html`<div key=${'h' + w} class="dex-section">
+            <div class="dex-sec-head" style=${{ color: wt.accent }}>
+              W${w} ${WORLD_LABEL[w]} · 친구 <span class="dex-sec-count">${hostN}/${hosts.length}</span>
+            </div>
+            <div class="collection">
+              ${hosts.map((k) => html`<${DexCard} key=${k} k=${k} entry=${entries.get(k)} onSelect=${setSelected} />`)}
+            </div>
+          </div>`,
+          html`<div key=${'s' + w} class="dex-section">
+            <div class="dex-sec-head" style=${{ color: wt.accent }}>
+              W${w} 스페셜 친구 <span class="dex-sec-count">${spN}/${specials.length}</span>
+            </div>
+            <div class="collection">
+              ${specials.map((k) => html`<${DexCard} key=${k} k=${k} entry=${entries.get(k)} onSelect=${setSelected} />`)}
+            </div>
+          </div>`,
+        ];
       })}
       <div class="dex-section">
         <div class="dex-sec-head" style=${{ color: '#4a2fa8' }}>
-          보스 친구들 <span class="dex-sec-count">${SPECIALS.filter((k) => entries.has(k)).length}/${SPECIALS.length}</span>
+          보스 <span class="dex-sec-count">${SPECIALS.filter((k) => entries.has(k)).length}/${SPECIALS.length}</span>
         </div>
         <div class="collection">
           ${SPECIALS.map((k) => html`<${DexCard} key=${k} k=${k} entry=${entries.get(k)} onSelect=${setSelected} />`)}
@@ -908,15 +920,18 @@ function App() {
             add('daewang', `스테이지 ${stage.n} 대왕과의 대결 승리`);
           }
         }
-        // 스테이지 4개 완료마다 → 아직 못 만난 이 월드 친구를 보너스로 발견
+        // 스테이지 4개 완료마다 → 스페셜 친구 발견 (이 월드 스페셜 5명 중 미보유)
         if (firstClear) {
           const clearedCount = Object.values(next.stars).filter((s) => s > 0).length;
           if (clearedCount % 4 === 0) {
             const owned = new Set(next.collected.map((c) => c.id));
-            const candidates = (WORLD_CHARS[stage.world] || []).filter((c) => !owned.has(c));
+            const pool = (WORLD_SPECIALS[stage.world] || []).filter((c) => !owned.has(c));
+            // 이 월드 스페셜을 다 모았으면 다른 월드에서라도 하나
+            const candidates = pool.length ? pool
+              : [1, 2, 3, 4, 5].flatMap((w) => WORLD_SPECIALS[w]).filter((c) => !owned.has(c));
             if (candidates.length) {
               const id = candidates[Math.floor(Math.random() * candidates.length)];
-              const reason = `스테이지 ${clearedCount}개 완료`;
+              const reason = `스테이지 ${clearedCount}개 완료 · 스페셜 친구!`;
               add(id, reason);
               discovery = { id, reason };
             }

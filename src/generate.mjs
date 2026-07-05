@@ -108,22 +108,16 @@ function stageId(stage) {
   return `W${stage.world}-S${String(stage.n).padStart(3, '0')}`;
 }
 
-// ---- 캐릭터 테마 (web/characters.mjs WORLD_CHARS와 동일하게 유지) ------------
-const WORLD_CHARS = {
-  1: ['kongryong', 'kkongryong', 'imagine', 'bbyeo', 'allog'],
-  2: ['poopbot', 'drill', 'bbabang', 'chulkung', 'ppiriri'],
-  3: ['balduncle', 'baboon', 'pungpung', 'syungsyung', 'salgeum'],
-  4: ['captainkorea', 'superabbit', 'bulkkot', 'shadowcat', 'mujeokgom'],
-  5: ['ppika', 'ppokkattu', 'andongki', 'bugeul', 'mongsil'],
-};
+// ---- 캐릭터 테마: 월드별 문제담당 호스트 20종(h{w}_0..19) ---------------------
+// web/characters.mjs 의 WORLD_HOSTS와 동일 규칙(id만 필요)
 const THEME_BLOCK = 10; // 10문제마다 테마(캐릭터) 전환
 const BOSS_TAIL = 5;    // 각 스테이지 마지막 5문제 = 보스 구간(조금 어렵게)
 function themesFor(stage) {
-  // 자기 월드 친구들이 스테이지마다 돌아가며 등장
-  const pool = WORLD_CHARS[stage.world] || WORLD_CHARS[1];
+  // 스테이지가 진행될수록 새로운 호스트가 순서대로 등장(월드당 20종, 블록마다 1명)
   const blocks = Math.max(1, Math.ceil(stage.problemCount / THEME_BLOCK));
-  const offset = ((stage.n - 1) * 3) % pool.length;
-  return Array.from({ length: blocks }, (_, k) => pool[(offset + k) % pool.length]);
+  const siw = stage.n - (stage.world - 1) * 20; // 월드 내 순번 1..20
+  const start = ((siw - 1) * blocks) % 20;       // 스테이지마다 새 호스트로 시작
+  return Array.from({ length: blocks }, (_, k) => `h${stage.world}_${(start + k) % 20}`);
 }
 
 // ---- 스테이지 전체 생성 ----------------------------------------------------
@@ -206,6 +200,19 @@ function validateProblems(problems, issues) {
     }
     // 3) 음수/비현실 답 방지
     if (typeof p.answer === 'number' && p.answer < 0) issues.push({ id: p.id, type: 'negative_answer' });
+    // 4) "말도 안 되는 문제" 차단 — 보여줄 게 없는데 세라고 하는 경우
+    const v = p.visual;
+    if (v) {
+      if ((v.type === 'objects') && !(v.count >= 1)) issues.push({ id: p.id, type: 'empty_picture', v });
+      if (v.type === 'objects_add' && !((v.a || 0) + (v.b || 0) >= 1)) issues.push({ id: p.id, type: 'empty_picture', v });
+      if (v.type === 'objects_sub' && !(v.a >= 1)) issues.push({ id: p.id, type: 'empty_picture', v });
+      if (v.type === 'groups' && !(v.per >= 1 && v.groups >= 1)) issues.push({ id: p.id, type: 'empty_groups', v });
+      if (v.type === 'array' && !(v.rows >= 1 && v.cols >= 1)) issues.push({ id: p.id, type: 'empty_array', v });
+    }
+    // 5) 세기형(그림만 보고 푸는) 문제는 반드시 그림이 있어야 함
+    if (['count', 'read'].includes(p.operator) && !(p.visual && p.visual.count >= 1)) {
+      issues.push({ id: p.id, type: 'count_without_picture' });
+    }
   }
 }
 

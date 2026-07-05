@@ -33,23 +33,74 @@ export const CHAR_NAME = {
 // 월드별 보스 (각 월드 20번째 스테이지의 주인)
 export const WORLD_BOSS = { 1: 'tyranno', 2: 'gocheolking', 3: 'blackwolf', 4: 'darkmask', 5: 'wangmon' };
 
-// 월드별 친구 명단 (발견/플레이 테마 모두 이 명단 기준. 월드당 5명)
-export const WORLD_CHARS = {
+export const WORLD_LABEL = {
+  1: '공룡 알 마을', 2: '변신 정비소', 3: '특공대 기지', 4: '히어로 시티', 5: '몬스터 도감',
+};
+// 월드별 스페셜 친구 5명(손그림, 4스테이지 클리어마다 발견)
+export const WORLD_SPECIALS = {
   1: ['kongryong', 'kkongryong', 'imagine', 'bbyeo', 'allog'],
   2: ['poopbot', 'drill', 'bbabang', 'chulkung', 'ppiriri'],
   3: ['balduncle', 'baboon', 'pungpung', 'syungsyung', 'salgeum'],
   4: ['captainkorea', 'superabbit', 'bulkkot', 'shadowcat', 'mujeokgom'],
   5: ['ppika', 'ppokkattu', 'andongki', 'bugeul', 'mongsil'],
 };
-export const WORLD_LABEL = {
-  1: '공룡 알 마을', 2: '변신 정비소', 3: '특공대 기지', 4: '히어로 시티', 5: '몬스터 도감',
+
+// ---- 월드별 문제 담당 친구 20명(변형 생성) --------------------------------
+// 색/모양/장식 조합으로 20종을 만들되, 이름은 월드 테마로 자동 부여.
+const HOST_PREFIX = ['아기', '꼬마', '초록', '노랑', '파랑', '빨강', '보라', '주황', '점박', '뿔난',
+  '왕눈', '번개', '통통', '날쌘', '느림', '알록', '하늘', '반짝', '씩씩', '멋쟁이'];
+const HOST_SUFFIX = { 1: '룡', 2: '봇', 3: '대원', 4: '맨', 5: '몬' };
+const PREFIX_HUE = {
+  '초록': [130, 62, 60], '노랑': [48, 90, 62], '파랑': [212, 70, 62], '빨강': [4, 78, 62],
+  '보라': [270, 55, 64], '주황': [26, 85, 60], '하늘': [195, 70, 64], '점박': [200, 20, 62],
+  '번개': [50, 95, 60], '알록': [320, 60, 66], '반짝': [45, 88, 66], '분홍': [335, 70, 70],
 };
-// 발견 가능한 전체 친구(월드 순)
-export const ROSTER = [1, 2, 3, 4, 5].flatMap((w) => WORLD_CHARS[w]);
-// 특별 친구: 대왕(일반 스테이지 후반) + 월드 보스들(20번째 스테이지)
+const DEFAULT_HUES = [[160, 55, 62], [20, 70, 62], [255, 45, 66], [90, 55, 60], [300, 50, 66],
+  [180, 55, 60], [340, 60, 66], [70, 70, 60]];
+function hsl(h, s, l) { return `hsl(${h} ${s}% ${l}%)`; }
+function hostPalette(prefix, i) {
+  const base = PREFIX_HUE[prefix] || DEFAULT_HUES[i % DEFAULT_HUES.length];
+  const [h, s, l] = base;
+  return { c2: hsl(h, s, l), c1: hsl(h, Math.max(30, s - 25), Math.min(92, l + 26)), accent: hsl(h, s, Math.max(30, l - 28)) };
+}
+export const HOST_SHAPE = ['round', 'tall', 'bean', 'egg']; // 몸 실루엣
+export const HOST_TOPPER = ['none', 'horn', 'antenna', 'ears', 'spike', 'leaf', 'bolt', 'tuft']; // 머리 장식
+
+// 월드별 20 호스트 생성 → id: h{w}_{i}
+export const WORLD_HOSTS = {};
+const HOST_META = {}; // id → { name, palette, shape, topper }
+for (let w = 1; w <= 5; w++) {
+  WORLD_HOSTS[w] = [];
+  for (let i = 0; i < 20; i++) {
+    const id = `h${w}_${i}`;
+    const prefix = HOST_PREFIX[i];
+    HOST_META[id] = {
+      name: prefix + HOST_SUFFIX[w],
+      palette: hostPalette(prefix, i + w),
+      shape: HOST_SHAPE[(i + w) % HOST_SHAPE.length],
+      topper: HOST_TOPPER[(i * 3 + w) % HOST_TOPPER.length],
+    };
+    WORLD_HOSTS[w].push(id);
+  }
+}
+
+// 하위호환/공용: 월드 친구 = 스페셜(발견 보너스 풀)
+export const WORLD_CHARS = WORLD_SPECIALS;
+// 발견 가능한 전체 친구
+export const ROSTER = [1, 2, 3, 4, 5].flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]);
+// 특별(보스) 친구: 대왕 + 월드 보스들
 export const SPECIALS = ['daewang', 'tyranno', 'gocheolking', 'blackwolf', 'darkmask', 'wangmon'];
-// 도감 전체 목록
-export const DEX = [...ROSTER, ...SPECIALS];
+// 도감 전체 목록: 월드별(호스트20+스페셜5) + 보스
+export const DEX = [
+  ...[1, 2, 3, 4, 5].flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]),
+  ...SPECIALS,
+];
+
+// 호스트 이름/팔레트를 공용 맵에 등록
+for (const [id, m] of Object.entries(HOST_META)) {
+  CHAR_NAME[id] = m.name;
+  // eslint-disable-next-line no-use-before-define
+}
 // 월드 대표 마스코트 (맵 배너용)
 export const WORLD_MASCOT = { 1: 'kongryong', 2: 'poopbot', 3: 'captainkorea', 4: 'superabbit', 5: 'ppika' };
 
@@ -102,6 +153,8 @@ export const CHAR_THEME = {
   darkmask:    { c2: '#7a4fd0', c1: '#e5dbf8', accent: '#48287e' },
   wangmon:     { c2: '#e05a8a', c1: '#fbdce8', accent: '#a82858' },
 };
+// 호스트 20종 팔레트 등록
+for (const [id, m] of Object.entries(HOST_META)) CHAR_THEME[id] = m.palette;
 
 // 캐릭터별 음성 대사 (센스있게, 캐릭터마다 말투 다름)
 export const VOICE = {
@@ -189,6 +242,15 @@ export const VOICE_STYLE = {
   gocheolking: { pitch: 0.65, rate: 0.8, v: 2 }, blackwolf: { pitch: 0.7, rate: 0.9, v: 1 },
   darkmask: { pitch: 0.75, rate: 0.85, v: 0 },  wangmon: { pitch: 0.6, rate: 0.95, v: 2 },
 };
+
+// 호스트 20종: 이름을 넣은 다양한 대사 + 목소리 개성(인덱스로 분산)
+const HOST_OK = (n) => [`${n}, 정답이야!`, '우와, 대단해!', '똑똑한걸!', '완벽해!', '최고야!', `${n}도 깜짝 놀랐어!`];
+const HOST_NO = (n) => ['괜찮아, 다시 해볼까?', '아깝다! 한 번 더!', `${n}이랑 다시 도전!`, '천천히 생각해봐!'];
+for (const [id, m] of Object.entries(HOST_META)) {
+  VOICE[id] = { hi: [`안녕! 나는 ${m.name}이야!`], ok: HOST_OK(m.name), no: HOST_NO(m.name) };
+  const i = parseInt(id.split('_')[1], 10);
+  VOICE_STYLE[id] = { pitch: 0.85 + (i % 7) * 0.11, rate: 0.9 + (i % 4) * 0.08, v: i % 3 };
+}
 
 // ---------------------------------------------------------------------------
 // 공통 얼굴 (눈/볼/입)
@@ -573,12 +635,54 @@ const DRAW = {
 };
 
 // ---------------------------------------------------------------------------
+// 변형 캐릭터 렌더러 (호스트 20종용): 몸 실루엣 + 장식 + 얼굴 조합
+// ---------------------------------------------------------------------------
+function hostBody(shape, c2, c1) {
+  if (shape === 'tall') return html`<g><ellipse cx="50" cy="56" rx="24" ry="32" fill=${c2} /><ellipse cx="50" cy="62" rx="13" ry="18" fill=${c1} /></g>`;
+  if (shape === 'bean') return html`<g><path d="M26 58 q-4 -34 24 -34 q28 0 24 34 q-2 24 -24 24 q-22 0 -24 -24Z" fill=${c2} /><ellipse cx="50" cy="64" rx="15" ry="13" fill=${c1} /></g>`;
+  if (shape === 'egg') return html`<g><path d="M50 20 q22 6 22 40 q0 24 -22 24 q-22 0 -22 -24 q0 -34 22 -40Z" fill=${c2} /><ellipse cx="50" cy="62" rx="14" ry="15" fill=${c1} /></g>`;
+  return html`<g><ellipse cx="50" cy="56" rx="30" ry="28" fill=${c2} /><ellipse cx="50" cy="64" rx="16" ry="14" fill=${c1} /></g>`; // round
+}
+function hostTopper(topper, accent, c2) {
+  switch (topper) {
+    case 'horn': return html`<polygon points="50,8 56,26 44,26" fill=${accent} />`;
+    case 'antenna': return html`<g><line x1="50" y1="14" x2="50" y2="26" stroke=${accent} stroke-width="3" /><circle cx="50" cy="11" r="4" fill=${accent} /></g>`;
+    case 'ears': return html`<g><ellipse cx="32" cy="26" rx="7" ry="12" fill=${c2} /><ellipse cx="68" cy="26" rx="7" ry="12" fill=${c2} /></g>`;
+    case 'spike': return html`<g><polygon points="40,20 45,30 35,30" fill=${accent} /><polygon points="50,15 56,28 44,28" fill=${accent} /><polygon points="60,20 65,30 55,30" fill=${accent} /></g>`;
+    case 'leaf': return html`<g><line x1="50" y1="18" x2="50" y2="28" stroke=${accent} stroke-width="3" /><path d="M50 20 q12 -8 16 2 q-12 6 -16 -2Z" fill=${c2} /></g>`;
+    case 'bolt': return html`<polygon points="54,8 40,28 50,28 46,40 62,20 52,20" fill=${accent} />`;
+    case 'tuft': return html`<path d="M44 24 q6 -14 12 0 q-6 -4 -12 0Z" fill=${accent} />`;
+    default: return null;
+  }
+}
+function variantChar(meta, i) {
+  const { palette: p, shape, topper } = meta;
+  const eyeDx = 9 + (i % 3) * 2;
+  const eyeY = 52 + (i % 2) * 2;
+  const cheek = ['#ff9a9a', '#ffb0c8', '#ffc27a'][i % 3];
+  return html`<g>
+    ${hostTopper(topper, p.accent, p.c2)}
+    ${hostBody(shape, p.c2, p.c1)}
+    <circle cx=${50 - eyeDx} cy=${eyeY} r="6.5" fill="#fff" /><circle cx=${50 + eyeDx} cy=${eyeY} r="6.5" fill="#fff" />
+    <circle cx=${50 - eyeDx + 0.5} cy=${eyeY + 1} r="3.3" fill="#2b2b3a" /><circle cx=${50 + eyeDx + 0.5} cy=${eyeY + 1} r="3.3" fill="#2b2b3a" />
+    <circle cx=${50 - eyeDx + 2} cy=${eyeY - 1} r="1.2" fill="#fff" /><circle cx=${50 + eyeDx + 2} cy=${eyeY - 1} r="1.2" fill="#fff" />
+    <circle cx=${50 - eyeDx - 4} cy=${eyeY + 8} r="3" fill=${cheek} opacity=".6" /><circle cx=${50 + eyeDx + 4} cy=${eyeY + 8} r="3" fill=${cheek} opacity=".6" />
+    <path d=${`M ${50 - 6} ${eyeY + 12} Q 50 ${eyeY + 17} ${50 + 6} ${eyeY + 12}`} stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+  </g>`;
+}
+
+// ---------------------------------------------------------------------------
 // 캐릭터 컴포넌트
 // ---------------------------------------------------------------------------
 export function Character({ kind = 'kongryong', size = 80, anim = 'float', style }) {
-  const draw = DRAW[kind] || DRAW.kongryong;
+  let inner;
+  if (HOST_META[kind]) {
+    inner = variantChar(HOST_META[kind], parseInt(kind.split('_')[1], 10));
+  } else {
+    inner = (DRAW[kind] || DRAW.kongryong)();
+  }
   return html`<svg class=${`char anim-${anim}`} width=${size} height=${size} viewBox="0 0 100 100"
-    style=${{ overflow: 'visible', ...(style || {}) }}>${draw()}</svg>`;
+    style=${{ overflow: 'visible', ...(style || {}) }}>${inner}</svg>`;
 }
 
 // ---------------------------------------------------------------------------
