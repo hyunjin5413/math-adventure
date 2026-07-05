@@ -103,15 +103,16 @@ export const SKILLS = {
   number_recognition: {
     phase: 0, label: '숫자 인식', inputs: ['choice'],
     gen(p, rng) {
-      const n = ri(rng, p.min ?? 0, p.max ?? 10);
+      // 사물을 눈으로 세고, 알맞은 "숫자"를 보기에서 고른다 (소리 없이 시각으로)
+      const n = ri(rng, p.min ?? 1, p.max ?? 10);
       const confus = { 6: 9, 9: 6, 2: 5, 5: 2, 0: 8, 8: 0, 3: 8, 7: 1, 1: 7 };
       return {
-        kind: 'num', operands: [n], operator: 'read', answer: n,
-        promptText: '이 숫자를 찾아보세요',
-        ttsText: `${eunNeun(numKo(n))} 어떤 숫자일까요?`,
-        visual: { type: 'spoken_number', value: n },
+        kind: 'num', operands: [n], operator: 'count', answer: n,
+        promptText: '몇 개일까요? 알맞은 숫자를 찾아보세요',
+        ttsText: '그림을 세어 보고 알맞은 숫자를 찾아보세요.',
+        visual: { type: 'objects', count: n },
         distractors: [confus[n], n + 1, n - 1, n + 2].filter((x) => x != null),
-        hintRef: null,
+        hintRef: 'count_one_by_one',
       };
     },
   },

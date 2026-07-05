@@ -250,8 +250,6 @@ function Visual({ v, theme }) {
       return html`<div class="bond"><div class="whole">${v.whole}</div><span>→</span><div class="part">${v.part}</div><span>+</span><div class="part">?</div></div>`;
     case 'base_ten':
       return html`<${BaseTen} tens=${v.tens} ones=${v.ones} />`;
-    case 'spoken_number':
-      return html`<button class="speak-btn" onClick=${() => speak(numKo(v.value))}><${Icon} name="speaker" size=${34} color="#7a5a16" /></button>`;
     case 'number_line':
       return html`<${NumberLine} />`;
     default:
@@ -358,7 +356,7 @@ function starsFor(accuracy) {
 // ===========================================================================
 // 스테이지 플레이 화면
 // ===========================================================================
-function StagePlay({ stage, world, onExit, onComplete }) {
+function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete }) {
   const [idx, setIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
@@ -369,48 +367,57 @@ function StagePlay({ stage, world, onExit, onComplete }) {
   const [feedback, setFeedback] = useState(null);   // 'ok' | 'no'
   const [bubble, setBubble] = useState('');          // 캐릭터 대사
   const [burst, setBurst] = useState(0);             // 정답 이펙트 트리거
+  const [discovery, setDiscovery] = useState(null);  // 플레이 중 친구 발견 팝업
   const [locked, setLocked] = useState(false);
   const startRef = useRef(performance.now());
-
-  // 스테이지 시작 시 이 스테이지 캐릭터 대사를 미리 합성(첫 재생 지연 제거)
-  useEffect(() => {
-    const chars = [...(stage.themes || []), stage.type === 'boss' ? (WORLD_BOSS[world] || 'daewang') : 'daewang'];
-    const lines = [];
-    for (const c of new Set(chars)) {
-      const v = VOICE[c]; if (!v) continue;
-      lines.push(...(v.hi || []), ...(v.ok || []).slice(0, 2), ...(v.no || []).slice(0, 1), ...(v.win || []));
-    }
-    const t = setTimeout(() => prewarmLines(lines), 4000); // 첫 문제 프리페치 이후에
-    return () => clearTimeout(t);
-  }, [stage.n]);
+  const ownedRef = useRef(new Set(collectedIds));
 
   const problem = stage.problems[idx];
   const total = stage.problems.length;
-  const isBoss = !!problem.bossSegment;              // 마지막 10문제 = 보스 구간
+  const isBoss = !!problem.bossSegment;              // 마지막 5문제 = 보스 구간
   // 보스: 20번째(보스 스테이지)는 월드 보스, 일반 스테이지는 대왕
   const bossChar = stage.type === 'boss' ? (WORLD_BOSS[world] || 'daewang') : 'daewang';
   const theme = isBoss ? bossChar : (problem.theme || (stage.themes && stage.themes[0]) || WORLD_MASCOT[world]);
   const ct = CHAR_THEME[theme] || WORLD_THEME[world];
 
-  // 문제 등장 시: 테마가 새로 바뀌면 캐릭터 인사(대왕 구간 진입 시 대왕 등장 대사)
+  // 스테이지 시작 시: 이 스테이지의 모든 문제 + 캐릭터 대사를 미리 합성(지연 제거)
+  useEffect(() => {
+    prewarmLines(stage.problems.map((p) => p.prompt.tts || p.prompt.text));
+    const chars = [...(stage.themes || []), bossChar];
+    const lines = [];
+    for (const c of new Set(chars)) {
+      const v = VOICE[c]; if (!v) continue;
+      lines.push(...(v.hi || []), ...(v.ok || []), ...(v.no || []), ...(v.win || []));
+    }
+    const t = setTimeout(() => prewarmLines(lines), 1500);
+    return () => clearTimeout(t);
+  }, [stage.n]);
+
+  // 문제 등장 시: 새 친구가 문제를 내러 나오면 발견 처리, 아니면 인사
   const prevThemeRef = useRef(null);
   useEffect(() => {
     startRef.current = performance.now();
-    setShowHint(false); setFeedback(null); setBubble('');
-    const themeChanged = prevThemeRef.current && prevThemeRef.current !== theme;
+    setShowHint(false); setFeedback(null);
+    const themeChanged = prevThemeRef.current !== theme;
     prevThemeRef.current = theme;
-    const id = setTimeout(() => {
-      // 캐릭터 인사만 자동 재생. 문제는 스피커 버튼을 눌렀을 때만 읽는다.
-      if (themeChanged) {
+    // 아직 도감에 없는 친구가 문제를 내러 등장 → 새 친구 발견! (보스 제외: 보스는 물리쳐야 획득)
+    if (themeChanged && !isBoss && !ownedRef.current.has(theme)) {
+      ownedRef.current.add(theme);
+      const reason = `${WORLD_LABEL[world]}에서 만난 친구`;
+      onDiscover(theme, reason);
+      setDiscovery({ id: theme, reason });
+      setBubble('');
+      speakAs(theme, `새 친구! ${CHAR_NAME[theme]}! ${pickLine(theme, 'hi', 0)}`);
+      setTimeout(() => setDiscovery(null), 1900);
+    } else if (themeChanged) {
+      const id = setTimeout(() => {
         const hi = pickLine(theme, 'hi', idx);
         setBubble(hi); speakAs(theme, hi);
-      }
-    }, 250);
-    // 스피커 버튼 탭 시 즉시 재생되도록 현재/다음 문제 음성을 미리 합성
-    setTimeout(() => prefetchSpeech(problem.prompt.tts || problem.prompt.text), 600);
-    const nxt = stage.problems[idx + 1];
-    if (nxt) setTimeout(() => prefetchSpeech(nxt.prompt.tts || nxt.prompt.text), 3000);
-    return () => clearTimeout(id);
+      }, 250);
+      return () => clearTimeout(id);
+    } else {
+      setBubble('');
+    }
   }, [problem.id]);
 
   const handleAnswer = useCallback((isCorrect) => {
@@ -460,6 +467,7 @@ function StagePlay({ stage, world, onExit, onComplete }) {
   const curBlock = isBoss ? blocks.length - 1 : Math.min(blocks.length - 2, Math.floor(idx / 10));
   return html`<div class=${`play theme ${isBoss ? 'bossmode' : ''}`} style=${{ '--wc1': isBoss ? '#d9ccff' : wt.c1, '--wc2': wt.c2 }}>
     ${feedback === 'ok' ? html`<${CorrectBurst} key=${burst} color=${ct.accent} /> ` : null}
+    ${discovery ? html`<${DiscoveryPopup} d=${discovery} onClose=${() => setDiscovery(null)} />` : null}
     <div class="progress"><div style=${{ width: `${(idx / total) * 100}%` }}></div></div>
     <div class="play-head">
       <button class="btn ghost back" onClick=${onExit}><${Icon} name="back" size=${24} color="#8a8472" /> 나가기</button>
@@ -495,6 +503,19 @@ function StagePlay({ stage, world, onExit, onComplete }) {
   </div>`;
 }
 
+
+// 플레이 중 새 친구 발견 팝업 (한국어)
+function DiscoveryPopup({ d, onClose }) {
+  const ct = CHAR_THEME[d.id];
+  return html`<div class="discover" onClick=${onClose}>
+    <div class="discover-card" style=${{ background: `linear-gradient(180deg, ${ct.c1}, #fff)` }}>
+      <div class="discover-title">새 친구 발견!</div>
+      <${Character} kind=${d.id} size=${130} anim="bounce" />
+      <div class="discover-name">${CHAR_NAME[d.id]}</div>
+      <div class="discover-reason">${d.reason}</div>
+    </div>
+  </div>`;
+}
 
 // 정답 시 큰 이펙트: 중앙 별 폭발 + 링
 function CorrectBurst({ color }) {
@@ -856,7 +877,16 @@ function App() {
 
   const playStage = useCallback((stage) => setView({ name: 'play', stage }), []);
 
-  // 플레이 중 친구 발견 → 즉시 도감에 저장
+  // 플레이 중(문제 내러 나온 친구) 발견 → 즉시 도감에 저장
+  const addToDex = useCallback((id, reason) => {
+    setProgress((prev) => {
+      if ((prev.collected || []).some((c) => c.id === id)) return prev;
+      const next = { ...prev, collected: [...(prev.collected || []), { id, reason }] };
+      if (user) saveProgress(user, next);
+      return next;
+    });
+  }, [user]);
+
   const completeStage = useCallback((stage, result) => {
     let discovery = null;
     setProgress((prev) => {
@@ -878,13 +908,12 @@ function App() {
             add('daewang', `스테이지 ${stage.n} 대왕과의 대결 승리`);
           }
         }
-        // 스테이지 4개 완료마다 → 새 친구 발견! (지금 월드 친구 우선)
+        // 스테이지 4개 완료마다 → 아직 못 만난 이 월드 친구를 보너스로 발견
         if (firstClear) {
           const clearedCount = Object.values(next.stars).filter((s) => s > 0).length;
           if (clearedCount % 4 === 0) {
             const owned = new Set(next.collected.map((c) => c.id));
-            const worldPool = (WORLD_CHARS[stage.world] || []).filter((c) => !owned.has(c));
-            const candidates = worldPool.length ? worldPool : ROSTER.filter((c) => !owned.has(c));
+            const candidates = (WORLD_CHARS[stage.world] || []).filter((c) => !owned.has(c));
             if (candidates.length) {
               const id = candidates[Math.floor(Math.random() * candidates.length)];
               const reason = `스테이지 ${clearedCount}개 완료`;
@@ -921,6 +950,8 @@ function App() {
       key=${view.stage.n}
       stage=${view.stage}
       world=${view.stage.world}
+      collectedIds=${(progress.collected || []).map((c) => c.id)}
+      onDiscover=${addToDex}
       onExit=${() => setView({ name: 'map' })}
       onComplete=${(result) => completeStage(view.stage, result)} />`;
   } else if (view.name === 'result') {

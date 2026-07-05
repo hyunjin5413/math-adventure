@@ -1086,19 +1086,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "삼은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             3
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 3,
           "visual": {
-            "type": "spoken_number",
-            "value": 3
+            "type": "objects",
+            "count": 3
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             4,
             3,
@@ -1114,19 +1114,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "칠은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             7
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 7,
           "visual": {
-            "type": "spoken_number",
-            "value": 7
+            "type": "objects",
+            "count": 7
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             7,
             1,
@@ -1142,19 +1142,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "영은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             0
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 0,
           "visual": {
-            "type": "spoken_number",
-            "value": 0
+            "type": "objects",
+            "count": 0
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             1,
             0,
@@ -1170,19 +1170,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "육은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             6
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 6,
           "visual": {
-            "type": "spoken_number",
-            "value": 6
+            "type": "objects",
+            "count": 6
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             9,
             7,
@@ -1198,19 +1198,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "구는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             9
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 9,
           "visual": {
-            "type": "spoken_number",
-            "value": 9
+            "type": "objects",
+            "count": 9
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             6,
             9,
@@ -1226,19 +1226,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "일은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             1
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 1,
           "visual": {
-            "type": "spoken_number",
-            "value": 1
+            "type": "objects",
+            "count": 1
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             2,
             7,
@@ -1254,19 +1254,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "이는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             2
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 2,
           "visual": {
-            "type": "spoken_number",
-            "value": 2
+            "type": "objects",
+            "count": 2
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             5,
             3,
@@ -1282,19 +1282,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "팔은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             8
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 8,
           "visual": {
-            "type": "spoken_number",
-            "value": 8
+            "type": "objects",
+            "count": 8
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             9,
             8,
@@ -1310,19 +1310,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "사는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             4
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 4,
           "visual": {
-            "type": "spoken_number",
-            "value": 4
+            "type": "objects",
+            "count": 4
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             5,
             3,
@@ -1338,19 +1338,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "십은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             10
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 10,
           "visual": {
-            "type": "spoken_number",
-            "value": 10
+            "type": "objects",
+            "count": 10
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             11,
             9,
@@ -1366,19 +1366,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "오는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             5
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 5,
           "visual": {
-            "type": "spoken_number",
-            "value": 5
+            "type": "objects",
+            "count": 5
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             5,
             2,
@@ -1394,19 +1394,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "육은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             6
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 6,
           "visual": {
-            "type": "spoken_number",
-            "value": 6
+            "type": "objects",
+            "count": 6
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             9,
             7,
@@ -1422,19 +1422,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "팔은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             8
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 8,
           "visual": {
-            "type": "spoken_number",
-            "value": 8
+            "type": "objects",
+            "count": 8
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             0,
             8,
@@ -1450,19 +1450,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "육은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             6
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 6,
           "visual": {
-            "type": "spoken_number",
-            "value": 6
+            "type": "objects",
+            "count": 6
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             9,
             7,
@@ -1478,19 +1478,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "삼은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             3
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 3,
           "visual": {
-            "type": "spoken_number",
-            "value": 3
+            "type": "objects",
+            "count": 3
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             3,
             8,
@@ -1506,19 +1506,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "팔은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             8
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 8,
           "visual": {
-            "type": "spoken_number",
-            "value": 8
+            "type": "objects",
+            "count": 8
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             0,
             8,
@@ -1556,35 +1556,6 @@
           "skill": "count_objects",
           "skillLabel": "사물 세기",
           "phase": 0,
-          "inputType": "choice",
-          "isReview": true,
-          "prompt": {
-            "text": "모두 몇 개일까요?",
-            "tts": "그림을 세어 보세요. 모두 몇 개일까요?"
-          },
-          "operands": [
-            4
-          ],
-          "operator": "count",
-          "answer": 4,
-          "visual": {
-            "type": "objects",
-            "count": 4
-          },
-          "hintRef": "count_one_by_one",
-          "choices": [
-            3,
-            4,
-            5
-          ],
-          "theme": "imagine",
-          "bossSegment": true
-        },
-        {
-          "id": "W1-S003-v0-p19",
-          "skill": "count_objects",
-          "skillLabel": "사물 세기",
-          "phase": 0,
           "inputType": "tap_count",
           "isReview": true,
           "prompt": {
@@ -1605,26 +1576,60 @@
           "bossSegment": true
         },
         {
-          "id": "W1-S003-v0-p20",
+          "id": "W1-S003-v0-p19",
           "skill": "count_objects",
           "skillLabel": "사물 세기",
           "phase": 0,
-          "inputType": "tap_count",
+          "inputType": "choice",
           "isReview": true,
           "prompt": {
             "text": "모두 몇 개일까요?",
             "tts": "그림을 세어 보세요. 모두 몇 개일까요?"
           },
           "operands": [
-            10
+            3
           ],
           "operator": "count",
-          "answer": 10,
+          "answer": 3,
           "visual": {
             "type": "objects",
-            "count": 10
+            "count": 3
           },
           "hintRef": "count_one_by_one",
+          "choices": [
+            3,
+            4,
+            2
+          ],
+          "theme": "imagine",
+          "bossSegment": true
+        },
+        {
+          "id": "W1-S003-v0-p20",
+          "skill": "count_objects",
+          "skillLabel": "사물 세기",
+          "phase": 0,
+          "inputType": "choice",
+          "isReview": true,
+          "prompt": {
+            "text": "모두 몇 개일까요?",
+            "tts": "그림을 세어 보세요. 모두 몇 개일까요?"
+          },
+          "operands": [
+            7
+          ],
+          "operator": "count",
+          "answer": 7,
+          "visual": {
+            "type": "objects",
+            "count": 7
+          },
+          "hintRef": "count_one_by_one",
+          "choices": [
+            8,
+            6,
+            7
+          ],
           "theme": "imagine",
           "bossSegment": true
         }
@@ -2069,23 +2074,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "일은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            1
+            4
           ],
-          "operator": "read",
-          "answer": 1,
+          "operator": "count",
+          "answer": 4,
           "visual": {
-            "type": "spoken_number",
-            "value": 1
+            "type": "objects",
+            "count": 4
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            7,
-            1,
-            2
+            5,
+            4,
+            3
           ],
           "theme": "kongryong",
           "bossSegment": true
@@ -2102,18 +2107,18 @@
             "tts": "그림을 세어 보세요. 모두 몇 개일까요?"
           },
           "operands": [
-            3
+            1
           ],
           "operator": "count",
-          "answer": 3,
+          "answer": 1,
           "visual": {
             "type": "objects",
-            "count": 3
+            "count": 1
           },
           "hintRef": "count_one_by_one",
           "choices": [
-            4,
-            3,
+            1,
+            0,
             2
           ],
           "theme": "kongryong",
@@ -2127,23 +2132,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "칠은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            7
+            3
           ],
-          "operator": "read",
-          "answer": 7,
+          "operator": "count",
+          "answer": 3,
           "visual": {
-            "type": "spoken_number",
-            "value": 7
+            "type": "objects",
+            "count": 3
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            7,
-            1,
-            8
+            4,
+            8,
+            3
           ],
           "theme": "kongryong",
           "bossSegment": true
@@ -2700,23 +2705,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "오는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            5
+            6
           ],
-          "operator": "read",
-          "answer": 5,
+          "operator": "count",
+          "answer": 6,
           "visual": {
-            "type": "spoken_number",
-            "value": 5
+            "type": "objects",
+            "count": 6
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            2,
-            6,
-            5
+            9,
+            7,
+            6
           ],
           "theme": "bbyeo",
           "bossSegment": true
@@ -2753,23 +2758,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "영은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            0
+            1
           ],
-          "operator": "read",
-          "answer": 0,
+          "operator": "count",
+          "answer": 1,
           "visual": {
-            "type": "spoken_number",
-            "value": 0
+            "type": "objects",
+            "count": 1
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            8,
-            1,
-            0
+            7,
+            2,
+            1
           ],
           "theme": "bbyeo",
           "bossSegment": true
@@ -3298,23 +3303,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "일은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            1
+            2
           ],
-          "operator": "read",
-          "answer": 1,
+          "operator": "count",
+          "answer": 2,
           "visual": {
-            "type": "spoken_number",
-            "value": 1
+            "type": "objects",
+            "count": 2
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            2,
-            7,
-            1
+            3,
+            5,
+            2
           ],
           "theme": "kkongryong",
           "bossSegment": true
@@ -3387,23 +3392,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "이는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            2
-          ],
-          "operator": "read",
-          "answer": 2,
-          "visual": {
-            "type": "spoken_number",
-            "value": 2
-          },
-          "hintRef": null,
-          "choices": [
-            2,
-            5,
             3
+          ],
+          "operator": "count",
+          "answer": 3,
+          "visual": {
+            "type": "objects",
+            "count": 3
+          },
+          "hintRef": "count_one_by_one",
+          "choices": [
+            3,
+            8,
+            4
           ],
           "theme": "kkongryong",
           "bossSegment": true
@@ -3853,19 +3858,19 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "팔은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             8
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 8,
           "visual": {
-            "type": "spoken_number",
-            "value": 8
+            "type": "objects",
+            "count": 8
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             8,
             0,
@@ -3937,23 +3942,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "일은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            1
-          ],
-          "operator": "read",
-          "answer": 1,
-          "visual": {
-            "type": "spoken_number",
-            "value": 1
-          },
-          "hintRef": null,
-          "choices": [
-            7,
-            1,
             2
+          ],
+          "operator": "count",
+          "answer": 2,
+          "visual": {
+            "type": "objects",
+            "count": 2
+          },
+          "hintRef": "count_one_by_one",
+          "choices": [
+            5,
+            2,
+            3
           ],
           "theme": "allog",
           "bossSegment": true
@@ -4503,23 +4508,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "오는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            5
+            6
           ],
-          "operator": "read",
-          "answer": 5,
+          "operator": "count",
+          "answer": 6,
           "visual": {
-            "type": "spoken_number",
-            "value": 5
+            "type": "objects",
+            "count": 6
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            6,
-            2,
-            5
+            7,
+            9,
+            6
           ],
           "theme": "imagine",
           "bossSegment": true
@@ -5126,19 +5131,19 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "십은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             10
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 10,
           "visual": {
-            "type": "spoken_number",
-            "value": 10
+            "type": "objects",
+            "count": 10
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             11,
             9,
@@ -5271,23 +5276,23 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "사는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            4
+            5
           ],
-          "operator": "read",
-          "answer": 4,
+          "operator": "count",
+          "answer": 5,
           "visual": {
-            "type": "spoken_number",
-            "value": 4
+            "type": "objects",
+            "count": 5
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            4,
             5,
-            3
+            2,
+            6
           ],
           "theme": "imagine"
         },
@@ -5382,23 +5387,23 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "이는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             2
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 2,
           "visual": {
-            "type": "spoken_number",
-            "value": 2
+            "type": "objects",
+            "count": 2
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             5,
-            2,
-            3
+            3,
+            2
           ],
           "theme": "imagine"
         },
@@ -5410,19 +5415,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 □ 1",
-            "tts": "이와 일 중 어느 것이 더 클까요?"
+            "text": "5 □ 3",
+            "tts": "오와 삼 중 어느 것이 더 클까요?"
           },
           "operands": [
-            2,
-            1
+            5,
+            3
           ],
           "operator": "compare",
           "answer": ">",
           "visual": {
             "type": "compare_groups",
-            "a": 2,
-            "b": 1
+            "a": 5,
+            "b": 3
           },
           "hintRef": "number_line",
           "choices": [
@@ -5437,29 +5442,24 @@
           "skill": "add_within_10",
           "skillLabel": "합 10 이하 덧셈",
           "phase": 1,
-          "inputType": "choice",
+          "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "1 + 1 = ?",
-            "tts": "일 더하기 일은 얼마일까요?"
+            "text": "5 + 1 = ?",
+            "tts": "오 더하기 일은 얼마일까요?"
           },
           "operands": [
-            1,
+            5,
             1
           ],
           "operator": "+",
-          "answer": 2,
+          "answer": 6,
           "visual": {
             "type": "ten_frame_add",
-            "a": 1,
+            "a": 5,
             "b": 1
           },
           "hintRef": "count_on",
-          "choices": [
-            3,
-            1,
-            2
-          ],
           "theme": "imagine"
         },
         {
@@ -5474,19 +5474,19 @@
             "tts": "그림을 세어 보세요. 모두 몇 개일까요?"
           },
           "operands": [
-            5
+            9
           ],
           "operator": "count",
-          "answer": 5,
+          "answer": 9,
           "visual": {
             "type": "objects",
-            "count": 5
+            "count": 9
           },
           "hintRef": "count_one_by_one",
           "choices": [
-            4,
-            6,
-            5
+            9,
+            8,
+            10
           ],
           "theme": "imagine"
         },
@@ -5498,23 +5498,23 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "구는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            9
+            1
           ],
-          "operator": "read",
-          "answer": 9,
+          "operator": "count",
+          "answer": 1,
           "visual": {
-            "type": "spoken_number",
-            "value": 9
+            "type": "objects",
+            "count": 1
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            9,
-            6,
-            10
+            1,
+            7,
+            2
           ],
           "theme": "imagine"
         },
@@ -5526,19 +5526,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 □ 0",
-            "tts": "육과 영 중 어느 것이 더 클까요?"
+            "text": "6 □ 9",
+            "tts": "육과 구 중 어느 것이 더 클까요?"
           },
           "operands": [
             6,
-            0
+            9
           ],
           "operator": "compare",
-          "answer": ">",
+          "answer": "<",
           "visual": {
             "type": "compare_groups",
             "a": 6,
-            "b": 0
+            "b": 9
           },
           "hintRef": "number_line",
           "choices": [
@@ -5557,19 +5557,19 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "7 + 2 = ?",
-            "tts": "칠 더하기 이는 얼마일까요?"
+            "text": "10 + 0 = ?",
+            "tts": "십 더하기 영은 얼마일까요?"
           },
           "operands": [
-            7,
-            2
+            10,
+            0
           ],
           "operator": "+",
-          "answer": 9,
+          "answer": 10,
           "visual": {
             "type": "ten_frame_add",
-            "a": 7,
-            "b": 2
+            "a": 10,
+            "b": 0
           },
           "hintRef": "count_on",
           "theme": "bbyeo",
@@ -5580,27 +5580,22 @@
           "skill": "count_objects",
           "skillLabel": "사물 세기",
           "phase": 0,
-          "inputType": "choice",
+          "inputType": "tap_count",
           "isReview": false,
           "prompt": {
             "text": "모두 몇 개일까요?",
             "tts": "그림을 세어 보세요. 모두 몇 개일까요?"
           },
           "operands": [
-            2
+            6
           ],
           "operator": "count",
-          "answer": 2,
+          "answer": 6,
           "visual": {
             "type": "objects",
-            "count": 2
+            "count": 6
           },
           "hintRef": "count_one_by_one",
-          "choices": [
-            1,
-            3,
-            2
-          ],
           "theme": "bbyeo",
           "bossSegment": true
         },
@@ -5612,23 +5607,23 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "육은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            6
+            8
           ],
-          "operator": "read",
-          "answer": 6,
+          "operator": "count",
+          "answer": 8,
           "visual": {
-            "type": "spoken_number",
-            "value": 6
+            "type": "objects",
+            "count": 8
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            7,
-            9,
-            6
+            8,
+            0,
+            9
           ],
           "theme": "bbyeo",
           "bossSegment": true
@@ -5641,19 +5636,19 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 □ 10",
-            "tts": "오와 십 중 어느 것이 더 클까요?"
+            "text": "4 □ 2",
+            "tts": "사와 이 중 어느 것이 더 클까요?"
           },
           "operands": [
-            5,
-            10
+            4,
+            2
           ],
           "operator": "compare",
-          "answer": "<",
+          "answer": ">",
           "visual": {
             "type": "compare_groups",
-            "a": 5,
-            "b": 10
+            "a": 4,
+            "b": 2
           },
           "hintRef": "number_line",
           "choices": [
@@ -6208,23 +6203,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "이는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            2
+            3
           ],
-          "operator": "read",
-          "answer": 2,
+          "operator": "count",
+          "answer": 3,
           "visual": {
-            "type": "spoken_number",
-            "value": 2
+            "type": "objects",
+            "count": 3
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            5,
-            3,
-            2
+            8,
+            4,
+            3
           ],
           "theme": "kkongryong",
           "bossSegment": true
@@ -6755,23 +6750,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "영은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            0
+            1
           ],
-          "operator": "read",
-          "answer": 0,
+          "operator": "count",
+          "answer": 1,
           "visual": {
-            "type": "spoken_number",
-            "value": 0
+            "type": "objects",
+            "count": 1
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            1,
-            8,
-            0
+            2,
+            7,
+            1
           ],
           "theme": "allog",
           "bossSegment": true
@@ -7302,23 +7297,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "이는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            2
-          ],
-          "operator": "read",
-          "answer": 2,
-          "visual": {
-            "type": "spoken_number",
-            "value": 2
-          },
-          "hintRef": null,
-          "choices": [
-            5,
-            2,
             3
+          ],
+          "operator": "count",
+          "answer": 3,
+          "visual": {
+            "type": "objects",
+            "count": 3
+          },
+          "hintRef": "count_one_by_one",
+          "choices": [
+            8,
+            3,
+            4
           ],
           "theme": "imagine",
           "bossSegment": true
@@ -7854,19 +7849,19 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "십은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             10
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 10,
           "visual": {
-            "type": "spoken_number",
-            "value": 10
+            "type": "objects",
+            "count": 10
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             9,
             10,
@@ -8452,23 +8447,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "육은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            6
+            3
           ],
-          "operator": "read",
-          "answer": 6,
+          "operator": "count",
+          "answer": 3,
           "visual": {
-            "type": "spoken_number",
-            "value": 6
+            "type": "objects",
+            "count": 3
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            6,
-            9,
-            7
+            8,
+            4,
+            3
           ],
           "theme": "bbyeo",
           "bossSegment": true
@@ -8481,19 +8476,19 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "2 □ 1",
-            "tts": "이와 일 중 어느 것이 더 클까요?"
+            "text": "8 □ 6",
+            "tts": "팔과 육 중 어느 것이 더 클까요?"
           },
           "operands": [
-            2,
-            1
+            8,
+            6
           ],
           "operator": "compare",
           "answer": ">",
           "visual": {
             "type": "compare_groups",
-            "a": 2,
-            "b": 1
+            "a": 8,
+            "b": 6
           },
           "hintRef": "number_line",
           "choices": [
@@ -8512,18 +8507,18 @@
           "inputType": "keypad",
           "isReview": true,
           "prompt": {
-            "text": "7 + 3 = ?",
-            "tts": "칠 더하기 삼은 얼마일까요?"
+            "text": "4 + 3 = ?",
+            "tts": "사 더하기 삼은 얼마일까요?"
           },
           "operands": [
-            7,
+            4,
             3
           ],
           "operator": "+",
-          "answer": 10,
+          "answer": 7,
           "visual": {
             "type": "ten_frame_add",
-            "a": 7,
+            "a": 4,
             "b": 3
           },
           "hintRef": "count_on",
@@ -9022,19 +9017,19 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "칠은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             7
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 7,
           "visual": {
-            "type": "spoken_number",
-            "value": 7
+            "type": "objects",
+            "count": 7
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             7,
             8,
@@ -9650,19 +9645,19 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "구는 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
             9
           ],
-          "operator": "read",
+          "operator": "count",
           "answer": 9,
           "visual": {
-            "type": "spoken_number",
-            "value": 9
+            "type": "objects",
+            "count": 9
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
             6,
             10,
@@ -10283,23 +10278,23 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "이 숫자를 찾아보세요",
-            "tts": "육은 어떤 숫자일까요?"
+            "text": "몇 개일까요? 알맞은 숫자를 찾아보세요",
+            "tts": "그림을 세어 보고 알맞은 숫자를 찾아보세요."
           },
           "operands": [
-            6
+            7
           ],
-          "operator": "read",
-          "answer": 6,
+          "operator": "count",
+          "answer": 7,
           "visual": {
-            "type": "spoken_number",
-            "value": 6
+            "type": "objects",
+            "count": 7
           },
-          "hintRef": null,
+          "hintRef": "count_one_by_one",
           "choices": [
-            6,
             7,
-            9
+            8,
+            1
           ],
           "theme": "imagine",
           "bossSegment": true
