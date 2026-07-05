@@ -155,6 +155,59 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
 .cmp .blk { width: 40px; height: 28px; background: var(--leaf); border-radius: 7px; }
 .cmp .blk.b2 { background: var(--sky); }
 
+/* ===== 게임 배경 데코 (언덕/구름) ===== */
+.play.theme::before, .login::before, .map::before {
+  content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 22vh; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(60vw 26vh at 12% 108%, #cde6b0 0%, transparent 70%),
+    radial-gradient(70vw 30vh at 88% 112%, #bfdda2 0%, transparent 70%),
+    radial-gradient(90vw 24vh at 50% 118%, #d8ecc0 0%, transparent 75%);
+}
+.play.theme::after, .login::after {
+  content: ""; position: fixed; left: 0; right: 0; top: 0; height: 26vh; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(140px 46px at 18% 22%, rgba(255,255,255,.85) 60%, transparent 65%),
+    radial-gradient(110px 38px at 74% 12%, rgba(255,255,255,.75) 60%, transparent 65%),
+    radial-gradient(90px 32px at 46% 30%, rgba(255,255,255,.6) 60%, transparent 65%);
+}
+.play > *, .login > *, .map > * { position: relative; z-index: 1; }
+
+/* ===== 테마 블록 표시 (10문제 단위) ===== */
+.blockbar { display: flex; gap: 6px; align-items: center; margin-left: 6px; }
+.block-chip { width: 42px; height: 42px; border-radius: 50%; background: #fff; display: grid; place-items: center;
+  opacity: .45; box-shadow: 0 3px 0 #e6dcc4; transition: all .2s; }
+.block-chip.on { opacity: 1; transform: scale(1.15); box-shadow: 0 0 0 3px var(--sun), 0 4px 0 #e0a400; }
+.block-chip.done { opacity: .85; background: #e9f5db; box-shadow: 0 0 0 2px var(--leaf), 0 3px 0 var(--leaf-d); }
+
+/* ===== 대왕 구간 ===== */
+.play.bossmode { background: radial-gradient(120vw 70vh at 50% -10%, #d9ccff 0%, #efe8ff 65%); }
+.play.bossmode::before { filter: hue-rotate(210deg) saturate(.7); }
+.boss-banner { font-size: clamp(20px,3vw,28px); font-weight: 700; color: #4a2fa8; background: #fff;
+  border-radius: 999px; padding: 6px 26px; box-shadow: 0 5px 0 #cbb8f5, 0 8px 12px rgba(74,47,168,.15);
+  animation: pulse 1.6s ease-in-out infinite; }
+.buddy.boss { filter: drop-shadow(0 0 18px rgba(138,109,240,.55)); }
+
+/* ===== 친구 발견 팝업 ===== */
+.discover { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center;
+  background: rgba(70,50,20,.25); animation: popin .2s both; }
+.discover-card { border-radius: 28px; padding: 22px 40px 26px; display: grid; justify-items: center; gap: 8px;
+  box-shadow: 0 14px 0 rgba(120,90,40,.15), 0 20px 40px rgba(0,0,0,.2); animation: popin .35s cubic-bezier(.2,1.5,.4,1) both; }
+.discover-title { font-size: clamp(20px,3vw,26px); font-weight: 700; color: #e07f1f;
+  text-shadow: 0 2px 0 #fff; animation: pulse .8s ease infinite; }
+.discover-name { font-size: clamp(22px,3.4vw,30px); font-weight: 700; }
+.discover-reason { font-size: 15px; color: var(--ink-soft); background: #fff; border-radius: 999px; padding: 4px 14px; }
+
+/* ===== 도감 상세 모달 ===== */
+.dex-modal { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: rgba(70,50,20,.35); }
+.dex-modal-card { border-radius: 30px; padding: 26px 40px; display: grid; justify-items: center; gap: 12px;
+  box-shadow: 0 14px 0 rgba(120,90,40,.15), 0 22px 44px rgba(0,0,0,.25); animation: popin .3s cubic-bezier(.2,1.4,.4,1) both;
+  max-width: 90vw; }
+.dex-modal-name { font-size: 28px; font-weight: 700; }
+.dex-modal-reason { display: flex; align-items: center; gap: 8px; background: #fff; border-radius: 999px;
+  padding: 8px 18px; font-weight: 700; font-size: 16px; color: var(--ink); box-shadow: 0 3px 0 #ece3cc; }
+.dex-card { cursor: pointer; transition: transform .1s; }
+.dex-card.owned:active { transform: translateY(3px); }
+
 /* ===== 정답 큰 이펙트 ===== */
 .burst { position: fixed; inset: 0; z-index: 50; pointer-events: none; display: grid; place-items: center; }
 .burst-ring { position: absolute; width: 80px; height: 80px; border-radius: 50%; border: 10px solid var(--sun);

@@ -10,15 +10,18 @@ const html = htm.bind(React.createElement);
 
 // 캐릭터 한글 이름
 export const CHAR_NAME = {
-  kongryong: '콩룡', poopbot: '뿡뿡봇', captainkorea: '캡틴코리아', ppika: '삐까',
+  kongryong: '콩룡', poopbot: '뿡뿡봇', captainkorea: '캡틴코리아', ppika: '삐까쭈',
   baboon: '개코원숭', imagine: '이매진드래곤', superabbit: '슈퍼래빗뽀이',
-  balduncle: '대머리아저씨', andongki: '안똥끼',
+  balduncle: '대머리아저씨', andongki: '안똥끼', kkongryong: '꽁룡', ppokkattu: '뽀까뚜',
+  daewang: '대왕',
 };
-// 등장/수집 순서 (스테이지마다 20문제씩 이 순서로 테마가 바뀜)
+// 등장/수집 순서 (10문제마다 이 순서로 테마가 바뀜)
 export const ROSTER = [
-  'kongryong', 'poopbot', 'captainkorea', 'ppika', 'baboon',
-  'imagine', 'superabbit', 'balduncle', 'andongki',
+  'kongryong', 'balduncle', 'poopbot', 'andongki', 'ppika', 'captainkorea',
+  'baboon', 'imagine', 'superabbit', 'kkongryong', 'ppokkattu',
 ];
+// 도감 전체 목록 (대왕은 스테이지 후반 대결에서 획득)
+export const DEX = [...ROSTER, 'daewang'];
 // 월드 대표 마스코트 (맵 배너용)
 export const WORLD_MASCOT = { 1: 'kongryong', 2: 'poopbot', 3: 'captainkorea', 4: 'superabbit', 5: 'ppika' };
 
@@ -42,6 +45,9 @@ export const CHAR_THEME = {
   superabbit:  { c2: '#f3f4f8', c1: '#ffffff', accent: '#5b8def' },
   balduncle:   { c2: '#ffd9b3', c1: '#fff0e0', accent: '#c98a3a' },
   andongki:    { c2: '#b4814f', c1: '#e7cba6', accent: '#7a4f25' },
+  kkongryong:  { c2: '#f0a0c8', c1: '#fde3f0', accent: '#d0568f' },
+  ppokkattu:   { c2: '#ffb35c', c1: '#ffe9cc', accent: '#e07f1f' },
+  daewang:     { c2: '#8a6df0', c1: '#e3dbfb', accent: '#4a2fa8' },
 };
 
 // 캐릭터별 음성 대사 (센스있게, 캐릭터마다 말투 다름)
@@ -49,12 +55,20 @@ export const VOICE = {
   kongryong:   { hi: ['크앙! 나는 콩룡이야!'], ok: ['크앙! 정답이야!', '쿵쿵! 잘했어!', '공룡 파워 발동!'], no: ['크앙? 다시 해볼까?', '괜찮아, 또 도전!'] },
   poopbot:     { hi: ['삑삑! 뿡뿡봇 가동!'], ok: ['삑! 정답 처리 완료!', '뿌웅~ 멋진데?', '계산 정확도 백 퍼센트!'], no: ['삐빅, 오류! 다시!', '뿡… 한 번 더 가자!'] },
   captainkorea:{ hi: ['정의의 캡틴코리아 등장!'], ok: ['정의는 승리한다, 정답!', '훌륭해, 시민!', '방패처럼 단단한 정답!'], no: ['포기는 없다, 다시!', '히어로는 다시 일어선다!'] },
-  ppika:       { hi: ['삐까삐까!'], ok: ['삐까삐까! 번쩍 정답!', '찌릿! 맞았어!', '전기 충전 완료!'], no: ['찌직… 다시 해보까?', '삐… 한 번 더!'] },
+  ppika:       { hi: ['삐까쭈 등장! 삐까삐까!'], ok: ['삐까삐까! 번쩍 정답!', '찌릿! 맞았어!', '전기 충전 완료!'], no: ['찌직… 다시 해보까?', '삐… 한 번 더!'] },
   baboon:      { hi: ['우끼끼! 개코원숭이다!'], ok: ['우끼끼! 맞았어!', '바나나 줄게, 정답!', '끼끼끽 똑똑한걸!'], no: ['우끼? 다시 해봐!', '끽! 아쉽다, 또!'] },
   imagine:     { hi: ['용용~ 이매진드래곤!'], ok: ['용용 정답!', '불꽃처럼 뜨거운 정답!', '드래곤도 인정!'], no: ['용… 다시 날아보자!', '한 번 더 도전!'] },
   superabbit:  { hi: ['슈퍼래빗뽀이 출동!'], ok: ['슈퍼 점프 정답!', '깡총! 맞았어!', '당근 만점이야!'], no: ['깡총, 다시 가자!', '괜찮아, 또 점프!'] },
   balduncle:   { hi: ['허허, 대머리아저씨일세.'], ok: ['허허, 정답일세!', '아주 똑똑하구먼!', '반짝이는 정답이야!'], no: ['어이쿠, 아깝구먼~', '허허, 다시 해보게나.'] },
   andongki:    { hi: ['안녕, 안똥끼야!'], ok: ['오~ 똑똑한걸!', '말랑말랑 정답!', '안똥끼도 깜짝!'], no: ['에구, 다시 해볼까?', '괜찮아, 또 하면 돼!'] },
+  kkongryong:  { hi: ['꽁! 나는 꽁룡이야~'], ok: ['꽁꽁! 정답이야!', '분홍 파워 정답!', '꽁룡이 신났다!'], no: ['꽁… 다시 해보자!', '괜찮아, 꽁!'] },
+  ppokkattu:   { hi: ['뽀까뽀까! 뽀까뚜야!'], ok: ['뽀까! 대단해!', '뚜뚜~ 정답!', '뽀까뚜 인정!'], no: ['뽀… 아깝다!', '뚜… 한 번 더!'] },
+  daewang:     {
+    hi: ['크하하! 나는 대왕이다! 내 문제를 풀어보아라!'],
+    ok: ['호오, 제법이군!', '크윽, 정답이라니!', '실력이 대단하구나!'],
+    no: ['크하하! 아직 멀었군!', '내 문제는 쉽지 않지!'],
+    win: ['대단하군! 오늘은 내가 졌다. 다음에 보자!'],
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -180,6 +194,44 @@ const DRAW = {
     <path d="M38 54 Q40 38 50 38 Q60 38 62 54Z" fill=${P.andongki.c1} />
     <path d="M44 42 Q50 30 56 42Z" fill=${P.andongki.c2} />
     ${face(60, 9, 70)}
+  </g>`,
+
+  kkongryong: () => html`<g>
+    <path d="M28 72 Q8 62 16 46 Q20 58 30 60Z" fill=${P.kkongryong.c2} />
+    <path d="M38 24 q4 -10 10 0 q4 -12 10 0 q4 -8 8 2 l-28 4Z" fill=${P.kkongryong.accent} />
+    <ellipse cx="50" cy="56" rx="30" ry="29" fill=${P.kkongryong.c2} />
+    <ellipse cx="50" cy="64" rx="18" ry="16" fill=${P.kkongryong.c1} />
+    <rect x="33" y="80" width="12" height="14" rx="6" fill=${P.kkongryong.c2} />
+    <rect x="55" y="80" width="12" height="14" rx="6" fill=${P.kkongryong.c2} />
+    <path d="M36 42 q4 -4 8 0 M56 42 q4 -4 8 0" stroke="#2b2b3a" stroke-width="2.4" fill="none" stroke-linecap="round" />
+    <circle cx="41" cy="52" r="3.4" fill="#2b2b3a" /><circle cx="59" cy="52" r="3.4" fill="#2b2b3a" />
+    <circle cx="35" cy="59" r="3.4" fill="#ff9ac8" opacity=".8" /><circle cx="65" cy="59" r="3.4" fill="#ff9ac8" opacity=".8" />
+    <path d="M44 64 Q50 69 56 64" stroke="#2b2b3a" stroke-width="2.4" fill="none" stroke-linecap="round" />
+  </g>`,
+
+  ppokkattu: () => html`<g>
+    <path d="M50 12 q-3 8 0 12 M50 12 q5 6 2 12" stroke=${P.ppokkattu.accent} stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <ellipse cx="50" cy="58" rx="27" ry="28" fill=${P.ppokkattu.c2} />
+    <path d="M23 58 q-10 4 -6 14 q8 -2 10 -8Z" fill=${P.ppokkattu.accent} />
+    <path d="M77 58 q10 4 6 14 q-8 -2 -10 -8Z" fill=${P.ppokkattu.accent} />
+    <ellipse cx="50" cy="68" rx="16" ry="13" fill=${P.ppokkattu.c1} />
+    <polygon points="50,56 57,62 50,67 43,62" fill="#ff8f3f" />
+    <rect x="38" y="84" width="8" height="8" rx="3" fill="#ff8f3f" />
+    <rect x="54" y="84" width="8" height="8" rx="3" fill="#ff8f3f" />
+    ${face(48, 11, 0, { smile: false })}
+  </g>`,
+
+  daewang: () => html`<g>
+    <path d="M28 26 L34 12 L42 24 L50 8 L58 24 L66 12 L72 26Z" fill="#ffce4f" stroke="#e0a400" stroke-width="2" stroke-linejoin="round" />
+    <circle cx="34" cy="14" r="3" fill="#ff6b6b" /><circle cx="50" cy="10" r="3" fill="#5ad9ff" /><circle cx="66" cy="14" r="3" fill="#7bd88f" />
+    <ellipse cx="50" cy="60" rx="32" ry="32" fill=${P.daewang.c2} />
+    <ellipse cx="50" cy="70" rx="20" ry="17" fill=${P.daewang.c1} />
+    <path d="M34 44 l10 6 M66 44 l-10 6" stroke="#2b2b3a" stroke-width="3" stroke-linecap="round" />
+    <ellipse cx="41" cy="54" rx="6" ry="7" fill="#fff" /><ellipse cx="59" cy="54" rx="6" ry="7" fill="#fff" />
+    <circle cx="42" cy="55" r="3.2" fill="#2b2b3a" /><circle cx="58" cy="55" r="3.2" fill="#2b2b3a" />
+    <path d="M40 70 Q50 76 60 70" stroke="#2b2b3a" stroke-width="2.6" fill="none" stroke-linecap="round" />
+    <polygon points="43,70 46,76 49,70" fill="#fff" /><polygon points="51,70 54,76 57,70" fill="#fff" />
+    <path d="M20 74 q-8 6 -2 12 M80 74 q8 6 2 12" stroke=${P.daewang.accent} stroke-width="4" fill="none" stroke-linecap="round" />
   </g>`,
 };
 

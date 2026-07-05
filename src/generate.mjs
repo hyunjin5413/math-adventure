@@ -109,8 +109,9 @@ function stageId(stage) {
 }
 
 // ---- 캐릭터 테마 (characters.mjs ROSTER와 동일 순서) ------------------------
-const ROSTER = ['kongryong', 'poopbot', 'captainkorea', 'ppika', 'baboon', 'imagine', 'superabbit', 'balduncle', 'andongki'];
-const THEME_BLOCK = 20; // 20문제마다 테마(캐릭터) 전환
+const ROSTER = ['kongryong', 'balduncle', 'poopbot', 'andongki', 'ppika', 'captainkorea', 'baboon', 'imagine', 'superabbit', 'kkongryong', 'ppokkattu'];
+const THEME_BLOCK = 10; // 10문제마다 테마(캐릭터) 전환
+const BOSS_TAIL = 10;   // 각 스테이지 마지막 10문제 = 대왕 구간(조금 어렵게)
 function themesFor(stage) {
   const blocks = Math.max(1, Math.ceil(stage.problemCount / THEME_BLOCK));
   const offset = ((stage.n - 1) * 2) % ROSTER.length;
@@ -142,9 +143,20 @@ function generateStage(stage, variant) {
     prevSig = sig(p);
     problems.push(p);
   }
-  // 20문제 블록마다 테마(캐릭터) 부여
+  // 10문제 블록마다 테마(캐릭터) 부여
   const themes = themesFor(stage);
   problems.forEach((p, i) => { p.theme = themes[Math.min(themes.length - 1, Math.floor(i / THEME_BLOCK))]; });
+  // 마지막 10문제 = 대왕 구간: 보기 대신 키패드로(조금 어렵게), UI에서 대왕이 출제
+  const bossFrom = Math.max(0, problems.length - BOSS_TAIL);
+  for (let i = bossFrom; i < problems.length; i++) {
+    const p = problems[i];
+    p.bossSegment = true;
+    const def = SKILLS[p.skill];
+    if (typeof p.answer === 'number' && def && def.inputs.includes('keypad')) {
+      p.inputType = 'keypad';
+      delete p.choices;
+    }
+  }
   return problems;
 }
 

@@ -8,7 +8,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, WORLD_MASCOT, pickLine } from './characters.mjs';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, WORLD_MASCOT, VOICE, pickLine } from './characters.mjs';
 
 const html = htm.bind(React.createElement);
 const { useRef } = React;
@@ -90,7 +90,10 @@ const progKey = (id) => `ma-progress:${id}`;
 function loadProgress(id) {
   try {
     const p = JSON.parse(localStorage.getItem(progKey(id))) || {};
-    return { stars: p.stars || {}, collected: p.collected || [] };
+    // 구버전(문자열 배열) → {id, reason} 객체로 마이그레이션
+    const collected = (p.collected || []).map((c) =>
+      typeof c === 'string' ? { id: c, reason: '스테이지 클리어 보상' } : c);
+    return { stars: p.stars || {}, collected };
   } catch { return { stars: {}, collected: [] }; }
 }
 function saveProgress(id, p) { localStorage.setItem(progKey(id), JSON.stringify(p)); }
@@ -253,7 +256,7 @@ function starsFor(accuracy) {
 // ===========================================================================
 // 스테이지 플레이 화면
 // ===========================================================================
-function StagePlay({ stage, world, onExit, onComplete }) {
+function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete }) {
   const [idx, setIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
@@ -261,18 +264,33 @@ function StagePlay({ stage, world, onExit, onComplete }) {
   const [correct, setCorrect] = useState(0);
   const [wrongStreak, setWrongStreak] = useState(0);
   const [showHint, setShowHint] = useState(false);
-  const [feedback, setFeedback] = useState(null);  // 'ok' | 'no'
-  const [bubble, setBubble] = useState('');         // 캐릭터 대사
-  const [burst, setBurst] = useState(0);            // 정답 이펙트 트리거
+  const [feedback, setFeedback] = useState(null);   // 'ok' | 'no'
+  const [bubble, setBubble] = useState('');          // 캐릭터 대사
+  const [burst, setBurst] = useState(0);             // 정답 이펙트 트리거
+  const [discovery, setDiscovery] = useState(null);  // {id, title, reason} 친구 발견 팝업
   const [locked, setLocked] = useState(false);
   const startRef = useRef(performance.now());
+  const ownedRef = useRef(new Set(collectedIds));    // 이번 스테이지 중 수집분 포함
 
   const problem = stage.problems[idx];
   const total = stage.problems.length;
-  const theme = problem.theme || (stage.themes && stage.themes[0]) || WORLD_MASCOT[world];
+  const isBoss = !!problem.bossSegment;              // 마지막 10문제 = 대왕 구간
+  const theme = isBoss ? 'daewang' : (problem.theme || (stage.themes && stage.themes[0]) || WORLD_MASCOT[world]);
   const ct = CHAR_THEME[theme] || WORLD_THEME[world];
 
-  // 문제 등장 시: 테마가 새로 바뀌면 캐릭터 인사, 아니면 문제만 읽기
+  // 새 친구 발견 처리 (아직 없는 친구 중 무작위)
+  const discover = useCallback((title, reason) => {
+    const candidates = ROSTER.filter((c) => !ownedRef.current.has(c));
+    if (!candidates.length) return;
+    const id = candidates[Math.floor(Math.random() * candidates.length)];
+    ownedRef.current.add(id);
+    onDiscover(id, reason);
+    setDiscovery({ id, title, reason });
+    speak(`${title} ${CHAR_NAME[id]}!`);
+    setTimeout(() => setDiscovery(null), 1700);
+  }, [onDiscover]);
+
+  // 문제 등장 시: 테마가 새로 바뀌면 캐릭터 인사(대왕 구간 진입 시 대왕 등장 대사)
   const prevThemeRef = useRef(null);
   useEffect(() => {
     startRef.current = performance.now();
@@ -280,9 +298,9 @@ function StagePlay({ stage, world, onExit, onComplete }) {
     const themeChanged = prevThemeRef.current && prevThemeRef.current !== theme;
     prevThemeRef.current = theme;
     const id = setTimeout(() => {
-      if (themeChanged) { setBubble(pickLine(theme, 'hi', idx)); speak(pickLine(theme, 'hi', idx)); }
+      if (themeChanged) { const hi = pickLine(theme, 'hi', idx); setBubble(hi); speak(hi); }
       speak(problem.prompt.tts || problem.prompt.text);
-    }, themeChanged ? 250 : 250);
+    }, 250);
     return () => clearTimeout(id);
   }, [problem.id]);
 
@@ -301,6 +319,8 @@ function StagePlay({ stage, world, onExit, onComplete }) {
       setBurst((b) => b + 1);
       const line = pickLine(theme, 'ok', idx + newCombo);
       setBubble(line); speak(line);
+      // 8콤보 → 콤보 친구 발견!
+      if (newCombo === 8) setTimeout(() => discover('콤보 친구 발견!', '8콤보 달성'), 700);
     } else {
       setCombo(0);
       setWrongStreak((w) => w + 1);
@@ -311,32 +331,45 @@ function StagePlay({ stage, world, onExit, onComplete }) {
     setTimeout(() => {
       setFeedback(null); setBubble(''); setLocked(false);
       if (isCorrect) {
+        // 5문제마다 → 랜덤 친구 발견!
+        if ((idx + 1) % 5 === 0 && idx + 1 < total) discover('친구 발견!', `문제 ${idx + 1}개 해결`);
         if (idx + 1 >= total) finish(correct + 1);
         else setIdx(idx + 1);
       } else if (wrongStreak + 1 >= 2) setShowHint(true);
     }, isCorrect ? 1100 : 950);
-  }, [combo, idx, total, correct, wrongStreak, theme]);
+  }, [combo, idx, total, correct, wrongStreak, theme, discover]);
 
   function finish(finalCorrect) {
     const accuracy = finalCorrect / total;
     const stars = starsFor(accuracy);
-    onComplete({ score, maxCombo, accuracy, stars, finalCorrect, total });
+    // 대왕의 항복 대사
+    speak(VOICE.daewang.win[0]);
+    onComplete({ score, maxCombo, accuracy, stars, finalCorrect, total, beatBoss: stars > 0 });
   }
 
   const wt = WORLD_THEME[world] || WORLD_THEME[1];
   const buddyAnim = feedback === 'ok' ? 'bounce' : feedback === 'no' ? 'wiggle' : 'float';
-  return html`<div class="play theme" style=${{ '--wc1': wt.c1, '--wc2': wt.c2 }}>
-    ${feedback === 'ok' ? html`<${CorrectBurst} key=${burst} color=${ct.accent} />` : null}
+  const blocks = stage.themes || [];
+  const curBlock = Math.min(blocks.length - 1, Math.floor(idx / 10));
+  return html`<div class=${`play theme ${isBoss ? 'bossmode' : ''}`} style=${{ '--wc1': isBoss ? '#d9ccff' : wt.c1, '--wc2': wt.c2 }}>
+    ${feedback === 'ok' ? html`<${CorrectBurst} key=${burst} color=${ct.accent} /> ` : null}
+    ${discovery ? html`<${DiscoveryPopup} d=${discovery} />` : null}
     <div class="progress"><div style=${{ width: `${(idx / total) * 100}%` }}></div></div>
     <div class="play-head">
       <button class="btn ghost back" onClick=${onExit}><${Icon} name="back" size=${24} color="#8a8472" /> 나가기</button>
+      <div class="blockbar">
+        ${blocks.map((b, i) => html`<div key=${i} class=${`block-chip ${i === curBlock ? 'on' : ''} ${i < curBlock ? 'done' : ''}`}>
+          <${Character} kind=${i === blocks.length - 1 ? 'daewang' : b} size=${30} anim="none" />
+        </div>`)}
+      </div>
       <div class="spacer"></div>
       <div class="pill">${idx + 1} / ${total}</div>
-      ${combo >= 2 ? html`<div class="combo"><${Icon} name="bolt" size=${22} color="#ff8f3f" /> ${combo} 콤보</div>` : null}
+      ${combo >= 2 ? html`<div class="combo"><${Icon} name="bolt" size=${22} color="#ff8f3f" /> ${combo}</div>` : null}
       <div class="pill"><${Icon} name="star" size=${20} color="#ffce4f" /> ${score}</div>
     </div>
 
     <div class="stage-main">
+      ${isBoss ? html`<div class="boss-banner">대왕의 도전!</div>` : null}
       <div class="prompt-row">
         <button class="speak-btn" onClick=${() => speak(problem.prompt.tts || problem.prompt.text)}><${Icon} name="speaker" size=${32} color="#7a5a16" /></button>
         <div class="prompt">${problem.prompt.text}</div>
@@ -349,9 +382,22 @@ function StagePlay({ stage, world, onExit, onComplete }) {
       <${InputArea} problem=${problem} locked=${locked} onAnswer=${handleAnswer} />
     </div>
 
-    <div class="buddy">
+    <div class=${`buddy ${isBoss ? 'boss' : ''}`}>
       ${bubble ? html`<div class=${`bubble ${feedback || ''}`}>${bubble}</div>` : null}
-      <${Character} key=${buddyAnim + idx + (feedback || '')} kind=${theme} size=${104} anim=${buddyAnim} />
+      <${Character} key=${buddyAnim + idx + (feedback || '')} kind=${theme} size=${isBoss ? 140 : 104} anim=${buddyAnim} />
+    </div>
+  </div>`;
+}
+
+// 친구 발견 팝업
+function DiscoveryPopup({ d }) {
+  const ct = CHAR_THEME[d.id];
+  return html`<div class="discover">
+    <div class="discover-card" style=${{ background: `linear-gradient(180deg, ${ct.c1}, #fff)` }}>
+      <div class="discover-title">${d.title}</div>
+      <${Character} kind=${d.id} size=${120} anim="bounce" />
+      <div class="discover-name">${CHAR_NAME[d.id]}</div>
+      <div class="discover-reason">${d.reason}</div>
     </div>
   </div>`;
 }
@@ -503,27 +549,45 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection }) {
 // 도감 (모은 캐릭터)
 // ===========================================================================
 function Collection({ progress, onBack }) {
-  const got = new Set(progress.collected || []);
+  const entries = new Map((progress.collected || []).map((c) => [c.id, c]));
+  const [selected, setSelected] = useState(null); // 탭한 캐릭터 entry
   return html`<div>
     <div class="topbar">
       <button class="btn ghost back" onClick=${onBack}><${Icon} name="back" size=${24} color="#8a8472" /> 맵으로</button>
       <div class="title" style=${{ marginLeft: '8px' }}>친구 도감</div>
       <div class="spacer"></div>
-      <div class="pill">${got.size} / ${ROSTER.length}</div>
+      <div class="pill">${entries.size} / ${DEX.length}</div>
     </div>
     <div class="collection">
-      ${ROSTER.map((k) => {
-        const owned = got.has(k);
+      ${DEX.map((k) => {
+        const entry = entries.get(k);
         const ct = CHAR_THEME[k];
-        return html`<div key=${k} class=${`dex-card ${owned ? 'owned' : 'locked'}`}
-          style=${owned ? { background: `linear-gradient(180deg, ${ct.c1}, #fff)` } : {}}>
-          ${owned
+        return html`<div key=${k} class=${`dex-card ${entry ? 'owned' : 'locked'}`}
+          style=${entry ? { background: `linear-gradient(180deg, ${ct.c1}, #fff)` } : {}}
+          onClick=${() => entry && setSelected(entry)}>
+          ${entry
             ? html`<${Character} kind=${k} size=${96} anim="float" />`
             : html`<div class="dex-silhouette"><${Character} kind=${k} size=${96} anim="none" /></div>`}
-          <div class="dex-name">${owned ? CHAR_NAME[k] : '???'}</div>
+          <div class="dex-name">${entry ? CHAR_NAME[k] : '???'}</div>
         </div>`;
       })}
     </div>
+    ${selected ? html`<div class="dex-modal" onClick=${() => setSelected(null)}>
+      <div class="dex-modal-card" style=${{ background: `linear-gradient(180deg, ${CHAR_THEME[selected.id].c1}, #fff)` }}
+        onClick=${(e) => e.stopPropagation()}>
+        <${Character} kind=${selected.id} size=${150} anim="bounce" />
+        <div class="dex-modal-name">${CHAR_NAME[selected.id]}</div>
+        <div class="dex-modal-reason">
+          <${Icon} name="gift" size=${20} color=${CHAR_THEME[selected.id].accent} />
+          ${selected.reason}
+        </div>
+        ${VOICE[selected.id] ? html`<button class="btn ghost" style=${{ minHeight: '46px', fontSize: '16px' }}
+          onClick=${() => speak(pickLine(selected.id, 'hi', 0))}>
+          <${Icon} name="speaker" size=${18} color="#8a8472" /> 인사 듣기
+        </button>` : null}
+        <button class="btn green" style=${{ minHeight: '48px' }} onClick=${() => setSelected(null)}>닫기</button>
+      </div>
+    </div>` : null}
   </div>`;
 }
 
@@ -565,8 +629,8 @@ function LoginScreen({ onLogin }) {
 
   return html`<div class="login">
     <div class="login-mascots">
-      ${['poopbot', 'ppika', 'baboon', 'captainkorea', 'imagine', 'superabbit', 'andongki', 'balduncle'].map((k, i) => html`<${Character}
-        key=${k} kind=${k} size=${74} anim="float"
+      ${['poopbot', 'ppika', 'baboon', 'captainkorea', 'kkongryong', 'imagine', 'superabbit', 'ppokkattu', 'andongki', 'balduncle'].map((k, i) => html`<${Character}
+        key=${k} kind=${k} size=${70} anim="float"
         style=${{ animationDelay: `${(i % 4) * 0.4}s` }} />`)}
     </div>
     <div class="login-card">
@@ -637,13 +701,25 @@ function App() {
 
   const playStage = useCallback((stage) => setView({ name: 'play', stage }), []);
 
+  // 플레이 중 친구 발견 → 즉시 도감에 저장
+  const addToDex = useCallback((id, reason) => {
+    setProgress((prev) => {
+      if ((prev.collected || []).some((c) => c.id === id)) return prev;
+      const next = { ...prev, collected: [...(prev.collected || []), { id, reason }] };
+      if (user) saveProgress(user, next);
+      return next;
+    });
+  }, [user]);
+
   const completeStage = useCallback((stage, result) => {
     setProgress((prev) => {
       const next = { ...prev, stars: { ...prev.stars }, collected: [...(prev.collected || [])] };
       next.stars[stage.n] = Math.max(next.stars[stage.n] || 0, result.stars);
-      // 클리어(별 1개 이상) 시 이 스테이지에 등장한 캐릭터를 도감에 수집
+      const add = (id, reason) => { if (!next.collected.some((c) => c.id === id)) next.collected.push({ id, reason }); };
       if (result.stars > 0) {
-        for (const c of stage.themes || []) if (!next.collected.includes(c)) next.collected.push(c);
+        // 이 스테이지에서 만난 친구들 + 대왕 물리치기
+        for (const c of stage.themes || []) add(c, `스테이지 ${stage.n}에서 만남`);
+        if (result.beatBoss) add('daewang', `스테이지 ${stage.n} 대왕과의 대결 승리`);
       }
       if (user) saveProgress(user, next);
       return next;
@@ -672,6 +748,8 @@ function App() {
       key=${view.stage.n}
       stage=${view.stage}
       world=${view.stage.world}
+      collectedIds=${(progress.collected || []).map((c) => c.id)}
+      onDiscover=${addToDex}
       onExit=${() => setView({ name: 'map' })}
       onComplete=${(result) => completeStage(view.stage, result)} />`;
   } else if (view.name === 'result') {
