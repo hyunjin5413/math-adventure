@@ -8,7 +8,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, WORLD_CHARS, WORLD_LABEL, WORLD_MASCOT, VOICE, pickLine } from './characters.mjs';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs';
 import { serverGet, serverPut } from './sync.mjs';
 
 const html = htm.bind(React.createElement);
@@ -158,14 +158,44 @@ function saveProgress(id, p) {
 }
 
 // ---- TTS (읽기 보조, §8.3) -------------------------------------------------
-function speak(text) {
+// 기기에서 가장 자연스러운 한국어 보이스를 자동 선택하고,
+// 캐릭터별로 다른 보이스/음높이/속도를 입힌다.
+let KO_VOICES = [];
+function refreshVoices() {
+  if (!('speechSynthesis' in window)) return;
+  const all = window.speechSynthesis.getVoices() || [];
+  const ko = all.filter((v) => (v.lang || '').toLowerCase().startsWith('ko'));
+  // 자연스러운 보이스 우선 정렬: Google/Apple(유나·소라 등)/MS 뉴럴 계열 먼저
+  const score = (v) => {
+    const n = (v.name || '').toLowerCase();
+    if (n.includes('google')) return 0;
+    if (/(yuna|유나|sora|소라|damayanti|jimin|지민)/.test(n)) return 1;
+    if (/(sunhi|injoon|heami|natural|neural|online)/.test(n)) return 2;
+    if (v.localService === false) return 3; // 원격(보통 고품질)
+    return 4;
+  };
+  KO_VOICES = ko.sort((a, b) => score(a) - score(b));
+}
+if ('speechSynthesis' in window) {
+  refreshVoices();
+  window.speechSynthesis.onvoiceschanged = refreshVoices;
+}
+
+function speakRaw(text, { pitch = 1, rate = 0.95, v = 0 } = {}) {
   if (!text || !('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'ko-KR';
-  u.rate = 0.95;
+  u.pitch = pitch;
+  u.rate = rate;
+  if (KO_VOICES.length) u.voice = KO_VOICES[v % KO_VOICES.length];
   window.speechSynthesis.speak(u);
 }
+
+// 문제/안내용 기본 목소리 (가장 자연스러운 보이스, 또렷하게)
+function speak(text) { speakRaw(text, { pitch: 1, rate: 0.95, v: 0 }); }
+// 캐릭터 대사용 목소리 (캐릭터별 개성)
+function speakAs(charId, text) { speakRaw(text, VOICE_STYLE[charId] || {}); }
 
 // ===========================================================================
 // 시각 보조 컴포넌트 (visual.type → 그림). 이모지 없이 전부 SVG.
@@ -331,8 +361,10 @@ function StagePlay({ stage, world, onExit, onComplete }) {
 
   const problem = stage.problems[idx];
   const total = stage.problems.length;
-  const isBoss = !!problem.bossSegment;              // 마지막 10문제 = 대왕 구간
-  const theme = isBoss ? 'daewang' : (problem.theme || (stage.themes && stage.themes[0]) || WORLD_MASCOT[world]);
+  const isBoss = !!problem.bossSegment;              // 마지막 10문제 = 보스 구간
+  // 보스: 20번째(보스 스테이지)는 월드 보스, 일반 스테이지는 대왕
+  const bossChar = stage.type === 'boss' ? (WORLD_BOSS[world] || 'daewang') : 'daewang';
+  const theme = isBoss ? bossChar : (problem.theme || (stage.themes && stage.themes[0]) || WORLD_MASCOT[world]);
   const ct = CHAR_THEME[theme] || WORLD_THEME[world];
 
   // 문제 등장 시: 테마가 새로 바뀌면 캐릭터 인사(대왕 구간 진입 시 대왕 등장 대사)
@@ -343,8 +375,14 @@ function StagePlay({ stage, world, onExit, onComplete }) {
     const themeChanged = prevThemeRef.current && prevThemeRef.current !== theme;
     prevThemeRef.current = theme;
     const id = setTimeout(() => {
-      if (themeChanged) { const hi = pickLine(theme, 'hi', idx); setBubble(hi); speak(hi); }
-      speak(problem.prompt.tts || problem.prompt.text);
+      if (themeChanged) {
+        const hi = pickLine(theme, 'hi', idx);
+        setBubble(hi); speakAs(theme, hi);
+        // 인사 후 문제 읽기
+        setTimeout(() => speak(problem.prompt.tts || problem.prompt.text), 2200);
+      } else {
+        speak(problem.prompt.tts || problem.prompt.text);
+      }
     }, 250);
     return () => clearTimeout(id);
   }, [problem.id]);
@@ -363,13 +401,13 @@ function StagePlay({ stage, world, onExit, onComplete }) {
       setFeedback('ok');
       setBurst((b) => b + 1);
       const line = pickLine(theme, 'ok', idx + newCombo);
-      setBubble(line); speak(line);
+      setBubble(line); speakAs(theme, line);
     } else {
       setCombo(0);
       setWrongStreak((w) => w + 1);
       setFeedback('no');
       const line = pickLine(theme, 'no', idx + wrongStreak);
-      setBubble(line); speak(line);
+      setBubble(line); speakAs(theme, line);
     }
     setTimeout(() => {
       setFeedback(null); setBubble(''); setLocked(false);
@@ -383,8 +421,9 @@ function StagePlay({ stage, world, onExit, onComplete }) {
   function finish(finalCorrect) {
     const accuracy = finalCorrect / total;
     const stars = starsFor(accuracy);
-    // 대왕의 항복 대사
-    speak(VOICE.daewang.win[0]);
+    // 보스의 항복 대사 (월드 보스 or 대왕)
+    const winLines = (VOICE[bossChar] && VOICE[bossChar].win) || VOICE.daewang.win;
+    speakAs(bossChar, winLines[0]);
     onComplete({ score, maxCombo, accuracy, stars, finalCorrect, total, beatBoss: stars > 0 });
   }
 
@@ -399,7 +438,7 @@ function StagePlay({ stage, world, onExit, onComplete }) {
       <button class="btn ghost back" onClick=${onExit}><${Icon} name="back" size=${24} color="#8a8472" /> 나가기</button>
       <div class="blockbar">
         ${blocks.map((b, i) => html`<div key=${i} class=${`block-chip ${i === curBlock ? 'on' : ''} ${i < curBlock ? 'done' : ''}`}>
-          <${Character} kind=${i === blocks.length - 1 ? 'daewang' : b} size=${30} anim="none" />
+          <${Character} kind=${i === blocks.length - 1 ? bossChar : b} size=${30} anim="none" />
         </div>`)}
       </div>
       <div class="spacer"></div>
@@ -409,7 +448,7 @@ function StagePlay({ stage, world, onExit, onComplete }) {
     </div>
 
     <div class="stage-main">
-      ${isBoss ? html`<div class="boss-banner">대왕의 도전!</div>` : null}
+      ${isBoss ? html`<div class="boss-banner">${CHAR_NAME[bossChar]}의 도전!</div>` : null}
       <div class="prompt-row">
         <button class="speak-btn" onClick=${() => speak(problem.prompt.tts || problem.prompt.text)}><${Icon} name="speaker" size=${32} color="#7a5a16" /></button>
         <div class="prompt">${problem.prompt.text}</div>
@@ -485,7 +524,7 @@ function ResultScreen({ stage, result, world, discovery, onNext, onRetry, onMap 
   const chars = stage.themes && stage.themes.length ? stage.themes : [WORLD_MASCOT[world]];
   useEffect(() => {
     speak(passed ? '참 잘했어요!' : '다시 도전해 볼까요?');
-    if (discovery) setTimeout(() => speak(`새 친구 발견! ${CHAR_NAME[discovery.id]}!`), 1400);
+    if (discovery) setTimeout(() => speakAs(discovery.id, `새 친구 발견! ${CHAR_NAME[discovery.id]}! ${pickLine(discovery.id, 'hi', 0)}`), 1400);
   }, []);
   return html`<div class="result">
     ${passed ? html`<${Confetti} />` : null}
@@ -582,7 +621,7 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection }) {
                 ${s.type === 'mini_review' ? html`<div class="badge"><${Icon} name="refresh" size=${18} color="#fff" /></div>` : null}
                 ${unlocked
                   ? (s.type === 'boss'
-                      ? html`<${Character} kind=${WORLD_MASCOT[w.id]} size=${44} anim="none" />`
+                      ? html`<${Character} kind=${WORLD_BOSS[w.id]} size=${46} anim="none" />`
                       : s.stageInWorld)
                   : html`<${Icon} name="lock" size=${26} color="#b3ab93" />`}
                 ${stars > 0 ? html`<div class="stars">${range(stars).map((i) => html`<${Icon} key=${i} name="star" size=${13} color="#ffce4f" />`)}</div>` : null}
@@ -635,9 +674,11 @@ function Collection({ progress, onBack }) {
         </div>`;
       })}
       <div class="dex-section">
-        <div class="dex-sec-head" style=${{ color: '#4a2fa8' }}>특별 친구</div>
+        <div class="dex-sec-head" style=${{ color: '#4a2fa8' }}>
+          보스 친구들 <span class="dex-sec-count">${SPECIALS.filter((k) => entries.has(k)).length}/${SPECIALS.length}</span>
+        </div>
         <div class="collection">
-          <${DexCard} k="daewang" entry=${entries.get('daewang')} onSelect=${setSelected} />
+          ${SPECIALS.map((k) => html`<${DexCard} key=${k} k=${k} entry=${entries.get(k)} onSelect=${setSelected} />`)}
         </div>
       </div>
     </div>
@@ -651,7 +692,7 @@ function Collection({ progress, onBack }) {
           ${selected.reason}
         </div>
         ${VOICE[selected.id] ? html`<button class="btn ghost" style=${{ minHeight: '46px', fontSize: '16px' }}
-          onClick=${() => speak(pickLine(selected.id, 'hi', 0))}>
+          onClick=${() => speakAs(selected.id, pickLine(selected.id, 'hi', 0))}>
           <${Icon} name="speaker" size=${18} color="#8a8472" /> 인사 듣기
         </button>` : null}
         <button class="btn green" style=${{ minHeight: '48px' }} onClick=${() => setSelected(null)}>닫기</button>
@@ -784,8 +825,15 @@ function App() {
         return true;
       };
       if (result.stars > 0) {
-        // 대왕 물리치기(최초 1회)
-        if (result.beatBoss) add('daewang', `스테이지 ${stage.n} 대왕과의 대결 승리`);
+        // 보스 물리치기(최초 1회): 보스 스테이지=월드 보스, 일반=대왕
+        if (result.beatBoss) {
+          if (stage.type === 'boss') {
+            const b = WORLD_BOSS[stage.world];
+            add(b, `W${stage.world} 보스 ${CHAR_NAME[b]} 물리치기`);
+          } else {
+            add('daewang', `스테이지 ${stage.n} 대왕과의 대결 승리`);
+          }
+        }
         // 스테이지 4개 완료마다 → 새 친구 발견! (지금 월드 친구 우선)
         if (firstClear) {
           const clearedCount = Object.values(next.stars).filter((s) => s > 0).length;

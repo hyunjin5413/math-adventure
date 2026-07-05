@@ -15402,7 +15402,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15430,7 +15430,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15458,7 +15458,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15486,7 +15486,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15514,7 +15514,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15542,7 +15542,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15570,7 +15570,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15598,7 +15598,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15626,7 +15626,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15654,7 +15654,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15682,7 +15682,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15710,7 +15710,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15738,7 +15738,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15766,7 +15766,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15794,7 +15794,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15822,7 +15822,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15850,7 +15850,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15878,7 +15878,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15906,7 +15906,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15934,7 +15934,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15962,7 +15962,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -15990,7 +15990,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16018,7 +16018,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16046,7 +16046,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16074,7 +16074,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16102,7 +16102,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16130,7 +16130,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16158,7 +16158,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16186,7 +16186,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16214,7 +16214,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16242,7 +16242,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16271,7 +16271,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16557,7 +16557,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16585,7 +16585,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16613,7 +16613,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16641,7 +16641,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16669,7 +16669,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16697,7 +16697,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16725,7 +16725,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16753,7 +16753,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16781,7 +16781,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16809,7 +16809,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16837,7 +16837,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16865,7 +16865,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16893,7 +16893,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16921,7 +16921,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16949,7 +16949,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -16977,7 +16977,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17005,7 +17005,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17033,7 +17033,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17061,7 +17061,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17089,7 +17089,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17117,7 +17117,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17145,7 +17145,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17173,7 +17173,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17201,7 +17201,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17229,7 +17229,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17257,7 +17257,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17285,7 +17285,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17313,7 +17313,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17341,7 +17341,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17369,7 +17369,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17397,7 +17397,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17426,7 +17426,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17512,7 +17512,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17651,7 +17651,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -17719,7 +17719,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 3 를 모으면?",
+            "text": "3과 3을 모으면?",
             "tts": "삼과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -17749,7 +17749,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 2 를 모으면?",
+            "text": "6과 2를 모으면?",
             "tts": "육과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -17779,7 +17779,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 5 를 모으면?",
+            "text": "3과 5를 모으면?",
             "tts": "삼과 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -17809,7 +17809,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 2 를 모으면?",
+            "text": "4와 2를 모으면?",
             "tts": "사와 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -17839,7 +17839,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 1 를 모으면?",
+            "text": "8과 1을 모으면?",
             "tts": "팔과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -17869,7 +17869,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 3 를 모으면?",
+            "text": "7과 3을 모으면?",
             "tts": "칠과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -17899,7 +17899,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 2 를 모으면?",
+            "text": "8과 2를 모으면?",
             "tts": "팔과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -17929,7 +17929,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 1 를 모으면?",
+            "text": "9와 1을 모으면?",
             "tts": "구와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -17959,7 +17959,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 5 를 모으면?",
+            "text": "4와 5를 모으면?",
             "tts": "사와 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -17989,7 +17989,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 3 를 모으면?",
+            "text": "2와 3을 모으면?",
             "tts": "이와 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18019,7 +18019,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 1 를 모으면?",
+            "text": "6과 1을 모으면?",
             "tts": "육과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18049,7 +18049,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 3 를 모으면?",
+            "text": "6과 3을 모으면?",
             "tts": "육과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18079,7 +18079,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 1 를 모으면?",
+            "text": "5와 1을 모으면?",
             "tts": "오와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18109,7 +18109,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 1 를 모으면?",
+            "text": "2와 1을 모으면?",
             "tts": "이와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18139,7 +18139,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 5 를 모으면?",
+            "text": "5와 5를 모으면?",
             "tts": "오와 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18169,7 +18169,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 8 를 모으면?",
+            "text": "2와 8을 모으면?",
             "tts": "이와 팔을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18199,7 +18199,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 4 를 모으면?",
+            "text": "4와 4를 모으면?",
             "tts": "사와 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18229,7 +18229,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 2 를 모으면?",
+            "text": "1과 2를 모으면?",
             "tts": "일과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18259,7 +18259,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 1 를 모으면?",
+            "text": "7과 1을 모으면?",
             "tts": "칠과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18289,7 +18289,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 3 를 모으면?",
+            "text": "4와 3을 모으면?",
             "tts": "사와 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18319,7 +18319,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 4 를 모으면?",
+            "text": "5와 4를 모으면?",
             "tts": "오와 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18349,7 +18349,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 7 를 모으면?",
+            "text": "1과 7을 모으면?",
             "tts": "일과 칠을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18379,7 +18379,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 2 를 모으면?",
+            "text": "3과 2를 모으면?",
             "tts": "삼과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18409,7 +18409,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 2 를 모으면?",
+            "text": "2와 2를 모으면?",
             "tts": "이와 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18439,7 +18439,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 4 를 모으면?",
+            "text": "6과 4를 모으면?",
             "tts": "육과 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18469,7 +18469,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 2 를 모으면?",
+            "text": "5와 2를 모으면?",
             "tts": "오와 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18499,7 +18499,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 3 를 모으면?",
+            "text": "5와 3을 모으면?",
             "tts": "오와 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18529,7 +18529,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 1 를 모으면?",
+            "text": "4와 1을 모으면?",
             "tts": "사와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18559,7 +18559,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 9 를 모으면?",
+            "text": "1과 9를 모으면?",
             "tts": "일과 구를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18589,7 +18589,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 2 를 모으면?",
+            "text": "7과 2를 모으면?",
             "tts": "칠과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18619,7 +18619,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 5 를 모으면?",
+            "text": "1과 5를 모으면?",
             "tts": "일과 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -18645,7 +18645,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 6 를 모으면?",
+            "text": "4와 6을 모으면?",
             "tts": "사와 육을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18728,7 +18728,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -18872,7 +18872,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -18941,7 +18941,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 6 를 모으면?",
+            "text": "4와 6을 모으면?",
             "tts": "사와 육을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18966,7 +18966,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 1 를 모으면?",
+            "text": "8과 1을 모으면?",
             "tts": "팔과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -18991,7 +18991,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 4 를 모으면?",
+            "text": "2와 4를 모으면?",
             "tts": "이와 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19016,7 +19016,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 1 를 모으면?",
+            "text": "9와 1을 모으면?",
             "tts": "구와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19041,7 +19041,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 5 를 모으면?",
+            "text": "5와 5를 모으면?",
             "tts": "오와 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19066,7 +19066,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 8 를 모으면?",
+            "text": "2와 8을 모으면?",
             "tts": "이와 팔을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19091,7 +19091,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 3 를 모으면?",
+            "text": "7과 3을 모으면?",
             "tts": "칠과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19116,7 +19116,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 2 를 모으면?",
+            "text": "4와 2를 모으면?",
             "tts": "사와 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19141,7 +19141,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 1 를 모으면?",
+            "text": "5와 1을 모으면?",
             "tts": "오와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19166,7 +19166,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 3 를 모으면?",
+            "text": "4와 3을 모으면?",
             "tts": "사와 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19191,7 +19191,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 3 를 모으면?",
+            "text": "1과 3을 모으면?",
             "tts": "일과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19216,7 +19216,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 2 를 모으면?",
+            "text": "8과 2를 모으면?",
             "tts": "팔과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19241,7 +19241,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 3 를 모으면?",
+            "text": "3과 3을 모으면?",
             "tts": "삼과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19266,7 +19266,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 2 를 모으면?",
+            "text": "6과 2를 모으면?",
             "tts": "육과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19291,7 +19291,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 4 를 모으면?",
+            "text": "4와 4를 모으면?",
             "tts": "사와 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19316,7 +19316,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 1 를 모으면?",
+            "text": "3과 1을 모으면?",
             "tts": "삼과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19341,7 +19341,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 5 를 모으면?",
+            "text": "3과 5를 모으면?",
             "tts": "삼과 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19366,7 +19366,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 1 를 모으면?",
+            "text": "7과 1을 모으면?",
             "tts": "칠과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19391,7 +19391,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 5 를 모으면?",
+            "text": "1과 5를 모으면?",
             "tts": "일과 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19416,7 +19416,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 6 를 모으면?",
+            "text": "1과 6을 모으면?",
             "tts": "일과 육을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19441,7 +19441,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 7 를 모으면?",
+            "text": "3과 7을 모으면?",
             "tts": "삼과 칠을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19466,7 +19466,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 3 를 모으면?",
+            "text": "2와 3을 모으면?",
             "tts": "이와 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19491,7 +19491,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 1 를 모으면?",
+            "text": "4와 1을 모으면?",
             "tts": "사와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19516,7 +19516,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 1 를 모으면?",
+            "text": "6과 1을 모으면?",
             "tts": "육과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19541,7 +19541,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 5 를 모으면?",
+            "text": "4와 5를 모으면?",
             "tts": "사와 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19566,7 +19566,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 3 를 모으면?",
+            "text": "5와 3을 모으면?",
             "tts": "오와 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19591,7 +19591,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 2 를 모으면?",
+            "text": "3과 2를 모으면?",
             "tts": "삼과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19616,7 +19616,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 2 를 모으면?",
+            "text": "7과 2를 모으면?",
             "tts": "칠과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19641,7 +19641,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 6 를 모으면?",
+            "text": "2와 6을 모으면?",
             "tts": "이와 육을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19666,7 +19666,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 3 를 모으면?",
+            "text": "6과 3을 모으면?",
             "tts": "육과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -19691,7 +19691,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 4 를 모으면?",
+            "text": "5와 4를 모으면?",
             "tts": "오와 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19717,7 +19717,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 5 를 모으면?",
+            "text": "2와 5를 모으면?",
             "tts": "이와 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -19800,7 +19800,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -19829,7 +19829,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 4 를 모으면?",
+            "text": "6과 4를 모으면?",
             "tts": "육과 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -20034,7 +20034,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20062,7 +20062,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 4 를 모으면?",
+            "text": "1과 4를 모으면?",
             "tts": "일과 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -20117,7 +20117,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20145,7 +20145,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 1 를 모으면?",
+            "text": "4와 1을 모으면?",
             "tts": "사와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -20200,7 +20200,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20228,7 +20228,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 1 를 모으면?",
+            "text": "9와 1을 모으면?",
             "tts": "구와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -20278,7 +20278,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20306,7 +20306,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 5 를 모으면?",
+            "text": "5와 5를 모으면?",
             "tts": "오와 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -20361,7 +20361,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20389,7 +20389,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 2 를 모으면?",
+            "text": "4와 2를 모으면?",
             "tts": "사와 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -20444,7 +20444,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20472,7 +20472,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 1 를 모으면?",
+            "text": "5와 1을 모으면?",
             "tts": "오와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -20527,7 +20527,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20555,7 +20555,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 6 를 모으면?",
+            "text": "2와 6을 모으면?",
             "tts": "이와 육을 모으면 얼마일까요?"
           },
           "operands": [
@@ -20610,7 +20610,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20638,7 +20638,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 1 를 모으면?",
+            "text": "8과 1을 모으면?",
             "tts": "팔과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -20693,7 +20693,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20721,7 +20721,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 2 를 모으면?",
+            "text": "8과 2를 모으면?",
             "tts": "팔과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -20776,7 +20776,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20804,7 +20804,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 6 를 모으면?",
+            "text": "3과 6을 모으면?",
             "tts": "삼과 육을 모으면 얼마일까요?"
           },
           "operands": [
@@ -20855,7 +20855,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20884,7 +20884,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 5 를 모으면?",
+            "text": "2와 5를 모으면?",
             "tts": "이와 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -20936,7 +20936,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -20965,7 +20965,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 4 를 모으면?",
+            "text": "3과 4를 모으면?",
             "tts": "삼과 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -21017,7 +21017,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -21046,7 +21046,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 7 를 모으면?",
+            "text": "2와 7을 모으면?",
             "tts": "이와 칠을 모으면 얼마일까요?"
           },
           "operands": [
@@ -21167,7 +21167,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -21195,7 +21195,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 2 를 모으면?",
+            "text": "7과 2를 모으면?",
             "tts": "칠과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -21273,7 +21273,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -21301,7 +21301,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 1 를 모으면?",
+            "text": "8과 1을 모으면?",
             "tts": "팔과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -21379,7 +21379,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -21407,7 +21407,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 4 를 모으면?",
+            "text": "6과 4를 모으면?",
             "tts": "육과 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -21495,7 +21495,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -21523,7 +21523,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 8 를 모으면?",
+            "text": "2와 8을 모으면?",
             "tts": "이와 팔을 모으면 얼마일까요?"
           },
           "operands": [
@@ -21606,7 +21606,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -21634,7 +21634,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 1 를 모으면?",
+            "text": "9와 1을 모으면?",
             "tts": "구와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -21717,7 +21717,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -21745,7 +21745,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 3 를 모으면?",
+            "text": "7과 3을 모으면?",
             "tts": "칠과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -21823,7 +21823,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -21851,7 +21851,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 2 를 모으면?",
+            "text": "3과 2를 모으면?",
             "tts": "삼과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -21934,7 +21934,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -21962,7 +21962,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 1 를 모으면?",
+            "text": "1과 1을 모으면?",
             "tts": "일과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -22038,7 +22038,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -22067,7 +22067,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 7 를 모으면?",
+            "text": "2와 7을 모으면?",
             "tts": "이와 칠을 모으면 얼마일까요?"
           },
           "operands": [
@@ -22143,7 +22143,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -22172,7 +22172,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 2 를 모으면?",
+            "text": "1과 2를 모으면?",
             "tts": "일과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -24350,7 +24350,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 6과 몇으로 가를 수 있나요?",
             "tts": "십은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24380,7 +24380,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 4와 몇으로 가를 수 있나요?",
             "tts": "오는 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24410,7 +24410,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 1과 몇으로 가를 수 있나요?",
             "tts": "오는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24440,7 +24440,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 4와 몇으로 가를 수 있나요?",
             "tts": "십은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24470,7 +24470,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 2와 몇으로 가를 수 있나요?",
             "tts": "사는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24500,7 +24500,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 2와 몇으로 가를 수 있나요?",
             "tts": "오는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24530,7 +24530,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 6과 몇으로 가를 수 있나요?",
             "tts": "칠은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24560,7 +24560,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 2와 몇으로 가를 수 있나요?",
             "tts": "팔은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24590,7 +24590,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 2와 몇으로 가를 수 있나요?",
             "tts": "육은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24620,7 +24620,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 1과 몇으로 가를 수 있나요?",
             "tts": "구는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24650,7 +24650,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 4와 몇으로 가를 수 있나요?",
             "tts": "칠은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24680,7 +24680,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 2와 몇으로 가를 수 있나요?",
             "tts": "구는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24710,7 +24710,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 5와 몇으로 가를 수 있나요?",
             "tts": "팔은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24740,7 +24740,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 1과 몇으로 가를 수 있나요?",
             "tts": "팔은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24770,7 +24770,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 3과 몇으로 가를 수 있나요?",
             "tts": "팔은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24800,7 +24800,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 1과 몇으로 가를 수 있나요?",
             "tts": "칠은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24830,7 +24830,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 5와 몇으로 가를 수 있나요?",
             "tts": "육은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24860,7 +24860,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 2와 몇으로 가를 수 있나요?",
             "tts": "칠은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24890,7 +24890,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 3과 몇으로 가를 수 있나요?",
             "tts": "육은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24920,7 +24920,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 1과 몇으로 가를 수 있나요?",
             "tts": "사는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24950,7 +24950,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 9 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 9와 몇으로 가를 수 있나요?",
             "tts": "십은 구와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -24980,7 +24980,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 6과 몇으로 가를 수 있나요?",
             "tts": "팔은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25010,7 +25010,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 7과 몇으로 가를 수 있나요?",
             "tts": "구는 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25040,7 +25040,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 4와 몇으로 가를 수 있나요?",
             "tts": "팔은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25070,7 +25070,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 3과 몇으로 가를 수 있나요?",
             "tts": "구는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25100,7 +25100,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 8 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 8과 몇으로 가를 수 있나요?",
             "tts": "구는 팔과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25130,7 +25130,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 3과 몇으로 가를 수 있나요?",
             "tts": "오는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25160,7 +25160,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 3과 몇으로 가를 수 있나요?",
             "tts": "사는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25190,7 +25190,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 2와 몇으로 가를 수 있나요?",
             "tts": "십은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25220,7 +25220,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 6과 몇으로 가를 수 있나요?",
             "tts": "구는 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25250,7 +25250,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 5와 몇으로 가를 수 있나요?",
             "tts": "칠은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -25281,7 +25281,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 1과 몇으로 가를 수 있나요?",
             "tts": "육은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -26360,7 +26360,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "9 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 1과 몇으로 가를 수 있나요?",
             "tts": "구는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -26443,7 +26443,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "10 은(는) 8 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 8과 몇으로 가를 수 있나요?",
             "tts": "십은 팔과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -26526,7 +26526,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "5 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 1과 몇으로 가를 수 있나요?",
             "tts": "오는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -27625,7 +27625,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "5 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 3과 몇으로 가를 수 있나요?",
             "tts": "오는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -27734,7 +27734,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "4 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 3과 몇으로 가를 수 있나요?",
             "tts": "사는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -28683,7 +28683,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "8 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 7과 몇으로 가를 수 있나요?",
             "tts": "팔은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -28792,7 +28792,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "8 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 4와 몇으로 가를 수 있나요?",
             "tts": "팔은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -29739,7 +29739,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "6 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 2와 몇으로 가를 수 있나요?",
             "tts": "육은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -29848,7 +29848,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "9 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 3과 몇으로 가를 수 있나요?",
             "tts": "구는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -29945,7 +29945,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 3과 몇으로 가를 수 있나요?",
             "tts": "육은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -29975,7 +29975,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 1과 몇으로 가를 수 있나요?",
             "tts": "칠은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30005,7 +30005,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 2와 몇으로 가를 수 있나요?",
             "tts": "오는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30035,7 +30035,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 7과 몇으로 가를 수 있나요?",
             "tts": "십은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30065,7 +30065,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 3과 몇으로 가를 수 있나요?",
             "tts": "십은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30095,7 +30095,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 2와 몇으로 가를 수 있나요?",
             "tts": "칠은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30125,7 +30125,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 4와 몇으로 가를 수 있나요?",
             "tts": "오는 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30155,7 +30155,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 5와 몇으로 가를 수 있나요?",
             "tts": "십은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30185,7 +30185,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 1과 몇으로 가를 수 있나요?",
             "tts": "십은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30215,7 +30215,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 6과 몇으로 가를 수 있나요?",
             "tts": "구는 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30245,7 +30245,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 5와 몇으로 가를 수 있나요?",
             "tts": "칠은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30275,7 +30275,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 9 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 9와 몇으로 가를 수 있나요?",
             "tts": "십은 구와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30305,7 +30305,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 5와 몇으로 가를 수 있나요?",
             "tts": "팔은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30335,7 +30335,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 6과 몇으로 가를 수 있나요?",
             "tts": "십은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30365,7 +30365,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 2와 몇으로 가를 수 있나요?",
             "tts": "육은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30395,7 +30395,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 8 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 8과 몇으로 가를 수 있나요?",
             "tts": "십은 팔과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30425,7 +30425,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 3과 몇으로 가를 수 있나요?",
             "tts": "오는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30455,7 +30455,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 1과 몇으로 가를 수 있나요?",
             "tts": "육은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30485,7 +30485,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 6과 몇으로 가를 수 있나요?",
             "tts": "팔은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30515,7 +30515,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 7과 몇으로 가를 수 있나요?",
             "tts": "팔은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30545,7 +30545,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 3과 몇으로 가를 수 있나요?",
             "tts": "팔은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30575,7 +30575,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 6과 몇으로 가를 수 있나요?",
             "tts": "칠은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30605,7 +30605,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 2와 몇으로 가를 수 있나요?",
             "tts": "팔은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30635,7 +30635,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 3과 몇으로 가를 수 있나요?",
             "tts": "칠은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30665,7 +30665,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 5와 몇으로 가를 수 있나요?",
             "tts": "구는 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30695,7 +30695,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 5와 몇으로 가를 수 있나요?",
             "tts": "육은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30725,7 +30725,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 3과 몇으로 가를 수 있나요?",
             "tts": "구는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30755,7 +30755,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 2와 몇으로 가를 수 있나요?",
             "tts": "구는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30785,7 +30785,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 1과 몇으로 가를 수 있나요?",
             "tts": "오는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30815,7 +30815,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 4와 몇으로 가를 수 있나요?",
             "tts": "십은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30845,7 +30845,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 4와 몇으로 가를 수 있나요?",
             "tts": "육은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30876,7 +30876,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 8 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 8과 몇으로 가를 수 있나요?",
             "tts": "구는 팔과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -30907,7 +30907,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 2와 몇으로 가를 수 있나요?",
             "tts": "사는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -31042,7 +31042,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 1과 몇으로 가를 수 있나요?",
             "tts": "사는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -32375,7 +32375,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 5와 몇으로 가를 수 있나요?",
             "tts": "구는 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -32515,7 +32515,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 1과 몇으로 가를 수 있나요?",
             "tts": "십은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -32655,7 +32655,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 5와 몇으로 가를 수 있나요?",
             "tts": "팔은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -32800,7 +32800,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 1과 몇으로 가를 수 있나요?",
             "tts": "육은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -32937,7 +32937,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 9 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 9와 몇으로 가를 수 있나요?",
             "tts": "십은 구와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -33072,7 +33072,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 2와 몇으로 가를 수 있나요?",
             "tts": "구는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -33996,7 +33996,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "7 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 6과 몇으로 가를 수 있나요?",
             "tts": "칠은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -34131,7 +34131,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "7 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 4와 몇으로 가를 수 있나요?",
             "tts": "칠은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -35023,7 +35023,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "10 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 3과 몇으로 가를 수 있나요?",
             "tts": "십은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -35158,7 +35158,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "7 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 5와 몇으로 가를 수 있나요?",
             "tts": "칠은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -36083,7 +36083,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "10 은(는) 9 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 9와 몇으로 가를 수 있나요?",
             "tts": "십은 구와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -36243,7 +36243,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "5 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 1과 몇으로 가를 수 있나요?",
             "tts": "오는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37431,7 +37431,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 2와 몇으로 가를 수 있나요?",
             "tts": "십은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37461,7 +37461,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 4와 몇으로 가를 수 있나요?",
             "tts": "십은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37491,7 +37491,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 8 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 8과 몇으로 가를 수 있나요?",
             "tts": "십은 팔과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37521,7 +37521,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 7과 몇으로 가를 수 있나요?",
             "tts": "십은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37551,7 +37551,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 5와 몇으로 가를 수 있나요?",
             "tts": "십은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37581,7 +37581,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 1과 몇으로 가를 수 있나요?",
             "tts": "십은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37611,7 +37611,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 6과 몇으로 가를 수 있나요?",
             "tts": "십은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37641,7 +37641,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 9 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 9와 몇으로 가를 수 있나요?",
             "tts": "십은 구와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37671,7 +37671,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 3과 몇으로 가를 수 있나요?",
             "tts": "십은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37701,7 +37701,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 4와 몇으로 가를 수 있나요?",
             "tts": "십은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37731,7 +37731,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 3과 몇으로 가를 수 있나요?",
             "tts": "십은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37761,7 +37761,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 6과 몇으로 가를 수 있나요?",
             "tts": "십은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37791,7 +37791,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 8 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 8과 몇으로 가를 수 있나요?",
             "tts": "십은 팔과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37821,7 +37821,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 5와 몇으로 가를 수 있나요?",
             "tts": "십은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37851,7 +37851,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 6과 몇으로 가를 수 있나요?",
             "tts": "십은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37881,7 +37881,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 7과 몇으로 가를 수 있나요?",
             "tts": "십은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37911,7 +37911,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 2와 몇으로 가를 수 있나요?",
             "tts": "십은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37941,7 +37941,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 4와 몇으로 가를 수 있나요?",
             "tts": "십은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -37971,7 +37971,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 3과 몇으로 가를 수 있나요?",
             "tts": "십은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38001,7 +38001,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 1과 몇으로 가를 수 있나요?",
             "tts": "십은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38031,7 +38031,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 9 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 9와 몇으로 가를 수 있나요?",
             "tts": "십은 구와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38061,7 +38061,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 7과 몇으로 가를 수 있나요?",
             "tts": "십은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38091,7 +38091,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 1과 몇으로 가를 수 있나요?",
             "tts": "십은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38121,7 +38121,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 6과 몇으로 가를 수 있나요?",
             "tts": "십은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38151,7 +38151,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 9 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 9와 몇으로 가를 수 있나요?",
             "tts": "십은 구와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38181,7 +38181,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 5 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 5와 몇으로 가를 수 있나요?",
             "tts": "십은 오와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38211,7 +38211,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 2와 몇으로 가를 수 있나요?",
             "tts": "십은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38241,7 +38241,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 7과 몇으로 가를 수 있나요?",
             "tts": "십은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38271,7 +38271,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 3과 몇으로 가를 수 있나요?",
             "tts": "십은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38301,7 +38301,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 9 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 9와 몇으로 가를 수 있나요?",
             "tts": "십은 구와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38331,7 +38331,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 7과 몇으로 가를 수 있나요?",
             "tts": "십은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38362,7 +38362,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 3과 몇으로 가를 수 있나요?",
             "tts": "십은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -38522,7 +38522,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 2와 몇으로 가를 수 있나요?",
             "tts": "사는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -39776,7 +39776,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 2 를 모으면?",
+            "text": "3과 2를 모으면?",
             "tts": "삼과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -39806,7 +39806,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 1 를 모으면?",
+            "text": "9와 1을 모으면?",
             "tts": "구와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -39836,7 +39836,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 8 를 모으면?",
+            "text": "1과 8을 모으면?",
             "tts": "일과 팔을 모으면 얼마일까요?"
           },
           "operands": [
@@ -39866,7 +39866,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 2 를 모으면?",
+            "text": "6과 2를 모으면?",
             "tts": "육과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -39896,7 +39896,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 5 를 모으면?",
+            "text": "4와 5를 모으면?",
             "tts": "사와 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -39926,7 +39926,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 4 를 모으면?",
+            "text": "5와 4를 모으면?",
             "tts": "오와 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -39956,7 +39956,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 2 를 모으면?",
+            "text": "5와 2를 모으면?",
             "tts": "오와 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -39986,7 +39986,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 4 를 모으면?",
+            "text": "6과 4를 모으면?",
             "tts": "육과 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40016,7 +40016,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 7 를 모으면?",
+            "text": "1과 7을 모으면?",
             "tts": "일과 칠을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40046,7 +40046,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 1 를 모으면?",
+            "text": "8과 1을 모으면?",
             "tts": "팔과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40076,7 +40076,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 1 를 모으면?",
+            "text": "5와 1을 모으면?",
             "tts": "오와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40106,7 +40106,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 4 를 모으면?",
+            "text": "2와 4를 모으면?",
             "tts": "이와 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40136,7 +40136,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 6 를 모으면?",
+            "text": "4와 6을 모으면?",
             "tts": "사와 육을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40166,7 +40166,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 1 를 모으면?",
+            "text": "1과 1을 모으면?",
             "tts": "일과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40196,7 +40196,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 3 를 모으면?",
+            "text": "5와 3을 모으면?",
             "tts": "오와 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40226,7 +40226,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 3 를 모으면?",
+            "text": "3과 3을 모으면?",
             "tts": "삼과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40256,7 +40256,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 1 를 모으면?",
+            "text": "6과 1을 모으면?",
             "tts": "육과 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40286,7 +40286,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 4 를 모으면?",
+            "text": "3과 4를 모으면?",
             "tts": "삼과 사를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40316,7 +40316,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 1 를 모으면?",
+            "text": "4와 1을 모으면?",
             "tts": "사와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40346,7 +40346,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 2 를 모으면?",
+            "text": "2와 2를 모으면?",
             "tts": "이와 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40376,7 +40376,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 2 를 모으면?",
+            "text": "4와 2를 모으면?",
             "tts": "사와 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40406,7 +40406,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 8 를 모으면?",
+            "text": "2와 8을 모으면?",
             "tts": "이와 팔을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40436,7 +40436,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 2 를 모으면?",
+            "text": "8과 2를 모으면?",
             "tts": "팔과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40466,7 +40466,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 1 를 모으면?",
+            "text": "2와 1을 모으면?",
             "tts": "이와 일을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40496,7 +40496,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 2 를 모으면?",
+            "text": "7과 2를 모으면?",
             "tts": "칠과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40526,7 +40526,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 5 를 모으면?",
+            "text": "5와 5를 모으면?",
             "tts": "오와 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40556,7 +40556,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 3 를 모으면?",
+            "text": "2와 3을 모으면?",
             "tts": "이와 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40586,7 +40586,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 3 를 모으면?",
+            "text": "1과 3을 모으면?",
             "tts": "일과 삼을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40616,7 +40616,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 9 를 모으면?",
+            "text": "1과 9를 모으면?",
             "tts": "일과 구를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40646,7 +40646,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 5 를 모으면?",
+            "text": "1과 5를 모으면?",
             "tts": "일과 오를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40676,7 +40676,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 6 를 모으면?",
+            "text": "1과 6을 모으면?",
             "tts": "일과 육을 모으면 얼마일까요?"
           },
           "operands": [
@@ -40702,7 +40702,7 @@
           "inputType": "keypad",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 2 를 모으면?",
+            "text": "1과 2를 모으면?",
             "tts": "일과 이를 모으면 얼마일까요?"
           },
           "operands": [
@@ -40857,7 +40857,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "7 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 1과 몇으로 가를 수 있나요?",
             "tts": "칠은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -41036,7 +41036,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41119,7 +41119,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41197,7 +41197,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41275,7 +41275,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41363,7 +41363,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41451,7 +41451,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41534,7 +41534,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41622,7 +41622,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41700,7 +41700,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41788,7 +41788,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41868,7 +41868,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -41949,7 +41949,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -42030,7 +42030,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -42182,7 +42182,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 1과 몇으로 가를 수 있나요?",
             "tts": "구는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -42267,7 +42267,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 6 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 6과 몇으로 가를 수 있나요?",
             "tts": "칠은 육과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -42352,7 +42352,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 2와 몇으로 가를 수 있나요?",
             "tts": "육은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -42442,7 +42442,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "6은 4와 몇으로 가를 수 있나요?",
             "tts": "육은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -42532,7 +42532,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 2와 몇으로 가를 수 있나요?",
             "tts": "구는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -42622,7 +42622,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 3과 몇으로 가를 수 있나요?",
             "tts": "사는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -42707,7 +42707,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 1과 몇으로 가를 수 있나요?",
             "tts": "사는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -42797,7 +42797,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 2와 몇으로 가를 수 있나요?",
             "tts": "오는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -42882,7 +42882,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 4와 몇으로 가를 수 있나요?",
             "tts": "오는 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -42967,7 +42967,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 3과 몇으로 가를 수 있나요?",
             "tts": "팔은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -43049,7 +43049,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 2와 몇으로 가를 수 있나요?",
             "tts": "칠은 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -43132,7 +43132,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 4와 몇으로 가를 수 있나요?",
             "tts": "팔은 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -43215,7 +43215,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "10 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "10은 7과 몇으로 가를 수 있나요?",
             "tts": "십은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -43391,7 +43391,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 4와 몇으로 가를 수 있나요?",
             "tts": "오는 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -43501,7 +43501,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "7은 3과 몇으로 가를 수 있나요?",
             "tts": "칠은 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -43616,7 +43616,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 3 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 3과 몇으로 가를 수 있나요?",
             "tts": "오는 삼과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -43721,7 +43721,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 2와 몇으로 가를 수 있나요?",
             "tts": "사는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -43836,7 +43836,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 7 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 7과 몇으로 가를 수 있나요?",
             "tts": "팔은 칠과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -43951,7 +43951,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 2 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 2와 몇으로 가를 수 있나요?",
             "tts": "오는 이와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -44061,7 +44061,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "4는 1과 몇으로 가를 수 있나요?",
             "tts": "사는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -44172,7 +44172,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "5 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "5는 1과 몇으로 가를 수 있나요?",
             "tts": "오는 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -44281,7 +44281,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 은(는) 4 와(과) 몇으로 가를 수 있나요?",
+            "text": "9는 4와 몇으로 가를 수 있나요?",
             "tts": "구는 사와 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -44390,7 +44390,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 은(는) 1 와(과) 몇으로 가를 수 있나요?",
+            "text": "8은 1과 몇으로 가를 수 있나요?",
             "tts": "팔은 일과 몇으로 가를 수 있을까요?"
           },
           "operands": [
@@ -44452,7 +44452,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44480,7 +44480,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44508,7 +44508,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44536,7 +44536,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44564,7 +44564,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44592,7 +44592,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44620,7 +44620,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44648,7 +44648,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44676,7 +44676,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44704,7 +44704,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44732,7 +44732,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44760,7 +44760,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44788,7 +44788,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44816,7 +44816,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44844,7 +44844,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44872,7 +44872,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44900,7 +44900,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44928,7 +44928,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44956,7 +44956,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -44984,7 +44984,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45012,7 +45012,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45040,7 +45040,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45068,7 +45068,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45096,7 +45096,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45124,7 +45124,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45152,7 +45152,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45180,7 +45180,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45208,7 +45208,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45236,7 +45236,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45264,7 +45264,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45292,7 +45292,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45321,7 +45321,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45350,7 +45350,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45379,7 +45379,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45408,7 +45408,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45437,7 +45437,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45466,7 +45466,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45495,7 +45495,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45524,7 +45524,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -45553,7 +45553,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -47535,7 +47535,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -47592,7 +47592,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -47649,7 +47649,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -47706,7 +47706,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -48631,7 +48631,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -48688,7 +48688,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -48745,7 +48745,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -48802,7 +48802,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -49907,7 +49907,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -49964,7 +49964,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -50021,7 +50021,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -50078,7 +50078,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -51003,7 +51003,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -51060,7 +51060,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -51117,7 +51117,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -51174,7 +51174,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -52099,7 +52099,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -52156,7 +52156,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -52213,7 +52213,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -52270,7 +52270,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -53195,7 +53195,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -53252,7 +53252,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -53309,7 +53309,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -53366,7 +53366,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54291,7 +54291,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54348,7 +54348,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54405,7 +54405,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54462,7 +54462,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54554,7 +54554,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54608,7 +54608,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54662,7 +54662,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54721,7 +54721,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54775,7 +54775,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54829,7 +54829,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54883,7 +54883,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54937,7 +54937,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -54991,7 +54991,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -55045,7 +55045,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -55099,7 +55099,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "5 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "5와 짝을 이뤄 10을 만드는 수는?",
             "tts": "오와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -55155,7 +55155,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -55211,7 +55211,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -55267,7 +55267,7 @@
           "inputType": "drag_match",
           "isReview": false,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -55323,7 +55323,7 @@
           "inputType": "choice",
           "isReview": false,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -56247,7 +56247,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -56304,7 +56304,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -56361,7 +56361,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -56418,7 +56418,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -57371,7 +57371,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -57455,7 +57455,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -57539,7 +57539,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -58645,7 +58645,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -58729,7 +58729,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "1 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "1과 짝을 이뤄 10을 만드는 수는?",
             "tts": "일과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -58813,7 +58813,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -59739,7 +59739,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "8 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "8과 짝을 이뤄 10을 만드는 수는?",
             "tts": "팔과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -59823,7 +59823,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "3 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "3과 짝을 이뤄 10을 만드는 수는?",
             "tts": "삼과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -59907,7 +59907,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "6 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "6과 짝을 이뤄 10을 만드는 수는?",
             "tts": "육과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -60833,7 +60833,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "7 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "7과 짝을 이뤄 10을 만드는 수는?",
             "tts": "칠과 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -60917,7 +60917,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -61001,7 +61001,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -61927,7 +61927,7 @@
           "inputType": "drag_match",
           "isReview": true,
           "prompt": {
-            "text": "9 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "9와 짝을 이뤄 10을 만드는 수는?",
             "tts": "구와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -62011,7 +62011,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "2 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "2와 짝을 이뤄 10을 만드는 수는?",
             "tts": "이와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [
@@ -62095,7 +62095,7 @@
           "inputType": "choice",
           "isReview": true,
           "prompt": {
-            "text": "4 와(과) 짝을 이뤄 10을 만드는 수는?",
+            "text": "4와 짝을 이뤄 10을 만드는 수는?",
             "tts": "사와 짝을 이뤄 십을 만드는 수는 무엇일까요?"
           },
           "operands": [

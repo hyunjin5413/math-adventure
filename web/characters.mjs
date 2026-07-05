@@ -24,8 +24,14 @@ export const CHAR_NAME = {
   bulkkot: '불꽃맨', shadowcat: '그림자냥', mujeokgom: '무적곰',
   // W5 몬스터 친구들
   bugeul: '부글이', mongsil: '몽실이',
+  // 보스들
   daewang: '대왕',
+  tyranno: '티라노왕', gocheolking: '고철킹', blackwolf: '검은늑대',
+  darkmask: '다크마스크', wangmon: '왕몬',
 };
+
+// 월드별 보스 (각 월드 20번째 스테이지의 주인)
+export const WORLD_BOSS = { 1: 'tyranno', 2: 'gocheolking', 3: 'blackwolf', 4: 'darkmask', 5: 'wangmon' };
 
 // 월드별 친구 명단 (발견/플레이 테마 모두 이 명단 기준. 월드당 5명)
 export const WORLD_CHARS = {
@@ -40,8 +46,10 @@ export const WORLD_LABEL = {
 };
 // 발견 가능한 전체 친구(월드 순)
 export const ROSTER = [1, 2, 3, 4, 5].flatMap((w) => WORLD_CHARS[w]);
-// 도감 전체 목록 (대왕은 스테이지 대왕 구간 승리로 획득)
-export const DEX = [...ROSTER, 'daewang'];
+// 특별 친구: 대왕(일반 스테이지 후반) + 월드 보스들(20번째 스테이지)
+export const SPECIALS = ['daewang', 'tyranno', 'gocheolking', 'blackwolf', 'darkmask', 'wangmon'];
+// 도감 전체 목록
+export const DEX = [...ROSTER, ...SPECIALS];
 // 월드 대표 마스코트 (맵 배너용)
 export const WORLD_MASCOT = { 1: 'kongryong', 2: 'poopbot', 3: 'captainkorea', 4: 'superabbit', 5: 'ppika' };
 
@@ -87,6 +95,12 @@ export const CHAR_THEME = {
   // W5 몬스터
   bugeul:      { c2: '#5bc8ff', c1: '#d6f2ff', accent: '#2f8fd0' },
   mongsil:     { c2: '#e8e0f8', c1: '#f8f5ff', accent: '#9a88c8' },
+  // 보스들
+  tyranno:     { c2: '#6a9a48', c1: '#dff0d0', accent: '#3d6a22' },
+  gocheolking: { c2: '#8a7a68', c1: '#e5ddd2', accent: '#584a3a' },
+  blackwolf:   { c2: '#6a6a7e', c1: '#e0e0e8', accent: '#3a3a4e' },
+  darkmask:    { c2: '#7a4fd0', c1: '#e5dbf8', accent: '#48287e' },
+  wangmon:     { c2: '#e05a8a', c1: '#fbdce8', accent: '#a82858' },
 };
 
 // 캐릭터별 음성 대사 (센스있게, 캐릭터마다 말투 다름)
@@ -122,6 +136,58 @@ export const VOICE = {
     no: ['크하하! 아직 멀었군!', '내 문제는 쉽지 않지!'],
     win: ['대단하군! 오늘은 내가 졌다. 다음에 보자!'],
   },
+  tyranno:     {
+    hi: ['크르릉! 공룡의 왕, 티라노왕이다! 감히 내 알 마을에 왔느냐!'],
+    ok: ['크릉?! 제법인데!', '내 이빨보다 날카로운 정답이군!', '으르릉… 인정한다!'],
+    no: ['크하하! 공룡 왕을 이기긴 어렵지!', '크릉! 다시 덤벼라!'],
+    win: ['크르릉… 대단하군! 알 마을의 용사로 인정한다. 다음에 보자!'],
+  },
+  gocheolking: {
+    hi: ['철컹철컹! 고철킹이다! 내 계산 회로를 이겨보아라!'],
+    ok: ['삐빅! 오차 없음, 정답!', '철컹! 회로가 놀랐다!', '완벽한 계산이군!'],
+    no: ['삐빅! 계산 오류 감지!', '철컹철컹! 다시 계산해라!'],
+    win: ['회로 과열… 내가 졌다! 정비소의 왕은 너다. 다음에 보자!'],
+  },
+  blackwolf:   {
+    hi: ['아우우! 검은늑대다! 특공대 훈련을 통과할 수 있겠나!'],
+    ok: ['흠, 훈련이 잘 됐군!', '아우! 날카로운 정답!', '늑대의 눈으로 봐도 완벽하다!'],
+    no: ['아직 훈련이 부족하군!', '아우우! 다시 도전해라!'],
+    win: ['아우우… 완벽한 대원이군! 특공대 최고 훈장을 주지. 다음에 보자!'],
+  },
+  darkmask:    {
+    hi: ['후후후… 다크마스크다. 히어로 시티는 내 것이 될 것이다!'],
+    ok: ['크윽! 히어로다운 정답!', '후후… 제법이군!', '이럴 수가, 완벽하다니!'],
+    no: ['후후후! 그 실력으로 시티를 지키겠다고?', '어림없다! 다시!'],
+    win: ['크으윽… 시티는 네가 지켜라! 오늘은 물러가지만, 다음에 보자!'],
+  },
+  wangmon:     {
+    hi: ['부오오! 몬스터의 왕, 왕몬이다! 마지막 시험을 시작하지!'],
+    ok: ['부오?! 놀라운 정답!', '몬스터들이 술렁인다!', '왕의 자리가 위험하군!'],
+    no: ['부오오! 아직 멀었다!', '몬스터 왕은 쉽지 않지!'],
+    win: ['부오오… 완벽하다! 이제 네가 몬스터 도감의 주인이다. 다음에 보자!'],
+  },
+};
+
+// 캐릭터별 목소리 스타일: pitch(음높이), rate(속도), v(선호 보이스 순번)
+export const VOICE_STYLE = {
+  kongryong: { pitch: 1.15, rate: 1.0, v: 0 },  kkongryong: { pitch: 1.3, rate: 1.0, v: 1 },
+  imagine: { pitch: 0.95, rate: 0.95, v: 2 },   bbyeo: { pitch: 0.85, rate: 1.0, v: 0 },
+  allog: { pitch: 1.45, rate: 1.05, v: 1 },
+  poopbot: { pitch: 0.8, rate: 1.05, v: 2 },    drill: { pitch: 0.9, rate: 1.1, v: 0 },
+  bbabang: { pitch: 1.2, rate: 1.15, v: 1 },    chulkung: { pitch: 0.7, rate: 0.9, v: 2 },
+  ppiriri: { pitch: 1.35, rate: 1.1, v: 0 },
+  balduncle: { pitch: 0.75, rate: 0.85, v: 1 }, baboon: { pitch: 1.25, rate: 1.15, v: 2 },
+  pungpung: { pitch: 1.0, rate: 1.1, v: 0 },    syungsyung: { pitch: 1.2, rate: 1.2, v: 1 },
+  salgeum: { pitch: 0.9, rate: 0.8, v: 2 },
+  captainkorea: { pitch: 0.9, rate: 0.95, v: 0 }, superabbit: { pitch: 1.3, rate: 1.15, v: 1 },
+  bulkkot: { pitch: 1.05, rate: 1.1, v: 2 },    shadowcat: { pitch: 1.1, rate: 0.9, v: 0 },
+  mujeokgom: { pitch: 0.65, rate: 0.9, v: 1 },
+  ppika: { pitch: 1.5, rate: 1.1, v: 2 },       ppokkattu: { pitch: 1.4, rate: 1.05, v: 0 },
+  andongki: { pitch: 1.2, rate: 0.95, v: 1 },   bugeul: { pitch: 1.15, rate: 1.0, v: 2 },
+  mongsil: { pitch: 1.25, rate: 0.85, v: 0 },
+  daewang: { pitch: 0.55, rate: 0.85, v: 1 },   tyranno: { pitch: 0.6, rate: 0.9, v: 0 },
+  gocheolking: { pitch: 0.65, rate: 0.8, v: 2 }, blackwolf: { pitch: 0.7, rate: 0.9, v: 1 },
+  darkmask: { pitch: 0.75, rate: 0.85, v: 0 },  wangmon: { pitch: 0.6, rate: 0.95, v: 2 },
 };
 
 // ---------------------------------------------------------------------------
@@ -427,6 +493,69 @@ const DRAW = {
     <ellipse cx="50" cy="64" rx="17" ry="11" fill="#fff" />
     ${face(52, 10, 66)}
     <path d="M36 82 l-3 8 M50 84 l0 8 M64 82 l3 8" stroke="#9ad0f0" stroke-width="3" stroke-linecap="round" opacity=".7" />
+  </g>`,
+
+  // ---- 월드 보스들 ----
+  tyranno: () => html`<g>
+    <path d="M36 18 L42 8 L48 18 L54 8 L60 18 L64 12 L66 20Z" fill="#ffce4f" stroke="#e0a400" stroke-width="1.5" />
+    <ellipse cx="52" cy="52" rx="30" ry="28" fill=${P.tyranno.c2} />
+    <path d="M40 22 q-14 4 -12 18 q8 -4 14 -2Z" fill=${P.tyranno.c2} />
+    <path d="M30 62 q-14 -2 -16 10 q10 4 18 -2Z" fill=${P.tyranno.c2} />
+    <ellipse cx="56" cy="62" rx="18" ry="14" fill=${P.tyranno.c1} />
+    <path d="M42 66 l5 7 5 -7 5 7 5 -7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+    <path d="M34 40 l10 5 M70 40 l-10 5" stroke="#2b2b3a" stroke-width="3" stroke-linecap="round" />
+    <ellipse cx="43" cy="49" rx="5.5" ry="6" fill="#ffe27a" /><ellipse cx="63" cy="49" rx="5.5" ry="6" fill="#ffe27a" />
+    <circle cx="44" cy="50" r="3" fill="#2b2b3a" /><circle cx="62" cy="50" r="3" fill="#2b2b3a" />
+    <polygon points="46,24 50,30 42,30" fill=${P.tyranno.accent} />
+    <rect x="38" y="80" width="13" height="13" rx="6" fill=${P.tyranno.c2} />
+    <rect x="58" y="80" width="13" height="13" rx="6" fill=${P.tyranno.c2} />
+  </g>`,
+  gocheolking: () => html`<g>
+    <path d="M34 16 L40 6 L46 16 L52 6 L58 16 L64 8 L66 18Z" fill="#ffce4f" stroke="#e0a400" stroke-width="1.5" />
+    <rect x="22" y="18" width="56" height="54" rx="10" fill=${P.gocheolking.c2} />
+    <circle cx="29" cy="25" r="2.4" fill="#fff" opacity=".7" /><circle cx="71" cy="25" r="2.4" fill="#fff" opacity=".7" />
+    <path d="M60 24 q10 2 8 10" stroke="#c88a3a" stroke-width="4" fill="none" opacity=".6" />
+    <rect x="30" y="28" width="40" height="20" rx="5" fill="#27324a" />
+    <rect x="36" y="34" width="10" height="7" rx="2" fill="#ff8f3f" /><rect x="54" y="34" width="10" height="7" rx="2" fill="#ff8f3f" />
+    <path d="M36 56 h28 M40 62 h20" stroke=${P.gocheolking.accent} stroke-width="4" stroke-linecap="round" />
+    <rect x="26" y="74" width="20" height="16" rx="5" fill=${P.gocheolking.accent} />
+    <rect x="54" y="74" width="20" height="16" rx="5" fill=${P.gocheolking.accent} />
+    <circle cx="18" cy="46" r="7" fill=${P.gocheolking.accent} /><circle cx="82" cy="46" r="7" fill=${P.gocheolking.accent} />
+  </g>`,
+  blackwolf: () => html`<g>
+    <polygon points="28,28 34,8 44,24" fill=${P.blackwolf.c2} />
+    <polygon points="72,28 66,8 56,24" fill=${P.blackwolf.c2} />
+    <polygon points="31,24 35,13 41,22" fill="#8a8aa0" /><polygon points="69,24 65,13 59,22" fill="#8a8aa0" />
+    <ellipse cx="50" cy="54" rx="29" ry="30" fill=${P.blackwolf.c2} />
+    <path d="M21 46 q29 -12 58 0 l0 10 q-29 -8 -58 0Z" fill=${P.blackwolf.accent} />
+    <ellipse cx="40" cy="50" rx="6.5" ry="5.5" fill="#ffe27a" /><ellipse cx="60" cy="50" rx="6.5" ry="5.5" fill="#ffe27a" />
+    <ellipse cx="40" cy="50" rx="2.2" ry="4" fill="#2b2b3a" /><ellipse cx="60" cy="50" rx="2.2" ry="4" fill="#2b2b3a" />
+    <path d="M64 38 l8 -6" stroke="#8a8aa0" stroke-width="2.5" stroke-linecap="round" />
+    <ellipse cx="50" cy="66" rx="10" ry="8" fill="#e0e0e8" />
+    <ellipse cx="50" cy="62" rx="3.5" ry="2.6" fill="#2b2b3a" />
+    <path d="M44 70 l3 4 3 -4 3 4 3 -4" fill="none" stroke="#2b2b3a" stroke-width="2" stroke-linecap="round" />
+  </g>`,
+  darkmask: () => html`<g>
+    <path d="M26 40 Q20 90 34 88 L66 88 Q80 90 74 40Z" fill=${P.darkmask.accent} />
+    <ellipse cx="50" cy="44" rx="25" ry="26" fill=${P.darkmask.c2} />
+    <path d="M25 40 q25 -10 50 0 l0 12 q-25 -8 -50 0Z" fill="#2b2038" />
+    <path d="M33 44 l10 -4 2 8Z" fill="#ffe27a" /><path d="M67 44 l-10 -4 -2 8Z" fill="#ffe27a" />
+    <path d="M44 60 Q50 64 56 60" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <path d="M50 12 l4 8 8 1 -6 6 2 8 -8 -4 -8 4 2 -8 -6 -6 8 -1Z" fill="#ffce4f" />
+    <path d="M20 52 q-8 10 2 16 M80 52 q8 10 -2 16" stroke=${P.darkmask.accent} stroke-width="5" fill="none" stroke-linecap="round" />
+  </g>`,
+  wangmon: () => html`<g>
+    <path d="M30 22 q-8 -14 6 -12 q2 8 -2 12Z" fill=${P.wangmon.accent} />
+    <path d="M70 22 q8 -14 -6 -12 q-2 8 2 12Z" fill=${P.wangmon.accent} />
+    <path d="M38 16 L44 6 L50 16 L56 6 L62 16Z" fill="#ffce4f" stroke="#e0a400" stroke-width="1.5" />
+    <ellipse cx="50" cy="56" rx="31" ry="30" fill=${P.wangmon.c2} />
+    <ellipse cx="50" cy="66" rx="19" ry="15" fill=${P.wangmon.c1} />
+    <circle cx="50" cy="42" r="8" fill="#fff" /><circle cx="50" cy="43" r="4.2" fill="#2b2b3a" />
+    <circle cx="52" cy="41" r="1.4" fill="#fff" />
+    <circle cx="32" cy="52" r="4" fill="#fff" /><circle cx="32" cy="52" r="2" fill="#2b2b3a" />
+    <circle cx="68" cy="52" r="4" fill="#fff" /><circle cx="68" cy="52" r="2" fill="#2b2b3a" />
+    <path d="M40 70 l4 5 4 -5 4 5 4 -5 4 5" fill="none" stroke="#a82858" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M22 74 q-8 8 0 14 M78 74 q8 8 0 14" stroke=${P.wangmon.accent} stroke-width="4" fill="none" stroke-linecap="round" />
   </g>`,
 
   daewang: () => html`<g>

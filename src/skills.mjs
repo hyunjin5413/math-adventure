@@ -46,8 +46,13 @@ export function shuffle(rng, arr) {
 }
 
 // ---- 한국어 조사 자동 선택 (받침 유무) -------------------------------------
+// 숫자로 끝나면 한자어 읽기의 받침 기준: 영0·일1·삼3·육6·칠7·팔8 = 받침 있음
+const DIGIT_BATCHIM = { 0: true, 1: true, 2: false, 3: true, 4: false, 5: false, 6: true, 7: true, 8: true, 9: false };
 function hasBatchim(word) {
+  word = String(word);
   if (!word) return false;
+  const last = word[word.length - 1];
+  if (last >= '0' && last <= '9') return DIGIT_BATCHIM[+last];
   const c = word.charCodeAt(word.length - 1);
   if (c < 0xac00 || c > 0xd7a3) return false; // 한글 음절이 아니면 받침 없음 취급
   return (c - 0xac00) % 28 !== 0;
@@ -155,7 +160,7 @@ export const SKILLS = {
       const answer = 10 - a;
       return {
         kind: 'num', operands: [a], operator: 'make10', answer,
-        promptText: `${a} 와(과) 짝을 이뤄 10을 만드는 수는?`,
+        promptText: `${waGwa(String(a))} 짝을 이뤄 10을 만드는 수는?`,
         ttsText: `${waGwa(numKo(a))} 짝을 이뤄 십을 만드는 수는 무엇일까요?`,
         visual: { type: 'ten_frame', filled: a },
         distractors: [answer + 1, answer - 1, a, answer + 2],
@@ -173,7 +178,7 @@ export const SKILLS = {
       const answer = a + b;
       return {
         kind: 'num', operands: [a, b], operator: 'compose', answer,
-        promptText: `${a} 와(과) ${b} 를 모으면?`,
+        promptText: `${waGwa(String(a))} ${eulReul(String(b))} 모으면?`,
         ttsText: `${waGwa(numKo(a))} ${eulReul(numKo(b))} 모으면 얼마일까요?`,
         visual: { type: 'compose_bond', a, b },
         distractors: [answer + 1, answer - 1, Math.abs(a - b)],
@@ -224,7 +229,7 @@ export const SKILLS = {
       const answer = n - a;
       return {
         kind: 'num', operands: [n, a], operator: 'decompose', answer,
-        promptText: `${n} 은(는) ${a} 와(과) 몇으로 가를 수 있나요?`,
+        promptText: `${eunNeun(String(n))} ${waGwa(String(a))} 몇으로 가를 수 있나요?`,
         ttsText: `${eunNeun(numKo(n))} ${waGwa(numKo(a))} 몇으로 가를 수 있을까요?`,
         visual: { type: 'decompose_bond', whole: n, part: a },
         distractors: [answer + 1, answer - 1, a, n],
