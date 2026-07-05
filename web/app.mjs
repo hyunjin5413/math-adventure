@@ -388,18 +388,16 @@ function StagePlay({ stage, world, onExit, onComplete }) {
     const themeChanged = prevThemeRef.current && prevThemeRef.current !== theme;
     prevThemeRef.current = theme;
     const id = setTimeout(() => {
+      // 캐릭터 인사만 자동 재생. 문제는 스피커 버튼을 눌렀을 때만 읽는다.
       if (themeChanged) {
         const hi = pickLine(theme, 'hi', idx);
         setBubble(hi); speakAs(theme, hi);
-        // 인사 후 문제 읽기
-        setTimeout(() => speak(problem.prompt.tts || problem.prompt.text), 2200);
-      } else {
-        speak(problem.prompt.tts || problem.prompt.text);
       }
     }, 250);
-    // 다음 문제 음성 미리 합성 → 넘어갈 때 즉시 낭독
+    // 스피커 버튼 탭 시 즉시 재생되도록 현재/다음 문제 음성을 미리 합성
+    setTimeout(() => prefetchSpeech(problem.prompt.tts || problem.prompt.text), 600);
     const nxt = stage.problems[idx + 1];
-    if (nxt) setTimeout(() => prefetchSpeech(nxt.prompt.tts || nxt.prompt.text), 1500);
+    if (nxt) setTimeout(() => prefetchSpeech(nxt.prompt.tts || nxt.prompt.text), 3000);
     return () => clearTimeout(id);
   }, [problem.id]);
 
