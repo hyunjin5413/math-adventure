@@ -187,7 +187,7 @@ export function buildCurriculum() {
         phase,
         primary: { skill, params, input: input || defaultInput(skill, params) },
         review: [],
-        problemCount: 20,
+        problemCount: 40, // 20문제마다 테마(캐릭터) 전환 → 한 스테이지 2테마
         reviewRatio: gn - world.range[0] + 1 <= 2 ? 0 : 0.2, // 월드 초반은 복습 0, 이후 20% 간격 반복
         reward: { kind: 'shard', mood: world.mood, amount: 1 },
       });
@@ -199,7 +199,7 @@ export function buildCurriculum() {
       title: '미니 복습', concept: '직전 개념 섞어 풀기',
       phase: stages[0].phase,
       primary: { skill: 'mixed', params: { pool: reviewPoolBefore(stages, 10) }, input: 'choice' },
-      review: [], problemCount: 15, reviewRatio: 0,
+      review: [], problemCount: 30, reviewRatio: 0,
       reward: { kind: 'shard', mood: world.mood, amount: 2 },
     };
     const boss = {
@@ -207,7 +207,7 @@ export function buildCurriculum() {
       title: wid === 5 ? '최종 보스전' : '보스전', concept: '월드 핵심 개념 종합',
       phase: stages[stages.length - 1].phase,
       primary: { skill: 'mixed', params: { pool: BOSS_POOL[wid] }, input: 'mixed' },
-      review: [], problemCount: 20, reviewRatio: 0,
+      review: [], problemCount: 40, reviewRatio: 0,
       reward: { kind: 'rare_character', mood: world.mood, amount: 1, condition: 'clear' },
     };
 

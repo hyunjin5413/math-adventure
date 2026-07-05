@@ -108,6 +108,15 @@ function stageId(stage) {
   return `W${stage.world}-S${String(stage.n).padStart(3, '0')}`;
 }
 
+// ---- 캐릭터 테마 (characters.mjs ROSTER와 동일 순서) ------------------------
+const ROSTER = ['kongryong', 'poopbot', 'captainkorea', 'ppika', 'baboon', 'imagine', 'superabbit', 'balduncle', 'andongki'];
+const THEME_BLOCK = 20; // 20문제마다 테마(캐릭터) 전환
+function themesFor(stage) {
+  const blocks = Math.max(1, Math.ceil(stage.problemCount / THEME_BLOCK));
+  const offset = ((stage.n - 1) * 2) % ROSTER.length;
+  return Array.from({ length: blocks }, (_, k) => ROSTER[(offset + k) % ROSTER.length]);
+}
+
 // ---- 스테이지 전체 생성 ----------------------------------------------------
 function generateStage(stage, variant) {
   // 시드: 스테이지 번호와 변형 번호로 결정 → 재현 가능 (PRD §12 검수 용이)
@@ -133,6 +142,9 @@ function generateStage(stage, variant) {
     prevSig = sig(p);
     problems.push(p);
   }
+  // 20문제 블록마다 테마(캐릭터) 부여
+  const themes = themesFor(stage);
+  problems.forEach((p, i) => { p.theme = themes[Math.min(themes.length - 1, Math.floor(i / THEME_BLOCK))]; });
   return problems;
 }
 
@@ -239,6 +251,7 @@ function main() {
     return {
       ...st,
       id: stageId(st),
+      themes: themesFor(st), // 이 스테이지에 등장하는 캐릭터(20문제마다 전환)
       problems: variants[0],
       ...(VARIANTS > 1 ? { variantSets: variants } : {}),
     };

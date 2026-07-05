@@ -8,7 +8,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, WORLD_THEME, CHAR_NAME, COLLECTION } from './characters.mjs';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, WORLD_MASCOT, pickLine } from './characters.mjs';
 
 const html = htm.bind(React.createElement);
 const { useRef } = React;
@@ -88,8 +88,10 @@ async function verifyLogin(id, password) {
 // ---- 진척도 저장 (계정별) --------------------------------------------------
 const progKey = (id) => `ma-progress:${id}`;
 function loadProgress(id) {
-  try { return JSON.parse(localStorage.getItem(progKey(id))) || { stars: {} }; }
-  catch { return { stars: {} }; }
+  try {
+    const p = JSON.parse(localStorage.getItem(progKey(id))) || {};
+    return { stars: p.stars || {}, collected: p.collected || [] };
+  } catch { return { stars: {}, collected: [] }; }
 }
 function saveProgress(id, p) { localStorage.setItem(progKey(id), JSON.stringify(p)); }
 
@@ -104,26 +106,24 @@ function speak(text) {
 }
 
 // ===========================================================================
-// 시각 보조 컴포넌트 (visual.type → 그림)
+// 시각 보조 컴포넌트 (visual.type → 그림). 이모지 없이 전부 SVG.
 // ===========================================================================
-const MOOD_ICON = { '공룡': '🦕', '변신 로봇': '🤖', '특공대': '🚀', '히어로': '⭐', '수집형 몬스터': '👾' };
+const PlusSign = () => html`<span class="opsign">+</span>`;
 
-function Visual({ v, mood }) {
+function Visual({ v, theme }) {
   if (!v) return null;
-  const icon = MOOD_ICON[mood] || '🟡';
+  const item = (key, i, faded) => html`<${Item} key=${key} size=${42} kind="apple" faded=${faded} />`;
   switch (v.type) {
     case 'objects':
-      return html`<div class="visual">${range(v.count).map((i) => html`<span key=${i} class="obj">${icon}</span>`)}</div>`;
+      return html`<div class="visual">${range(v.count).map((i) => item('o' + i, i))}</div>`;
     case 'objects_add':
       return html`<div class="visual">
-        ${range(v.a).map((i) => html`<span key=${'a'+i} class="obj">${icon}</span>`)}
-        <span class="obj">➕</span>
-        ${range(v.b).map((i) => html`<span key=${'b'+i} class="obj">🥚</span>`)}
+        ${range(v.a).map((i) => item('a' + i, i))}
+        <${PlusSign} />
+        ${range(v.b).map((i) => html`<${Item} key=${'b' + i} size=${42} kind="acorn" />`)}
       </div>`;
     case 'objects_sub':
-      return html`<div class="visual">
-        ${range(v.a).map((i) => html`<span key=${i} class="obj" style=${{ opacity: i >= v.a - v.b ? 0.25 : 1 }}>${icon}</span>`)}
-      </div>`;
+      return html`<div class="visual">${range(v.a).map((i) => item('s' + i, i, i >= v.a - v.b))}</div>`;
     case 'ten_frame':
       return html`<${TenFrame} filled=${v.filled} />`;
     case 'ten_frame_add':
@@ -133,11 +133,11 @@ function Visual({ v, mood }) {
     case 'array':
       return html`<div class="array">${range(v.rows).map((r) => html`<div key=${r} class="row">${range(v.cols).map((c) => html`<div key=${c} class="dot"></div>`)}</div>`)}</div>`;
     case 'groups':
-      return html`<div class="visual">${range(v.groups).map((g) => html`<div key=${g} style=${{ display:'flex', gap:'4px', padding:'8px', border:'3px dashed #bbb', borderRadius:'12px' }}>${range(v.per).map((i) => html`<span key=${i} class="obj">${icon}</span>`)}</div>`)}</div>`;
+      return html`<div class="visual">${range(v.groups).map((g) => html`<div key=${g} class="grp">${range(v.per).map((i) => item(g + '_' + i, i))}</div>`)}</div>`;
     case 'compare_groups':
       return html`<div class="cmp">
         <div class="stack">${range(v.a).map((i) => html`<div key=${i} class="blk"></div>`)}</div>
-        <div class="stack">${range(v.b).map((i) => html`<div key=${i} class="blk" style=${{ background:'#5b8def' }}></div>`)}</div>
+        <div class="stack">${range(v.b).map((i) => html`<div key=${i} class="blk b2"></div>`)}</div>
       </div>`;
     case 'compose_bond':
       return html`<div class="bond"><div class="part">${v.a}</div><span>+</span><div class="part">${v.b}</div><span>=</span><div class="whole">?</div></div>`;
@@ -146,12 +146,23 @@ function Visual({ v, mood }) {
     case 'base_ten':
       return html`<${BaseTen} tens=${v.tens} ones=${v.ones} />`;
     case 'spoken_number':
-      return html`<button class="speak-btn" onClick=${() => speak(numKo(v.value))}>🔊</button>`;
+      return html`<button class="speak-btn" onClick=${() => speak(numKo(v.value))}><${Icon} name="speaker" size=${34} color="#7a5a16" /></button>`;
     case 'number_line':
-      return html`<div class="visual" style=${{ fontSize:'22px', fontWeight:800 }}>0 ─${'─'.repeat(3)}▶</div>`;
+      return html`<${NumberLine} />`;
     default:
       return null;
   }
+}
+
+function NumberLine() {
+  return html`<svg width="280" height="50" viewBox="0 0 280 50">
+    <line x1="14" y1="30" x2="262" y2="30" stroke="#c8b88f" stroke-width="4" stroke-linecap="round" />
+    <polygon points="262,22 276,30 262,38" fill="#c8b88f" />
+    ${range(6).map((i) => html`<g key=${i}>
+      <circle cx=${20 + i * 44} cy="30" r="6" fill="#7fb0ef" />
+      <text x=${20 + i * 44} y="14" text-anchor="middle" font-size="13" font-weight="700" fill="#5a6b85">${i}</text>
+    </g>`)}
+  </svg>`;
 }
 
 function TenFrame({ filled = 0, second = 0, strike = 0 }) {
@@ -160,7 +171,8 @@ function TenFrame({ filled = 0, second = 0, strike = 0 }) {
     if (i < filled) cls += ' f1';
     else if (i < filled + second) cls += ' f2';
     const struck = strike && i >= filled - strike && i < filled;
-    return html`<div key=${i} class=${cls}>${struck ? '✗' : ''}</div>`;
+    if (struck) cls += ' struck';
+    return html`<div key=${i} class=${cls}></div>`;
   });
   return html`<div class="tenframe">${cells}</div>`;
 }
@@ -203,9 +215,9 @@ function KeypadInput({ problem, locked, onAnswer }) {
     <div class="answerbox">${val || '?'}</div>
     <div class="keypad">
       ${[1,2,3,4,5,6,7,8,9].map((d) => html`<button key=${d} class="key" onClick=${() => push(d)}>${d}</button>`)}
-      <button class="key" onClick=${() => setVal('')}>⌫</button>
+      <button class="key" onClick=${() => setVal('')}><${Icon} name="del" size=${30} color="#8a8472" /></button>
       <button class="key" onClick=${() => push(0)}>0</button>
-      <button class="key" style=${{ background:'#4caf72', color:'#fff' }} onClick=${submit}>✓</button>
+      <button class="key key-go" onClick=${submit}><${Icon} name="check" size=${32} color="#fff" /></button>
     </div>
   </div>`;
 }
@@ -241,7 +253,7 @@ function starsFor(accuracy) {
 // ===========================================================================
 // 스테이지 플레이 화면
 // ===========================================================================
-function StagePlay({ stage, mood, world, onExit, onComplete }) {
+function StagePlay({ stage, world, onExit, onComplete }) {
   const [idx, setIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
@@ -249,17 +261,28 @@ function StagePlay({ stage, mood, world, onExit, onComplete }) {
   const [correct, setCorrect] = useState(0);
   const [wrongStreak, setWrongStreak] = useState(0);
   const [showHint, setShowHint] = useState(false);
-  const [feedback, setFeedback] = useState(null); // 'ok' | 'no'
+  const [feedback, setFeedback] = useState(null);  // 'ok' | 'no'
+  const [bubble, setBubble] = useState('');         // 캐릭터 대사
+  const [burst, setBurst] = useState(0);            // 정답 이펙트 트리거
   const [locked, setLocked] = useState(false);
   const startRef = useRef(performance.now());
 
   const problem = stage.problems[idx];
   const total = stage.problems.length;
+  const theme = problem.theme || (stage.themes && stage.themes[0]) || WORLD_MASCOT[world];
+  const ct = CHAR_THEME[theme] || WORLD_THEME[world];
 
+  // 문제 등장 시: 테마가 새로 바뀌면 캐릭터 인사, 아니면 문제만 읽기
+  const prevThemeRef = useRef(null);
   useEffect(() => {
     startRef.current = performance.now();
-    setShowHint(false);
-    const id = setTimeout(() => speak(problem.prompt.tts || problem.prompt.text), 250);
+    setShowHint(false); setFeedback(null); setBubble('');
+    const themeChanged = prevThemeRef.current && prevThemeRef.current !== theme;
+    prevThemeRef.current = theme;
+    const id = setTimeout(() => {
+      if (themeChanged) { setBubble(pickLine(theme, 'hi', idx)); speak(pickLine(theme, 'hi', idx)); }
+      speak(problem.prompt.tts || problem.prompt.text);
+    }, themeChanged ? 250 : 250);
     return () => clearTimeout(id);
   }, [problem.id]);
 
@@ -275,29 +298,24 @@ function StagePlay({ stage, mood, world, onExit, onComplete }) {
       setCorrect((c) => c + 1);
       setWrongStreak(0);
       setFeedback('ok');
-      speak('잘했어요!');
+      setBurst((b) => b + 1);
+      const line = pickLine(theme, 'ok', idx + newCombo);
+      setBubble(line); speak(line);
     } else {
       setCombo(0);
       setWrongStreak((w) => w + 1);
       setFeedback('no');
-      speak('다시 해볼까요?');
+      const line = pickLine(theme, 'no', idx + wrongStreak);
+      setBubble(line); speak(line);
     }
     setTimeout(() => {
-      setFeedback(null);
-      setLocked(false);
-      // 오답이면 같은 문제 재시도(무감점, §4.1-6). 정답이면 다음 문제.
+      setFeedback(null); setBubble(''); setLocked(false);
       if (isCorrect) {
-        if (idx + 1 >= total) {
-          finish(correct + 1);
-        } else {
-          setIdx(idx + 1);
-        }
-      } else {
-        // 연속 오답 2회 → 힌트 노출(§6.3)
-        if (wrongStreak + 1 >= 2) setShowHint(true);
-      }
-    }, 900);
-  }, [combo, idx, total, correct, wrongStreak]);
+        if (idx + 1 >= total) finish(correct + 1);
+        else setIdx(idx + 1);
+      } else if (wrongStreak + 1 >= 2) setShowHint(true);
+    }, isCorrect ? 1100 : 950);
+  }, [combo, idx, total, correct, wrongStreak, theme]);
 
   function finish(finalCorrect) {
     const accuracy = finalCorrect / total;
@@ -305,35 +323,51 @@ function StagePlay({ stage, mood, world, onExit, onComplete }) {
     onComplete({ score, maxCombo, accuracy, stars, finalCorrect, total });
   }
 
-  const t = WORLD_THEME[world] || WORLD_THEME[1];
+  const wt = WORLD_THEME[world] || WORLD_THEME[1];
   const buddyAnim = feedback === 'ok' ? 'bounce' : feedback === 'no' ? 'wiggle' : 'float';
-  return html`<div class="play theme" style=${{ '--wc1': t.c1 }}>
+  return html`<div class="play theme" style=${{ '--wc1': wt.c1, '--wc2': wt.c2 }}>
+    ${feedback === 'ok' ? html`<${CorrectBurst} key=${burst} color=${ct.accent} />` : null}
     <div class="progress"><div style=${{ width: `${(idx / total) * 100}%` }}></div></div>
     <div class="play-head">
-      <button class="btn ghost" style=${{ minHeight: '48px', fontSize: '18px', padding: '0 18px' }} onClick=${onExit}>← 나가기</button>
+      <button class="btn ghost back" onClick=${onExit}><${Icon} name="back" size=${24} color="#8a8472" /> 나가기</button>
       <div class="spacer"></div>
       <div class="pill">${idx + 1} / ${total}</div>
-      ${combo >= 2 ? html`<div class="combo">🔥 ${combo} 콤보</div>` : null}
-      <div class="pill">⭐ ${score}</div>
+      ${combo >= 2 ? html`<div class="combo"><${Icon} name="bolt" size=${22} color="#ff8f3f" /> ${combo} 콤보</div>` : null}
+      <div class="pill"><${Icon} name="star" size=${20} color="#ffce4f" /> ${score}</div>
     </div>
 
     <div class="stage-main">
-      <div style=${{ display:'flex', alignItems:'center', gap:'14px' }}>
-        <button class="speak-btn" onClick=${() => speak(problem.prompt.tts || problem.prompt.text)}>🔊</button>
+      <div class="prompt-row">
+        <button class="speak-btn" onClick=${() => speak(problem.prompt.tts || problem.prompt.text)}><${Icon} name="speaker" size=${32} color="#7a5a16" /></button>
         <div class="prompt">${problem.prompt.text}</div>
       </div>
-      <${Visual} v=${problem.visual} mood=${mood} />
-      ${showHint ? html`<div style=${{ fontSize:'20px', color: t.accent, fontWeight:800 }}>💡 힌트: ${hintText(problem.hintRef)}</div>` : null}
+      <${Visual} v=${problem.visual} theme=${theme} />
+      ${showHint ? html`<div class="hint" style=${{ color: wt.accent }}>힌트 · ${hintText(problem.hintRef)}</div>` : null}
     </div>
 
-    <div style=${{ display:'grid', placeItems:'center', padding:'6px 0 24px' }}>
+    <div class="input-wrap">
       <${InputArea} problem=${problem} locked=${locked} onAnswer=${handleAnswer} />
     </div>
 
     <div class="buddy">
-      ${feedback ? html`<div class=${`bubble ${feedback}`}>${feedback === 'ok' ? '정답! 🎉' : '괜찮아 💪'}</div>` : null}
-      <${Character} key=${buddyAnim + idx} kind=${t.mascot} world=${world} size=${96} anim=${buddyAnim} />
+      ${bubble ? html`<div class=${`bubble ${feedback || ''}`}>${bubble}</div>` : null}
+      <${Character} key=${buddyAnim + idx + (feedback || '')} kind=${theme} size=${104} anim=${buddyAnim} />
     </div>
+  </div>`;
+}
+
+// 정답 시 큰 이펙트: 중앙 별 폭발 + 링
+function CorrectBurst({ color }) {
+  const rays = range(12);
+  return html`<div class="burst">
+    <div class="burst-ring" style=${{ borderColor: color }}></div>
+    <div class="burst-center"><${Icon} name="star" size=${120} color="#ffce4f" /></div>
+    ${rays.map((i) => {
+      const ang = (i / rays.length) * 360;
+      return html`<div key=${i} class="ray" style=${{ transform: `rotate(${ang}deg) translateY(-120px)`,
+        background: i % 2 ? '#ffce4f' : color, animationDelay: `${(i % 4) * 0.03}s` }}></div>`;
+    })}
+    <div class="burst-text">정답!</div>
   </div>`;
 }
 
@@ -374,19 +408,22 @@ function Confetti() {
 function ResultScreen({ stage, result, world, onNext, onRetry, onMap }) {
   const passed = result.stars > 0;
   const t = WORLD_THEME[world] || WORLD_THEME[1];
+  const chars = stage.themes && stage.themes.length ? stage.themes : [WORLD_MASCOT[world]];
   useEffect(() => { speak(passed ? '참 잘했어요!' : '다시 도전해 볼까요?'); }, []);
-  const rewardChar = stage.reward?.kind === 'rare_character' ? t.mascot : t.mascot;
   return html`<div class="result">
     ${passed ? html`<${Confetti} />` : null}
-    <${Character} kind=${rewardChar} world=${world} size=${passed ? 130 : 96}
-      anim=${passed ? 'bounce' : 'float'} />
-    <div class="stars-big">
-      ${range(3).map((i) => html`<span key=${i}>${i < result.stars ? '⭐' : '☆'}</span>`)}
+    <div class="reward-chars">
+      ${chars.map((c, i) => html`<${Character} key=${c} kind=${c} size=${passed ? 120 : 90}
+        anim=${passed ? 'bounce' : 'float'} style=${{ animationDelay: `${i * 0.12}s` }} />`)}
     </div>
-    <h1>${passed ? '클리어! 🎉' : '아쉬워요'}</h1>
-    ${passed && stage.reward ? html`<div class="reward-card">
-      <div style=${{ fontSize: '14px', fontWeight: 800, color: t.accent }}>${rewardHead(stage.reward)}</div>
-      <div class="rname">🎁 ${rewardLabel(stage.reward, t)}</div>
+    <div class="stars-big">
+      ${range(3).map((i) => html`<span key=${i}><${Icon} name="star" size=${64}
+        color=${i < result.stars ? '#ffce4f' : '#e4ddcb'} /></span>`)}
+    </div>
+    <h1>${passed ? '클리어!' : '아쉬워요'}</h1>
+    ${passed ? html`<div class="reward-card">
+      <div class="rhead" style=${{ color: t.accent }}>친구 ${chars.length}명을 만났어요!</div>
+      <div class="rname">${chars.map((c) => CHAR_NAME[c]).join(' · ')}</div>
     </div>` : null}
     <div class="stats">
       <div class="stat">총점<b>${result.score}</b></div>
@@ -396,43 +433,37 @@ function ResultScreen({ stage, result, world, onNext, onRetry, onMap }) {
     <div class="actions">
       <button class="btn ghost" onClick=${onMap}>맵으로</button>
       <button class="btn purple" onClick=${onRetry}>다시 도전</button>
-      ${passed ? html`<button class="btn green" onClick=${onNext}>다음 ▶</button>` : null}
+      ${passed ? html`<button class="btn green" onClick=${onNext}>다음</button>` : null}
     </div>
   </div>`;
 }
 
-function rewardHead(r) {
-  return r.kind === 'rare_character' ? '희귀 친구 획득!' : '친구 조각 획득';
-}
-function rewardLabel(r, t) {
-  if (r.kind === 'rare_character') return `${CHAR_NAME[t.mascot]} 친구를 얻었어요!`;
-  if (r.kind === 'shard') return `${CHAR_NAME[t.mascot]} 조각 ×${r.amount}`;
-  return '보상 획득';
-}
 
 // ===========================================================================
 // 월드 맵
 // ===========================================================================
-function WorldMap({ data, progress, onPlay, user, onLogout }) {
+function WorldMap({ data, progress, onPlay, user, onLogout, onCollection }) {
   const maxN = highestUnlocked(progress);
   return html`<div>
     <div class="topbar">
-      <div class="title">🧮 수학 어드벤처</div>
+      <div class="title"><${Character} kind="kongryong" size=${38} anim="none" /> 수학 어드벤처</div>
       <div class="spacer"></div>
-      <div class="pill user">👤 ${user}</div>
-      <div class="pill">⭐ ${totalStars(progress)}</div>
-      <button class="btn ghost" style=${{ minHeight: '48px', fontSize: '18px', padding: '0 18px' }} onClick=${onLogout}>로그아웃</button>
+      <div class="pill user"><${Icon} name="user" size=${20} color="#5b8def" /> ${user}</div>
+      <div class="pill"><${Icon} name="star" size=${20} color="#ffce4f" /> ${totalStars(progress)}</div>
+      <button class="btn ghost icon-btn" onClick=${onCollection} title="도감"><${Icon} name="book" size=${24} color="#7a59d0" /> 도감</button>
+      <button class="btn ghost icon-btn" onClick=${onLogout} title="로그아웃"><${Icon} name="logout" size=${22} color="#8a8472" /></button>
     </div>
     <div class="map">
       ${data.worlds.map((w) => {
         const t = WORLD_THEME[w.id];
+        const mascot = WORLD_MASCOT[w.id];
         return html`<div class="world" key=${w.id}
-          style=${{ background: `linear-gradient(180deg, ${t.c1}, #fff)` }}>
+          style=${{ background: `linear-gradient(180deg, ${t.c1}, #fffdf8)` }}>
           <div class="world-banner">
-            <${Character} kind=${t.mascot} world=${w.id} size=${64} anim="float" />
+            <${Character} kind=${mascot} size=${64} anim="float" />
             <div>
               <h2 style=${{ color: t.accent }}>${w.name}</h2>
-              <div class="wsub">대표 친구 · ${CHAR_NAME[t.mascot]}</div>
+              <div class="wsub">대표 친구 · ${CHAR_NAME[mascot]}</div>
             </div>
           </div>
           <div class="stage-grid">
@@ -444,24 +475,52 @@ function WorldMap({ data, progress, onPlay, user, onLogout }) {
               else cls.push('tappable');
               if (s.type === 'boss') cls.push('boss');
               if (s.type === 'mini_review') cls.push('mini');
-              const grad = s.type === 'boss'
-                ? `radial-gradient(circle at 35% 30%, ${t.c2}, ${t.accent})`
-                : s.type === 'mini_review'
-                ? 'radial-gradient(circle at 35% 30%, #ffe27a, #f0a800)'
-                : `radial-gradient(circle at 35% 30%, ${t.c2}, ${t.accent})`;
-              const shadow = `0 6px 0 ${t.accent}, 0 8px 12px rgba(0,0,0,.12)`;
+              const grad = s.type === 'mini_review'
+                ? 'radial-gradient(circle at 35% 28%, #ffe69a, #eda600)'
+                : `radial-gradient(circle at 35% 28%, ${t.c2}, ${t.accent})`;
+              const shadow = `0 6px 0 ${t.accent}, 0 9px 12px rgba(0,0,0,.14)`;
               return html`<div key=${s.n} class=${cls.join(' ')}
                 style=${unlocked ? { background: grad, boxShadow: shadow } : {}}
                 onClick=${() => unlocked && onPlay(s)}>
+                ${s.type === 'boss' ? html`<div class="badge"><${Icon} name="crown" size=${22} color="#ffce4f" /></div>` : null}
+                ${s.type === 'mini_review' ? html`<div class="badge"><${Icon} name="refresh" size=${18} color="#fff" /></div>` : null}
                 ${unlocked
                   ? (s.type === 'boss'
-                      ? html`<${Character} kind=${t.mascot} world=${w.id} size=${42} anim="none" />`
+                      ? html`<${Character} kind=${WORLD_MASCOT[w.id]} size=${44} anim="none" />`
                       : s.stageInWorld)
-                  : html`<span class="lock">🔒</span>`}
-                ${stars > 0 ? html`<div class="stars">${'⭐'.repeat(stars)}</div>` : null}
+                  : html`<${Icon} name="lock" size=${26} color="#b3ab93" />`}
+                ${stars > 0 ? html`<div class="stars">${range(stars).map((i) => html`<${Icon} key=${i} name="star" size=${13} color="#ffce4f" />`)}</div>` : null}
               </div>`;
             })}
           </div>
+        </div>`;
+      })}
+    </div>
+  </div>`;
+}
+
+// ===========================================================================
+// 도감 (모은 캐릭터)
+// ===========================================================================
+function Collection({ progress, onBack }) {
+  const got = new Set(progress.collected || []);
+  return html`<div>
+    <div class="topbar">
+      <button class="btn ghost back" onClick=${onBack}><${Icon} name="back" size=${24} color="#8a8472" /> 맵으로</button>
+      <div class="title" style=${{ marginLeft: '8px' }}>친구 도감</div>
+      <div class="spacer"></div>
+      <div class="pill">${got.size} / ${ROSTER.length}</div>
+    </div>
+    <div class="collection">
+      ${ROSTER.map((k) => {
+        const owned = got.has(k);
+        const ct = CHAR_THEME[k];
+        return html`<div key=${k} class=${`dex-card ${owned ? 'owned' : 'locked'}`}
+          style=${owned ? { background: `linear-gradient(180deg, ${ct.c1}, #fff)` } : {}}>
+          ${owned
+            ? html`<${Character} kind=${k} size=${96} anim="float" />`
+            : html`<div class="dex-silhouette"><${Character} kind=${k} size=${96} anim="none" /></div>`}
+          <div class="dex-name">${owned ? CHAR_NAME[k] : '???'}</div>
         </div>`;
       })}
     </div>
@@ -506,17 +565,17 @@ function LoginScreen({ onLogin }) {
 
   return html`<div class="login">
     <div class="login-mascots">
-      ${['carbot', 'spark', 'aqua', 'ranger', 'hero', 'flora', 'flame'].map((k, i) => html`<${Character}
-        key=${k} kind=${k} world=${1} size=${78} anim="float"
+      ${['poopbot', 'ppika', 'baboon', 'captainkorea', 'imagine', 'superabbit', 'andongki', 'balduncle'].map((k, i) => html`<${Character}
+        key=${k} kind=${k} size=${74} anim="float"
         style=${{ animationDelay: `${(i % 4) * 0.4}s` }} />`)}
     </div>
     <div class="login-card">
-      <div class="login-top"><${Character} kind="dino" world=${1} size=${110} anim="wiggle" /></div>
+      <div class="login-top"><${Character} kind="kongryong" size=${110} anim="wiggle" /></div>
       <h1>수학 어드벤처</h1>
       <p class="login-sub">${mode === 'login' ? '아이디로 로그인해요' : '새 계정을 만들어요'}</p>
 
       ${existing.length > 0 && mode === 'login' ? html`<div class="acc-chips">
-        ${existing.map((a) => html`<button key=${a} class="acc-chip" onClick=${() => setId(a)}>👤 ${a}</button>`)}
+        ${existing.map((a) => html`<button key=${a} class="acc-chip" onClick=${() => setId(a)}><${Icon} name="user" size=${16} color="#5b8def" /> ${a}</button>`)}
       </div>` : null}
 
       <input class="login-input" placeholder="아이디" value=${id}
@@ -580,8 +639,12 @@ function App() {
 
   const completeStage = useCallback((stage, result) => {
     setProgress((prev) => {
-      const next = { ...prev, stars: { ...prev.stars } };
+      const next = { ...prev, stars: { ...prev.stars }, collected: [...(prev.collected || [])] };
       next.stars[stage.n] = Math.max(next.stars[stage.n] || 0, result.stars);
+      // 클리어(별 1개 이상) 시 이 스테이지에 등장한 캐릭터를 도감에 수집
+      if (result.stars > 0) {
+        for (const c of stage.themes || []) if (!next.collected.includes(c)) next.collected.push(c);
+      }
       if (user) saveProgress(user, next);
       return next;
     });
@@ -594,20 +657,20 @@ function App() {
   if (!user) {
     return html`<div>
       <${LoginScreen} onLogin=${login} />
-      <div class="rotate-hint">📱➡️ 태블릿을 가로로 돌려주세요!</div>
+      <div class="rotate-hint">태블릿을 가로로 돌려주세요!</div>
     </div>`;
   }
 
-  const moodOf = (worldId) => data.worlds.find((w) => w.id === worldId)?.mood;
-
   let screen;
   if (view.name === 'map') {
-    screen = html`<${WorldMap} data=${data} progress=${progress} onPlay=${playStage} user=${user} onLogout=${logout} />`;
+    screen = html`<${WorldMap} data=${data} progress=${progress} onPlay=${playStage}
+      user=${user} onLogout=${logout} onCollection=${() => setView({ name: 'collection' })} />`;
+  } else if (view.name === 'collection') {
+    screen = html`<${Collection} progress=${progress} onBack=${() => setView({ name: 'map' })} />`;
   } else if (view.name === 'play') {
     screen = html`<${StagePlay}
       key=${view.stage.n}
       stage=${view.stage}
-      mood=${moodOf(view.stage.world)}
       world=${view.stage.world}
       onExit=${() => setView({ name: 'map' })}
       onComplete=${(result) => completeStage(view.stage, result)} />`;
@@ -624,7 +687,7 @@ function App() {
 
   return html`<div>
     ${screen}
-    <div class="rotate-hint">📱➡️ 태블릿을 가로로 돌려주세요!</div>
+    <div class="rotate-hint">태블릿을 가로로 돌려주세요!</div>
   </div>`;
 }
 

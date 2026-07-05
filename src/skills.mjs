@@ -45,6 +45,18 @@ export function shuffle(rng, arr) {
   return a;
 }
 
+// ---- 한국어 조사 자동 선택 (받침 유무) -------------------------------------
+function hasBatchim(word) {
+  if (!word) return false;
+  const c = word.charCodeAt(word.length - 1);
+  if (c < 0xac00 || c > 0xd7a3) return false; // 한글 음절이 아니면 받침 없음 취급
+  return (c - 0xac00) % 28 !== 0;
+}
+const eunNeun = (w) => w + (hasBatchim(w) ? '은' : '는'); // 은/는
+const iGa = (w) => w + (hasBatchim(w) ? '이' : '가');     // 이/가
+const eulReul = (w) => w + (hasBatchim(w) ? '을' : '를'); // 을/를
+const waGwa = (w) => w + (hasBatchim(w) ? '과' : '와');   // 과/와
+
 // 숫자 보기 만들기: 정답 + 유효/유일한 오답 후보로 보기 구성
 export function buildNumChoices(rng, answer, candidates, count, { min = 0, max = 999 } = {}) {
   const seen = new Set([answer]);
@@ -91,7 +103,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [n], operator: 'read', answer: n,
         promptText: '이 숫자를 찾아보세요',
-        ttsText: `${numKo(n)}은(는) 어떤 숫자일까요?`,
+        ttsText: `${eunNeun(numKo(n))} 어떤 숫자일까요?`,
         visual: { type: 'spoken_number', value: n },
         distractors: [confus[n], n + 1, n - 1, n + 2].filter((x) => x != null),
         hintRef: null,
@@ -109,7 +121,7 @@ export const SKILLS = {
       return {
         kind: 'sym', operands: [a, b], operator: 'compare', answer,
         promptText: `${a} □ ${b}`,
-        ttsText: `${numKo(a)}와 ${numKo(b)} 중 어느 것이 더 클까요?`,
+        ttsText: `${waGwa(numKo(a))} ${numKo(b)} 중 어느 것이 더 클까요?`,
         visual: { type: 'compare_groups', a, b },
         choices: ['>', '<', '='],
         hintRef: 'number_line',
@@ -128,7 +140,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a, b], operator: '+', answer,
         promptText: `${a} + ${b} = ?`,
-        ttsText: `${numKo(a)} 더하기 ${numKo(b)}는 얼마일까요?`,
+        ttsText: `${numKo(a)} 더하기 ${eunNeun(numKo(b))} 얼마일까요?`,
         visual: p.concrete ? { type: 'objects_add', a, b } : { type: 'ten_frame_add', a, b },
         distractors: [answer + 1, answer - 1, Math.abs(a - b), answer + 2],
         hintRef: 'count_on',
@@ -144,7 +156,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a], operator: 'make10', answer,
         promptText: `${a} 와(과) 짝을 이뤄 10을 만드는 수는?`,
-        ttsText: `${numKo(a)}와 짝을 이뤄 십을 만드는 수는 무엇일까요?`,
+        ttsText: `${waGwa(numKo(a))} 짝을 이뤄 십을 만드는 수는 무엇일까요?`,
         visual: { type: 'ten_frame', filled: a },
         distractors: [answer + 1, answer - 1, a, answer + 2],
         hintRef: 'make_ten',
@@ -162,7 +174,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a, b], operator: 'compose', answer,
         promptText: `${a} 와(과) ${b} 를 모으면?`,
-        ttsText: `${numKo(a)}와 ${numKo(b)}를 모으면 얼마일까요?`,
+        ttsText: `${waGwa(numKo(a))} ${eulReul(numKo(b))} 모으면 얼마일까요?`,
         visual: { type: 'compose_bond', a, b },
         distractors: [answer + 1, answer - 1, Math.abs(a - b)],
         hintRef: 'number_bond',
@@ -180,7 +192,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a, b], operator: '-', answer,
         promptText: `${a} - ${b} = ?`,
-        ttsText: `${numKo(a)} 빼기 ${numKo(b)}는 얼마일까요?`,
+        ttsText: `${numKo(a)} 빼기 ${eunNeun(numKo(b))} 얼마일까요?`,
         visual: p.concrete ? { type: 'objects_sub', a, b } : { type: 'ten_frame_sub', a, b },
         distractors: [answer + 1, answer - 1, a + b, b],
         hintRef: 'count_back',
@@ -196,7 +208,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [10, b], operator: '-', answer,
         promptText: `10 - ${b} = ?`,
-        ttsText: `십 빼기 ${numKo(b)}는 얼마일까요?`,
+        ttsText: `십 빼기 ${eunNeun(numKo(b))} 얼마일까요?`,
         visual: { type: 'ten_frame_sub', a: 10, b },
         distractors: [answer + 1, answer - 1, b, 10 - b + 1],
         hintRef: 'make_ten',
@@ -213,7 +225,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [n, a], operator: 'decompose', answer,
         promptText: `${n} 은(는) ${a} 와(과) 몇으로 가를 수 있나요?`,
-        ttsText: `${numKo(n)}은 ${numKo(a)}와 몇으로 가를 수 있을까요?`,
+        ttsText: `${eunNeun(numKo(n))} ${waGwa(numKo(a))} 몇으로 가를 수 있을까요?`,
         visual: { type: 'decompose_bond', whole: n, part: a },
         distractors: [answer + 1, answer - 1, a, n],
         hintRef: 'number_bond',
@@ -232,7 +244,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a, b, c], operator: '+', answer,
         promptText: `${a} + ${b} + ${c} = ?`,
-        ttsText: `${numKo(a)} 더하기 ${numKo(b)} 더하기 ${numKo(c)}는 얼마일까요?`,
+        ttsText: `${numKo(a)} 더하기 ${numKo(b)} 더하기 ${eunNeun(numKo(c))} 얼마일까요?`,
         visual: { type: 'ten_frame', filled: answer },
         distractors: [answer + 1, answer - 1, a + b, b + c],
         hintRef: 'make_ten',
@@ -293,7 +305,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a, b], operator: '+', answer,
         promptText: `${a} + ${b} = ?`,
-        ttsText: `${numKo(a)} 더하기 ${numKo(b)}는 얼마일까요?`,
+        ttsText: `${numKo(a)} 더하기 ${eunNeun(numKo(b))} 얼마일까요?`,
         visual: { type: 'ten_frame_add', a, b, twoFrames: true },
         // 대표 오답: 받아올림 무시(일의 자리만), ±1, 10 빼먹기
         distractors: [(a + b) % 10, answer - 10, answer + 1, answer - 1],
@@ -319,7 +331,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [minuend, sub], operator: '-', answer,
         promptText: `${minuend} - ${sub} = ?`,
-        ttsText: `${numKo(minuend)} 빼기 ${numKo(sub)}는 얼마일까요?`,
+        ttsText: `${numKo(minuend)} 빼기 ${eunNeun(numKo(sub))} 얼마일까요?`,
         visual: { type: 'ten_frame_sub', a: minuend, b: sub, twoFrames: true },
         // 대표 오답: 거꾸로 빼기 |x-y|, ±1, 받아내림 실수
         distractors: [Math.abs(x - y), answer + 1, answer - 1, answer + 10],
@@ -361,7 +373,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a, b], operator: '+', answer,
         promptText: `${a} + ${b} = ?`,
-        ttsText: `${numKo(a)} 더하기 ${numKo(b)}는 얼마일까요?`,
+        ttsText: `${numKo(a)} 더하기 ${eunNeun(numKo(b))} 얼마일까요?`,
         visual: { type: 'base_ten_add', a, b },
         distractors: [answer + 1, answer - 1, answer + 10, answer - 10],
         hintRef: 'column_add',
@@ -384,7 +396,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a, b], operator: '+', answer,
         promptText: `${a} + ${b} = ?`,
-        ttsText: `${numKo(a)} 더하기 ${numKo(b)}는 얼마일까요?`,
+        ttsText: `${numKo(a)} 더하기 ${eunNeun(numKo(b))} 얼마일까요?`,
         visual: { type: 'base_ten_add', a, b },
         distractors: [answer + 1, answer - 1, answer + 10, answer - 10],
         hintRef: 'column_add',
@@ -401,7 +413,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a, b], operator: '-', answer,
         promptText: `${a} - ${b} = ?`,
-        ttsText: `${numKo(a)} 빼기 ${numKo(b)}는 얼마일까요?`,
+        ttsText: `${numKo(a)} 빼기 ${eunNeun(numKo(b))} 얼마일까요?`,
         visual: { type: 'base_ten_sub', a, b },
         distractors: [answer + 1, answer - 1, answer + 10, answer - 10],
         hintRef: 'column_sub',
@@ -457,7 +469,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [a, n], operator: '×', answer,
         promptText: Array(n).fill(a).join(' + ') + ' = ?',
-        ttsText: `${numKo(a)}를 ${numKo(n)}번 더하면 얼마일까요?`,
+        ttsText: `${eulReul(numKo(a))} ${numKo(n)}번 더하면 얼마일까요?`,
         visual: { type: 'groups', per: a, groups: n },
         distractors: [answer + a, answer - a, a * (n + 1), a + n],
         hintRef: 'skip_count',
@@ -475,7 +487,7 @@ export const SKILLS = {
       return {
         kind: 'expr', operands: [a, n], operator: 'to_mult', answer,
         promptText: Array(n).fill(a).join(' + ') + ' 와 같은 곱셈식은?',
-        ttsText: `${numKo(a)}를 ${numKo(n)}번 더한 것과 같은 곱셈식을 찾아보세요.`,
+        ttsText: `${eulReul(numKo(a))} ${numKo(n)}번 더한 것과 같은 곱셈식을 찾아보세요.`,
         visual: { type: 'groups', per: a, groups: n },
         choices,
         hintRef: 'array',
@@ -510,7 +522,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [rows, cols], operator: '×', answer,
         promptText: `${rows} × ${cols} = ?`,
-        ttsText: `${numKo(rows)} 곱하기 ${numKo(cols)}는 얼마일까요?`,
+        ttsText: `${numKo(rows)} 곱하기 ${eunNeun(numKo(cols))} 얼마일까요?`,
         visual: { type: 'array', rows, cols },
         distractors: [answer + rows, answer - cols, rows + cols, answer + 1],
         hintRef: 'array',
@@ -532,7 +544,7 @@ export const SKILLS = {
       return {
         kind: 'num', operands: [x, y], operator: '×', answer, dan: a,
         promptText: `${x} × ${y} = ?`,
-        ttsText: `${numKo(x)} 곱하기 ${numKo(y)}는 얼마일까요?`,
+        ttsText: `${numKo(x)} 곱하기 ${eunNeun(numKo(y))} 얼마일까요?`,
         visual: { type: 'array', rows: x, cols: y },
         // 대표 오답: ±한 단(±a), 인접 곱(a*(b±1)), ±1
         distractors: [answer + a, answer - a, a * (b + 1), a * (b - 1), answer + 1, answer - 1],
@@ -571,8 +583,8 @@ export const SKILLS = {
       const unit = pick(rng, ['묶음', '바구니', '상자', '접시']);
       return {
         kind: 'num', operands: [per, groups], operator: '×', answer,
-        promptText: `${item}가 ${per}개씩 ${groups}${unit}, 모두 몇 개?`,
-        ttsText: `${item}가 ${numKo(per)}개씩 ${numKo(groups)}${unit} 있어요. 모두 몇 개일까요?`,
+        promptText: `${iGa(item)} ${per}개씩 ${groups}${unit}, 모두 몇 개?`,
+        ttsText: `${iGa(item)} ${numKo(per)}개씩 ${numKo(groups)}${unit} 있어요. 모두 몇 개일까요?`,
         visual: { type: 'groups', per, groups },
         distractors: [answer + per, answer - per, per + groups, answer + 1],
         hintRef: 'array',
