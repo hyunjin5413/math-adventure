@@ -211,6 +211,19 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
 .discover-name { font-size: clamp(22px,3.4vw,30px); font-weight: 700; }
 .discover-reason { font-size: 15px; color: var(--ink-soft); background: #fff; border-radius: 999px; padding: 4px 14px; }
 
+/* ===== 상단 ⋯ 메뉴 ===== */
+.more-wrap { position: relative; margin-left: clamp(14px, 3vw, 30px); } /* 도감 버튼과 간격 확보 */
+.more-btn { min-width: 50px; }
+.more-menu { position: absolute; right: 0; top: calc(100% + 8px); background: #fff; border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(70,50,20,.2), 0 3px 0 #ece3cc; padding: 6px; z-index: 30; min-width: 150px; }
+.more-item { display: flex; align-items: center; gap: 8px; width: 100%; padding: 12px 16px; border-radius: 12px;
+  background: none; font-size: 17px; font-weight: 700; color: var(--ink); text-align: left; }
+.more-item:active { background: #f3edd8; }
+.more-backdrop { position: fixed; inset: 0; z-index: 20; }
+
+/* 결과 화면 발견 카드(오버레이 아님) */
+.result-discover { padding: 14px 34px 16px; }
+
 /* ===== 도감 상세 모달 ===== */
 .dex-modal { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: rgba(70,50,20,.35); }
 .dex-modal-card { border-radius: 30px; padding: 26px 40px; display: grid; justify-items: center; gap: 12px;

@@ -279,6 +279,7 @@ const ICONS = {
   del: (c) => html`<g fill="none" stroke=${c} stroke-width="7" stroke-linecap="round"><path d="M40 28 H82 V72 H40 L18 50Z"/><path d="M52 42 L70 58 M70 42 L52 58"/></g>`,
   bolt: (c) => html`<polygon points="56,12 28,56 48,56 42,88 72,40 50,40" fill=${c}/>`,
   logout: (c) => html`<g fill="none" stroke=${c} stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M44 24 H24 V76 H44"/><polyline points="60,34 80,50 60,66"/><line x1="80" y1="50" x2="40" y2="50"/></g>`,
+  dots: (c) => html`<g fill=${c}><circle cx="22" cy="50" r="9"/><circle cx="50" cy="50" r="9"/><circle cx="78" cy="50" r="9"/></g>`,
 };
 export function Icon({ name, size = 28, color = '#34324a' }) {
   const d = ICONS[name] || ICONS.star;
