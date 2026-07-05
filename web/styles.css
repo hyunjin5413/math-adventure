@@ -135,10 +135,10 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
 .buddy { position: absolute; left: calc(clamp(10px,2vw,24px) + var(--safe-l)); bottom: calc(14px + var(--safe-b)); z-index: 5; }
 .buddy svg.char { width: clamp(64px,13vh,104px); height: clamp(64px,13vh,104px); }
 .buddy.boss svg.char { width: clamp(84px,17vh,140px); height: clamp(84px,17vh,140px); }
-.bubble { position: absolute; bottom: clamp(66px,14vh,104px); left: 0; white-space: nowrap; background: #fff; border-radius: 16px;
+.bubble { position: absolute; bottom: clamp(46px,9.5vh,74px); left: 40px; white-space: nowrap; background: #fff; border-radius: 16px;
   padding: 8px 14px; font-weight: 700; font-size: clamp(15px,2vw,18px); box-shadow: 0 4px 10px rgba(0,0,0,.12); animation: popin .25s both; max-width: 60vw; }
 .bubble.ok { color: var(--leaf-d); } .bubble.no { color: var(--berry); }
-.bubble::after { content: ""; position: absolute; bottom: -8px; left: 28px; border: 8px solid transparent; border-top-color: #fff; }
+.bubble::after { content: ""; position: absolute; bottom: -9px; left: 16px; border: 9px solid transparent; border-top-color: #fff; }
 
 /* 보기 */
 .choices { display: flex; gap: clamp(10px,2vw,18px); flex-wrap: wrap; justify-content: center; }
@@ -197,7 +197,8 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
     radial-gradient(110px 38px at 74% 12%, rgba(255,255,255,.75) 60%, transparent 65%),
     radial-gradient(90px 32px at 46% 30%, rgba(255,255,255,.6) 60%, transparent 65%);
 }
-.play > *, .login > *, .map > * { position: relative; z-index: 1; }
+.play > *, .login > *, .map > * { z-index: 1; }
+.play > :not(.buddy):not(.burst):not(.discover):not(.dex-modal) { position: relative; }
 
 /* ===== 테마 블록 표시 (10문제 단위) ===== */
 .blockbar { display: flex; gap: 6px; align-items: center; margin-left: 6px; }
@@ -350,7 +351,7 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
   .opsign { font-size: 24px; }
 
   /* 말풍선 축소 (버디는 vh 기반으로 이미 축소됨) */
-  .buddy .bubble { font-size: 15px; bottom: clamp(60px,14vh,100px); }
+  .buddy .bubble { font-size: 15px; bottom: clamp(42px,9vh,70px); left: 32px; }
 
   /* 결과/발견/도감 모달 축소 */
   .result { gap: 8px; }
