@@ -10,6 +10,7 @@ import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
 import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs';
 import { serverGet, serverPut } from './sync.mjs';
+import { initOpenTTS, speakOpen, stopOpenSpeech, prefetchSpeech, ttsStatus } from './tts.mjs';
 
 const html = htm.bind(React.createElement);
 const { useRef } = React;
@@ -181,7 +182,7 @@ if ('speechSynthesis' in window) {
   window.speechSynthesis.onvoiceschanged = refreshVoices;
 }
 
-function speakRaw(text, { pitch = 1, rate = 0.95, v = 0 } = {}) {
+function speakWebSpeech(text, { pitch = 1, rate = 0.95, v = 0 } = {}) {
   if (!text || !('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
@@ -190,6 +191,18 @@ function speakRaw(text, { pitch = 1, rate = 0.95, v = 0 } = {}) {
   u.rate = rate;
   if (KO_VOICES.length) u.voice = KO_VOICES[v % KO_VOICES.length];
   window.speechSynthesis.speak(u);
+}
+
+// 오픈소스 TTS(MMS ko) 우선, 준비 전/실패 시 기기 Web Speech 폴백
+function speakRaw(text, style = {}) {
+  if (!text) return;
+  if (ttsStatus() === 'ready') {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    speakOpen(text, style).then((ok) => { if (!ok) speakWebSpeech(text, style); });
+  } else {
+    stopOpenSpeech();
+    speakWebSpeech(text, style);
+  }
 }
 
 // 문제/안내용 기본 목소리 (가장 자연스러운 보이스, 또렷하게)
@@ -384,6 +397,9 @@ function StagePlay({ stage, world, onExit, onComplete }) {
         speak(problem.prompt.tts || problem.prompt.text);
       }
     }, 250);
+    // 다음 문제 음성 미리 합성 → 넘어갈 때 즉시 낭독
+    const nxt = stage.problems[idx + 1];
+    if (nxt) setTimeout(() => prefetchSpeech(nxt.prompt.tts || nxt.prompt.text), 1500);
     return () => clearTimeout(id);
   }, [problem.id]);
 
@@ -788,6 +804,9 @@ function App() {
         '<div class="boot">stages.json을 불러오지 못했습니다.<br/>먼저 <b>node build.mjs</b> 실행 후<br/>정적 서버로 열어주세요.</div>';
       console.error(e);
     });
+    // 오픈소스 한국어 TTS 백그라운드 로딩(최초 1회 ~37MB, 이후 캐시).
+    // 준비되기 전에는 기기 음성으로 자동 폴백.
+    initOpenTTS();
   }, []);
 
   // 로그인한 계정의 진척도 로드
