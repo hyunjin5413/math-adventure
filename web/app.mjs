@@ -8,7 +8,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, WORLD_MASCOT, VOICE, pickLine } from './characters.mjs';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, WORLD_CHARS, WORLD_LABEL, WORLD_MASCOT, VOICE, pickLine } from './characters.mjs';
 import { serverGet, serverPut } from './sync.mjs';
 
 const html = htm.bind(React.createElement);
@@ -598,6 +598,18 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection }) {
 // ===========================================================================
 // 도감 (모은 캐릭터)
 // ===========================================================================
+function DexCard({ k, entry, onSelect }) {
+  const ct = CHAR_THEME[k];
+  return html`<div class=${`dex-card ${entry ? 'owned' : 'locked'}`}
+    style=${entry ? { background: `linear-gradient(180deg, ${ct.c1}, #fff)` } : {}}
+    onClick=${() => entry && onSelect(entry)}>
+    ${entry
+      ? html`<${Character} kind=${k} size=${90} anim="float" />`
+      : html`<div class="dex-silhouette"><${Character} kind=${k} size=${90} anim="none" /></div>`}
+    <div class="dex-name">${entry ? CHAR_NAME[k] : '???'}</div>
+  </div>`;
+}
+
 function Collection({ progress, onBack }) {
   const entries = new Map((progress.collected || []).map((c) => [c.id, c]));
   const [selected, setSelected] = useState(null); // 탭한 캐릭터 entry
@@ -608,19 +620,26 @@ function Collection({ progress, onBack }) {
       <div class="spacer"></div>
       <div class="pill">${entries.size} / ${DEX.length}</div>
     </div>
-    <div class="collection">
-      ${DEX.map((k) => {
-        const entry = entries.get(k);
-        const ct = CHAR_THEME[k];
-        return html`<div key=${k} class=${`dex-card ${entry ? 'owned' : 'locked'}`}
-          style=${entry ? { background: `linear-gradient(180deg, ${ct.c1}, #fff)` } : {}}
-          onClick=${() => entry && setSelected(entry)}>
-          ${entry
-            ? html`<${Character} kind=${k} size=${96} anim="float" />`
-            : html`<div class="dex-silhouette"><${Character} kind=${k} size=${96} anim="none" /></div>`}
-          <div class="dex-name">${entry ? CHAR_NAME[k] : '???'}</div>
+    <div class="collection-scroll">
+      ${[1, 2, 3, 4, 5].map((w) => {
+        const chars = WORLD_CHARS[w];
+        const ownedCount = chars.filter((k) => entries.has(k)).length;
+        const wt = WORLD_THEME[w];
+        return html`<div key=${w} class="dex-section">
+          <div class="dex-sec-head" style=${{ color: wt.accent }}>
+            W${w} ${WORLD_LABEL[w]} <span class="dex-sec-count">${ownedCount}/${chars.length}</span>
+          </div>
+          <div class="collection">
+            ${chars.map((k) => html`<${DexCard} key=${k} k=${k} entry=${entries.get(k)} onSelect=${setSelected} />`)}
+          </div>
         </div>`;
       })}
+      <div class="dex-section">
+        <div class="dex-sec-head" style=${{ color: '#4a2fa8' }}>특별 친구</div>
+        <div class="collection">
+          <${DexCard} k="daewang" entry=${entries.get('daewang')} onSelect=${setSelected} />
+        </div>
+      </div>
     </div>
     ${selected ? html`<div class="dex-modal" onClick=${() => setSelected(null)}>
       <div class="dex-modal-card" style=${{ background: `linear-gradient(180deg, ${CHAR_THEME[selected.id].c1}, #fff)` }}
@@ -767,12 +786,13 @@ function App() {
       if (result.stars > 0) {
         // 대왕 물리치기(최초 1회)
         if (result.beatBoss) add('daewang', `스테이지 ${stage.n} 대왕과의 대결 승리`);
-        // 스테이지 8개 완료마다 → 새 친구 발견!
+        // 스테이지 4개 완료마다 → 새 친구 발견! (지금 월드 친구 우선)
         if (firstClear) {
           const clearedCount = Object.values(next.stars).filter((s) => s > 0).length;
-          if (clearedCount % 8 === 0) {
+          if (clearedCount % 4 === 0) {
             const owned = new Set(next.collected.map((c) => c.id));
-            const candidates = ROSTER.filter((c) => !owned.has(c));
+            const worldPool = (WORLD_CHARS[stage.world] || []).filter((c) => !owned.has(c));
+            const candidates = worldPool.length ? worldPool : ROSTER.filter((c) => !owned.has(c));
             if (candidates.length) {
               const id = candidates[Math.floor(Math.random() * candidates.length)];
               const reason = `스테이지 ${clearedCount}개 완료`;

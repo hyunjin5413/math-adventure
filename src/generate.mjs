@@ -108,14 +108,22 @@ function stageId(stage) {
   return `W${stage.world}-S${String(stage.n).padStart(3, '0')}`;
 }
 
-// ---- 캐릭터 테마 (characters.mjs ROSTER와 동일 순서) ------------------------
-const ROSTER = ['kongryong', 'balduncle', 'poopbot', 'andongki', 'ppika', 'captainkorea', 'baboon', 'imagine', 'superabbit', 'kkongryong', 'ppokkattu'];
+// ---- 캐릭터 테마 (web/characters.mjs WORLD_CHARS와 동일하게 유지) ------------
+const WORLD_CHARS = {
+  1: ['kongryong', 'kkongryong', 'imagine', 'bbyeo', 'allog'],
+  2: ['poopbot', 'drill', 'bbabang', 'chulkung', 'ppiriri'],
+  3: ['balduncle', 'baboon', 'pungpung', 'syungsyung', 'salgeum'],
+  4: ['captainkorea', 'superabbit', 'bulkkot', 'shadowcat', 'mujeokgom'],
+  5: ['ppika', 'ppokkattu', 'andongki', 'bugeul', 'mongsil'],
+};
 const THEME_BLOCK = 10; // 10문제마다 테마(캐릭터) 전환
 const BOSS_TAIL = 10;   // 각 스테이지 마지막 10문제 = 대왕 구간(조금 어렵게)
 function themesFor(stage) {
+  // 자기 월드 친구들이 스테이지마다 돌아가며 등장
+  const pool = WORLD_CHARS[stage.world] || WORLD_CHARS[1];
   const blocks = Math.max(1, Math.ceil(stage.problemCount / THEME_BLOCK));
-  const offset = ((stage.n - 1) * 2) % ROSTER.length;
-  return Array.from({ length: blocks }, (_, k) => ROSTER[(offset + k) % ROSTER.length]);
+  const offset = ((stage.n - 1) * 3) % pool.length;
+  return Array.from({ length: blocks }, (_, k) => pool[(offset + k) % pool.length]);
 }
 
 // ---- 스테이지 전체 생성 ----------------------------------------------------
