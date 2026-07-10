@@ -205,6 +205,8 @@ export function prefetchSpeech(text) {
   prefetchQ.push(text);
   if (state === 'ready') drainPrefetch();
 }
+// 이미 합성돼 즉시 재생 가능한지 (라이브 재생은 절대 합성을 기다리지 않는다)
+export function hasCachedSpeech(text) { return cache.has(text); }
 export function prewarmLines(texts) { for (const t of texts || []) prefetchSpeech(t); }
 
 export function stopOpenSpeech() {
