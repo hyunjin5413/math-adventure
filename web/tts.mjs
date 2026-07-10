@@ -94,10 +94,41 @@ export async function initOpenTTS() {
 }
 
 // ---- 합성 + 재생 ---------------------------------------------------------------
+// iOS/모바일: AudioContext가 수시로 suspended/interrupted 되므로
+//  ① 사용자 제스처마다 즉시 잠금 해제(제스처 컨텍스트 안에서 resume)
+//  ② 재생 직전 resume을 "기다린 후" 시작, 실패 시 Web Speech 폴백
 function ensureCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+  if (!audioCtx || audioCtx.state === 'closed') {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
   return audioCtx;
+}
+
+// 사용자 제스처 안에서 오디오 잠금 해제 (아이는 계속 탭하므로 항상 running 유지)
+let audioUnlocked = false;
+function unlockAudio() {
+  try {
+    const ctx = ensureCtx();
+    if (ctx.state !== 'running') ctx.resume().catch(() => {});
+    if (!audioUnlocked) {
+      // iOS 클래식 언락: 제스처 안에서 무음 버퍼 1회 재생
+      const b = ctx.createBuffer(1, 1, 22050);
+      const s = ctx.createBufferSource();
+      s.buffer = b; s.connect(ctx.destination); s.start(0);
+      audioUnlocked = true;
+    }
+  } catch { /* noop */ }
+}
+if (typeof window !== 'undefined') {
+  for (const ev of ['pointerdown', 'touchend', 'mousedown', 'keydown']) {
+    window.addEventListener(ev, unlockAudio, { capture: true, passive: true });
+  }
+  // 백그라운드 갔다 오면(잠금/앱전환) 컨텍스트 재개
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && audioCtx && audioCtx.state !== 'running') {
+      audioCtx.resume().catch(() => {});
+    }
+  });
 }
 
 async function synthToBuffer(text) {
@@ -155,8 +186,15 @@ export async function speakOpen(text, style) {
   const my = ++seq;
   try {
     const buf = await synthToBuffer(text);
-    if (!buf || my !== seq) return true; // 이미 다른 말로 대체됨
+    if (!buf) return false;
+    if (my !== seq) return true; // 이미 다른 말로 대체됨
     const ctx = ensureCtx();
+    // 재생 전에 반드시 running 상태 확보 (iOS: suspended/interrupted 복구)
+    if (ctx.state !== 'running') {
+      try { await Promise.race([ctx.resume(), new Promise((r) => setTimeout(r, 700))]); } catch { /* noop */ }
+    }
+    if (ctx.state !== 'running') return false; // 재개 불가 → 기기 음성 폴백
+    if (my !== seq) return true;
     if (currentSrc) { try { currentSrc.stop(); } catch { /* noop */ } }
     const src = ctx.createBufferSource();
     src.buffer = buf;

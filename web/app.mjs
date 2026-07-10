@@ -184,13 +184,16 @@ if ('speechSynthesis' in window) {
 
 function speakWebSpeech(text, { pitch = 1, rate = 0.95, v = 0 } = {}) {
   if (!text || !('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
+  const synth = window.speechSynthesis;
+  synth.cancel();
+  // 모바일 크롬/안드로이드: cancel 후 paused로 남아 다음 발화가 무음이 되는 버그 대응
+  try { synth.resume(); } catch { /* noop */ }
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'ko-KR';
   u.pitch = pitch;
   u.rate = rate;
   if (KO_VOICES.length) u.voice = KO_VOICES[v % KO_VOICES.length];
-  window.speechSynthesis.speak(u);
+  synth.speak(u);
 }
 
 // 오픈소스 TTS(MMS ko) 우선, 준비 전/실패 시 기기 Web Speech 폴백
