@@ -11,6 +11,14 @@ import htm from 'https://esm.sh/htm@3.1.1';
 import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs';
 import { serverGet, serverPut } from './sync.mjs';
 import { initOpenTTS, speakOpen, stopOpenSpeech, prefetchSpeech, prewarmLines, ttsStatus } from './tts.mjs';
+import { sfx } from './sfx.mjs';
+
+// 기본 터치 효과음: 버튼/스테이지/카드 탭 시 톡톡이 (제스처 안이라 iOS도 항상 재생됨)
+if (typeof window !== 'undefined') {
+  window.addEventListener('pointerdown', (e) => {
+    if (e.target && e.target.closest && e.target.closest('button, .stage-node, .dex-card')) sfx('tap');
+  }, { capture: true, passive: true });
+}
 
 const html = htm.bind(React.createElement);
 const { useRef } = React;
@@ -182,25 +190,38 @@ if ('speechSynthesis' in window) {
   window.speechSynthesis.onvoiceschanged = refreshVoices;
 }
 
+// iOS 사파리: cancel() 직후의 speak()는 조용히 무시되는 버그가 있어
+// 말하는 중일 때만 cancel하고, 그 경우엔 짧게(180ms) 기다렸다가 발화한다.
+let wsDelayTimer = null;
 function speakWebSpeech(text, { pitch = 1, rate = 0.95, v = 0 } = {}) {
   if (!text || !('speechSynthesis' in window)) return;
   const synth = window.speechSynthesis;
-  synth.cancel();
-  // 모바일 크롬/안드로이드: cancel 후 paused로 남아 다음 발화가 무음이 되는 버그 대응
-  try { synth.resume(); } catch { /* noop */ }
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'ko-KR';
-  u.pitch = pitch;
-  u.rate = rate;
-  if (KO_VOICES.length) u.voice = KO_VOICES[v % KO_VOICES.length];
-  synth.speak(u);
+  clearTimeout(wsDelayTimer);
+  const doSpeak = () => {
+    try { synth.resume(); } catch { /* 모바일 크롬 paused 버그 대응 */ }
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ko-KR';
+    u.pitch = pitch;
+    u.rate = rate;
+    if (KO_VOICES.length) u.voice = KO_VOICES[v % KO_VOICES.length];
+    synth.speak(u);
+  };
+  if (synth.speaking || synth.pending) {
+    synth.cancel();
+    wsDelayTimer = setTimeout(doSpeak, 180); // iOS: cancel 직후 speak 무시 방지
+  } else {
+    doSpeak();
+  }
 }
 
 // 오픈소스 TTS(MMS ko) 우선, 준비 전/실패 시 기기 Web Speech 폴백
 function speakRaw(text, style = {}) {
   if (!text) return;
   if (ttsStatus() === 'ready') {
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    // iOS: 말하는 중이 아닐 때 cancel()을 부르면 오디오 세션이 꼬일 수 있어 조건부로만
+    if ('speechSynthesis' in window && (speechSynthesis.speaking || speechSynthesis.pending)) {
+      window.speechSynthesis.cancel();
+    }
     speakOpen(text, style).then((ok) => { if (!ok) speakWebSpeech(text, style); });
   } else {
     stopOpenSpeech();
@@ -410,6 +431,7 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
       const reason = `${WORLD_LABEL[world]}에서 만난 친구`;
       onDiscover(theme, reason);
       setDiscovery({ id: theme, reason });
+      sfx('discover');
       setBubble('');
       speakAs(theme, `새 친구! ${CHAR_NAME[theme]}! ${pickLine(theme, 'hi', 0)}`);
       setTimeout(() => setDiscovery(null), 1900);
@@ -437,12 +459,14 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
       setWrongStreak(0);
       setFeedback('ok');
       setBurst((b) => b + 1);
+      sfx('correct');
       const line = pickLine(theme, 'ok', idx + newCombo);
       setBubble(line); speakAs(theme, line);
     } else {
       setCombo(0);
       setWrongStreak((w) => w + 1);
       setFeedback('no');
+      sfx('wrong');
       const line = pickLine(theme, 'no', idx + wrongStreak);
       setBubble(line); speakAs(theme, line);
     }
@@ -598,8 +622,10 @@ function ResultScreen({ stage, result, world, discovery, onNext, onRetry, onMap 
   const [showPopup, setShowPopup] = useState(!!discovery); // 새 친구 발견 팝업
   useEffect(() => {
     if (discovery) {
+      sfx('discover');
       speakAs(discovery.id, `새 친구 발견! ${CHAR_NAME[discovery.id]}! ${pickLine(discovery.id, 'hi', 0)}`);
     } else {
+      if (passed) sfx('fanfare');
       speak(passed ? '참 잘했어요!' : '다시 도전해 볼까요?');
     }
   }, []);

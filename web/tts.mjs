@@ -61,10 +61,26 @@ export function romanizeKorean(text) {
 }
 
 // ---- 워커 통신 ---------------------------------------------------------------
-function callWorker(type, payload = {}) {
+// synth 요청 타임아웃: 워커가 죽거나(iOS 메모리 회수) 멈추면 영원히 기다리지 않고
+// 실패 처리 → 기기 음성 폴백. 연속 실패가 쌓이면 워커 TTS를 포기하고 영구 폴백.
+const SYNTH_TIMEOUT_MS = 12000;
+let synthFailStreak = 0;
+function callWorker(type, payload = {}, timeoutMs = 0) {
   return new Promise((resolve, reject) => {
     const id = ++msgId;
-    pending.set(id, { resolve, reject });
+    let timer = null;
+    if (timeoutMs > 0) {
+      timer = setTimeout(() => {
+        if (pending.has(id)) {
+          pending.delete(id);
+          reject(new Error('worker timeout'));
+        }
+      }, timeoutMs);
+    }
+    pending.set(id, {
+      resolve: (v) => { if (timer) clearTimeout(timer); resolve(v); },
+      reject: (e) => { if (timer) clearTimeout(timer); reject(e); },
+    });
     worker.postMessage({ id, type, ...payload });
   });
 }
@@ -103,9 +119,12 @@ function ensureCtx() {
   }
   return audioCtx;
 }
+// 효과음(sfx.mjs) 등 외부에서 같은 컨텍스트 공유 (iOS는 컨텍스트 1개가 안전)
+export function getAudioCtx() { return ensureCtx(); }
 
 // 사용자 제스처 안에서 오디오 잠금 해제 (아이는 계속 탭하므로 항상 running 유지)
 let audioUnlocked = false;
+let speechPrimed = false;
 function unlockAudio() {
   try {
     const ctx = ensureCtx();
@@ -116,6 +135,13 @@ function unlockAudio() {
       const s = ctx.createBufferSource();
       s.buffer = b; s.connect(ctx.destination); s.start(0);
       audioUnlocked = true;
+    }
+    // iOS Web Speech 언락: 첫 제스처 안에서 무음 발화 1회 → 이후 프로그램 발화 허용
+    if (!speechPrimed && 'speechSynthesis' in window) {
+      speechPrimed = true;
+      const u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      window.speechSynthesis.speak(u);
     }
   } catch { /* noop */ }
 }
@@ -139,7 +165,19 @@ async function synthToBuffer(text) {
   }
   const roman = romanizeKorean(text);
   if (!roman) return null;
-  const out = await callWorker('synth', { text: roman });
+  let out;
+  try {
+    out = await callWorker('synth', { text: roman }, SYNTH_TIMEOUT_MS);
+    synthFailStreak = 0;
+  } catch (e) {
+    // 워커 무응답이 반복되면(iOS가 워커를 죽인 경우 등) 워커 TTS 포기 → 이후 전부 기기 음성
+    synthFailStreak++;
+    if (synthFailStreak >= 3 && state === 'ready') {
+      state = 'failed';
+      console.warn('open TTS 워커 무응답 반복 → 기기 음성으로 전환');
+    }
+    throw e;
+  }
   const ctx = ensureCtx();
   const buf = ctx.createBuffer(1, out.audio.length, out.sr);
   buf.getChannelData(0).set(out.audio);
