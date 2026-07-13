@@ -113,11 +113,9 @@ function stageId(stage) {
 const THEME_BLOCK = 10; // 10문제마다 테마(캐릭터) 전환
 const BOSS_TAIL = 5;    // 각 스테이지 마지막 5문제 = 보스 구간(조금 어렵게)
 function themesFor(stage) {
-  // 스테이지가 진행될수록 새로운 호스트가 순서대로 등장(월드당 20종, 블록마다 1명)
-  const blocks = Math.max(1, Math.ceil(stage.problemCount / THEME_BLOCK));
+  // 스테이지마다 새 호스트 1명(월드당 20스테이지=20종). 11번 이후에도 계속 새 친구가 나오도록.
   const siw = stage.n - (stage.world - 1) * 20; // 월드 내 순번 1..20
-  const start = ((siw - 1) * blocks) % 20;       // 스테이지마다 새 호스트로 시작
-  return Array.from({ length: blocks }, (_, k) => `h${stage.world}_${(start + k) % 20}`);
+  return [`h${stage.world}_${(siw - 1) % 20}`];
 }
 
 // ---- 스테이지 전체 생성 ----------------------------------------------------

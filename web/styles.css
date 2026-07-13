@@ -132,10 +132,10 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
 .input-wrap { display: grid; place-items: center; padding: 6px 0 calc(22px + var(--safe-b)); }
 
 /* 동반 캐릭터 + 말풍선 — 화면이 작으면 자동 축소해 입력을 가리지 않음 */
-.buddy { position: absolute; left: calc(clamp(10px,2vw,24px) + var(--safe-l)); bottom: calc(14px + var(--safe-b)); z-index: 5; }
-.buddy svg.char { width: clamp(64px,13vh,104px); height: clamp(64px,13vh,104px); }
+.buddy { position: absolute; left: calc(clamp(10px,2vw,24px) + var(--safe-l)); bottom: calc(14px + var(--safe-b)); z-index: 20; }
+.buddy svg.char { width: clamp(64px,13vh,104px); height: clamp(64px,13vh,104px); position: relative; z-index: 1; }
 .buddy.boss svg.char { width: clamp(84px,17vh,140px); height: clamp(84px,17vh,140px); }
-.bubble { position: absolute; bottom: clamp(46px,9.5vh,74px); left: 40px; white-space: nowrap; background: #fff; border-radius: 16px;
+.bubble { position: absolute; z-index: 5; bottom: clamp(46px,9.5vh,74px); left: 40px; white-space: nowrap; background: #fff; border-radius: 16px;
   padding: 8px 14px; font-weight: 700; font-size: clamp(15px,2vw,18px); box-shadow: 0 4px 10px rgba(0,0,0,.12); animation: popin .25s both; max-width: 60vw; }
 .bubble.ok { color: var(--leaf-d); } .bubble.no { color: var(--berry); }
 .bubble::after { content: ""; position: absolute; bottom: -9px; left: 16px; border: 9px solid transparent; border-top-color: #fff; }
@@ -177,9 +177,10 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
 .bond { display: flex; align-items: center; gap: 14px; font-size: clamp(28px,5vw,40px); font-weight: 700; }
 .bond .whole { width: 86px; height: 86px; border-radius: 50%; background: var(--sun); display: grid; place-content: center; }
 .bond .part { width: 68px; height: 68px; border-radius: 50%; background: #fff; border: 5px solid var(--sky); display: grid; place-content: center; }
-.cmp { display: flex; gap: 36px; align-items: flex-end; }
-.cmp .stack { display: flex; flex-direction: column-reverse; gap: 4px; }
-.cmp .blk { width: 40px; height: 28px; background: var(--leaf); border-radius: 7px; }
+/* 부등호: 스택 높이를 고정하고 블록은 flex로 나눠 개수가 많아도 위로 안 넘침 */
+.cmp { display: flex; gap: 36px; align-items: flex-end; height: clamp(90px, 18vh, 150px); }
+.cmp .stack { display: flex; flex-direction: column-reverse; gap: 3px; height: 100%; justify-content: flex-start; }
+.cmp .blk { width: clamp(26px, 5vw, 40px); flex: 1 1 0; min-height: 4px; max-height: 26px; background: var(--leaf); border-radius: 6px; }
 .cmp .blk.b2 { background: var(--sky); }
 
 /* ===== 게임 배경 데코 (언덕/구름) ===== */
@@ -347,7 +348,7 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
   .dot { width: clamp(14px, 4.5vh, 24px); height: clamp(14px, 4.5vh, 24px); }
   .bond { font-size: 24px; gap: 8px; }
   .bond .whole { width: 54px; height: 54px; } .bond .part { width: 44px; height: 44px; border-width: 3px; }
-  .cmp .blk { width: 26px; height: 16px; }
+  .cmp { height: clamp(70px, 22vh, 120px); } .cmp .blk { width: 24px; max-height: 20px; }
   .opsign { font-size: 24px; }
 
   /* 말풍선 축소 (버디는 vh 기반으로 이미 축소됨) */
@@ -376,8 +377,23 @@ button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
   .login .btn { min-height: 46px; }
   .login-mascots svg.char { width: 44px; height: 44px; }
 }
-.rotate-hint { display: none; }
-@media (orientation: portrait) and (max-width: 560px) {
-  .rotate-hint { display: grid; place-items: center; position: fixed; inset: 0; background: var(--leaf);
-    color: #fff; font-size: 24px; font-weight: 700; z-index: 99; text-align: center; padding: 30px; }
+/* 세로/가로 모두 지원 → 회전 안내 사용 안 함 */
+.rotate-hint { display: none !important; }
+
+/* 세로(좁고 긴) 화면 보정: 맵/도감 한 화면에 담기 */
+@media (orientation: portrait) {
+  .stage-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .collection { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+  .prompt-row { flex-direction: row; }
+  /* 버디가 답 버튼을 가리지 않도록: 버디 축소 + 입력 영역을 버디 위로 */
+  .buddy { transform: scale(0.7); transform-origin: bottom left; }
+  .buddy.boss { transform: scale(0.62); transform-origin: bottom left; }
+  .input-wrap { padding-bottom: calc(84px + var(--safe-b)); }
+  .stage-main { align-content: start; padding-top: 2vh; }
+}
+@media (orientation: portrait) and (max-width: 480px) {
+  .topbar { gap: 6px; padding-top: calc(8px + var(--safe-t)); }
+  .topbar .title { font-size: 17px; }
+  .pill { padding: 6px 10px; font-size: 14px; }
+  .btn.icon-btn { min-height: 42px; padding: 0 10px; }
 }
