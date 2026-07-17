@@ -10,7 +10,7 @@ import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
 import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs';
 import { serverGet, serverPut } from './sync.mjs';
-import { initOpenTTS, speakOpen, stopOpenSpeech, prefetchSpeech, prewarmLines, hasCachedSpeech, ttsStatus } from './tts.mjs';
+import './tts.mjs'; // 제스처 기반 오디오 언락 리스너 등록(효과음/iOS Web Speech용)
 import { sfx } from './sfx.mjs';
 
 // 기본 터치 효과음: 버튼/스테이지/카드 탭 시 톡톡이 (제스처 안이라 iOS도 항상 재생됨)
@@ -214,23 +214,12 @@ function speakWebSpeech(text, { pitch = 1, rate = 0.95, v = 0 } = {}) {
   }
 }
 
-// 하이브리드 TTS: "소리는 절대 기다리지 않는다"
-//  - 이미 합성된 문장 → 좋은 목소리(WebAudio)로 즉시 재생
-//  - 아직 합성 안 된 문장 → 지금은 기기 음성으로 즉시 재생 + 백그라운드 합성(다음번엔 좋은 목소리)
-//  느린 기기(아이패드 등)에서 합성 대기열에 갇혀 무음이 되는 문제를 원천 차단.
+// 음성: 기기 내장 한국어 TTS로 통일(캐릭터마다 목소리가 일관됨).
+//  이전 하이브리드(합성음↔기기음성)는 같은 캐릭터도 매번 다른 목소리로 들려서 제거.
+//  기기음성은 즉시·안정적이며, 캐릭터 개성은 pitch/rate/voice로 표현한다.
 function speakRaw(text, style = {}) {
   if (!text) return;
-  if (ttsStatus() === 'ready' && hasCachedSpeech(text)) {
-    // iOS: 말하는 중이 아닐 때 cancel()을 부르면 오디오 세션이 꼬일 수 있어 조건부로만
-    if ('speechSynthesis' in window && (speechSynthesis.speaking || speechSynthesis.pending)) {
-      window.speechSynthesis.cancel();
-    }
-    speakOpen(text, style).then((ok) => { if (!ok) speakWebSpeech(text, style); });
-  } else {
-    stopOpenSpeech();
-    if (ttsStatus() === 'ready') prefetchSpeech(text); // 다음번을 위해 백그라운드 합성
-    speakWebSpeech(text, style); // 지금은 즉시 기기 음성
-  }
+  speakWebSpeech(text, style);
 }
 
 // 문제/안내용 기본 목소리 (가장 자연스러운 보이스, 또렷하게)
@@ -409,19 +398,6 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
   const theme = isBoss ? bossChar : (problem.theme || (stage.themes && stage.themes[0]) || WORLD_MASCOT[world]);
   const ct = CHAR_THEME[theme] || WORLD_THEME[world];
 
-  // 스테이지 시작 시 앞쪽 문제와 핵심 대사만 미리 합성(느린 기기 과부하 방지).
-  // 라이브 재생은 캐시에 있을 때만 합성 음성을 쓰므로, 미리 합성은 순수 보너스다.
-  useEffect(() => {
-    prewarmLines(stage.problems.slice(0, 6).map((p) => p.prompt.tts || p.prompt.text));
-    const chars = [...(stage.themes || []), bossChar];
-    const lines = [];
-    for (const c of new Set(chars)) {
-      const v = VOICE[c]; if (!v) continue;
-      lines.push(...(v.hi || []), ...(v.ok || []).slice(0, 2), ...(v.no || []).slice(0, 1), ...(v.win || []));
-    }
-    const t = setTimeout(() => prewarmLines(lines), 2000);
-    return () => clearTimeout(t);
-  }, [stage.n]);
 
   // 문제 등장 시: 새 친구가 문제를 내러 나오면 발견 처리, 아니면 인사
   const prevThemeRef = useRef(null);
@@ -918,9 +894,6 @@ function App() {
         '<div class="boot">stages.json을 불러오지 못했습니다.<br/>먼저 <b>node build.mjs</b> 실행 후<br/>정적 서버로 열어주세요.</div>';
       console.error(e);
     });
-    // 오픈소스 한국어 TTS 백그라운드 로딩(최초 1회 ~37MB, 이후 캐시).
-    // 준비되기 전에는 기기 음성으로 자동 폴백.
-    initOpenTTS();
   }, []);
 
   // 로그인한 계정의 진척도 로드

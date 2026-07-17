@@ -76,9 +76,9 @@ for (let w = 1; w <= 5; w++) {
     const prefix = HOST_PREFIX[i];
     HOST_META[id] = {
       name: prefix + HOST_SUFFIX[w],
+      world: w,
+      idx: i,
       palette: hostPalette(prefix, i + w),
-      shape: HOST_SHAPE[(i + w) % HOST_SHAPE.length],
-      topper: HOST_TOPPER[(i * 3 + w) % HOST_TOPPER.length],
     };
     WORLD_HOSTS[w].push(id);
   }
@@ -222,34 +222,47 @@ export const VOICE = {
 };
 
 // 캐릭터별 목소리 스타일: pitch(음높이), rate(속도), v(선호 보이스 순번)
+// 캐릭터별 목소리 개성 (pitch 0.3~2.0, rate 0.6~1.6). 편차를 크게 벌려 확실히 구별.
 export const VOICE_STYLE = {
-  kongryong: { pitch: 1.15, rate: 1.0, v: 0 },  kkongryong: { pitch: 1.3, rate: 1.0, v: 1 },
-  imagine: { pitch: 0.95, rate: 0.95, v: 2 },   bbyeo: { pitch: 0.85, rate: 1.0, v: 0 },
-  allog: { pitch: 1.45, rate: 1.05, v: 1 },
-  poopbot: { pitch: 0.8, rate: 1.05, v: 2 },    drill: { pitch: 0.9, rate: 1.1, v: 0 },
-  bbabang: { pitch: 1.2, rate: 1.15, v: 1 },    chulkung: { pitch: 0.7, rate: 0.9, v: 2 },
-  ppiriri: { pitch: 1.35, rate: 1.1, v: 0 },
-  balduncle: { pitch: 0.75, rate: 0.85, v: 1 }, baboon: { pitch: 1.25, rate: 1.15, v: 2 },
-  pungpung: { pitch: 1.0, rate: 1.1, v: 0 },    syungsyung: { pitch: 1.2, rate: 1.2, v: 1 },
-  salgeum: { pitch: 0.9, rate: 0.8, v: 2 },
-  captainkorea: { pitch: 0.9, rate: 0.95, v: 0 }, superabbit: { pitch: 1.3, rate: 1.15, v: 1 },
-  bulkkot: { pitch: 1.05, rate: 1.1, v: 2 },    shadowcat: { pitch: 1.1, rate: 0.9, v: 0 },
-  mujeokgom: { pitch: 0.65, rate: 0.9, v: 1 },
-  ppika: { pitch: 1.5, rate: 1.1, v: 2 },       ppokkattu: { pitch: 1.4, rate: 1.05, v: 0 },
-  andongki: { pitch: 1.2, rate: 0.95, v: 1 },   bugeul: { pitch: 1.15, rate: 1.0, v: 2 },
-  mongsil: { pitch: 1.25, rate: 0.85, v: 0 },
-  daewang: { pitch: 0.55, rate: 0.85, v: 1 },   tyranno: { pitch: 0.6, rate: 0.9, v: 0 },
-  gocheolking: { pitch: 0.65, rate: 0.8, v: 2 }, blackwolf: { pitch: 0.7, rate: 0.9, v: 1 },
-  darkmask: { pitch: 0.75, rate: 0.85, v: 0 },  wangmon: { pitch: 0.6, rate: 0.95, v: 2 },
+  // W1 공룡
+  kongryong: { pitch: 1.2, rate: 1.0, v: 0 },   kkongryong: { pitch: 1.55, rate: 1.05, v: 1 },
+  imagine: { pitch: 0.7, rate: 0.9, v: 0 },     bbyeo: { pitch: 0.6, rate: 1.25, v: 1 },
+  allog: { pitch: 1.85, rate: 1.05, v: 0 },
+  // W2 로봇 (기계적 느낌: 낮거나 아주 빠르거나)
+  poopbot: { pitch: 0.55, rate: 1.15, v: 0 },   drill: { pitch: 0.8, rate: 1.5, v: 1 },
+  bbabang: { pitch: 1.15, rate: 1.55, v: 0 },   chulkung: { pitch: 0.4, rate: 0.8, v: 1 },
+  ppiriri: { pitch: 1.7, rate: 1.35, v: 0 },
+  // W3 특공대
+  balduncle: { pitch: 0.5, rate: 0.72, v: 0 },  baboon: { pitch: 1.5, rate: 1.5, v: 1 },
+  pungpung: { pitch: 0.95, rate: 1.3, v: 0 },   syungsyung: { pitch: 1.35, rate: 1.55, v: 1 },
+  salgeum: { pitch: 0.85, rate: 0.68, v: 0 },
+  // W4 히어로
+  captainkorea: { pitch: 0.85, rate: 0.95, v: 0 }, superabbit: { pitch: 1.6, rate: 1.4, v: 1 },
+  bulkkot: { pitch: 1.0, rate: 1.2, v: 0 },     shadowcat: { pitch: 1.25, rate: 0.8, v: 1 },
+  mujeokgom: { pitch: 0.35, rate: 0.78, v: 0 },
+  // W5 몬스터
+  ppika: { pitch: 2.0, rate: 1.35, v: 0 },      ppokkattu: { pitch: 1.75, rate: 1.15, v: 1 },
+  andongki: { pitch: 1.3, rate: 0.85, v: 0 },   bugeul: { pitch: 1.1, rate: 1.05, v: 1 },
+  mongsil: { pitch: 1.45, rate: 0.72, v: 0 },
+  // 보스(굵고 낮고 느리게)
+  daewang: { pitch: 0.35, rate: 0.82, v: 0 },   tyranno: { pitch: 0.32, rate: 0.85, v: 0 },
+  gocheolking: { pitch: 0.4, rate: 0.72, v: 1 }, blackwolf: { pitch: 0.45, rate: 0.9, v: 0 },
+  darkmask: { pitch: 0.5, rate: 0.8, v: 1 },    wangmon: { pitch: 0.34, rate: 0.92, v: 0 },
 };
 
 // 호스트 20종: 이름을 넣은 다양한 대사 + 목소리 개성(인덱스로 분산)
 const HOST_OK = (n) => [`${n}, 정답이야!`, '우와, 대단해!', '똑똑한걸!', '완벽해!', '최고야!', `${n}도 깜짝 놀랐어!`];
 const HOST_NO = (n) => ['괜찮아, 다시 해볼까?', '아깝다! 한 번 더!', `${n}이랑 다시 도전!`, '천천히 생각해봐!'];
+// 월드별 목소리 성향(로봇=낮게/빠르게, 몬스터=높게 등)에 인덱스 편차를 더해 20종이 서로 다르게.
+const WORLD_VOICE_BASE = { 1: 1.05, 2: 0.7, 3: 0.9, 4: 1.0, 5: 1.35 };
 for (const [id, m] of Object.entries(HOST_META)) {
   VOICE[id] = { hi: [`안녕! 나는 ${m.name}이야!`], ok: HOST_OK(m.name), no: HOST_NO(m.name) };
-  const i = parseInt(id.split('_')[1], 10);
-  VOICE_STYLE[id] = { pitch: 0.85 + (i % 7) * 0.11, rate: 0.9 + (i % 4) * 0.08, v: i % 3 };
+  const i = m.idx;
+  const base = WORLD_VOICE_BASE[m.world] || 1.0;
+  // pitch: 월드 성향 ± 인덱스 스윙(0.55폭), 0.4~1.95로 클램프
+  const pitch = Math.min(1.95, Math.max(0.4, base + ((i % 10) - 4.5) * 0.12));
+  const rate = 0.8 + (i % 5) * 0.14; // 0.8~1.36
+  VOICE_STYLE[id] = { pitch, rate, v: i % 2 };
 }
 
 // ---------------------------------------------------------------------------
@@ -635,40 +648,109 @@ const DRAW = {
 };
 
 // ---------------------------------------------------------------------------
-// 변형 캐릭터 렌더러 (호스트 20종용): 몸 실루엣 + 장식 + 얼굴 조합
+// 변형 캐릭터 렌더러 (호스트 20종용): 월드 장르별 몸체 + i로 다양화
+//   W1 공룡 / W2 로봇 / W3 특공대 / W4 히어로 / W5 몬스터
 // ---------------------------------------------------------------------------
-function hostBody(shape, c2, c1) {
-  if (shape === 'tall') return html`<g><ellipse cx="50" cy="56" rx="24" ry="32" fill=${c2} /><ellipse cx="50" cy="62" rx="13" ry="18" fill=${c1} /></g>`;
-  if (shape === 'bean') return html`<g><path d="M26 58 q-4 -34 24 -34 q28 0 24 34 q-2 24 -24 24 q-22 0 -24 -24Z" fill=${c2} /><ellipse cx="50" cy="64" rx="15" ry="13" fill=${c1} /></g>`;
-  if (shape === 'egg') return html`<g><path d="M50 20 q22 6 22 40 q0 24 -22 24 q-22 0 -22 -24 q0 -34 22 -40Z" fill=${c2} /><ellipse cx="50" cy="62" rx="14" ry="15" fill=${c1} /></g>`;
-  return html`<g><ellipse cx="50" cy="56" rx="30" ry="28" fill=${c2} /><ellipse cx="50" cy="64" rx="16" ry="14" fill=${c1} /></g>`; // round
-}
-function hostTopper(topper, accent, c2) {
-  switch (topper) {
-    case 'horn': return html`<polygon points="50,8 56,26 44,26" fill=${accent} />`;
-    case 'antenna': return html`<g><line x1="50" y1="14" x2="50" y2="26" stroke=${accent} stroke-width="3" /><circle cx="50" cy="11" r="4" fill=${accent} /></g>`;
-    case 'ears': return html`<g><ellipse cx="32" cy="26" rx="7" ry="12" fill=${c2} /><ellipse cx="68" cy="26" rx="7" ry="12" fill=${c2} /></g>`;
-    case 'spike': return html`<g><polygon points="40,20 45,30 35,30" fill=${accent} /><polygon points="50,15 56,28 44,28" fill=${accent} /><polygon points="60,20 65,30 55,30" fill=${accent} /></g>`;
-    case 'leaf': return html`<g><line x1="50" y1="18" x2="50" y2="28" stroke=${accent} stroke-width="3" /><path d="M50 20 q12 -8 16 2 q-12 6 -16 -2Z" fill=${c2} /></g>`;
-    case 'bolt': return html`<polygon points="54,8 40,28 50,28 46,40 62,20 52,20" fill=${accent} />`;
-    case 'tuft': return html`<path d="M44 24 q6 -14 12 0 q-6 -4 -12 0Z" fill=${accent} />`;
-    default: return null;
-  }
-}
-function variantChar(meta, i) {
-  const { palette: p, shape, topper } = meta;
-  const eyeDx = 9 + (i % 3) * 2;
-  const eyeY = 52 + (i % 2) * 2;
-  const cheek = ['#ff9a9a', '#ffb0c8', '#ffc27a'][i % 3];
+function eyes(dx, y, r = 6, look = 0) {
   return html`<g>
-    ${hostTopper(topper, p.accent, p.c2)}
-    ${hostBody(shape, p.c2, p.c1)}
-    <circle cx=${50 - eyeDx} cy=${eyeY} r="6.5" fill="#fff" /><circle cx=${50 + eyeDx} cy=${eyeY} r="6.5" fill="#fff" />
-    <circle cx=${50 - eyeDx + 0.5} cy=${eyeY + 1} r="3.3" fill="#2b2b3a" /><circle cx=${50 + eyeDx + 0.5} cy=${eyeY + 1} r="3.3" fill="#2b2b3a" />
-    <circle cx=${50 - eyeDx + 2} cy=${eyeY - 1} r="1.2" fill="#fff" /><circle cx=${50 + eyeDx + 2} cy=${eyeY - 1} r="1.2" fill="#fff" />
-    <circle cx=${50 - eyeDx - 4} cy=${eyeY + 8} r="3" fill=${cheek} opacity=".6" /><circle cx=${50 + eyeDx + 4} cy=${eyeY + 8} r="3" fill=${cheek} opacity=".6" />
-    <path d=${`M ${50 - 6} ${eyeY + 12} Q 50 ${eyeY + 17} ${50 + 6} ${eyeY + 12}`} stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <circle cx=${50 - dx} cy=${y} r=${r} fill="#fff" /><circle cx=${50 + dx} cy=${y} r=${r} fill="#fff" />
+    <circle cx=${50 - dx + look} cy=${y + 0.6} r=${r * 0.52} fill="#2b2b3a" /><circle cx=${50 + dx + look} cy=${y + 0.6} r=${r * 0.52} fill="#2b2b3a" />
+    <circle cx=${50 - dx + look + 1.4} cy=${y - 1} r="1.1" fill="#fff" /><circle cx=${50 + dx + look + 1.4} cy=${y - 1} r="1.1" fill="#fff" />
   </g>`;
+}
+const smile = (y, w = 6) => html`<path d=${`M ${50 - w} ${y} Q 50 ${y + 5} ${50 + w} ${y}`} stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />`;
+const cheeks = (dx, y, col = '#ff9a9a') => html`<g><circle cx=${50 - dx} cy=${y} r="3" fill=${col} opacity=".6" /><circle cx=${50 + dx} cy=${y} r="3" fill=${col} opacity=".6" /></g>`;
+
+// W1 공룡: 알록달록 아기공룡 (등 가시 개수/뿔/꼬리 변형)
+function dinoHost(p, i) {
+  const spikes = 2 + (i % 3);
+  const sx = [];
+  for (let k = 0; k < spikes; k++) { const x = 40 + k * (20 / Math.max(1, spikes - 1)); sx.push(html`<polygon key=${k} points=${`${x},22 ${x + 5},33 ${x - 5},33`} fill=${p.accent} />`); }
+  return html`<g>
+    <path d="M74 74 Q92 64 84 48 Q80 60 70 60Z" fill=${p.c2} />
+    ${sx}
+    <ellipse cx="50" cy="56" rx="29" ry="28" fill=${p.c2} />
+    <ellipse cx="50" cy="64" rx="17" ry="15" fill=${p.c1} />
+    <rect x="34" y="80" width="12" height="13" rx="6" fill=${p.c2} /><rect x="54" y="80" width="12" height="13" rx="6" fill=${p.c2} />
+    ${i % 2 ? html`<polygon points="50,16 55,26 45,26" fill=${p.accent} />` : null}
+    ${eyes(11, 50, 6)} ${cheeks(20, 58)} ${smile(63)}
+  </g>`;
+}
+
+// W2 로봇: 각진 머리/안테나/바퀴·다리 변형 (딱 봐도 로봇)
+function robotHost(p, i) {
+  const legKind = i % 3;
+  const anten = i % 4;
+  return html`<g>
+    ${anten === 0 ? html`<g><line x1="50" y1="12" x2="50" y2="24" stroke=${p.accent} stroke-width="3" /><circle cx="50" cy="9" r="4" fill=${p.accent} /></g>` : null}
+    ${anten === 1 ? html`<g><line x1="34" y1="16" x2="30" y2="8" stroke=${p.accent} stroke-width="2.5" /><circle cx="30" cy="7" r="3" fill=${p.accent} /><line x1="66" y1="16" x2="70" y2="8" stroke=${p.accent} stroke-width="2.5" /><circle cx="70" cy="7" r="3" fill=${p.accent} /></g>` : null}
+    ${anten === 2 ? html`<rect x="42" y="10" width="16" height="6" rx="3" fill=${p.accent} />` : null}
+    <rect x="24" y="26" width="52" height="46" rx=${8 + (i % 3) * 4} fill=${p.c2} />
+    <rect x="30" y="34" width="40" height="20" rx="7" fill="#27324a" />
+    <circle cx="41" cy="44" r="5" fill="#7fe7ff" /><circle cx="59" cy="44" r="5" fill="#7fe7ff" />
+    <circle cx="41" cy="44" r="2" fill="#fff" /><circle cx="59" cy="44" r="2" fill="#fff" />
+    ${i % 2 ? html`<path d="M40 62 h20" stroke=${p.accent} stroke-width="3" stroke-linecap="round" />` : html`<circle cx="50" cy="63" r="4" fill=${p.accent} />`}
+    <circle cx="28" cy="30" r="1.6" fill="#fff" opacity=".6" /><circle cx="72" cy="30" r="1.6" fill="#fff" opacity=".6" />
+    ${legKind === 0 ? html`<g><circle cx="36" cy="80" r="8" fill="#2b2b3a" /><circle cx="64" cy="80" r="8" fill="#2b2b3a" /><circle cx="36" cy="80" r="3" fill="#cfd6e0" /><circle cx="64" cy="80" r="3" fill="#cfd6e0" /></g>`
+      : legKind === 1 ? html`<g><rect x="30" y="72" width="14" height="18" rx="4" fill=${p.accent} /><rect x="56" y="72" width="14" height="18" rx="4" fill=${p.accent} /></g>`
+      : html`<g><rect x="34" y="72" width="32" height="8" rx="4" fill=${p.accent} /><circle cx="40" cy="86" r="6" fill="#2b2b3a" /><circle cx="60" cy="86" r="6" fill="#2b2b3a" /></g>`}
+  </g>`;
+}
+
+// W3 특공대: 헬멧+바이저+별 배지 (색/바이저 모양 변형)
+function rangerHost(p, i) {
+  return html`<g>
+    <rect x="36" y="58" width="28" height="30" rx="10" fill=${p.c2} />
+    <rect x="30" y="62" width="8" height="20" rx="4" fill=${p.c2} /><rect x="62" y="62" width="8" height="20" rx="4" fill=${p.c2} />
+    <rect x="40" y="84" width="8" height="9" rx="4" fill="#2b2b3a" /><rect x="52" y="84" width="8" height="9" rx="4" fill="#2b2b3a" />
+    <polygon points="50,64 54,71 46,71" fill="#ffd54f" />
+    <ellipse cx="50" cy="40" rx="22" ry="21" fill=${p.c2} />
+    <path d="M28 40 a22 21 0 0 1 44 0 Z" fill=${p.accent} opacity="0.3" />
+    <rect x="32" y=${36 + (i % 2) * 2} width="36" height="11" rx=${i % 2 ? 6 : 3} fill="#1f2b45" />
+    <circle cx="43" cy=${42 + (i % 2) * 2} r="3" fill="#7fe7ff" /><circle cx="57" cy=${42 + (i % 2) * 2} r="3" fill="#7fe7ff" />
+    ${i % 3 === 0 ? html`<rect x="46" y="18" width="8" height="7" rx="2" fill="#fff" />` : null}
+    ${i % 3 === 1 ? html`<polygon points="50,16 54,24 46,24" fill=${p.accent} />` : null}
+  </g>`;
+}
+
+// W4 히어로: 망토+아이마스크+가슴 별 (망토색/엠블럼 변형)
+function heroHost(p, i) {
+  return html`<g>
+    <polygon points="33,42 67,42 76,86 24,86" fill=${p.accent} />
+    <ellipse cx="50" cy="58" rx="22" ry="24" fill=${p.c2} />
+    ${i % 2
+      ? html`<polygon points="50,47 53,56 63,56 55,62 58,72 50,66 42,72 45,62 37,56 47,56" fill="#fff" />`
+      : html`<circle cx="50" cy="59" r="9" fill="#fff" /><path d="M50 51 v16 M42 59 h16" stroke=${p.accent} stroke-width="3" />`}
+    <rect x="34" y="82" width="12" height="11" rx="5" fill=${p.c2} /><rect x="54" y="82" width="12" height="11" rx="5" fill=${p.c2} />
+    <circle cx="50" cy="30" r="17" fill="#ffe0bd" />
+    <path d="M33 30 q17 -13 34 0 l0 5 q-17 -7 -34 0Z" fill=${p.c2} />
+    <path d=${`M34 28 q16 -8 32 0`} stroke=${p.accent} stroke-width="6" fill="none" opacity=".9" />
+    <circle cx="43" cy="30" r="2.4" fill="#2b2b3a" /><circle cx="57" cy="30" r="2.4" fill="#2b2b3a" />
+    ${smile(37, 5)}
+  </g>`;
+}
+
+// W5 몬스터: 둥근 블롭 + 뿔/귀/더듬이 + 무늬 (색/장식 변형)
+function monsterHost(p, i) {
+  const top = i % 4;
+  const bodyR = 28;
+  return html`<g>
+    ${top === 0 ? html`<g><polygon points="36,26 40,12 46,26" fill=${p.accent} /><polygon points="64,26 60,12 54,26" fill=${p.accent} /></g>` : null}
+    ${top === 1 ? html`<g><ellipse cx="34" cy="24" rx="6" ry="11" fill=${p.c2} /><ellipse cx="66" cy="24" rx="6" ry="11" fill=${p.c2} /></g>` : null}
+    ${top === 2 ? html`<g><line x1="40" y1="24" x2="34" y2="12" stroke=${p.accent} stroke-width="2.5" /><circle cx="34" cy="10" r="3.5" fill=${p.accent} /><line x1="60" y1="24" x2="66" y2="12" stroke=${p.accent} stroke-width="2.5" /><circle cx="66" cy="10" r="3.5" fill=${p.accent} /></g>` : null}
+    ${top === 3 ? html`<path d="M44 22 q6 -12 12 0 q-6 -4 -12 0Z" fill=${p.accent} />` : null}
+    <ellipse cx="50" cy="56" rx=${bodyR} ry="27" fill=${p.c2} />
+    <ellipse cx="50" cy="63" rx="15" ry="13" fill=${p.c1} />
+    ${i % 3 === 0 ? html`<g><circle cx="34" cy="52" r="3" fill=${p.accent} opacity=".5" /><circle cx="66" cy="60" r="2.5" fill=${p.accent} opacity=".5" /></g>` : null}
+    ${eyes(i % 2 ? 13 : 10, 52, i % 2 ? 7 : 6)} ${cheeks(19, 60, '#ff8fb0')} ${smile(64, i % 2 ? 7 : 5)}
+  </g>`;
+}
+
+const WORLD_HOST_RENDER = { 1: dinoHost, 2: robotHost, 3: rangerHost, 4: heroHost, 5: monsterHost };
+function variantChar(meta) {
+  const world = meta.world;
+  const fn = WORLD_HOST_RENDER[world] || monsterHost;
+  return fn(meta.palette, meta.idx);
 }
 
 // ---------------------------------------------------------------------------
@@ -677,7 +759,7 @@ function variantChar(meta, i) {
 export function Character({ kind = 'kongryong', size = 80, anim = 'float', style }) {
   let inner;
   if (HOST_META[kind]) {
-    inner = variantChar(HOST_META[kind], parseInt(kind.split('_')[1], 10));
+    inner = variantChar(HOST_META[kind]);
   } else {
     inner = (DRAW[kind] || DRAW.kongryong)();
   }
