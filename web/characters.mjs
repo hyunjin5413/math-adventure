@@ -46,39 +46,48 @@ export const WORLD_SPECIALS = {
 };
 
 // ---- 월드별 문제 담당 친구 20명(변형 생성) --------------------------------
-// 색/모양/장식 조합으로 20종을 만들되, 이름은 월드 테마로 자동 부여.
-const HOST_PREFIX = ['아기', '꼬마', '초록', '노랑', '파랑', '빨강', '보라', '주황', '점박', '뿔난',
+// W1 공룡: 색+룡 이름. W2~W5: 규칙 없는 재미난 한국 이름 + 이름에 맞는 목소리 톤.
+// tone: hi(높게) / fast(빠르게) / lo(굵고 낮게) / slow(느리게) / mid(보통)
+const W1_PREFIX = ['아기', '꼬마', '초록', '노랑', '파랑', '빨강', '보라', '주황', '점박', '뿔난',
   '왕눈', '번개', '통통', '날쌘', '느림', '알록', '하늘', '반짝', '씩씩', '멋쟁이'];
-const HOST_SUFFIX = { 1: '룡', 2: '봇', 3: '대원', 4: '맨', 5: '몬' };
-const PREFIX_HUE = {
-  '초록': [130, 62, 60], '노랑': [48, 90, 62], '파랑': [212, 70, 62], '빨강': [4, 78, 62],
-  '보라': [270, 55, 64], '주황': [26, 85, 60], '하늘': [195, 70, 64], '점박': [200, 20, 62],
-  '번개': [50, 95, 60], '알록': [320, 60, 66], '반짝': [45, 88, 66], '분홍': [335, 70, 70],
+// 규칙이 안 보이게 뒤섞은 이름들 (스페셜 이름과 겹치지 않게). [이름, 목소리톤]
+const HOST_NAMES = {
+  2: [['뿡빵', 'fast'], ['삐용이', 'hi'], ['우르릉', 'lo'], ['나사못', 'mid'], ['딱깍이', 'fast'],
+    ['부릉이', 'fast'], ['번쩍이', 'hi'], ['왕나사', 'lo'], ['왈그락', 'lo'], ['찌릿이', 'hi'],
+    ['방구통', 'mid'], ['삐끗이', 'mid'], ['붕붕이', 'fast'], ['고장난이', 'slow'], ['반짝나사', 'hi'],
+    ['꿀렁이', 'slow'], ['쿵짝이', 'mid'], ['삑삑이', 'hi'], ['볼트', 'lo'], ['뚝딱이', 'mid']],
+  3: [['대머리', 'lo'], ['슝돌이', 'fast'], ['펑크', 'mid'], ['몰래몰래', 'slow'], ['번개차기', 'fast'],
+    ['우당탕', 'mid'], ['방패돌이', 'lo'], ['살살이', 'slow'], ['콩콩요원', 'hi'], ['척척이', 'mid'],
+    ['팡팡이', 'fast'], ['은근슬쩍', 'slow'], ['두두두', 'fast'], ['씩씩요원', 'mid'], ['빠직이', 'hi'],
+    ['쉿쉿', 'slow'], ['돌격이', 'fast'], ['붕대감이', 'mid'], ['왕별이', 'hi'], ['척탄이', 'lo']],
+  4: [['캡틴뿡', 'mid'], ['슈퍼똥손', 'mid'], ['날쌘돌이', 'fast'], ['반짝파워', 'hi'], ['우직이', 'lo'],
+    ['방방이', 'fast'], ['불끈이', 'lo'], ['초강력', 'mid'], ['붕뜬이', 'hi'], ['정의뿅', 'hi'],
+    ['무쇠팔', 'lo'], ['반짝망토', 'hi'], ['씽씽파워', 'fast'], ['두근두근', 'mid'], ['번개펀치', 'fast'],
+    ['우람이', 'lo'], ['살랑망토', 'slow'], ['척척박사', 'mid'], ['꽝꽝이', 'lo'], ['별똥이', 'hi']],
+  5: [['똥끼', 'mid'], ['방구뿡', 'mid'], ['꼬물이', 'hi'], ['우물이', 'slow'], ['뽀글이', 'hi'],
+    ['말랑이', 'mid'], ['찐득이', 'slow'], ['데굴이', 'fast'], ['오물오물', 'slow'], ['꾸물이', 'slow'],
+    ['뿅뿅이', 'hi'], ['몽글이', 'mid'], ['부들이', 'mid'], ['냠냠이', 'mid'], ['삐약이', 'hi'],
+    ['꼬질이', 'mid'], ['통통몬', 'mid'], ['방방몬', 'fast'], ['쫄깃이', 'mid'], ['왕눈몬', 'hi']],
 };
-const DEFAULT_HUES = [[160, 55, 62], [20, 70, 62], [255, 45, 66], [90, 55, 60], [300, 50, 66],
-  [180, 55, 60], [340, 60, 66], [70, 70, 60]];
 function hsl(h, s, l) { return `hsl(${h} ${s}% ${l}%)`; }
-function hostPalette(prefix, i) {
-  const base = PREFIX_HUE[prefix] || DEFAULT_HUES[i % DEFAULT_HUES.length];
-  const [h, s, l] = base;
-  return { c2: hsl(h, s, l), c1: hsl(h, Math.max(30, s - 25), Math.min(92, l + 26)), accent: hsl(h, s, Math.max(30, l - 28)) };
+// 20종이 확실히 다른 색을 갖도록 색상환을 크게 돌린다
+function paletteFromHue(h) {
+  return { c2: hsl(h, 62, 62), c1: hsl(h, 42, 88), accent: hsl(h, 62, 36) };
 }
-export const HOST_SHAPE = ['round', 'tall', 'bean', 'egg']; // 몸 실루엣
-export const HOST_TOPPER = ['none', 'horn', 'antenna', 'ears', 'spike', 'leaf', 'bolt', 'tuft']; // 머리 장식
 
 // 월드별 20 호스트 생성 → id: h{w}_{i}
 export const WORLD_HOSTS = {};
-const HOST_META = {}; // id → { name, palette, shape, topper }
+const HOST_META = {}; // id → { name, tone, world, idx, palette }
 for (let w = 1; w <= 5; w++) {
   WORLD_HOSTS[w] = [];
   for (let i = 0; i < 20; i++) {
     const id = `h${w}_${i}`;
-    const prefix = HOST_PREFIX[i];
+    let name, tone;
+    if (w === 1) { name = W1_PREFIX[i] + '룡'; tone = null; }
+    else { [name, tone] = HOST_NAMES[w][i]; }
     HOST_META[id] = {
-      name: prefix + HOST_SUFFIX[w],
-      world: w,
-      idx: i,
-      palette: hostPalette(prefix, i + w),
+      name, tone, world: w, idx: i,
+      palette: paletteFromHue((i * 47 + w * 23) % 360),
     };
     WORLD_HOSTS[w].push(id);
   }
@@ -253,16 +262,30 @@ export const VOICE_STYLE = {
 // 호스트 20종: 이름을 넣은 다양한 대사 + 목소리 개성(인덱스로 분산)
 const HOST_OK = (n) => [`${n}, 정답이야!`, '우와, 대단해!', '똑똑한걸!', '완벽해!', '최고야!', `${n}도 깜짝 놀랐어!`];
 const HOST_NO = (n) => ['괜찮아, 다시 해볼까?', '아깝다! 한 번 더!', `${n}이랑 다시 도전!`, '천천히 생각해봐!'];
-// 월드별 목소리 성향(로봇=낮게/빠르게, 몬스터=높게 등)에 인덱스 편차를 더해 20종이 서로 다르게.
-const WORLD_VOICE_BASE = { 1: 1.05, 2: 0.7, 3: 0.9, 4: 1.0, 5: 1.35 };
+// 이름 톤 → 기본 pitch/rate (이름 느낌과 목소리를 맞춤)
+const TONE_STYLE = {
+  hi:   { p: 1.7, r: 1.2 },
+  fast: { p: 1.15, r: 1.5 },
+  lo:   { p: 0.5, r: 0.85 },
+  slow: { p: 0.85, r: 0.68 },
+  mid:  { p: 1.05, r: 1.0 },
+};
+// W1(톤 없음)은 색+룡이라 월드 기본값에 인덱스 편차를 준다.
+const WORLD_VOICE_BASE = { 1: 1.05 };
 for (const [id, m] of Object.entries(HOST_META)) {
   VOICE[id] = { hi: [`안녕! 나는 ${m.name}이야!`], ok: HOST_OK(m.name), no: HOST_NO(m.name) };
   const i = m.idx;
-  const base = WORLD_VOICE_BASE[m.world] || 1.0;
-  // pitch: 월드 성향 ± 인덱스 스윙(0.55폭), 0.4~1.95로 클램프
-  const pitch = Math.min(1.95, Math.max(0.4, base + ((i % 10) - 4.5) * 0.12));
-  const rate = 0.8 + (i % 5) * 0.14; // 0.8~1.36
-  VOICE_STYLE[id] = { pitch, rate, v: i % 2 };
+  if (m.tone) {
+    const t = TONE_STYLE[m.tone] || TONE_STYLE.mid;
+    // 같은 톤이라도 캐릭터마다 살짝 다르게(±지터), 클램프
+    const pitch = Math.min(2.0, Math.max(0.3, t.p + ((i % 5) - 2) * 0.06));
+    const rate = Math.min(1.6, Math.max(0.6, t.r + ((i % 3) - 1) * 0.06));
+    VOICE_STYLE[id] = { pitch, rate, v: i % 2 };
+  } else {
+    const base = WORLD_VOICE_BASE[m.world] || 1.0;
+    const pitch = Math.min(1.95, Math.max(0.45, base + ((i % 10) - 4.5) * 0.11));
+    VOICE_STYLE[id] = { pitch, rate: 0.85 + (i % 5) * 0.12, v: i % 2 };
+  }
 }
 
 // ---------------------------------------------------------------------------
