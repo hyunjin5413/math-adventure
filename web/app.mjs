@@ -660,9 +660,35 @@ function ResultScreen({ stage, result, world, discovery, onNext, onRetry, onMap 
 // ===========================================================================
 // 월드 맵
 // ===========================================================================
-function WorldMap({ data, progress, onPlay, user, onLogout, onCollection }) {
+// 진행 지정 다이얼로그 (몇 스테이지까지 완료로 볼지)
+function ProgressDialog({ cleared, onApply, onClose }) {
+  const [val, setVal] = useState(String(cleared || 0));
+  const n = Math.max(0, Math.min(100, parseInt(val, 10) || 0));
+  return html`<div class="dex-modal" onClick=${onClose}>
+    <div class="dex-modal-card" style=${{ background: 'linear-gradient(180deg,#efe6ff,#fff)', maxWidth: '420px' }}
+      onClick=${(e) => e.stopPropagation()}>
+      <div class="dex-modal-name">진행 지정</div>
+      <div class="dex-modal-reason">몇 스테이지까지 완료로 할까요? (1~100)</div>
+      <input class="login-input" type="number" min="0" max="100" value=${val}
+        style=${{ textAlign: 'center', fontSize: '28px' }}
+        onInput=${(e) => setVal(e.target.value)} />
+      <div style=${{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        ${[20, 40, 60, 80, 100].map((p) => html`<button key=${p} class="acc-chip" onClick=${() => setVal(String(p))}>${p}</button>`)}
+      </div>
+      <div style=${{ fontSize: '14px', color: 'var(--ink-soft)' }}>지금 ${cleared}스테이지 완료 → <b>${n}</b>스테이지까지로 설정</div>
+      <div style=${{ display: 'flex', gap: '10px' }}>
+        <button class="btn ghost" style=${{ minHeight: '48px' }} onClick=${onClose}>취소</button>
+        <button class="btn green" style=${{ minHeight: '48px' }} onClick=${() => onApply(n)}>적용</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function WorldMap({ data, progress, onPlay, user, onLogout, onCollection, onSetProgress }) {
   const maxN = highestUnlocked(progress);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dlgOpen, setDlgOpen] = useState(false);
+  const clearedN = Math.max(0, maxN - 1);
   return html`<div>
     <div class="topbar">
       <div class="title"><${Character} kind="kongryong" size=${38} anim="none" /> 수학 어드벤처</div>
@@ -674,14 +700,19 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection }) {
         <button class="btn ghost icon-btn more-btn" onClick=${() => setMenuOpen((v) => !v)} title="더보기">
           <${Icon} name="dots" size=${22} color="#8a8472" />
         </button>
-        ${menuOpen ? html`<div class="more-menu" onClick=${() => setMenuOpen(false)}>
-          <button class="more-item" onClick=${onLogout}>
+        ${menuOpen ? html`<div class="more-menu">
+          <button class="more-item" onClick=${() => { setMenuOpen(false); setDlgOpen(true); }}>
+            <${Icon} name="star" size=${20} color="#7a59d0" /> 진행 지정
+          </button>
+          <button class="more-item" onClick=${() => { setMenuOpen(false); onLogout(); }}>
             <${Icon} name="logout" size=${20} color="#8a8472" /> 로그아웃
           </button>
         </div>` : null}
       </div>
     </div>
     ${menuOpen ? html`<div class="more-backdrop" onClick=${() => setMenuOpen(false)}></div>` : null}
+    ${dlgOpen ? html`<${ProgressDialog} cleared=${clearedN}
+      onApply=${(n) => { onSetProgress(n); setDlgOpen(false); }} onClose=${() => setDlgOpen(false)} />` : null}
     <div class="map">
       ${data.worlds.map((w) => {
         const t = WORLD_THEME[w.id];
@@ -928,6 +959,35 @@ function App() {
     });
   }, [user]);
 
+  // 진행 지정(테스트/보호자용): 1~n 스테이지를 클리어 처리하고,
+  // 그 과정에서 만났을 호스트/보스/스페셜 친구까지 도감에 등록.
+  const setProgressTo = useCallback((n) => {
+    if (!data) return;
+    setProgress((prev) => {
+      const stars = { ...prev.stars };
+      const collected = [...(prev.collected || [])];
+      const has = (id) => collected.some((c) => c.id === id);
+      const add = (id, reason) => { if (id && !has(id)) collected.push({ id, reason }); };
+      let clearedCount = 0;
+      for (const st of data.stages) {
+        if (st.n > n) break;
+        stars[st.n] = Math.max(stars[st.n] || 0, 3);
+        clearedCount++;
+        for (const c of st.themes || []) add(c, `${WORLD_LABEL[st.world]}에서 만난 친구`);
+        if (st.type === 'boss') add(WORLD_BOSS[st.world], `W${st.world} 보스 ${CHAR_NAME[WORLD_BOSS[st.world]]} 물리치기`);
+        else add('daewang', `스테이지 ${st.n} 대왕과의 대결 승리`);
+        if (clearedCount % 4 === 0) {
+          const pool = (WORLD_SPECIALS[st.world] || []).filter((id) => !has(id));
+          const cand = pool.length ? pool : [1, 2, 3, 4, 5].flatMap((w) => WORLD_SPECIALS[w]).filter((id) => !has(id));
+          if (cand.length) add(cand[0], `스테이지 ${clearedCount}개 완료 · 스페셜 친구!`);
+        }
+      }
+      const next = { ...prev, stars, collected };
+      if (user) saveProgress(user, next);
+      return next;
+    });
+  }, [data, user]);
+
   const completeStage = useCallback((stage, result) => {
     let discovery = null;
     setProgress((prev) => {
@@ -986,7 +1046,8 @@ function App() {
   let screen;
   if (view.name === 'map') {
     screen = html`<${WorldMap} data=${data} progress=${progress} onPlay=${playStage}
-      user=${user} onLogout=${logout} onCollection=${() => setView({ name: 'collection' })} />`;
+      user=${user} onLogout=${logout} onCollection=${() => setView({ name: 'collection' })}
+      onSetProgress=${setProgressTo} />`;
   } else if (view.name === 'collection') {
     screen = html`<${Collection} progress=${progress} onBack=${() => setView({ name: 'map' })} />`;
   } else if (view.name === 'play') {
