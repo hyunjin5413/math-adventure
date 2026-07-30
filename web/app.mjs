@@ -8,10 +8,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202607300826';
-import { serverGet, serverPut } from './sync.mjs?v=202607300826';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202607300906';
+import { serverGet, serverPut } from './sync.mjs?v=202607300906';
 import './tts.mjs'; // 제스처 기반 오디오 언락 리스너 등록(효과음/iOS Web Speech용)
-import { sfx } from './sfx.mjs?v=202607300826';
+import { sfx } from './sfx.mjs?v=202607300906';
 
 // 기본 터치 효과음: 버튼/스테이지/카드 탭 시 톡톡이 (제스처 안이라 iOS도 항상 재생됨)
 if (typeof window !== 'undefined') {
@@ -328,7 +328,9 @@ function BaseTen({ tens, ones }) {
 // ===========================================================================
 function ChoiceInput({ problem, locked, onAnswer }) {
   const [picked, setPicked] = useState(null);
-  useEffect(() => setPicked(null), [problem.id]);
+  // 오답이면 같은 문제를 다시 풀게 되므로(problem.id 불변) 잠금이 풀릴 때 선택을 초기화한다.
+  // 이게 없으면 picked가 남아 재시도 탭이 전부 무시된다.
+  useEffect(() => { if (!locked) setPicked(null); }, [locked, problem.id]);
   return html`<div class="choices">
     ${problem.choices.map((c) => {
       let cls = 'choice';
