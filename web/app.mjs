@@ -8,10 +8,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202607300750';
-import { serverGet, serverPut } from './sync.mjs?v=202607300750';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202607300826';
+import { serverGet, serverPut } from './sync.mjs?v=202607300826';
 import './tts.mjs'; // 제스처 기반 오디오 언락 리스너 등록(효과음/iOS Web Speech용)
-import { sfx } from './sfx.mjs?v=202607300750';
+import { sfx } from './sfx.mjs?v=202607300826';
 
 // 기본 터치 효과음: 버튼/스테이지/카드 탭 시 톡톡이 (제스처 안이라 iOS도 항상 재생됨)
 if (typeof window !== 'undefined') {
@@ -22,6 +22,25 @@ if (typeof window !== 'undefined') {
 
 const html = htm.bind(React.createElement);
 const { useRef } = React;
+
+// ---- 아이 손가락 대응 탭 핸들러 --------------------------------------------
+// 문제: 손가락이 미세하게 움직이거나(제스처 판정), 애니메이션으로 내부 SVG가 교체되면
+//       click 이벤트가 아예 발생하지 않아 "효과음은 나는데 안 눌리는" 현상이 생긴다.
+// 해결: pointerup에서 즉시 반응하고, 뒤따르는 click은 중복 방지로 무시한다.
+let LAST_TAP_AT = 0;
+function tap(handler) {
+  return {
+    onPointerUp: (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      LAST_TAP_AT = Date.now();
+      handler(e);
+    },
+    onClick: (e) => {
+      if (Date.now() - LAST_TAP_AT < 600) return; // pointerup으로 이미 처리됨
+      handler(e);
+    },
+  };
+}
 
 // ---- 데이터 로드 -----------------------------------------------------------
 // 배포(self-contained): 같은 폴더의 ./stages.json. 없으면 개발용 ../output/stages.json 폴백.
@@ -318,7 +337,7 @@ function ChoiceInput({ problem, locked, onAnswer }) {
         else if (c === picked) cls += ' wrong';
       }
       return html`<button key=${String(c)} class=${cls} disabled=${locked}
-        onClick=${() => { if (locked) return; setPicked(c); onAnswer(c === problem.answer, c); }}>${c}</button>`;
+        ...${tap(() => { if (locked || picked != null) return; setPicked(c); onAnswer(c === problem.answer, c); })}>${c}</button>`;
     })}
   </div>`;
 }
@@ -334,10 +353,10 @@ function KeypadInput({ problem, locked, onAnswer }) {
   return html`<div style=${{ display:'grid', gap:'14px', justifyItems:'center' }}>
     <div class="answerbox">${val || '?'}</div>
     <div class="keypad">
-      ${[1,2,3,4,5,6,7,8,9].map((d) => html`<button key=${d} class="key" onClick=${() => push(d)}>${d}</button>`)}
-      <button class="key" onClick=${() => setVal('')}><${Icon} name="del" size=${30} color="#8a8472" /></button>
-      <button class="key" onClick=${() => push(0)}>0</button>
-      <button class="key key-go" onClick=${submit}><${Icon} name="check" size=${32} color="#fff" /></button>
+      ${[1,2,3,4,5,6,7,8,9].map((d) => html`<button key=${d} class="key" ...${tap(() => push(d))}>${d}</button>`)}
+      <button class="key" ...${tap(() => setVal(''))}><${Icon} name="del" size=${30} color="#8a8472" /></button>
+      <button class="key" ...${tap(() => push(0))}>0</button>
+      <button class="key key-go" ...${tap(submit)}><${Icon} name="check" size=${32} color="#fff" /></button>
     </div>
   </div>`;
 }
@@ -483,7 +502,7 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
       <button class="btn ghost back" onClick=${onExit}><${Icon} name="back" size=${24} color="#8a8472" /> 나가기</button>
       <div class="blockbar">
         ${blocks.map((b, i) => html`<button key=${i} class=${`block-chip ${i === curBlock ? 'on' : ''} ${i < curBlock ? 'done' : ''}`}
-          onClick=${() => setCharInfo(b)} title=${CHAR_NAME[b]}>
+          ...${tap(() => setCharInfo(b))} title=${CHAR_NAME[b]}>
           <${Character} kind=${b} size=${30} anim="none" />
         </button>`)}
       </div>
@@ -507,7 +526,7 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
       <${InputArea} problem=${problem} locked=${locked} onAnswer=${handleAnswer} />
     </div>
 
-    <button class=${`buddy ${isBoss ? 'boss' : ''}`} onClick=${() => setCharInfo(theme)} title="이 친구는 누구?">
+    <button class=${`buddy ${isBoss ? 'boss' : ''}`} ...${tap(() => setCharInfo(theme))} title="이 친구는 누구?">
       ${bubble ? html`<div class=${`bubble ${feedback || ''}`}>${bubble}</div>` : null}
       <${Character} key=${buddyAnim + idx + (feedback || '')} kind=${theme} size=${isBoss ? 120 : 104} anim=${buddyAnim} />
     </button>
@@ -697,14 +716,14 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection, onSetP
       <div class="pill"><${Icon} name="star" size=${20} color="#ffce4f" /> ${totalStars(progress)}</div>
       <button class="btn ghost icon-btn" onClick=${onCollection} title="도감"><${Icon} name="book" size=${24} color="#7a59d0" /> 도감</button>
       <div class="more-wrap">
-        <button class="btn ghost icon-btn more-btn" onClick=${() => setMenuOpen((v) => !v)} title="더보기">
+        <button class="btn ghost icon-btn more-btn" ...${tap(() => setMenuOpen((v) => !v))} title="더보기">
           <${Icon} name="dots" size=${22} color="#8a8472" />
         </button>
         ${menuOpen ? html`<div class="more-menu">
-          <button class="more-item" onClick=${() => { setMenuOpen(false); setDlgOpen(true); }}>
+          <button class="more-item" ...${tap(() => { setMenuOpen(false); setDlgOpen(true); })}>
             <${Icon} name="star" size=${20} color="#7a59d0" /> 진행 지정
           </button>
-          <button class="more-item" onClick=${() => { setMenuOpen(false); onLogout(); }}>
+          <button class="more-item" ...${tap(() => { setMenuOpen(false); onLogout(); })}>
             <${Icon} name="logout" size=${20} color="#8a8472" /> 로그아웃
           </button>
         </div>` : null}
@@ -741,7 +760,7 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection, onSetP
               const shadow = `0 6px 0 ${t.accent}, 0 9px 12px rgba(0,0,0,.14)`;
               return html`<div key=${s.n} class=${cls.join(' ')}
                 style=${unlocked ? { background: grad, boxShadow: shadow } : {}}
-                onClick=${() => unlocked && onPlay(s)}>
+                ...${tap(() => unlocked && onPlay(s))}>
                 ${s.type === 'boss' ? html`<div class="badge"><${Icon} name="crown" size=${22} color="#ffce4f" /></div>` : null}
                 ${s.type === 'mini_review' ? html`<div class="badge"><${Icon} name="refresh" size=${18} color="#fff" /></div>` : null}
                 ${unlocked
@@ -766,7 +785,7 @@ function DexCard({ k, entry, onSelect }) {
   const ct = CHAR_THEME[k];
   return html`<div class=${`dex-card ${entry ? 'owned' : 'locked'}`}
     style=${entry ? { background: `linear-gradient(180deg, ${ct.c1}, #fff)` } : {}}
-    onClick=${() => entry && onSelect(entry)}>
+    ...${tap(() => entry && onSelect(entry))}>
     ${entry
       ? html`<${Character} kind=${k} size=${90} anim="float" />`
       : html`<div class="dex-silhouette"><${Character} kind=${k} size=${90} anim="none" /></div>`}

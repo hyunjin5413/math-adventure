@@ -19,11 +19,11 @@ export const CHAR_NAME = {
   // W2 로봇 친구들
   drill: '드르륵', bbabang: '빠방카', chulkung: '철컹이', ppiriri: '삐리리',
   // W3 특공대 친구들
-  pungpung: '펑펑이', syungsyung: '슝슝이', salgeum: '살금이',
+  pungpung: '뽕따폭탄병', syungsyung: '슈욱로켓', salgeum: '살금닌자',
   // W4 히어로 친구들
-  bulkkot: '불꽃맨', shadowcat: '그림자냥', mujeokgom: '무적곰',
+  bulkkot: '불꽃뽕맨', shadowcat: '그림자냥냥', mujeokgom: '무적꼼',
   // W5 몬스터 친구들
-  bugeul: '부글이', mongsil: '몽실이',
+  bugeul: '뽀글몬', mongsil: '뭉게뭉게',
   // 신규 스페셜 친구들
   clonetrooper: '끌론트루퍼봇', stormtrooper: '스똠트루퍼봇', darthbot: '따스베이더봇',
   roborabbit: '로보레빗보이', ultraviking: '울트라킹바이킹',
@@ -55,24 +55,50 @@ export const WORLD_SPECIALS = {
 // tone: hi(높게) / fast(빠르게) / lo(굵고 낮게) / slow(느리게) / mid(보통)
 const W1_PREFIX = ['아기', '꼬마', '초록', '노랑', '파랑', '빨강', '보라', '주황', '점박', '뿔난',
   '왕눈', '번개', '통통', '날쌘', '느림', '알록', '하늘', '반짝', '씩씩', '멋쟁이'];
-// 규칙이 안 보이게 뒤섞은 이름들 (스페셜 이름과 겹치지 않게). [이름, 목소리톤]
+// [이름, 목소리톤, 말버릇, 일러스트 소품키]
+//  W2 11~20번은 변신 로봇(카봇·또봇·미니특공대 무드), W3는 특공대 레인저,
+//  W4는 히어로(마블 무드를 우스꽝스러운 발음으로), W5는 수집형 몬스터.
 const HOST_NAMES = {
-  2: [['뿡빵', 'fast'], ['삐용이', 'hi'], ['우르릉', 'lo'], ['나사못', 'mid'], ['딱깍이', 'fast'],
-    ['부릉이', 'fast'], ['번쩍이', 'hi'], ['왕나사', 'lo'], ['왈그락', 'lo'], ['찌릿이', 'hi'],
-    ['방구통', 'mid'], ['삐끗이', 'mid'], ['붕붕이', 'fast'], ['고장난이', 'slow'], ['반짝나사', 'hi'],
-    ['꿀렁이', 'slow'], ['쿵짝이', 'mid'], ['삑삑이', 'hi'], ['볼트', 'lo'], ['뚝딱이', 'mid']],
-  3: [['대머리', 'lo'], ['슝돌이', 'fast'], ['펑크', 'mid'], ['몰래몰래', 'slow'], ['번개차기', 'fast'],
-    ['우당탕', 'mid'], ['방패돌이', 'lo'], ['살살이', 'slow'], ['콩콩요원', 'hi'], ['척척이', 'mid'],
-    ['팡팡이', 'fast'], ['은근슬쩍', 'slow'], ['두두두', 'fast'], ['씩씩요원', 'mid'], ['빠직이', 'hi'],
-    ['쉿쉿', 'slow'], ['돌격이', 'fast'], ['붕대감이', 'mid'], ['왕별이', 'hi'], ['척탄이', 'lo']],
-  4: [['캡틴뿡', 'mid'], ['슈퍼똥손', 'mid'], ['날쌘돌이', 'fast'], ['반짝파워', 'hi'], ['우직이', 'lo'],
-    ['방방이', 'fast'], ['불끈이', 'lo'], ['초강력', 'mid'], ['붕뜬이', 'hi'], ['정의뿅', 'hi'],
-    ['무쇠팔', 'lo'], ['반짝망토', 'hi'], ['씽씽파워', 'fast'], ['두근두근', 'mid'], ['번개펀치', 'fast'],
-    ['우람이', 'lo'], ['살랑망토', 'slow'], ['척척박사', 'mid'], ['꽝꽝이', 'lo'], ['별똥이', 'hi']],
-  5: [['똥끼', 'mid'], ['방구뿡', 'mid'], ['꼬물이', 'hi'], ['우물이', 'slow'], ['뽀글이', 'hi'],
-    ['말랑이', 'mid'], ['찐득이', 'slow'], ['데굴이', 'fast'], ['오물오물', 'slow'], ['꾸물이', 'slow'],
-    ['뿅뿅이', 'hi'], ['몽글이', 'mid'], ['부들이', 'mid'], ['냠냠이', 'mid'], ['삐약이', 'hi'],
-    ['꼬질이', 'mid'], ['통통몬', 'mid'], ['방방몬', 'fast'], ['쫄깃이', 'mid'], ['왕눈몬', 'hi']],
+  2: [['뿡빵', 'fast', '뿡빵!', 'wheel'], ['삐용이', 'hi', '삐용삐용!', 'siren'], ['우르릉', 'lo', '우르릉!', 'tread'],
+    ['나사못', 'mid', '뚜르르!', 'bolt'], ['딱깍이', 'fast', '딱깍딱깍!', 'clock'],
+    ['부릉이', 'fast', '부릉부릉!', 'wheel'], ['번쩍이', 'hi', '번쩍!', 'bulb'], ['왕나사', 'lo', '끼이익!', 'bolt'],
+    ['왈그락', 'lo', '왈그락달그락!', 'tread'], ['찌릿이', 'hi', '찌릿찌릿!', 'bulb'],
+    // 11~20: 변신 로봇 친구들
+    ['또뽕엑스', 'mid', '변신! 또뽕엑스!', 'transform'], ['또뽕와이', 'hi', '또뽕! 합체 준비!', 'transform'],
+    ['까봇차땅', 'fast', '부릉! 까봇차땅 출발!', 'car'], ['슈퍼까봇', 'lo', '슈퍼 변신 완료!', 'car'],
+    ['따이탄', 'lo', '따이탄! 합체 완료!', 'titan'], ['뽈트대장', 'mid', '뽈트대장 출동!', 'lion'],
+    ['쌤총알', 'fast', '쌤! 총알처럼!', 'jet'], ['맥쓰펀치', 'lo', '맥쓰 펀치!', 'fist'],
+    ['루씨빛', 'hi', '루씨 반짝!', 'wing'], ['애쓸론감마', 'mid', '애쓸론 감마 발진!', 'titan']],
+  3: [['뽜워레드', 'mid', '뽜워레드!', 'visorR'], ['뽜워블루', 'mid', '뽜워블루!', 'visorB'],
+    ['뽜워옐로', 'hi', '뽜워옐로!', 'visorY'], ['뽜워핑꾸', 'hi', '뽜워핑꾸!', 'visorP'],
+    ['뽜워블랙', 'lo', '뽜워블랙…', 'visorK'], ['닌자슝슝', 'fast', '슈슉!', 'ninja'],
+    ['그린깡총', 'fast', '깡총!', 'ninja'], ['뽕따폭탄', 'mid', '뽕따!', 'bomb'],
+    ['쉿쉿요원', 'slow', '쉿…', 'stealth'], ['우당탕대원', 'mid', '우당탕!', 'boots'],
+    ['뽕까포', 'lo', '뽕까!', 'cannon'], ['살금냥이', 'slow', '살금살금…', 'stealth'],
+    ['두두두총', 'fast', '두두두!', 'cannon'], ['왕별대장', 'lo', '왕별 대장이다!', 'medal'],
+    ['빠직번개', 'hi', '빠지직!', 'bolt2'], ['쿵야펀치', 'lo', '쿵야!', 'fist2'],
+    ['붕붕헬기', 'fast', '붕붕붕!', 'rotor'], ['몰래몰래', 'slow', '몰래몰래…', 'stealth'],
+    ['척척박사병', 'mid', '척척!', 'glasses'], ['삐뽀삐뽀', 'hi', '삐뽀삐뽀!', 'siren2']],
+  4: [['아이옹맨', 'mid', '치이잉! 슈트 가동!', 'core'], ['스빠이더뽕', 'fast', '뿅! 거미줄 발사!', 'web'],
+    ['헐끄', 'lo', '으라차차! 헐끄 화났다!', 'muscle'], ['또르', 'lo', '천둥이여! 또르!', 'hammer'],
+    ['캡틴빵빵', 'mid', '방패 던지기! 빵!', 'shield'], ['블랙위도옹', 'mid', '조용히… 위도옹.', 'belt'],
+    ['호꾸아이', 'fast', '슝! 화살 발사!', 'bow'], ['앤뚱맨', 'hi', '작아졌다! 앤뚱!', 'antenna2'],
+    ['닥터스뜨렌지', 'slow', '수리수리… 마법진!', 'magic'], ['블랙빤써', 'mid', '어흥! 빤써!', 'claw'],
+    ['그루뚜', 'slow', '나는… 그루뚜.', 'branch'], ['로꼬비', 'mid', '후후, 로꼬비 등장!', 'horns2'],
+    ['완다뿅', 'hi', '뿅! 마법 파워!', 'magic'], ['데드뿌울', 'fast', '안녕! 데드뿌울이야!', 'mask2'],
+    ['울버링', 'lo', '스컥! 발톱 나왔다!', 'claw'], ['실버뽀드', 'mid', '쓩~ 은빛 보드!', 'board'],
+    ['뽈콘', 'fast', '날개 펴고 슝!', 'wing2'], ['윈떠솔져', 'lo', '철팔 준비 완료.', 'metalarm'],
+    ['비쥔', 'mid', '이마 보석이 빛난다!', 'gem'], ['까모라', 'mid', '칼 준비! 까모라!', 'sword']],
+  5: [['꼬북꼬북', 'mid', '꼬북꼬북!', 'shell'], ['빠이리', 'fast', '빠이리! 불꽃!', 'flametail'],
+    ['이상해뽕', 'slow', '이상해뽕~', 'leaf2'], ['잠만뽀', 'slow', '쿨쿨… 잠만뽀…', 'sleep'],
+    ['찌릿쭈', 'hi', '찌릿쭈!', 'bolt3'], ['이뿌이', 'hi', '이뿌이!', 'furtail'],
+    ['뮤뚱', 'lo', '뮤뚱…', 'psy'], ['갸르릉', 'lo', '갸르릉!', 'fin'],
+    ['메따몽', 'mid', '메따! 변신!', 'blobface'], ['푸우린', 'hi', '푸우린~♪', 'note'],
+    ['야똥란', 'slow', '야똥… 란…', 'shell'], ['또까스', 'mid', '뽀글뽀글 또까스!', 'gasball'],
+    ['꼬일', 'fast', '위잉! 꼬일!', 'magnet'], ['근육뿅', 'lo', '근육 뿅!', 'muscle2'],
+    ['윤뻴라', 'mid', '윤뻴라… 집중!', 'psy'], ['딱꾸리', 'lo', '딱! 딱꾸리!', 'rock'],
+    ['라이뚜', 'fast', '라이뚜! 번쩍!', 'bolt3'], ['리짜몽', 'lo', '크아앙! 리짜몽!', 'wing3'],
+    ['개구뿍', 'mid', '개구뿍!', 'tongue'], ['몽지뿅', 'hi', '몽지뿅!', 'note']],
 };
 function hsl(h, s, l) { return `hsl(${h} ${s}% ${l}%)`; }
 // 20종이 확실히 다른 색을 갖도록 색상환을 크게 돌린다
@@ -87,11 +113,11 @@ for (let w = 1; w <= 5; w++) {
   WORLD_HOSTS[w] = [];
   for (let i = 0; i < 20; i++) {
     const id = `h${w}_${i}`;
-    let name, tone;
+    let name, tone, quip = null, prop = null;
     if (w === 1) { name = W1_PREFIX[i] + '룡'; tone = null; }
-    else { [name, tone] = HOST_NAMES[w][i]; }
+    else { [name, tone, quip, prop] = HOST_NAMES[w][i]; }
     HOST_META[id] = {
-      name, tone, world: w, idx: i,
+      name, tone, quip, prop, world: w, idx: i,
       palette: paletteFromHue((i * 47 + w * 23) % 360),
     };
     WORLD_HOSTS[w].push(id);
@@ -321,8 +347,20 @@ export const VOICE_STYLE = {
 };
 
 // 호스트 20종: 이름을 넣은 다양한 대사 + 목소리 개성(인덱스로 분산)
-const HOST_OK = (n) => [`${n}, 정답이야!`, '우와, 대단해!', '똑똑한걸!', '완벽해!', '최고야!', `${n}도 깜짝 놀랐어!`];
-const HOST_NO = (n) => ['괜찮아, 다시 해볼까?', '아깝다! 한 번 더!', `${n}이랑 다시 도전!`, '천천히 생각해봐!'];
+// 등장 인사(intro)는 길게, 정답/오답 대사는 첫 감탄사(cry)만 짧게 섞어 자연스럽게.
+const cryOf = (intro) => (intro ? `${intro.split('!')[0]}!` : '');
+const HOST_OK = (n, intro) => {
+  const c = cryOf(intro);
+  return c
+    ? [`${c} 정답이야!`, `${c} 대단해!`, '우와, 똑똑한걸!', `${n}도 깜짝 놀랐어!`, `${c} 완벽해!`, '최고야!']
+    : [`${n}, 정답이야!`, '우와, 대단해!', '똑똑한걸!', '완벽해!', '최고야!', `${n}도 깜짝 놀랐어!`];
+};
+const HOST_NO = (n, intro) => {
+  const c = cryOf(intro);
+  return c
+    ? [`${c} 다시 해볼까?`, '아깝다! 한 번 더!', `${n}이랑 다시 도전!`, '천천히 생각해봐!']
+    : ['괜찮아, 다시 해볼까?', '아깝다! 한 번 더!', `${n}이랑 다시 도전!`, '천천히 생각해봐!'];
+};
 // 이름 톤 → 기본 pitch/rate (이름 느낌과 목소리를 맞춤)
 const TONE_STYLE = {
   hi:   { p: 1.7, r: 1.2 },
@@ -334,7 +372,14 @@ const TONE_STYLE = {
 // W1(톤 없음)은 색+룡이라 월드 기본값에 인덱스 편차를 준다.
 const WORLD_VOICE_BASE = { 1: 1.05 };
 for (const [id, m] of Object.entries(HOST_META)) {
-  VOICE[id] = { hi: [`안녕! 나는 ${m.name}이야!`], ok: HOST_OK(m.name), no: HOST_NO(m.name) };
+  VOICE[id] = {
+    // 등장 인사: 말버릇에 이름이 이미 있으면 그대로, 없으면 이름을 붙인다(중복 방지)
+    hi: [m.quip
+      ? (m.quip.includes(m.name) ? m.quip : `${m.quip} 나는 ${m.name}!`)
+      : `안녕! 나는 ${m.name}이야!`],
+    ok: HOST_OK(m.name, m.quip),
+    no: HOST_NO(m.name, m.quip),
+  };
   const i = m.idx;
   if (m.tone) {
     const t = TONE_STYLE[m.tone] || TONE_STYLE.mid;
@@ -950,11 +995,85 @@ function monsterHost(p, i) {
   </g>`;
 }
 
+// 캐릭터별 소품(prop) — 이름과 매칭되는 상징물을 덧그려 확실히 구별되게 한다.
+function hostProp(prop, p) {
+  const A = p.accent, C = p.c2;
+  switch (prop) {
+    // W2 로봇/변신
+    case 'wheel': return html`<g><circle cx="26" cy="84" r="8" fill="#2b2b3a" /><circle cx="74" cy="84" r="8" fill="#2b2b3a" /><circle cx="26" cy="84" r="3" fill="#cfd6e0" /><circle cx="74" cy="84" r="3" fill="#cfd6e0" /></g>`;
+    case 'siren': return html`<g><rect x="42" y="8" width="16" height="9" rx="4" fill="#ff5a5a" /><path d="M34 12 l6 3 M66 12 l-6 3" stroke="#ff5a5a" stroke-width="2.5" stroke-linecap="round" /></g>`;
+    case 'tread': return html`<g><rect x="18" y="76" width="64" height="14" rx="7" fill="#3a3a48" /><circle cx="30" cy="83" r="4" fill="#7a7a90" /><circle cx="50" cy="83" r="4" fill="#7a7a90" /><circle cx="70" cy="83" r="4" fill="#7a7a90" /></g>`;
+    case 'bolt': return html`<g><circle cx="24" cy="34" r="5" fill=${A} /><circle cx="76" cy="34" r="5" fill=${A} /><path d="M21 34 h6 M73 34 h6" stroke="#fff" stroke-width="2" /></g>`;
+    case 'clock': return html`<g><circle cx="50" cy="72" r="9" fill="#fff" stroke=${A} stroke-width="2" /><path d="M50 72 v-5 M50 72 h4" stroke=${A} stroke-width="2" stroke-linecap="round" /></g>`;
+    case 'bulb': return html`<g><circle cx="50" cy="12" r="7" fill="#ffe27a" stroke=${A} stroke-width="1.5" /><path d="M44 6 l-4 -4 M56 6 l4 -4 M50 3 v-4" stroke="#ffce4f" stroke-width="2" stroke-linecap="round" /></g>`;
+    case 'transform': return html`<g><path d="M30 16 l8 8 -8 8" stroke=${A} stroke-width="3" fill="none" stroke-linecap="round" /><path d="M70 16 l-8 8 8 8" stroke=${A} stroke-width="3" fill="none" stroke-linecap="round" /><rect x="44" y="6" width="12" height="10" rx="3" fill=${A} /></g>`;
+    case 'car': return html`<g><path d="M18 78 l6 -12 h52 l6 12Z" fill=${A} /><rect x="30" y="68" width="40" height="8" rx="3" fill="#bfe4ff" /><circle cx="30" cy="86" r="8" fill="#2b2b3a" /><circle cx="70" cy="86" r="8" fill="#2b2b3a" /></g>`;
+    case 'titan': return html`<g><rect x="16" y="40" width="10" height="30" rx="4" fill=${A} /><rect x="74" y="40" width="10" height="30" rx="4" fill=${A} /><path d="M36 10 l14 8 14 -8 -4 12 -20 0Z" fill="#ffce4f" /></g>`;
+    case 'lion': return html`<g><circle cx="50" cy="30" r="24" fill=${A} opacity=".55" /><path d="M28 30 l-8 -6 M72 30 l8 -6 M50 6 v-6" stroke=${A} stroke-width="3" stroke-linecap="round" /></g>`;
+    case 'jet': return html`<g><path d="M14 56 l16 -6 0 12Z" fill=${A} /><path d="M86 56 l-16 -6 0 12Z" fill=${A} /><path d="M46 86 q4 10 8 0" fill="#ff9a52" /></g>`;
+    case 'fist': return html`<g><circle cx="22" cy="66" r="11" fill=${A} /><circle cx="78" cy="66" r="11" fill=${A} /><path d="M17 66 h10 M73 66 h10" stroke="#fff" stroke-width="2" opacity=".6" /></g>`;
+    case 'wing': return html`<g><path d="M22 50 q-16 -8 -12 12 q10 -2 14 -4Z" fill="#fff" opacity=".85" /><path d="M78 50 q16 -8 12 12 q-10 -2 -14 -4Z" fill="#fff" opacity=".85" /></g>`;
+    // W3 특공대
+    case 'visorR': case 'visorB': case 'visorY': case 'visorP': case 'visorK': {
+      const col = { visorR: '#ff5a5a', visorB: '#5b8def', visorY: '#ffce4f', visorP: '#ff8fc7', visorK: '#4a4a5a' }[prop];
+      return html`<g><path d="M28 34 q22 -18 44 0 l0 8 q-22 -8 -44 0Z" fill=${col} /><path d="M50 12 v-8" stroke=${col} stroke-width="3" stroke-linecap="round" /><circle cx="50" cy="3" r="3" fill=${col} /></g>`;
+    }
+    case 'ninja': return html`<g><path d="M24 42 q26 -10 52 0 l0 7 q-26 -7 -52 0Z" fill="#2b2b3a" /><path d="M76 44 q10 4 8 14" stroke="#2b2b3a" stroke-width="4" fill="none" stroke-linecap="round" /></g>`;
+    case 'bomb': return html`<g><circle cx="76" cy="26" r="9" fill="#3a3a48" /><path d="M76 17 q6 -6 10 -2" stroke="#8a5a2b" stroke-width="2.5" fill="none" /><path d="M84 12 l4 -5 M88 14 l5 -3" stroke="#ff8f3f" stroke-width="2" stroke-linecap="round" /></g>`;
+    case 'stealth': return html`<g opacity=".55"><circle cx="50" cy="56" r="30" fill="#fff" opacity=".25" /><path d="M20 40 q30 -8 60 0" stroke="#fff" stroke-width="3" fill="none" opacity=".6" /></g>`;
+    case 'boots': return html`<g><rect x="30" y="84" width="16" height="10" rx="4" fill=${A} /><rect x="54" y="84" width="16" height="10" rx="4" fill=${A} /></g>`;
+    case 'cannon': return html`<g><rect x="70" y="52" width="22" height="12" rx="5" fill="#5a5a6e" /><circle cx="92" cy="58" r="6" fill="#3a3a48" /></g>`;
+    case 'medal': return html`<g><circle cx="50" cy="74" r="9" fill="#ffce4f" stroke=${A} stroke-width="2" /><polygon points="50,68 52,73 57,73 53,76 55,81 50,78 45,81 47,76 43,73 48,73" fill="#fff" /></g>`;
+    case 'bolt2': return html`<polygon points="80,20 62,48 76,48 70,72 92,40 76,40" fill="#ffce4f" stroke=${A} stroke-width="1.5" />`;
+    case 'fist2': return html`<g><circle cx="20" cy="60" r="12" fill=${A} /><path d="M14 60 h12" stroke="#fff" stroke-width="2.5" opacity=".7" /></g>`;
+    case 'rotor': return html`<g><line x1="20" y1="12" x2="80" y2="12" stroke=${A} stroke-width="4" stroke-linecap="round" /><line x1="50" y1="12" x2="50" y2="24" stroke=${A} stroke-width="3" /></g>`;
+    case 'glasses': return html`<g><circle cx="41" cy="50" r="9" fill="none" stroke="#2b2b3a" stroke-width="2.5" /><circle cx="59" cy="50" r="9" fill="none" stroke="#2b2b3a" stroke-width="2.5" /><path d="M50 50 h0" stroke="#2b2b3a" stroke-width="2.5" /></g>`;
+    case 'siren2': return html`<g><rect x="40" y="6" width="20" height="10" rx="5" fill="#5b8def" /><path d="M32 10 l6 4 M68 10 l-6 4" stroke="#5b8def" stroke-width="2.5" stroke-linecap="round" /></g>`;
+    // W4 히어로 (마블 무드)
+    case 'core': return html`<g><circle cx="50" cy="60" r="9" fill="#7fe7ff" stroke="#fff" stroke-width="2.5" /><circle cx="50" cy="60" r="4" fill="#fff" /><path d="M34 40 q16 -8 32 0" stroke="#ffce4f" stroke-width="3" fill="none" /></g>`;
+    case 'web': return html`<g stroke="#fff" stroke-width="1.6" fill="none" opacity=".85"><path d="M32 52 h36 M50 36 v32 M36 40 l28 24 M64 40 l-28 24" /><circle cx="50" cy="52" r="9" /></g>`;
+    case 'muscle': return html`<g><circle cx="22" cy="62" r="12" fill=${C} /><circle cx="78" cy="62" r="12" fill=${C} /><path d="M36 84 l6 -8 6 8 6 -8 6 8" fill="none" stroke=${A} stroke-width="3" /></g>`;
+    case 'hammer': return html`<g><rect x="70" y="30" width="20" height="14" rx="3" fill="#9aa8bc" stroke=${A} stroke-width="1.5" /><rect x="77" y="44" width="5" height="26" rx="2" fill="#8a5a2b" /></g>`;
+    case 'shield': return html`<g><circle cx="24" cy="62" r="13" fill="#ff5a5a" stroke="#fff" stroke-width="2.5" /><circle cx="24" cy="62" r="7" fill="#fff" /><circle cx="24" cy="62" r="3.5" fill="#5b8def" /></g>`;
+    case 'belt': return html`<g><rect x="32" y="66" width="36" height="7" rx="3" fill="#2b2b3a" /><circle cx="50" cy="69" r="4" fill="#ffce4f" /></g>`;
+    case 'bow': return html`<g><path d="M76 36 q14 22 0 44" stroke=${A} stroke-width="3.5" fill="none" /><path d="M76 36 L76 80" stroke="#fff" stroke-width="1.5" /><path d="M62 58 h22" stroke="#8a5a2b" stroke-width="2.5" /></g>`;
+    case 'antenna2': return html`<g><path d="M40 22 q-6 -12 -12 -14" stroke=${A} stroke-width="2.5" fill="none" /><path d="M60 22 q6 -12 12 -14" stroke=${A} stroke-width="2.5" fill="none" /><circle cx="27" cy="7" r="3" fill=${A} /><circle cx="73" cy="7" r="3" fill=${A} /></g>`;
+    case 'magic': return html`<g fill="none" stroke="#ffce4f" stroke-width="2.5"><circle cx="76" cy="34" r="10" /><circle cx="76" cy="34" r="5" /><path d="M76 20 v-5 M90 34 h5 M76 48 v5 M62 34 h-5" /></g>`;
+    case 'claw': return html`<g stroke="#e8e8f0" stroke-width="3" stroke-linecap="round"><path d="M18 56 l-8 -8 M18 64 l-9 0 M18 72 l-8 8" /></g>`;
+    case 'branch': return html`<g><path d="M44 20 q-10 -10 -16 -8 M56 20 q10 -10 16 -8" stroke="#6b4420" stroke-width="3" fill="none" stroke-linecap="round" /><circle cx="27" cy="11" r="4" fill="#7bd88f" /><circle cx="73" cy="11" r="4" fill="#7bd88f" /></g>`;
+    case 'horns2': return html`<g><path d="M34 24 q-6 -18 4 -22 q2 10 4 20Z" fill="#ffce4f" /><path d="M66 24 q6 -18 -4 -22 q-2 10 -4 20Z" fill="#ffce4f" /></g>`;
+    case 'mask2': return html`<g><path d="M30 44 q20 -14 40 0 l0 10 q-20 -8 -40 0Z" fill="#c02a2a" /><ellipse cx="41" cy="47" rx="5" ry="4" fill="#fff" /><ellipse cx="59" cy="47" rx="5" ry="4" fill="#fff" /></g>`;
+    case 'board': return html`<g><ellipse cx="50" cy="90" rx="30" ry="6" fill="#c8ccd8" /><ellipse cx="50" cy="88" rx="24" ry="4" fill="#e8ecf2" /></g>`;
+    case 'wing2': return html`<g><path d="M20 48 q-18 -6 -14 16 q12 -4 16 -8Z" fill="#e8e8f0" /><path d="M80 48 q18 -6 14 16 q-12 -4 -16 -8Z" fill="#e8e8f0" /></g>`;
+    case 'metalarm': return html`<g><rect x="12" y="52" width="14" height="26" rx="6" fill="#9aa8bc" stroke=${A} stroke-width="1.5" /><path d="M12 62 h14 M12 70 h14" stroke=${A} stroke-width="1.5" /><polygon points="19,58 22,62 16,62" fill="#ff5a5a" /></g>`;
+    case 'gem': return html`<polygon points="50,20 55,28 50,36 45,28" fill="#ffce4f" stroke="#fff" stroke-width="1.5" />`;
+    case 'sword': return html`<g><rect x="80" y="28" width="4" height="34" rx="2" fill="#d8dce4" /><rect x="74" y="60" width="16" height="5" rx="2" fill=${A} /></g>`;
+    // W5 몬스터
+    case 'shell': return html`<g><ellipse cx="50" cy="66" rx="22" ry="16" fill=${A} opacity=".85" /><path d="M34 66 h32 M50 52 v28 M38 56 l24 20 M62 56 l-24 20" stroke="#fff" stroke-width="1.5" opacity=".7" /></g>`;
+    case 'flametail': return html`<g><path d="M78 70 q16 -6 10 -20 q-4 10 -12 12Z" fill="#ff8f3f" /><path d="M80 68 q8 -4 6 -12 q-3 6 -8 8Z" fill="#ffce4f" /></g>`;
+    case 'leaf2': return html`<g><path d="M50 22 q-14 -10 -18 2 q12 8 18 -2Z" fill="#7bd88f" /><path d="M50 22 q14 -10 18 2 q-12 8 -18 -2Z" fill="#5fa838" /></g>`;
+    case 'sleep': return html`<g fill="none" stroke="#8a95a8" stroke-width="2.5"><path d="M70 24 h10 l-10 12 h10" /><path d="M84 12 h7 l-7 9 h7" /></g>`;
+    case 'bolt3': return html`<polygon points="20,22 6,50 18,50 12,72 32,42 18,42" fill="#ffce4f" stroke="#e0a400" stroke-width="1.5" />`;
+    case 'furtail': return html`<g><path d="M76 70 q18 4 12 20 q-12 -2 -16 -10Z" fill="#fff" opacity=".9" /><path d="M28 30 q-8 -14 2 -18 q4 8 4 16Z" fill=${C} /></g>`;
+    case 'psy': return html`<g fill="none" stroke="#c8a8ff" stroke-width="2.5" opacity=".9"><path d="M22 30 q28 -14 56 0" /><path d="M28 20 q22 -10 44 0" /></g>`;
+    case 'fin': return html`<g><path d="M40 18 q10 -14 20 0 q-10 -4 -20 0Z" fill="#5b8def" /><path d="M78 66 q14 6 10 22 q-12 -4 -14 -12Z" fill="#5b8def" /></g>`;
+    case 'blobface': return html`<g><path d="M34 66 q16 8 32 0" stroke="#2b2b3a" stroke-width="2.5" fill="none" /><circle cx="30" cy="46" r="3" fill="#fff" opacity=".7" /></g>`;
+    case 'note': return html`<g fill="#ff8fc7"><circle cx="78" cy="30" r="5" /><rect x="82" y="14" width="3" height="18" /><circle cx="90" cy="20" r="4" /></g>`;
+    case 'gasball': return html`<g opacity=".7"><circle cx="24" cy="34" r="6" fill="#b8a8d8" /><circle cx="76" cy="28" r="5" fill="#b8a8d8" /><circle cx="82" cy="44" r="4" fill="#b8a8d8" /></g>`;
+    case 'magnet': return html`<g><path d="M28 24 q-14 6 -10 20 l8 -2 q-2 -10 6 -12Z" fill="#ff5a5a" /><path d="M72 24 q14 6 10 20 l-8 -2 q2 -10 -6 -12Z" fill="#5b8def" /></g>`;
+    case 'muscle2': return html`<g><circle cx="20" cy="58" r="13" fill=${C} /><circle cx="80" cy="58" r="13" fill=${C} /></g>`;
+    case 'rock': return html`<g><polygon points="26,80 34,66 44,80" fill=${A} /><polygon points="56,80 66,64 76,80" fill=${A} /></g>`;
+    case 'wing3': return html`<g><path d="M18 44 q-16 -10 -12 14 q12 -2 18 -6Z" fill=${A} /><path d="M82 44 q16 -10 12 14 q-12 -2 -18 -6Z" fill=${A} /></g>`;
+    case 'tongue': return html`<g><path d="M50 70 q6 14 -2 18 q-6 -6 -4 -18Z" fill="#ff7a9a" /></g>`;
+    default: return null;
+  }
+}
+
 const WORLD_HOST_RENDER = { 1: dinoHost, 2: robotHost, 3: rangerHost, 4: heroHost, 5: monsterHost };
 function variantChar(meta) {
   const world = meta.world;
   const fn = WORLD_HOST_RENDER[world] || monsterHost;
-  return fn(meta.palette, meta.idx);
+  return html`<g>${fn(meta.palette, meta.idx)}${hostProp(meta.prop, meta.palette)}</g>`;
 }
 
 // ---------------------------------------------------------------------------

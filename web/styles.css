@@ -30,6 +30,8 @@
 html, body { margin: 0; height: 100%; }
 body {
   font-family: var(--font); color: var(--ink); overflow: hidden; user-select: none;
+  /* 아이 손가락은 탭할 때 미세하게 움직인다 → 제스처 판정으로 click이 취소되지 않게 */
+  touch-action: manipulation; -webkit-user-select: none;
   background:
     radial-gradient(120vw 60vh at 50% -10%, #eaf6dd 0%, transparent 60%),
     var(--bg);
@@ -50,7 +52,13 @@ body {
 .anim-none { animation: none; }
 
 /* ===== 버튼 — 둥글고 폭신 ===== */
-button { font-family: inherit; cursor: pointer; border: none; color: var(--ink); }
+button { font-family: inherit; cursor: pointer; border: none; color: var(--ink);
+  /* 아이 손가락 대응: 길게 눌러도 메뉴/선택 안 뜨고, 탭이 제스처로 취소되지 않게 */
+  touch-action: manipulation; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+/* 탭 대상 안의 아이콘·글자는 이벤트를 가로채지 않음(자식에서 시작한 탭이 취소되는 문제 방지) */
+button svg, button span, .stage-node svg, .stage-node span, .dex-card svg, .dex-card div { pointer-events: none; }
+.stage-node, .dex-card, .acc-chip, .block-chip, .choice, .key {
+  touch-action: manipulation; -webkit-touch-callout: none; }
 .btn {
   min-height: var(--tap); padding: 0 28px; border-radius: 999px; font-size: clamp(18px, 2.4vw, 24px);
   font-weight: 700; color: #fff; background: var(--sky);

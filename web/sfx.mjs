@@ -7,7 +7,7 @@
 //  - fanfare: 스테이지 클리어
 // TTS와 같은 AudioContext를 공유(iOS에서 컨텍스트 1개 유지가 안전).
 // =============================================================================
-import { getAudioCtx } from './tts.mjs?v=202607300750';
+import { getAudioCtx } from './tts.mjs?v=202607300826';
 
 function tone(ctx, { f = 440, f2 = null, type = 'sine', at = 0, dur = 0.15, peak = 0.2 }) {
   const t0 = ctx.currentTime + at;
