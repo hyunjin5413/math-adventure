@@ -8,10 +8,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs';
-import { serverGet, serverPut } from './sync.mjs';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202607300750';
+import { serverGet, serverPut } from './sync.mjs?v=202607300750';
 import './tts.mjs'; // 제스처 기반 오디오 언락 리스너 등록(효과음/iOS Web Speech용)
-import { sfx } from './sfx.mjs';
+import { sfx } from './sfx.mjs?v=202607300750';
 
 // 기본 터치 효과음: 버튼/스테이지/카드 탭 시 톡톡이 (제스처 안이라 iOS도 항상 재생됨)
 if (typeof window !== 'undefined') {
@@ -976,8 +976,11 @@ function App() {
         for (const c of st.themes || []) add(c, `${WORLD_LABEL[st.world]}에서 만난 친구`);
         if (st.type === 'boss') add(WORLD_BOSS[st.world], `W${st.world} 보스 ${CHAR_NAME[WORLD_BOSS[st.world]]} 물리치기`);
         else add('daewang', `스테이지 ${st.n} 대왕과의 대결 승리`);
-        if (clearedCount % 4 === 0) {
-          const pool = (WORLD_SPECIALS[st.world] || []).filter((id) => !has(id));
+        // 실제 플레이와 동일한 발견 주기(월드 스페셜 수에 맞춰 좁혀짐)
+        const ws = WORLD_SPECIALS[st.world] || [];
+        const every = Math.max(2, Math.min(4, Math.floor(20 / Math.max(1, ws.length))));
+        if (clearedCount % every === 0) {
+          const pool = ws.filter((id) => !has(id));
           const cand = pool.length ? pool : [1, 2, 3, 4, 5].flatMap((w) => WORLD_SPECIALS[w]).filter((id) => !has(id));
           if (cand.length) add(cand[0], `스테이지 ${clearedCount}개 완료 · 스페셜 친구!`);
         }
@@ -1009,12 +1012,15 @@ function App() {
             add('daewang', `스테이지 ${stage.n} 대왕과의 대결 승리`);
           }
         }
-        // 스테이지 4개 완료마다 → 스페셜 친구 발견 (이 월드 스페셜 5명 중 미보유)
+        // 스페셜 친구 발견: 기본 4스테이지마다.
+        // 단, 그 월드 스페셜이 많으면(예: W2는 9명) 주기를 좁혀 20스테이지 안에 모두 등장.
         if (firstClear) {
           const clearedCount = Object.values(next.stars).filter((s) => s > 0).length;
-          if (clearedCount % 4 === 0) {
+          const worldSpecials = WORLD_SPECIALS[stage.world] || [];
+          const every = Math.max(2, Math.min(4, Math.floor(20 / Math.max(1, worldSpecials.length))));
+          if (clearedCount % every === 0) {
             const owned = new Set(next.collected.map((c) => c.id));
-            const pool = (WORLD_SPECIALS[stage.world] || []).filter((c) => !owned.has(c));
+            const pool = worldSpecials.filter((c) => !owned.has(c));
             // 이 월드 스페셜을 다 모았으면 다른 월드에서라도 하나
             const candidates = pool.length ? pool
               : [1, 2, 3, 4, 5].flatMap((w) => WORLD_SPECIALS[w]).filter((c) => !owned.has(c));

@@ -24,14 +24,19 @@ export const CHAR_NAME = {
   bulkkot: '불꽃맨', shadowcat: '그림자냥', mujeokgom: '무적곰',
   // W5 몬스터 친구들
   bugeul: '부글이', mongsil: '몽실이',
+  // 신규 스페셜 친구들
+  clonetrooper: '끌론트루퍼봇', stormtrooper: '스똠트루퍼봇', darthbot: '따스베이더봇',
+  roborabbit: '로보레빗보이', ultraviking: '울트라킹바이킹',
+  poopoo: '응가똥', frozenbread: '꽁꽁꽁아저씨빵',
   // 보스들
   daewang: '대왕',
-  tyranno: '티라노왕', gocheolking: '고철킹', blackwolf: '검은늑대',
+  tyranno: '티라노왕', professorx: '프로뻬서엑스', blackwolf: '검은늑대',
   darkmask: '다크마스크', wangmon: '왕몬',
+  gocheolking: '고철킹',
 };
 
 // 월드별 보스 (각 월드 20번째 스테이지의 주인)
-export const WORLD_BOSS = { 1: 'tyranno', 2: 'gocheolking', 3: 'blackwolf', 4: 'darkmask', 5: 'wangmon' };
+export const WORLD_BOSS = { 1: 'tyranno', 2: 'professorx', 3: 'blackwolf', 4: 'darkmask', 5: 'wangmon' };
 
 export const WORLD_LABEL = {
   1: '공룡 알 마을', 2: '변신 정비소', 3: '특공대 기지', 4: '히어로 시티', 5: '몬스터 도감',
@@ -39,10 +44,10 @@ export const WORLD_LABEL = {
 // 월드별 스페셜 친구 5명(손그림, 4스테이지 클리어마다 발견)
 export const WORLD_SPECIALS = {
   1: ['kongryong', 'kkongryong', 'imagine', 'bbyeo', 'allog'],
-  2: ['poopbot', 'drill', 'bbabang', 'chulkung', 'ppiriri'],
-  3: ['balduncle', 'baboon', 'pungpung', 'syungsyung', 'salgeum'],
-  4: ['captainkorea', 'superabbit', 'bulkkot', 'shadowcat', 'mujeokgom'],
-  5: ['ppika', 'ppokkattu', 'andongki', 'bugeul', 'mongsil'],
+  2: ['poopbot', 'drill', 'bbabang', 'chulkung', 'ppiriri', 'clonetrooper', 'stormtrooper', 'darthbot', 'gocheolking'],
+  3: ['balduncle', 'baboon', 'pungpung', 'syungsyung', 'salgeum', 'ultraviking'],
+  4: ['captainkorea', 'superabbit', 'bulkkot', 'shadowcat', 'mujeokgom', 'roborabbit'],
+  5: ['ppika', 'ppokkattu', 'andongki', 'bugeul', 'mongsil', 'poopoo', 'frozenbread'],
 };
 
 // ---- 월드별 문제 담당 친구 20명(변형 생성) --------------------------------
@@ -98,7 +103,7 @@ export const WORLD_CHARS = WORLD_SPECIALS;
 // 발견 가능한 전체 친구
 export const ROSTER = [1, 2, 3, 4, 5].flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]);
 // 특별(보스) 친구: 대왕 + 월드 보스들
-export const SPECIALS = ['daewang', 'tyranno', 'gocheolking', 'blackwolf', 'darkmask', 'wangmon'];
+export const SPECIALS = ['daewang', 'tyranno', 'professorx', 'blackwolf', 'darkmask', 'wangmon'];
 // 도감 전체 목록: 월드별(호스트20+스페셜5) + 보스
 export const DEX = [
   ...[1, 2, 3, 4, 5].flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]),
@@ -155,8 +160,17 @@ export const CHAR_THEME = {
   // W5 몬스터
   bugeul:      { c2: '#5bc8ff', c1: '#d6f2ff', accent: '#2f8fd0' },
   mongsil:     { c2: '#e8e0f8', c1: '#f8f5ff', accent: '#9a88c8' },
+  // 신규 스페셜
+  clonetrooper: { c2: '#e8ecf2', c1: '#f8fafc', accent: '#5a6b85' },
+  stormtrooper: { c2: '#f2f4f8', c1: '#ffffff', accent: '#2b2b3a' },
+  darthbot:     { c2: '#3a3a48', c1: '#d8d8e0', accent: '#111118' },
+  roborabbit:   { c2: '#e8f0ff', c1: '#ffffff', accent: '#4377cc' },
+  ultraviking:  { c2: '#c89a5a', c1: '#f0e0c8', accent: '#7a4f20' },
+  poopoo:       { c2: '#a9714a', c1: '#e2c4a8', accent: '#6b4426' },
+  frozenbread:  { c2: '#f0d9a8', c1: '#fdf3e0', accent: '#b8d8ee' },
   // 보스들
   tyranno:     { c2: '#6a9a48', c1: '#dff0d0', accent: '#3d6a22' },
+  professorx:  { c2: '#7a6ad0', c1: '#e4dffa', accent: '#3f3080' },
   gocheolking: { c2: '#8a7a68', c1: '#e5ddd2', accent: '#584a3a' },
   blackwolf:   { c2: '#6a6a7e', c1: '#e0e0e8', accent: '#3a3a4e' },
   darkmask:    { c2: '#7a4fd0', c1: '#e5dbf8', accent: '#48287e' },
@@ -203,6 +217,47 @@ export const VOICE = {
     ok: ['크릉?! 제법인데!', '내 이빨보다 날카로운 정답이군!', '으르릉… 인정한다!'],
     no: ['크하하! 공룡 왕을 이기긴 어렵지!', '크릉! 다시 덤벼라!'],
     win: ['크르릉… 대단하군! 알 마을의 용사로 인정한다. 다음에 보자!'],
+  },
+  clonetrooper: {
+    hi: ['끌론 부대 도착! 끌론트루퍼봇 대기 완료!'],
+    ok: ['임무 성공!', '끌론 부대도 인정!', '명령대로 완벽 수행!', '기록해두겠다, 정답!'],
+    no: ['재정비 후 다시!', '끌론은 포기하지 않는다!', '한 번 더 시도!'],
+  },
+  stormtrooper: {
+    hi: ['스똠! 스똠트루퍼봇 순찰 중!'],
+    ok: ['명중! 이번엔 안 놓쳤다!', '스똠! 대단하군!', '완벽한 조준, 정답!'],
+    no: ['빗나갔다! 다시 조준!', '스똠… 한 번 더!', '괜찮다, 재장전!'],
+  },
+  darthbot: {
+    hi: ['쉬익… 쉬익… 나는 따스베이더봇이다.'],
+    ok: ['쉬익… 훌륭하다.', '어둠도 인정하는 정답.', '네 실력을 느낀다.'],
+    no: ['쉬익… 아직 부족하다.', '어둠에서 다시 배워라.', '집중이 흐트러졌군.'],
+  },
+  roborabbit: {
+    hi: ['삐빅! 로보레빗보이 점프 준비!'],
+    ok: ['로켓 점프 정답!', '삐빅! 완벽 착지!', '깡총 로봇도 감탄!', '당근 회로 충전 완료!'],
+    no: ['착지 실패! 다시 점프!', '삐빅, 재시도!', '괜찮아, 다시 깡총!'],
+  },
+  ultraviking: {
+    hi: ['우오오! 울트라킹바이킹 상륙!'],
+    ok: ['우오오! 용사의 정답!', '바이킹도 감탄한다!', '뿔피리를 불어라, 정답!', '왕의 이름으로 인정!'],
+    no: ['우오… 다시 노를 저어라!', '폭풍을 뚫고 다시!', '바이킹은 물러서지 않아!'],
+  },
+  poopoo: {
+    hi: ['뿌우웅! 나는 응가똥이야!'],
+    ok: ['뿌웅! 정답이야!', '구수하게 맞았어!', '응가똥도 깜짝!', '뽀글뽀글 정답!'],
+    no: ['뿌… 다시 해볼까?', '뿡… 아깝다!', '괜찮아, 뿌우웅!'],
+  },
+  frozenbread: {
+    hi: ['꽁꽁꽁! 꽁꽁꽁아저씨빵이란다!'],
+    ok: ['꽁꽁! 시원한 정답!', '얼음처럼 딱 맞았어!', '갓 구운 정답이구먼!', '꽁꽁꽁, 훌륭해!'],
+    no: ['꽁… 좀 더 녹여보자!', '아직 덜 구워졌구먼~', '괜찮네, 다시 해보게!'],
+  },
+  professorx: {
+    hi: ['후후, 나는 프로뻬서엑스. 네 머릿속 계산을 읽고 있다!'],
+    ok: ['호오, 내 예측보다 빠르군!', '생각을 읽었지만… 정답이다!', '두뇌가 훌륭하구나!'],
+    no: ['네 생각이 흔들리는군.', '집중해라, 다시!', '후후, 계산이 어긋났다!'],
+    win: ['놀랍군! 네 두뇌가 나를 넘어섰다. 정비소는 네 것이다. 다음에 보자!'],
   },
   gocheolking: {
     hi: ['철컹철컹! 고철킹이다! 내 계산 회로를 이겨보아라!'],
@@ -253,6 +308,12 @@ export const VOICE_STYLE = {
   ppika: { pitch: 2.0, rate: 1.35, v: 0 },      ppokkattu: { pitch: 1.75, rate: 1.15, v: 1 },
   andongki: { pitch: 1.3, rate: 0.85, v: 0 },   bugeul: { pitch: 1.1, rate: 1.05, v: 1 },
   mongsil: { pitch: 1.45, rate: 0.72, v: 0 },
+  // 신규 스페셜
+  clonetrooper: { pitch: 0.95, rate: 1.15, v: 0 }, stormtrooper: { pitch: 1.05, rate: 1.25, v: 1 },
+  darthbot: { pitch: 0.3, rate: 0.7, v: 0 },    roborabbit: { pitch: 1.5, rate: 1.3, v: 1 },
+  ultraviking: { pitch: 0.45, rate: 0.88, v: 0 }, poopoo: { pitch: 1.25, rate: 1.0, v: 1 },
+  frozenbread: { pitch: 0.6, rate: 0.75, v: 0 },
+  professorx: { pitch: 0.55, rate: 0.78, v: 1 },
   // 보스(굵고 낮고 느리게)
   daewang: { pitch: 0.35, rate: 0.82, v: 0 },   tyranno: { pitch: 0.32, rate: 0.85, v: 0 },
   gocheolking: { pitch: 0.4, rate: 0.72, v: 1 }, blackwolf: { pitch: 0.45, rate: 0.9, v: 0 },
@@ -593,7 +654,127 @@ const DRAW = {
     <path d="M36 82 l-3 8 M50 84 l0 8 M64 82 l3 8" stroke="#9ad0f0" stroke-width="3" stroke-linecap="round" opacity=".7" />
   </g>`,
 
+  // ---- 신규 스페셜 친구들 ----
+  // 끌론트루퍼봇: 흰 장갑 병사 로봇 (파란 줄무늬 헬멧)
+  clonetrooper: () => html`<g>
+    <rect x="34" y="58" width="32" height="30" rx="9" fill=${P.clonetrooper.c2} stroke="#c8d0dc" stroke-width="1.5" />
+    <rect x="26" y="60" width="9" height="22" rx="4" fill=${P.clonetrooper.c2} stroke="#c8d0dc" stroke-width="1.5" />
+    <rect x="65" y="60" width="9" height="22" rx="4" fill=${P.clonetrooper.c2} stroke="#c8d0dc" stroke-width="1.5" />
+    <rect x="38" y="86" width="10" height="9" rx="4" fill=${P.clonetrooper.accent} />
+    <rect x="52" y="86" width="10" height="9" rx="4" fill=${P.clonetrooper.accent} />
+    <rect x="42" y="64" width="16" height="7" rx="3" fill="#5b8def" />
+    <path d="M30 40 q20 -22 40 0 l0 12 q-20 -6 -40 0Z" fill=${P.clonetrooper.c2} stroke="#c8d0dc" stroke-width="1.5" />
+    <path d="M48 20 h4 l0 22 h-4Z" fill="#5b8def" opacity=".8" />
+    <path d="M34 44 q16 -6 32 0 l0 6 q-16 -5 -32 0Z" fill="#27324a" />
+    <circle cx="42" cy="47" r="3" fill="#7fe7ff" /><circle cx="58" cy="47" r="3" fill="#7fe7ff" />
+    <path d="M42 54 q8 4 16 0" stroke="#8a95a8" stroke-width="2" fill="none" />
+  </g>`,
+  // 스똠트루퍼봇: 새까만 눈구멍 헬멧 + 각진 어깨
+  stormtrooper: () => html`<g>
+    <rect x="32" y="58" width="36" height="30" rx="7" fill=${P.stormtrooper.c2} stroke="#d8dce4" stroke-width="1.5" />
+    <rect x="22" y="58" width="11" height="14" rx="4" fill=${P.stormtrooper.c2} stroke="#d8dce4" stroke-width="1.5" />
+    <rect x="67" y="58" width="11" height="14" rx="4" fill=${P.stormtrooper.c2} stroke="#d8dce4" stroke-width="1.5" />
+    <rect x="38" y="86" width="10" height="9" rx="3" fill=${P.stormtrooper.accent} />
+    <rect x="52" y="86" width="10" height="9" rx="3" fill=${P.stormtrooper.accent} />
+    <rect x="40" y="66" width="20" height="5" rx="2" fill=${P.stormtrooper.accent} />
+    <path d="M30 42 q20 -24 40 0 q2 12 -6 16 q-14 4 -28 0 q-8 -4 -6 -16Z" fill=${P.stormtrooper.c2} stroke="#d8dce4" stroke-width="1.5" />
+    <path d="M38 42 q6 -6 10 0 q-2 8 -10 6Z" fill="#2b2b3a" />
+    <path d="M62 42 q-6 -6 -10 0 q2 8 10 6Z" fill="#2b2b3a" />
+    <path d="M48 52 h4 l-1 6 h-2Z" fill="#2b2b3a" />
+    <path d="M44 30 q6 -4 12 0" stroke="#c8ccd4" stroke-width="2" fill="none" />
+  </g>`,
+  // 따스베이더봇: 검은 헬멧 + 붉은 눈 + 망토
+  darthbot: () => html`<g>
+    <polygon points="30,44 70,44 78,90 22,90" fill="#22222c" />
+    <rect x="36" y="56" width="28" height="30" rx="8" fill=${P.darthbot.c2} />
+    <rect x="40" y="64" width="20" height="8" rx="2" fill="#ff4d4d" opacity=".85" />
+    <rect x="42" y="76" width="4" height="4" fill="#7fe7ff" /><rect x="48" y="76" width="4" height="4" fill="#ffce4f" />
+    <rect x="54" y="76" width="4" height="4" fill="#ff8f8f" />
+    <path d="M28 40 q22 -26 44 0 q0 14 -8 18 q-14 6 -28 0 q-8 -4 -8 -18Z" fill=${P.darthbot.accent} />
+    <path d="M36 40 q14 -10 28 0 l0 8 q-14 -6 -28 0Z" fill=${P.darthbot.c2} />
+    <path d="M38 42 q6 -5 9 0 q-2 7 -9 5Z" fill="#ff4d4d" />
+    <path d="M62 42 q-6 -5 -9 0 q2 7 9 5Z" fill="#ff4d4d" />
+    <path d="M44 52 q6 4 12 0 l-2 6 h-8Z" fill="#1a1a22" />
+    <path d="M20 60 q-8 14 0 26 M80 60 q8 14 0 26" stroke="#22222c" stroke-width="5" fill="none" stroke-linecap="round" />
+  </g>`,
+  // 로보레빗보이: 금속 토끼 히어로 (로켓 귀 + 망토)
+  roborabbit: () => html`<g>
+    <polygon points="34,44 66,44 74,86 26,86" fill=${P.roborabbit.accent} />
+    <rect x="34" y="26" width="9" height="24" rx="4" fill=${P.roborabbit.c2} stroke="#c8d8f0" stroke-width="1.5" />
+    <rect x="57" y="26" width="9" height="24" rx="4" fill=${P.roborabbit.c2} stroke="#c8d8f0" stroke-width="1.5" />
+    <rect x="37" y="30" width="3" height="14" rx="1.5" fill="#ff8fb0" />
+    <rect x="60" y="30" width="3" height="14" rx="1.5" fill="#ff8fb0" />
+    <ellipse cx="50" cy="58" rx="25" ry="24" fill=${P.roborabbit.c2} stroke="#c8d8f0" stroke-width="1.5" />
+    <rect x="32" y="50" width="36" height="14" rx="6" fill="#27324a" />
+    <circle cx="42" cy="57" r="4.5" fill="#7fe7ff" /><circle cx="58" cy="57" r="4.5" fill="#7fe7ff" />
+    <circle cx="42" cy="57" r="1.8" fill="#fff" /><circle cx="58" cy="57" r="1.8" fill="#fff" />
+    <ellipse cx="50" cy="70" rx="4" ry="3" fill="#ff8fb0" />
+    <rect x="36" y="82" width="11" height="10" rx="4" fill=${P.roborabbit.accent} />
+    <rect x="53" y="82" width="11" height="10" rx="4" fill=${P.roborabbit.accent} />
+    <polygon points="50,14 54,24 46,24" fill="#ffce4f" />
+  </g>`,
+  // 울트라킹바이킹: 뿔투구 + 수염 + 방패
+  ultraviking: () => html`<g>
+    <ellipse cx="50" cy="62" rx="27" ry="26" fill=${P.ultraviking.c2} />
+    <path d="M26 56 q24 -10 48 0 l0 10 q-24 -8 -48 0Z" fill=${P.ultraviking.accent} />
+    <circle cx="50" cy="38" r="18" fill="#ffe0bd" />
+    <path d="M30 34 q20 -20 40 0 l0 6 q-20 -8 -40 0Z" fill="#b8b8c4" />
+    <path d="M32 30 q-14 -12 -6 -20 q10 6 10 16Z" fill="#f0e4c8" stroke=${P.ultraviking.accent} stroke-width="1.5" />
+    <path d="M68 30 q14 -12 6 -20 q-10 6 -10 16Z" fill="#f0e4c8" stroke=${P.ultraviking.accent} stroke-width="1.5" />
+    <circle cx="43" cy="38" r="2.6" fill="#2b2b3a" /><circle cx="57" cy="38" r="2.6" fill="#2b2b3a" />
+    <path d="M36 46 q14 14 28 0 q-6 16 -28 0Z" fill="#e8d8b0" />
+    <path d="M42 44 q8 6 16 0" stroke="#8a5a2b" stroke-width="2" fill="none" />
+    <circle cx="24" cy="70" r="11" fill="#c05050" stroke="#f0e4c8" stroke-width="2.5" />
+    <circle cx="24" cy="70" r="4" fill="#f0e4c8" />
+    <path d="M74 58 l10 -8 4 6 -10 8Z" fill="#b8b8c4" />
+  </g>`,
+  // 응가똥: 소용돌이 응가 (귀엽게)
+  poopoo: () => html`<g>
+    <ellipse cx="50" cy="82" rx="30" ry="11" fill=${P.poopoo.c2} />
+    <ellipse cx="50" cy="70" rx="25" ry="13" fill=${P.poopoo.c2} />
+    <ellipse cx="50" cy="56" rx="18" ry="12" fill=${P.poopoo.c2} />
+    <ellipse cx="50" cy="44" rx="11" ry="9" fill=${P.poopoo.c2} />
+    <path d="M50 35 q5 -6 0 -10 q-5 5 0 10Z" fill=${P.poopoo.accent} />
+    <ellipse cx="42" cy="56" rx="5.5" ry="6.5" fill="#fff" /><ellipse cx="58" cy="56" rx="5.5" ry="6.5" fill="#fff" />
+    <circle cx="43" cy="57" r="3" fill="#2b2b3a" /><circle cx="59" cy="57" r="3" fill="#2b2b3a" />
+    <circle cx="44" cy="55.5" r="1.1" fill="#fff" /><circle cx="60" cy="55.5" r="1.1" fill="#fff" />
+    <path d="M44 66 Q50 71 56 66" stroke="#4a2c14" stroke-width="2.4" fill="none" stroke-linecap="round" />
+    <circle cx="32" cy="63" r="3" fill="#ff9a9a" opacity=".5" /><circle cx="68" cy="63" r="3" fill="#ff9a9a" opacity=".5" />
+    <path d="M22 44 q-6 -4 -4 -10 M78 44 q6 -4 4 -10" stroke="#c8a888" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7" />
+  </g>`,
+  // 꽁꽁꽁아저씨빵: 얼어붙은 식빵 아저씨 (콧수염 + 고드름)
+  frozenbread: () => html`<g>
+    <path d="M26 46 q0 -18 24 -18 q24 0 24 18 l0 32 q0 8 -8 8 l-32 0 q-8 0 -8 -8Z" fill=${P.frozenbread.c2} stroke="#d8b878" stroke-width="1.5" />
+    <path d="M30 48 q20 -8 40 0 l0 6 q-20 -7 -40 0Z" fill="#fdf3e0" opacity=".7" />
+    <ellipse cx="41" cy="58" rx="6" ry="7" fill="#fff" /><ellipse cx="59" cy="58" rx="6" ry="7" fill="#fff" />
+    <circle cx="42" cy="59" r="3" fill="#2b2b3a" /><circle cx="58" cy="59" r="3" fill="#2b2b3a" />
+    <path d="M34 50 q7 -4 13 -1 M66 50 q-7 -4 -13 -1" stroke="#b08040" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <path d="M38 70 q12 6 24 0 q-6 5 -12 5 q-6 0 -12 -5Z" fill="#e8e8f0" />
+    <path d="M40 68 q10 4 20 0" stroke="#c8a060" stroke-width="2.4" fill="none" />
+    <path d="M30 84 l3 8 3 -8Z" fill=${P.frozenbread.accent} />
+    <path d="M46 84 l3 9 3 -9Z" fill=${P.frozenbread.accent} />
+    <path d="M62 84 l3 7 3 -7Z" fill=${P.frozenbread.accent} />
+    <path d="M24 32 l4 -8 4 8Z" fill=${P.frozenbread.accent} opacity=".8" />
+    <path d="M68 30 l4 -9 4 9Z" fill=${P.frozenbread.accent} opacity=".8" />
+  </g>`,
+
   // ---- 월드 보스들 ----
+  // 프로뻬서엑스: 텔레파시 보스 (대머리 + 뇌파 링 + 휠체어 왕좌)
+  professorx: () => html`<g>
+    <path d="M18 30 q32 -16 64 0" stroke=${P.professorx.accent} stroke-width="2.5" fill="none" opacity=".55" />
+    <path d="M24 22 q26 -14 52 0" stroke=${P.professorx.accent} stroke-width="2" fill="none" opacity=".35" />
+    <circle cx="18" cy="30" r="3" fill=${P.professorx.c2} /><circle cx="82" cy="30" r="3" fill=${P.professorx.c2} />
+    <path d="M26 62 q24 -8 48 0 l0 22 q-24 8 -48 0Z" fill=${P.professorx.c2} />
+    <path d="M34 68 h32 M34 76 h32" stroke=${P.professorx.accent} stroke-width="2" opacity=".5" />
+    <circle cx="30" cy="88" r="8" fill="#3a3448" /><circle cx="70" cy="88" r="8" fill="#3a3448" />
+    <circle cx="30" cy="88" r="3" fill="#c8c0e0" /><circle cx="70" cy="88" r="3" fill="#c8c0e0" />
+    <circle cx="50" cy="44" r="20" fill="#ffe0bd" />
+    <ellipse cx="41" cy="42" rx="7" ry="4" fill="#fff" opacity=".45" />
+    <path d="M34 40 q7 -5 13 -2 M66 40 q-7 -5 -13 -2" stroke="#8a5a2b" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <circle cx="43" cy="46" r="3" fill="#2b2b3a" /><circle cx="57" cy="46" r="3" fill="#2b2b3a" />
+    <path d="M43 56 Q50 60 57 56" stroke="#8a5a2b" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <path d="M46 36 l-8 -6 M54 36 l8 -6" stroke=${P.professorx.accent} stroke-width="2.5" stroke-linecap="round" opacity=".7" />
+  </g>`,
   tyranno: () => html`<g>
     <path d="M36 18 L42 8 L48 18 L54 8 L60 18 L64 12 L66 20Z" fill="#ffce4f" stroke="#e0a400" stroke-width="1.5" />
     <ellipse cx="52" cy="52" rx="30" ry="28" fill=${P.tyranno.c2} />
