@@ -69,16 +69,26 @@ const HOST_NAMES = {
     ['따이탄', 'lo', '따이탄! 합체 완료!', 'titan'], ['뽈트대장', 'mid', '뽈트대장 출동!', 'lion'],
     ['쌤총알', 'fast', '쌤! 총알처럼!', 'jet'], ['맥쓰펀치', 'lo', '맥쓰 펀치!', 'fist'],
     ['루씨빛', 'hi', '루씨 반짝!', 'wing'], ['애쓸론감마', 'mid', '애쓸론 감마 발진!', 'titan']],
+  // [이름, 톤, 말버릇, 소품, (몸체), (색상 hue)]
   3: [['뽜워레드', 'mid', '뽜워레드!', 'visorR'], ['뽜워블루', 'mid', '뽜워블루!', 'visorB'],
-    ['뽜워옐로', 'hi', '뽜워옐로!', 'visorY'], ['뽜워핑꾸', 'hi', '뽜워핑꾸!', 'visorP'],
-    ['뽜워블랙', 'lo', '뽜워블랙…', 'visorK'], ['닌자슝슝', 'fast', '슈슉!', 'ninja'],
-    ['그린깡총', 'fast', '깡총!', 'ninja'], ['뽕따폭탄', 'mid', '뽕따!', 'bomb'],
-    ['쉿쉿요원', 'slow', '쉿…', 'stealth'], ['우당탕대원', 'mid', '우당탕!', 'boots'],
-    ['뽕까포', 'lo', '뽕까!', 'cannon'], ['살금냥이', 'slow', '살금살금…', 'stealth'],
-    ['두두두총', 'fast', '두두두!', 'cannon'], ['왕별대장', 'lo', '왕별 대장이다!', 'medal'],
-    ['빠직번개', 'hi', '빠지직!', 'bolt2'], ['쿵야펀치', 'lo', '쿵야!', 'fist2'],
-    ['붕붕헬기', 'fast', '붕붕붕!', 'rotor'], ['몰래몰래', 'slow', '몰래몰래…', 'stealth'],
-    ['척척박사병', 'mid', '척척!', 'glasses'], ['삐뽀삐뽀', 'hi', '삐뽀삐뽀!', 'siren2']],
+    ['뽜워옐로', 'hi', '뽜워옐로!', 'visorY'],
+    ['써니', 'hi', '반짝반짝!', 'sunray', 'sun', 48],
+    ['루', 'mid', '루루!', 'star2', 'blob', 200],
+    ['슈퍼 래빗 보이', 'fast', '슈퍼 점프!', 'cape2', 'rabbit', 212],
+    ['킹 바이킹', 'lo', '크하하! 내가 왕이다!', 'crown2', 'vikingking', 24],
+    ['퍼니', 'hi', '히히! 재밌지?', 'clownnose', 'clown', 340],
+    ['러니', 'fast', '달려달려!', 'speed', 'kid', 130],
+    ['딜리', 'slow', '딜리딜리~', 'flower', 'blob', 290],
+    ['노래하는 강아지', 'mid', '왈왈~ 노래할게!', 'note2', 'dog', 30],
+    ['카이라', 'mid', '카이라 준비 완료!', 'ponytail', 'kid', 320],
+    ['조디 레이서', 'fast', '부릉! 출발!', 'goggles', 'racer', 8],
+    ['퀸 스푸키', 'slow', '우우우… 무섭지?', 'ghostcrown', 'ghost', 270],
+    ['나니', 'hi', '나니나니!', 'ribbon', 'blob', 170],
+    ['코치 코니', 'lo', '자, 훈련 시작!', 'whistle', 'kid', 60],
+    ['럼피 범피', 'lo', '럼피! 범피!', 'lumps', 'lump', 100],
+    ['헬가', 'mid', '헬가가 간다!', 'braids', 'kid', 250],
+    ['에릭', 'mid', '안녕! 에릭이야!', 'cap', 'kid', 190],
+    ['슈퍼 래빗 보스', 'lo', '내가 진짜 보스다!', 'bosscrown', 'rabbit', 350]],
   4: [['아이옹맨', 'mid', '치이잉! 슈트 가동!', 'core'], ['스빠이더뽕', 'fast', '뿅! 거미줄 발사!', 'web'],
     ['헐끄', 'lo', '으라차차! 헐끄 화났다!', 'muscle'], ['또르', 'lo', '천둥이여! 또르!', 'hammer'],
     ['캡틴빵빵', 'mid', '방패 던지기! 빵!', 'shield'], ['블랙위도옹', 'mid', '조용히… 위도옹.', 'belt'],
@@ -113,12 +123,12 @@ for (let w = 1; w <= 5; w++) {
   WORLD_HOSTS[w] = [];
   for (let i = 0; i < 20; i++) {
     const id = `h${w}_${i}`;
-    let name, tone, quip = null, prop = null;
+    let name, tone, quip = null, prop = null, body = null, hue = null;
     if (w === 1) { name = W1_PREFIX[i] + '룡'; tone = null; }
-    else { [name, tone, quip, prop] = HOST_NAMES[w][i]; }
+    else { [name, tone, quip, prop, body, hue] = HOST_NAMES[w][i]; }
     HOST_META[id] = {
-      name, tone, quip, prop, world: w, idx: i,
-      palette: paletteFromHue((i * 47 + w * 23) % 360),
+      name, tone, quip, prop, body, world: w, idx: i,
+      palette: paletteFromHue(hue != null ? hue : (i * 47 + w * 23) % 360),
     };
     WORLD_HOSTS[w].push(id);
   }
@@ -1028,6 +1038,106 @@ function monsterHost(p, i) {
   </g>`;
 }
 
+// ---- 전용 몸체(body) 렌더러: 월드 기본 몸체 대신 캐릭터 성격에 맞는 형태 ----
+const BODY_RENDER = {
+  // 해님 친구
+  sun: (p) => html`<g>
+    ${[...Array(12)].map((_, k) => { const a = (k / 12) * Math.PI * 2;
+      return html`<line key=${k} x1=${50 + Math.cos(a) * 34} y1=${52 + Math.sin(a) * 34}
+        x2=${50 + Math.cos(a) * 44} y2=${52 + Math.sin(a) * 44} stroke=${p.accent} stroke-width="4" stroke-linecap="round" />`; })}
+    <circle cx="50" cy="52" r="30" fill=${p.c2} />
+    ${eyes(11, 48, 6)} ${cheeks(20, 58, '#ff9a9a')} ${smile(62, 8)}
+  </g>`,
+  // 동글동글 작은 친구
+  blob: (p) => html`<g>
+    <ellipse cx="50" cy="58" rx="27" ry="26" fill=${p.c2} />
+    <ellipse cx="50" cy="66" rx="15" ry="12" fill=${p.c1} />
+    ${eyes(10, 52, 6)} ${cheeks(19, 60, '#ff9ac8')} ${smile(66, 6)}
+  </g>`,
+  // 토끼 히어로
+  rabbit: (p) => html`<g>
+    <ellipse cx="37" cy="24" rx="7" ry="18" fill=${p.c2} /><ellipse cx="63" cy="24" rx="7" ry="18" fill=${p.c2} />
+    <ellipse cx="37" cy="26" rx="3" ry="11" fill="#ffc2d6" /><ellipse cx="63" cy="26" rx="3" ry="11" fill="#ffc2d6" />
+    <ellipse cx="50" cy="60" rx="25" ry="25" fill=${p.c2} />
+    <ellipse cx="50" cy="68" rx="13" ry="11" fill=${p.c1} />
+    ${eyes(10, 54, 6)} ${cheeks(19, 62, '#ff9a9a')}
+    <ellipse cx="50" cy="63" rx="3.4" ry="2.6" fill="#ff8fb0" />
+    <path d="M44 68 q6 5 12 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <rect x="36" y="84" width="11" height="9" rx="4" fill=${p.accent} /><rect x="53" y="84" width="11" height="9" rx="4" fill=${p.accent} />
+  </g>`,
+  // 뿔투구 왕(악당)
+  vikingking: (p) => html`<g>
+    <rect x="28" y="52" width="44" height="34" rx="10" fill=${p.c2} />
+    <rect x="20" y="56" width="10" height="22" rx="4" fill=${p.accent} /><rect x="70" y="56" width="10" height="22" rx="4" fill=${p.accent} />
+    <rect x="34" y="84" width="12" height="10" rx="4" fill=${p.accent} /><rect x="54" y="84" width="12" height="10" rx="4" fill=${p.accent} />
+    <ellipse cx="50" cy="38" rx="21" ry="19" fill="#e8d0b0" />
+    <path d="M29 34 q21 -18 42 0 l0 6 q-21 -8 -42 0Z" fill="#9aa8bc" />
+    <path d="M30 30 q-16 -12 -8 -22 q12 6 12 18Z" fill="#f0e4c8" stroke=${p.accent} stroke-width="1.5" />
+    <path d="M70 30 q16 -12 8 -22 q-12 6 -12 18Z" fill="#f0e4c8" stroke=${p.accent} stroke-width="1.5" />
+    <path d="M38 40 l9 4 M62 40 l-9 4" stroke="#2b2b3a" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="43" cy="42" r="2.8" fill="#2b2b3a" /><circle cx="57" cy="42" r="2.8" fill="#2b2b3a" />
+    <path d="M42 50 q8 5 16 0 q-8 8 -16 0Z" fill="#8a5a2b" />
+  </g>`,
+  // 광대 친구
+  clown: (p) => html`<g>
+    <path d="M30 30 q10 -16 20 -4 q10 -12 20 4 q-20 8 -40 0Z" fill=${p.accent} />
+    <ellipse cx="50" cy="58" rx="27" ry="26" fill=${p.c2} />
+    <path d="M28 70 q22 10 44 0 l0 8 q-22 8 -44 0Z" fill=${p.c1} />
+    ${eyes(11, 52, 6)}
+    <circle cx="50" cy="60" r="6" fill="#ff5a5a" />
+    <path d="M40 68 q10 8 20 0" stroke="#2b2b3a" stroke-width="2.4" fill="none" stroke-linecap="round" />
+    <circle cx="26" cy="46" r="4" fill="#ffce4f" /><circle cx="74" cy="46" r="4" fill="#7fe7ff" />
+  </g>`,
+  // 아이 대원(모자/머리 소품으로 구분)
+  kid: (p) => html`<g>
+    <rect x="34" y="58" width="32" height="28" rx="9" fill=${p.c2} />
+    <rect x="26" y="60" width="9" height="20" rx="4" fill=${p.c2} />
+    <rect x="65" y="60" width="9" height="20" rx="4" fill=${p.c2} />
+    <rect x="37" y="84" width="10" height="10" rx="4" fill=${p.accent} /><rect x="53" y="84" width="10" height="10" rx="4" fill=${p.accent} />
+    <circle cx="50" cy="38" r="19" fill="#ffe0bd" />
+    <path d="M31 34 q19 -16 38 0 q-19 -6 -38 0Z" fill=${p.accent} />
+    <circle cx="43" cy="40" r="2.8" fill="#2b2b3a" /><circle cx="57" cy="40" r="2.8" fill="#2b2b3a" />
+    <circle cx="36" cy="45" r="3" fill="#ff9a9a" opacity=".6" /><circle cx="64" cy="45" r="3" fill="#ff9a9a" opacity=".6" />
+    <path d="M45 47 q5 4 10 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+  </g>`,
+  // 강아지
+  dog: (p) => html`<g>
+    <ellipse cx="26" cy="42" rx="8" ry="14" fill=${p.accent} /><ellipse cx="74" cy="42" rx="8" ry="14" fill=${p.accent} />
+    <ellipse cx="50" cy="58" rx="27" ry="25" fill=${p.c2} />
+    <ellipse cx="50" cy="68" rx="16" ry="12" fill=${p.c1} />
+    <ellipse cx="50" cy="64" rx="5" ry="3.8" fill="#2b2b3a" />
+    ${eyes(11, 52, 6)}
+    <path d="M44 72 q6 5 12 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <path d="M76 70 q14 6 8 20" stroke=${p.accent} stroke-width="6" fill="none" stroke-linecap="round" />
+  </g>`,
+  // 레이서
+  racer: (p) => html`<g>
+    <rect x="32" y="60" width="36" height="26" rx="8" fill=${p.c2} />
+    <rect x="37" y="84" width="11" height="10" rx="4" fill=${p.accent} /><rect x="52" y="84" width="11" height="10" rx="4" fill=${p.accent} />
+    <path d="M40 66 h20 M46 72 h8" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+    <circle cx="50" cy="38" r="21" fill=${p.c2} />
+    <path d="M29 38 q21 -22 42 0 l0 4 q-21 -8 -42 0Z" fill=${p.accent} />
+    <rect x="32" y="40" width="36" height="12" rx="6" fill="#27324a" />
+    <rect x="35" y="43" width="30" height="6" rx="3" fill="#7fe7ff" opacity=".85" />
+    <path d="M46 56 q4 3 8 0" stroke="#2b2b3a" stroke-width="2" fill="none" stroke-linecap="round" />
+  </g>`,
+  // 유령 여왕
+  ghost: (p) => html`<g>
+    <path d="M24 78 q-6 -34 26 -34 q32 0 26 34 q-6 -8 -10 2 q-6 -10 -12 0 q-6 -10 -12 0 q-6 -10 -18 -2Z" fill=${p.c2} opacity=".92" />
+    ${eyes(11, 52, 7)}
+    <ellipse cx="50" cy="66" rx="6" ry="7" fill="#2b2b3a" opacity=".8" />
+    <circle cx="22" cy="40" r="3" fill=${p.c2} opacity=".6" /><circle cx="80" cy="46" r="4" fill=${p.c2} opacity=".5" />
+  </g>`,
+  // 울퉁불퉁 덩치
+  lump: (p) => html`<g>
+    <path d="M20 82 q-4 -22 10 -30 q0 -14 14 -12 q4 -10 16 -4 q14 -4 16 10 q14 8 8 36 q-32 10 -64 0Z" fill=${p.c2} />
+    <circle cx="32" cy="52" r="6" fill=${p.accent} opacity=".5" /><circle cx="70" cy="60" r="7" fill=${p.accent} opacity=".45" />
+    <circle cx="56" cy="44" r="4" fill=${p.accent} opacity=".4" />
+    ${eyes(12, 58, 6.5)}
+    <path d="M42 72 q8 6 16 0 q-8 9 -16 0Z" fill="#2b2b3a" opacity=".8" />
+  </g>`,
+};
+
 // 캐릭터별 소품(prop) — 이름과 매칭되는 상징물을 덧그려 확실히 구별되게 한다.
 function hostProp(prop, p) {
   const A = p.accent, C = p.c2;
@@ -1098,15 +1208,36 @@ function hostProp(prop, p) {
     case 'rock': return html`<g><polygon points="26,80 34,66 44,80" fill=${A} /><polygon points="56,80 66,64 76,80" fill=${A} /></g>`;
     case 'wing3': return html`<g><path d="M18 44 q-16 -10 -12 14 q12 -2 18 -6Z" fill=${A} /><path d="M82 44 q16 -10 12 14 q-12 -2 -18 -6Z" fill=${A} /></g>`;
     case 'tongue': return html`<g><path d="M50 70 q6 14 -2 18 q-6 -6 -4 -18Z" fill="#ff7a9a" /></g>`;
+    // W3 신규 친구 소품
+    case 'sunray': return html`<g><circle cx="78" cy="22" r="5" fill="#ffce4f" opacity=".8" /><circle cx="22" cy="20" r="3.5" fill="#ffce4f" opacity=".7" /></g>`;
+    case 'star2': return html`<polygon points="80,22 83,30 91,30 85,35 87,43 80,38 73,43 75,35 69,30 77,30" fill="#ffce4f" />`;
+    case 'cape2': return html`<path d="M22 52 q-10 26 6 34 q6 -18 10 -26Z" fill=${A} opacity=".9" />`;
+    case 'crown2': return html`<path d="M32 14 L38 2 L46 12 L50 0 L54 12 L62 2 L68 14Z" fill="#ffce4f" stroke="#e0a400" stroke-width="1.5" stroke-linejoin="round" />`;
+    case 'bosscrown': return html`<g><path d="M30 12 L37 0 L44 10 L50 -2 L56 10 L63 0 L70 12Z" fill="#ffce4f" stroke="#e0a400" stroke-width="1.5" stroke-linejoin="round" /><circle cx="50" cy="6" r="3" fill="#ff5a5a" /></g>`;
+    case 'clownnose': return html`<g><circle cx="24" cy="30" r="5" fill="#ff5a5a" /><circle cx="76" cy="30" r="5" fill="#7fe7ff" /></g>`;
+    case 'speed': return html`<g stroke=${A} stroke-width="3" stroke-linecap="round" opacity=".8"><path d="M14 50 h12 M10 60 h16 M14 70 h12" /></g>`;
+    case 'flower': return html`<g><circle cx="72" cy="24" r="4" fill="#ff8fc7" /><circle cx="79" cy="20" r="4" fill="#ff8fc7" /><circle cx="79" cy="28" r="4" fill="#ff8fc7" /><circle cx="86" cy="24" r="4" fill="#ff8fc7" /><circle cx="79" cy="24" r="3" fill="#ffce4f" /></g>`;
+    case 'note2': return html`<g fill="#7a59d0"><circle cx="80" cy="34" r="5" /><rect x="84" y="16" width="3" height="20" /><path d="M87 16 q7 3 7 8 q-3 -5 -7 -5Z" /></g>`;
+    case 'ponytail': return html`<g><path d="M72 30 q14 6 10 24 q-12 -4 -14 -14Z" fill=${A} /><circle cx="70" cy="30" r="4" fill="#ff8fc7" /></g>`;
+    case 'goggles': return html`<g><rect x="34" y="30" width="32" height="8" rx="4" fill="#ffce4f" /><circle cx="42" cy="34" r="3" fill="#7fe7ff" /><circle cx="58" cy="34" r="3" fill="#7fe7ff" /></g>`;
+    case 'ghostcrown': return html`<g><path d="M34 26 L40 14 L47 24 L50 12 L53 24 L60 14 L66 26Z" fill="#c8b8ff" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" /><circle cx="50" cy="18" r="2.5" fill="#8a6df0" /></g>`;
+    case 'ribbon': return html`<g><path d="M50 22 q-12 -10 -14 0 q10 4 14 0Z" fill="#ff8fc7" /><path d="M50 22 q12 -10 14 0 q-10 4 -14 0Z" fill="#ff8fc7" /><circle cx="50" cy="23" r="3.5" fill="#ff5a9a" /></g>`;
+    case 'whistle': return html`<g><path d="M62 62 q14 -4 18 6 q-14 6 -18 -6Z" fill="#ffce4f" stroke=${A} stroke-width="1.5" /><path d="M62 64 q-10 -6 -14 -18" stroke=${A} stroke-width="2.5" fill="none" /></g>`;
+    case 'lumps': return html`<g opacity=".55"><circle cx="26" cy="40" r="5" fill=${A} /><circle cx="76" cy="36" r="6" fill=${A} /><circle cx="66" cy="82" r="5" fill=${A} /></g>`;
+    case 'braids': return html`<g><path d="M28 34 q-12 10 -8 26 q10 -2 12 -12Z" fill=${A} /><path d="M72 34 q12 10 8 26 q-10 -2 -12 -12Z" fill=${A} /><circle cx="22" cy="60" r="3.5" fill="#ff8fc7" /><circle cx="78" cy="60" r="3.5" fill="#ff8fc7" /></g>`;
+    case 'cap': return html`<g><path d="M30 30 q20 -18 40 0 l0 4 q-20 -7 -40 0Z" fill=${A} /><path d="M68 32 q14 2 16 8 l-16 0Z" fill=${A} /><circle cx="50" cy="14" r="3.5" fill=${C} /></g>`;
     default: return null;
   }
 }
 
 const WORLD_HOST_RENDER = { 1: dinoHost, 2: robotHost, 3: rangerHost, 4: heroHost, 5: monsterHost };
 function variantChar(meta) {
-  const world = meta.world;
-  const fn = WORLD_HOST_RENDER[world] || monsterHost;
-  return html`<g>${fn(meta.palette, meta.idx)}${hostProp(meta.prop, meta.palette)}</g>`;
+  // 전용 몸체가 지정된 캐릭터는 그 형태로, 없으면 월드 기본 몸체로 그린다.
+  const bodyFn = meta.body && BODY_RENDER[meta.body];
+  const inner = bodyFn
+    ? bodyFn(meta.palette)
+    : (WORLD_HOST_RENDER[meta.world] || monsterHost)(meta.palette, meta.idx);
+  return html`<g>${inner}${hostProp(meta.prop, meta.palette)}</g>`;
 }
 
 // ---------------------------------------------------------------------------
