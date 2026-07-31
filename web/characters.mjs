@@ -18,8 +18,8 @@ export const CHAR_NAME = {
   bbyeo: '뼈다구스', allog: '알록이',
   // W2 로봇 친구들
   drill: '드르륵', bbabang: '빠방카', chulkung: '철컹이', ppiriri: '삐리리',
-  // W3 특공대 친구들
-  pungpung: '뽕따폭탄병', syungsyung: '슈욱로켓', salgeum: '살금닌자',
+  // W3 특공대 친구들 (검은늑대는 보스 → 스페셜 친구로 이동)
+  pungpung: '뽕따폭탄병', syungsyung: '캡틴아프리카', salgeum: '살금닌자',
   // W4 히어로 친구들
   bulkkot: '불꽃뽕맨', shadowcat: '그림자냥냥', mujeokgom: '무적꼼',
   // W5 몬스터 친구들
@@ -30,13 +30,13 @@ export const CHAR_NAME = {
   poopoo: '응가똥', frozenbread: '꽁꽁꽁아저씨빵',
   // 보스들
   daewang: '대왕',
-  tyranno: '티라노왕', professorx: '프로뻬서엑스', blackwolf: '검은늑대',
+  tyranno: '티라노왕', professorx: '프로뻬서엑스', shadowking: '그림자 대마왕',
   darkmask: '다크마스크', wangmon: '왕몬',
-  gocheolking: '고철킹',
+  gocheolking: '고철킹', blackwolf: '검은늑대',
 };
 
 // 월드별 보스 (각 월드 20번째 스테이지의 주인)
-export const WORLD_BOSS = { 1: 'tyranno', 2: 'professorx', 3: 'blackwolf', 4: 'darkmask', 5: 'wangmon' };
+export const WORLD_BOSS = { 1: 'tyranno', 2: 'professorx', 3: 'shadowking', 4: 'darkmask', 5: 'wangmon' };
 
 export const WORLD_LABEL = {
   1: '공룡 알 마을', 2: '변신 정비소', 3: '특공대 기지', 4: '히어로 시티', 5: '몬스터 도감',
@@ -45,7 +45,7 @@ export const WORLD_LABEL = {
 export const WORLD_SPECIALS = {
   1: ['kongryong', 'kkongryong', 'imagine', 'bbyeo', 'allog'],
   2: ['poopbot', 'drill', 'bbabang', 'chulkung', 'ppiriri', 'clonetrooper', 'stormtrooper', 'darthbot', 'gocheolking'],
-  3: ['balduncle', 'baboon', 'pungpung', 'syungsyung', 'salgeum', 'ultraviking'],
+  3: ['balduncle', 'baboon', 'blackwolf', 'syungsyung', 'salgeum', 'ultraviking'],
   4: ['captainkorea', 'superabbit', 'bulkkot', 'shadowcat', 'mujeokgom', 'roborabbit'],
   5: ['ppika', 'ppokkattu', 'andongki', 'bugeul', 'mongsil', 'poopoo', 'frozenbread'],
 };
@@ -129,7 +129,7 @@ export const WORLD_CHARS = WORLD_SPECIALS;
 // 발견 가능한 전체 친구
 export const ROSTER = [1, 2, 3, 4, 5].flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]);
 // 특별(보스) 친구: 대왕 + 월드 보스들
-export const SPECIALS = ['daewang', 'tyranno', 'professorx', 'blackwolf', 'darkmask', 'wangmon'];
+export const SPECIALS = ['daewang', 'tyranno', 'professorx', 'shadowking', 'darkmask', 'wangmon'];
 // 도감 전체 목록: 월드별(호스트20+스페셜5) + 보스
 export const DEX = [
   ...[1, 2, 3, 4, 5].flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]),
@@ -177,7 +177,7 @@ export const CHAR_THEME = {
   ppiriri:     { c2: '#7fd0e8', c1: '#dff3f9', accent: '#3898b8' },
   // W3 특공대
   pungpung:    { c2: '#4a4a5a', c1: '#d8d8e0', accent: '#ff8f3f' },
-  syungsyung:  { c2: '#ff9a52', c1: '#ffe4d0', accent: '#e06a20' },
+  syungsyung:  { c2: '#3fae7a', c1: '#d8f0e2', accent: '#1f6b48' }, // 캡틴아프리카
   salgeum:     { c2: '#7bb87a', c1: '#dff0de', accent: '#4a8a49' },
   // W4 히어로
   bulkkot:     { c2: '#ff7a52', c1: '#ffe0d5', accent: '#d84a20' },
@@ -199,6 +199,7 @@ export const CHAR_THEME = {
   professorx:  { c2: '#7a6ad0', c1: '#e4dffa', accent: '#3f3080' },
   gocheolking: { c2: '#8a7a68', c1: '#e5ddd2', accent: '#584a3a' },
   blackwolf:   { c2: '#6a6a7e', c1: '#e0e0e8', accent: '#3a3a4e' },
+  shadowking:  { c2: '#3a2f52', c1: '#d9d2ee', accent: '#150f28' },
   darkmask:    { c2: '#7a4fd0', c1: '#e5dbf8', accent: '#48287e' },
   wangmon:     { c2: '#e05a8a', c1: '#fbdce8', accent: '#a82858' },
 };
@@ -225,7 +226,11 @@ export const VOICE = {
   chulkung:    { hi: ['철컹철컹! 철컹이다!'], ok: ['철컹! 강철 정답!', '단단한 정답이군!', '철컹철컹 완벽해!', '강철처럼 튼튼한 정답!', '철커덕, 대단해!', '무쇠 정답이야!'], no: ['철컹… 나사 조이고 다시!', '괜찮아, 다시 조립!', '철컹, 재정비!', '한 번 더 철컹!'] },
   ppiriri:     { hi: ['삐리리~ 신호 왔다!'], ok: ['삐리리! 정답 수신 완료!', '주파수 딱 맞았어!', '삐리리 완벽 신호!', '전파 최고, 정답!', '삐리릭, 대단해!', '수신 양호, 정답!'], no: ['치지직… 다시 맞춰보자!', '삐… 신호 재전송!', '주파수 다시!', '괜찮아 삐리리!'] },
   pungpung:    { hi: ['펑! 폭탄 담당 펑펑이야!'], ok: ['펑! 정답이 터졌다!', '대폭발 정답!', '펑펑 신나는 정답!', '콰광! 완벽해!', '불꽃놀이 정답!', '펑! 대단해!'], no: ['피식… 불발! 다시!', '심지 다시 켜자!', '펑, 재장전!', '괜찮아, 다시 펑!'] },
-  syungsyung:  { hi: ['슝슝! 로켓 담당 슝슝이!'], ok: ['슝! 정답으로 발사!', '3, 2, 1, 정답!', '우주까지 슝 정답!', '슝슝 완벽 발사!', '로켓 스피드 정답!', '슝! 대단해!'], no: ['슈웅… 다시 발사 준비!', '괜찮아, 재발사!', '카운트다운 다시!', '슝, 힘내!'] },
+  syungsyung:  {
+    hi: ['우아아! 초원의 수호자, 캡틴아프리카 등장!'],
+    ok: ['멋지다, 용사여!', '초원이 환호한다!', '사자처럼 용맹한 정답!', '우아아! 완벽해!', '북소리가 울린다, 정답!', '대단하구나!'],
+    no: ['괜찮다, 다시 일어서라!', '초원의 용사는 포기하지 않지!', '한 번 더 도전!', '우아… 아깝구나!'],
+  },
   salgeum:     { hi: ['쉿… 살금살금, 살금이야.'], ok: ['쉿! 조용히 완벽한 정답!', '살금살금 정답 접수!', '들키지 않고 정답!', '쉿, 완벽 잠입!', '조용히 대단한걸!', '살금! 최고야!'], no: ['들켰다… 다시 숨자!', '쉿, 한 번 더!', '살금살금 재시도!', '괜찮아, 다시 쉿!'] },
   bulkkot:     { hi: ['활활! 불꽃맨 등장!'], ok: ['활활 타오르는 정답!', '불꽃 슛! 정답!', '뜨거운 정답이야!', '활활, 대단해!', '불꽃처럼 빛나!', '화르륵 완벽!'], no: ['치익… 다시 불붙이자!', '불꽃은 꺼지지 않아!', '활활, 재점화!', '괜찮아, 다시 활활!'] },
   shadowcat:   { hi: ['냐옹… 그림자냥이다.'], ok: ['냐옹! 그림자처럼 빠른 정답!', '완벽해서 소름 냐옹!', '살며시 정답 냐옹!', '냐옹, 멋진걸!', '어둠 속 정답이야!', '냐아옹 대단해!'], no: ['냐… 다시 노려보자!', '그림자 속에서 한 번 더!', '냐옹, 재도전!', '괜찮아 냐옹~'] },
@@ -291,11 +296,17 @@ export const VOICE = {
     no: ['삐빅! 계산 오류 감지!', '철컹철컹! 다시 계산해라!'],
     win: ['회로 과열… 내가 졌다! 정비소의 왕은 너다. 다음에 보자!'],
   },
+  // 검은늑대: 보스에서 특공대 스페셜 친구(교관)로 이동
   blackwolf:   {
-    hi: ['아우우! 검은늑대다! 특공대 훈련을 통과할 수 있겠나!'],
-    ok: ['흠, 훈련이 잘 됐군!', '아우! 날카로운 정답!', '늑대의 눈으로 봐도 완벽하다!'],
-    no: ['아직 훈련이 부족하군!', '아우우! 다시 도전해라!'],
-    win: ['아우우… 완벽한 대원이군! 특공대 최고 훈장을 주지. 다음에 보자!'],
+    hi: ['아우우! 특공대 교관, 검은늑대다!'],
+    ok: ['흠, 훈련이 잘 됐군!', '아우! 날카로운 정답!', '늑대의 눈으로 봐도 완벽하다!', '아우우! 훌륭한 대원이야!', '멋진 실력이군!', '합격이다!'],
+    no: ['아직 훈련이 부족하군!', '아우우! 다시 도전해라!', '괜찮다, 한 번 더!', '집중해라, 대원!'],
+  },
+  shadowking:  {
+    hi: ['크크크… 어둠의 지배자, 그림자 대마왕이다! 네 그림자도 내 것이 될 것이다!'],
+    ok: ['크윽! 빛나는 정답이라니!', '어둠이 흔들린다…', '제법이군, 작은 용사!', '크크… 인정하마!'],
+    no: ['크크크! 어둠은 깊지!', '그림자에서 벗어날 수 있겠나!', '아직이다!'],
+    win: ['크아아… 내 그림자가 걷힌다! 기지는 네 것이다. 다음에 보자!'],
   },
   darkmask:    {
     hi: ['후후후… 다크마스크다. 히어로 시티는 내 것이 될 것이다!'],
@@ -324,7 +335,7 @@ export const VOICE_STYLE = {
   ppiriri: { pitch: 1.7, rate: 1.35, v: 0 },
   // W3 특공대
   balduncle: { pitch: 0.5, rate: 0.72, v: 0 },  baboon: { pitch: 1.5, rate: 1.5, v: 1 },
-  pungpung: { pitch: 0.95, rate: 1.3, v: 0 },   syungsyung: { pitch: 1.35, rate: 1.55, v: 1 },
+  pungpung: { pitch: 0.95, rate: 1.3, v: 0 },   syungsyung: { pitch: 0.8, rate: 0.95, v: 1 }, // 캡틴아프리카: 든든한 저음
   salgeum: { pitch: 0.85, rate: 0.68, v: 0 },
   // W4 히어로
   captainkorea: { pitch: 0.85, rate: 0.95, v: 0 }, superabbit: { pitch: 1.6, rate: 1.4, v: 1 },
@@ -343,6 +354,7 @@ export const VOICE_STYLE = {
   // 보스(굵고 낮고 느리게)
   daewang: { pitch: 0.35, rate: 0.82, v: 0 },   tyranno: { pitch: 0.32, rate: 0.85, v: 0 },
   gocheolking: { pitch: 0.4, rate: 0.72, v: 1 }, blackwolf: { pitch: 0.45, rate: 0.9, v: 0 },
+  shadowking: { pitch: 0.3, rate: 0.7, v: 1 },  // 그림자 대마왕: 가장 낮고 느리게
   darkmask: { pitch: 0.5, rate: 0.8, v: 1 },    wangmon: { pitch: 0.34, rate: 0.92, v: 0 },
 };
 
@@ -621,15 +633,22 @@ const DRAW = {
     <ellipse cx="36" cy="42" rx="7" ry="4" fill="#fff" opacity=".25" />
   </g>`,
   syungsyung: () => html`<g>
-    <polygon points="50,8 62,30 38,30" fill=${P.syungsyung.accent} />
-    <rect x="38" y="30" width="24" height="42" rx="10" fill=${P.syungsyung.c2} />
-    <circle cx="50" cy="44" r="8" fill="#bfe4ff" stroke="#fff" stroke-width="2.5" />
-    <circle cx="47" cy="43" r="2" fill="#2b2b3a" /><circle cx="53" cy="43" r="2" fill="#2b2b3a" />
-    <path d="M47 47 Q50 49 53 47" stroke="#2b2b3a" stroke-width="1.6" fill="none" stroke-linecap="round" />
-    <polygon points="38,58 26,74 38,72" fill=${P.syungsyung.accent} />
-    <polygon points="62,58 74,74 62,72" fill=${P.syungsyung.accent} />
-    <path d="M44 74 q6 12 12 0 q-6 16 -12 0Z" fill="#ffd54f" />
-    <path d="M46 76 q4 8 8 0" fill="#ff6b3d" />
+    <!-- 캡틴아프리카: 초원의 수호자 (사자 갈기 투구 + 방패 + 창) -->
+    <polygon points="30,44 70,44 78,88 22,88" fill=${P.syungsyung.accent} />
+    <ellipse cx="50" cy="60" rx="23" ry="24" fill=${P.syungsyung.c2} />
+    <ellipse cx="50" cy="62" rx="13" ry="12" fill=${P.syungsyung.c1} />
+    <path d="M42 56 h16 M50 50 v18" stroke=${P.syungsyung.accent} stroke-width="3" stroke-linecap="round" />
+    <rect x="34" y="84" width="12" height="10" rx="5" fill=${P.syungsyung.c2} />
+    <rect x="54" y="84" width="12" height="10" rx="5" fill=${P.syungsyung.c2} />
+    <circle cx="50" cy="30" r="21" fill="#c8873f" opacity=".95" />
+    <circle cx="50" cy="30" r="15" fill="#8a5a2b" />
+    <path d="M50 6 v-5 M32 12 l-4 -4 M68 12 l4 -4 M26 30 h-6 M74 30 h6" stroke="#c8873f" stroke-width="3.5" stroke-linecap="round" />
+    <circle cx="43" cy="30" r="2.6" fill="#2b2b3a" /><circle cx="57" cy="30" r="2.6" fill="#2b2b3a" />
+    <path d="M45 37 Q50 40 55 37" stroke="#2b2b3a" stroke-width="2" fill="none" stroke-linecap="round" />
+    <circle cx="20" cy="64" r="12" fill="#e0a840" stroke="#fff" stroke-width="2" />
+    <path d="M20 56 l4 8 -4 8 -4 -8Z" fill=${P.syungsyung.accent} />
+    <rect x="80" y="26" width="4" height="52" rx="2" fill="#8a5a2b" />
+    <polygon points="82,18 87,28 77,28" fill="#d8dce4" />
   </g>`,
   salgeum: () => html`<g>
     <ellipse cx="50" cy="54" rx="27" ry="28" fill=${P.salgeum.c2} />
@@ -804,6 +823,20 @@ const DRAW = {
   </g>`,
 
   // ---- 월드 보스들 ----
+  // 그림자 대마왕: 어둠의 후드 + 붉은 눈 + 그림자 촉수 + 왕관
+  shadowking: () => html`<g>
+    <path d="M18 92 q32 -10 64 0 q-32 10 -64 0Z" fill="#150f28" opacity=".55" />
+    <path d="M22 86 q-10 -30 8 -44 q-4 -14 20 -18 q24 4 20 18 q18 14 8 44 q-28 8 -56 0Z" fill=${P.shadowking.c2} />
+    <path d="M30 44 q20 -16 40 0 q4 20 -20 24 q-24 -4 -20 -24Z" fill=${P.shadowking.accent} />
+    <path d="M32 20 L38 4 L46 18 L50 2 L54 18 L62 4 L68 20Z" fill="#8a6df0" stroke="#c8b8ff" stroke-width="1.5" stroke-linejoin="round" />
+    <circle cx="41" cy="50" r="5.5" fill="#ff3a3a" /><circle cx="59" cy="50" r="5.5" fill="#ff3a3a" />
+    <circle cx="41" cy="50" r="2" fill="#ffd0d0" /><circle cx="59" cy="50" r="2" fill="#ffd0d0" />
+    <path d="M34 40 l10 5 M66 40 l-10 5" stroke="#c8b8ff" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M40 66 q10 6 20 0 q-10 10 -20 0Z" fill="#150f28" />
+    <path d="M16 60 q-12 12 -6 26 M84 60 q12 12 6 26" stroke=${P.shadowking.c2} stroke-width="6" fill="none" stroke-linecap="round" />
+    <path d="M10 84 q-6 4 -4 10 M90 84 q6 4 4 10" stroke=${P.shadowking.accent} stroke-width="4" fill="none" stroke-linecap="round" />
+    <circle cx="14" cy="46" r="3" fill="#8a6df0" opacity=".7" /><circle cx="86" cy="42" r="3" fill="#8a6df0" opacity=".7" />
+  </g>`,
   // 프로뻬서엑스: 텔레파시 보스 (대머리 + 뇌파 링 + 휠체어 왕좌)
   professorx: () => html`<g>
     <path d="M18 30 q32 -16 64 0" stroke=${P.professorx.accent} stroke-width="2.5" fill="none" opacity=".55" />
