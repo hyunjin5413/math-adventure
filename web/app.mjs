@@ -8,10 +8,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202607300906';
-import { serverGet, serverPut } from './sync.mjs?v=202607300906';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202607312323';
+import { serverGet, serverPut } from './sync.mjs?v=202607312323';
 import './tts.mjs'; // 제스처 기반 오디오 언락 리스너 등록(효과음/iOS Web Speech용)
-import { sfx } from './sfx.mjs?v=202607300906';
+import { sfx } from './sfx.mjs?v=202607312323';
 
 // 기본 터치 효과음: 버튼/스테이지/카드 탭 시 톡톡이 (제스처 안이라 iOS도 항상 재생됨)
 if (typeof window !== 'undefined') {
@@ -27,18 +27,20 @@ const { useRef } = React;
 // 문제: 손가락이 미세하게 움직이거나(제스처 판정), 애니메이션으로 내부 SVG가 교체되면
 //       click 이벤트가 아예 발생하지 않아 "효과음은 나는데 안 눌리는" 현상이 생긴다.
 // 해결: pointerup에서 즉시 반응하고, 뒤따르는 click은 중복 방지로 무시한다.
-let LAST_TAP_AT = 0;
+// pointerup만 사용한다(마우스·터치·펜 모두 발생) → click 이중 발생/억제 문제가 원천적으로 없음.
+// 같은 요소에서 눌렀다 뗐는지만 확인해, 다른 곳에서 끌어와 떼는 오작동은 막는다.
 function tap(handler) {
   return {
+    onPointerDown: (e) => { e.currentTarget.dataset.tapDown = String(e.pointerId); },
     onPointerUp: (e) => {
+      const el = e.currentTarget;
+      const started = el.dataset.tapDown === String(e.pointerId);
+      delete el.dataset.tapDown;
+      if (!started) return;
       if (e.pointerType === 'mouse' && e.button !== 0) return;
-      LAST_TAP_AT = Date.now();
       handler(e);
     },
-    onClick: (e) => {
-      if (Date.now() - LAST_TAP_AT < 600) return; // pointerup으로 이미 처리됨
-      handler(e);
-    },
+    onPointerCancel: (e) => { delete e.currentTarget.dataset.tapDown; },
   };
 }
 
@@ -339,7 +341,7 @@ function ChoiceInput({ problem, locked, onAnswer }) {
         else if (c === picked) cls += ' wrong';
       }
       return html`<button key=${String(c)} class=${cls} disabled=${locked}
-        ...${tap(() => { if (locked || picked != null) return; setPicked(c); onAnswer(c === problem.answer, c); })}>${c}</button>`;
+        ...${tap(() => { if (locked) return; setPicked(c); onAnswer(c === problem.answer, c); })}>${c}</button>`;
     })}
   </div>`;
 }
@@ -478,7 +480,7 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
         if (idx + 1 >= total) finish(correct + 1);
         else setIdx(idx + 1);
       } else if (wrongStreak + 1 >= 2) setShowHint(true);
-    }, isCorrect ? 1100 : 950);
+    }, isCorrect ? 1100 : 650); // 오답은 짧게 잠갔다 풀어 바로 재시도 가능하게
   }, [combo, idx, total, correct, wrongStreak, theme]);
 
   function finish(finalCorrect) {
