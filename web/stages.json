@@ -22,9 +22,9 @@
     },
     {
       "id": 3,
-      "name": "W3 특공대 기지",
-      "mood": "특공대",
-      "icon": "🚀",
+      "name": "W3 애니멀 타운",
+      "mood": "애니멀 타운",
+      "icon": "🐰",
       "range": [
         41,
         60
@@ -22904,7 +22904,7 @@
       "reviewRatio": 0,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S041",
@@ -23499,7 +23499,7 @@
       "reviewRatio": 0,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S042",
@@ -24057,7 +24057,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S043",
@@ -24619,7 +24619,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S044",
@@ -25181,7 +25181,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S045",
@@ -25833,7 +25833,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S046",
@@ -26395,7 +26395,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S047",
@@ -26957,7 +26957,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S048",
@@ -27519,7 +27519,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S049",
@@ -28083,7 +28083,7 @@
       "reviewRatio": 0,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 2
       },
       "id": "W3-S050",
@@ -28530,7 +28530,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S051",
@@ -29093,7 +29093,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S052",
@@ -29653,7 +29653,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S053",
@@ -30303,7 +30303,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S054",
@@ -30863,7 +30863,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S055",
@@ -31423,7 +31423,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S056",
@@ -31988,7 +31988,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S057",
@@ -32586,7 +32586,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S058",
@@ -33190,7 +33190,7 @@
       "reviewRatio": 0.2,
       "reward": {
         "kind": "shard",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1
       },
       "id": "W3-S059",
@@ -33772,7 +33772,7 @@
       "reviewRatio": 0,
       "reward": {
         "kind": "rare_character",
-        "mood": "특공대",
+        "mood": "애니멀 타운",
         "amount": 1,
         "condition": "clear"
       },

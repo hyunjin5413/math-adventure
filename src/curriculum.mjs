@@ -20,7 +20,7 @@
 export const WORLDS = [
   { id: 1, name: 'W1 공룡 알 마을', mood: '공룡', icon: '🥚', range: [1, 20] },
   { id: 2, name: 'W2 변신 정비소', mood: '변신 로봇', icon: '🤖', range: [21, 40] },
-  { id: 3, name: 'W3 특공대 기지', mood: '특공대', icon: '🚀', range: [41, 60] },
+  { id: 3, name: 'W3 애니멀 타운', mood: '애니멀 타운', icon: '🐰', range: [41, 60] },
   { id: 4, name: 'W4 히어로 시티', mood: '히어로', icon: '🦸', range: [61, 80] },
   { id: 5, name: 'W5 몬스터 도감', mood: '수집형 몬스터', icon: '👾', range: [81, 100] },
 ];

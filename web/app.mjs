@@ -8,10 +8,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202608010029';
-import { serverGet, serverPut } from './sync.mjs?v=202608010029';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202608010054';
+import { serverGet, serverPut } from './sync.mjs?v=202608010054';
 import './tts.mjs'; // 제스처 기반 오디오 언락 리스너 등록(효과음/iOS Web Speech용)
-import { sfx } from './sfx.mjs?v=202608010029';
+import { sfx } from './sfx.mjs?v=202608010054';
 
 // 기본 터치 효과음: 버튼/스테이지/카드 탭 시 톡톡이 (제스처 안이라 iOS도 항상 재생됨)
 if (typeof window !== 'undefined') {
@@ -45,6 +45,43 @@ function tap(handler) {
     // 키보드/보조기술/프로그램적 click 대응. 같은 요소에서 방금 pointerup 처리했으면 무시.
     onClick: (e) => {
       const at = Number(e.currentTarget.dataset.tapAt || 0);
+      if (Date.now() - at < 700) return;
+      handler(e);
+    },
+  };
+}
+
+// 스크롤 영역(맵·도감) 전용 탭: 손가락이 움직이거나 오래 누르면 취소한다.
+// 스크롤하다 스테이지가 실수로 눌리는 문제 방지. (문제 풀이 화면은 위의 tap() 사용)
+const SCROLL_TAP_MOVE = 12;   // px 이상 움직이면 스크롤로 판정
+const SCROLL_TAP_HOLD = 600;  // ms 이상 누르면 롱탭으로 판정
+function scrollTap(handler) {
+  return {
+    onPointerDown: (e) => {
+      const d = e.currentTarget.dataset;
+      d.stId = String(e.pointerId);
+      d.stX = String(e.clientX); d.stY = String(e.clientY);
+      d.stT = String(Date.now());
+    },
+    onPointerMove: (e) => {
+      const d = e.currentTarget.dataset;
+      if (d.stId !== String(e.pointerId)) return;
+      const dx = e.clientX - Number(d.stX), dy = e.clientY - Number(d.stY);
+      if (Math.hypot(dx, dy) > SCROLL_TAP_MOVE) delete d.stId; // 스크롤 시작 → 탭 취소
+    },
+    onPointerUp: (e) => {
+      const el = e.currentTarget, d = el.dataset;
+      const ok = d.stId === String(e.pointerId);
+      const held = Date.now() - Number(d.stT || 0);
+      delete d.stId;
+      if (!ok || held > SCROLL_TAP_HOLD) return; // 스크롤·롱탭이면 무시
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      d.stAt = String(Date.now());
+      handler(e);
+    },
+    onPointerCancel: (e) => { delete e.currentTarget.dataset.stId; },
+    onClick: (e) => {
+      const at = Number(e.currentTarget.dataset.stAt || 0);
       if (Date.now() - at < 700) return;
       handler(e);
     },
@@ -752,7 +789,8 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection, onSetP
           <div class="world-banner">
             <${Character} kind=${mascot} size=${64} anim="float" />
             <div>
-              <h2 style=${{ color: t.accent }}>${w.name}</h2>
+              <!-- 월드 이름은 characters.mjs의 WORLD_LABEL 한 곳에서만 관리(도감과 항상 일치) -->
+              <h2 style=${{ color: t.accent }}>W${w.id} ${WORLD_LABEL[w.id]}</h2>
               <div class="wsub">대표 친구 · ${CHAR_NAME[mascot]}</div>
             </div>
           </div>
@@ -771,7 +809,7 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection, onSetP
               const shadow = `0 6px 0 ${t.accent}, 0 9px 12px rgba(0,0,0,.14)`;
               return html`<div key=${s.n} class=${cls.join(' ')}
                 style=${unlocked ? { background: grad, boxShadow: shadow } : {}}
-                ...${tap(() => unlocked && onPlay(s))}>
+                ...${scrollTap(() => unlocked && onPlay(s))}>
                 ${s.type === 'boss' ? html`<div class="badge"><${Icon} name="crown" size=${22} color="#ffce4f" /></div>` : null}
                 ${s.type === 'mini_review' ? html`<div class="badge"><${Icon} name="refresh" size=${18} color="#fff" /></div>` : null}
                 ${unlocked
@@ -779,6 +817,9 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection, onSetP
                       ? html`<${Character} kind=${WORLD_BOSS[w.id]} size=${46} anim="none" />`
                       : s.stageInWorld)
                   : html`<${Icon} name="lock" size=${26} color="#b3ab93" />`}
+                ${stars > 0 && s.type !== 'boss' ? html`<div class="node-friends">
+                  ${(s.themes || []).slice(0, 2).map((c) => html`<${Character} key=${c} kind=${c} size=${22} anim="none" />`)}
+                </div>` : null}
                 ${stars > 0 ? html`<div class="stars">${range(stars).map((i) => html`<${Icon} key=${i} name="star" size=${13} color="#ffce4f" />`)}</div>` : null}
               </div>`;
             })}
@@ -796,7 +837,7 @@ function DexCard({ k, entry, onSelect }) {
   const ct = CHAR_THEME[k];
   return html`<div class=${`dex-card ${entry ? 'owned' : 'locked'}`}
     style=${entry ? { background: `linear-gradient(180deg, ${ct.c1}, #fff)` } : {}}
-    ...${tap(() => entry && onSelect(entry))}>
+    ...${scrollTap(() => entry && onSelect(entry))}>
     ${entry
       ? html`<${Character} kind=${k} size=${90} anim="float" />`
       : html`<div class="dex-silhouette"><${Character} kind=${k} size=${90} anim="none" /></div>`}

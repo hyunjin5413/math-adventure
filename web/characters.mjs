@@ -36,19 +36,19 @@ export const CHAR_NAME = {
 };
 
 // 월드별 보스 (각 월드 20번째 스테이지의 주인)
-// W3 히어로 시티 = 다크마스크(가면 악당), W4 프레스 스타트 = 그림자 대마왕
-export const WORLD_BOSS = { 1: 'tyranno', 2: 'professorx', 3: 'darkmask', 4: 'shadowking', 5: 'wangmon' };
+// W3 애니멀 타운 = 그림자 대마왕, W4 히어로 시티 = 다크마스크(가면 악당)
+export const WORLD_BOSS = { 1: 'tyranno', 2: 'professorx', 3: 'shadowking', 4: 'darkmask', 5: 'wangmon' };
 
 export const WORLD_LABEL = {
-  1: '공룡 알 마을', 2: '변신 정비소', 3: '히어로 시티', 4: '프레스 스타트', 5: '몬스터 도감',
+  1: '공룡 알 마을', 2: '변신 정비소', 3: '애니멀 타운', 4: '히어로 시티', 5: '몬스터 도감',
 };
 // 월드별 스페셜 친구 5명(손그림, 4스테이지 클리어마다 발견)
 export const WORLD_SPECIALS = {
   1: ['kongryong', 'kkongryong', 'imagine', 'bbyeo', 'allog'],
   2: ['poopbot', 'drill', 'bbabang', 'chulkung', 'ppiriri', 'clonetrooper', 'stormtrooper', 'darthbot', 'gocheolking'],
-  // W3 히어로 시티 / W4 프레스 스타트 (슈퍼 래빗 보이 계열)
-  3: ['captainkorea', 'bulkkot', 'shadowcat', 'mujeokgom', 'balduncle', 'baboon'],
-  4: ['superabbit', 'roborabbit', 'blackwolf', 'syungsyung', 'salgeum', 'ultraviking'],
+  // W3 애니멀 타운(슈퍼 래빗 보이 계열) / W4 히어로 시티
+  3: ['superabbit', 'roborabbit', 'blackwolf', 'syungsyung', 'salgeum', 'ultraviking'],
+  4: ['captainkorea', 'bulkkot', 'shadowcat', 'mujeokgom', 'balduncle', 'baboon'],
   5: ['ppika', 'ppokkattu', 'andongki', 'bugeul', 'mongsil', 'poopoo', 'frozenbread'],
 };
 
@@ -79,17 +79,7 @@ const HOST_NAMES = {
     ['쌤총알', 'fast', '쌤! 총알처럼!', 'jet'], ['맥쓰펀치', 'lo', '맥쓰 펀치!', 'fist'],
     ['루씨빛', 'hi', '루씨 반짝!', 'wing'], ['애쓸론감마', 'mid', '애쓸론 감마 발진!', 'titan']],
   // [이름, 톤, 말버릇, 소품, (몸체), (색상 hue)]
-  3: [['아이옹맨', 'mid', '치이잉! 슈트 가동!', 'core'], ['스빠이더뽕', 'fast', '뿅! 거미줄 발사!', 'web'],
-    ['헐끄', 'lo', '으라차차! 헐끄 화났다!', 'muscle'], ['또르', 'lo', '천둥이여! 또르!', 'hammer'],
-    ['캡틴빵빵', 'mid', '방패 던지기! 빵!', 'shield'], ['블랙위도옹', 'mid', '조용히… 위도옹.', 'belt'],
-    ['호꾸아이', 'fast', '슝! 화살 발사!', 'bow'], ['앤뚱맨', 'hi', '작아졌다! 앤뚱!', 'antenna2'],
-    ['닥터스뜨렌지', 'slow', '수리수리… 마법진!', 'magic'], ['블랙빤써', 'mid', '어흥! 빤써!', 'claw'],
-    ['그루뚜', 'slow', '나는… 그루뚜.', 'branch'], ['로꼬비', 'mid', '후후, 로꼬비 등장!', 'horns2'],
-    ['완다뿅', 'hi', '뿅! 마법 파워!', 'magic'], ['데드뿌울', 'fast', '안녕! 데드뿌울이야!', 'mask2'],
-    ['울버링', 'lo', '스컥! 발톱 나왔다!', 'claw'], ['실버뽀드', 'mid', '쓩~ 은빛 보드!', 'board'],
-    ['뽈콘', 'fast', '날개 펴고 슝!', 'wing2'], ['윈떠솔져', 'lo', '철팔 준비 완료.', 'metalarm'],
-    ['비쥔', 'mid', '이마 보석이 빛난다!', 'gem'], ['까모라', 'mid', '칼 준비! 까모라!', 'sword']],
-  4: [['뽜워레드', 'mid', '뽜워레드!', 'visorR'], ['뽜워블루', 'mid', '뽜워블루!', 'visorB'],
+  3: [['뽜워레드', 'mid', '뽜워레드!', 'visorR'], ['뽜워블루', 'mid', '뽜워블루!', 'visorB'],
     ['베이비레빗보이', 'hi', '뿅! 아기 토끼예요!', 'pacifier', 'rabbit', 45],
     ['써니', 'hi', '반짝반짝!', 'sunray', 'sun', 48],
     ['루', 'mid', '루루!', 'star2', 'blob', 200],
@@ -108,6 +98,16 @@ const HOST_NAMES = {
     ['헬가', 'mid', '헬가가 간다!', 'braids', 'kid', 250],
     ['에릭', 'mid', '안녕! 에릭이야!', 'cap', 'kid', 190],
     ['슈퍼 래빗 보스', 'lo', '내가 진짜 보스다!', 'bosscrown', 'rabbit', 350]],
+  4: [['아이옹맨', 'mid', '치이잉! 슈트 가동!', 'core'], ['스빠이더뽕', 'fast', '뿅! 거미줄 발사!', 'web'],
+    ['헐끄', 'lo', '으라차차! 헐끄 화났다!', 'muscle'], ['또르', 'lo', '천둥이여! 또르!', 'hammer'],
+    ['캡틴빵빵', 'mid', '방패 던지기! 빵!', 'shield'], ['블랙위도옹', 'mid', '조용히… 위도옹.', 'belt'],
+    ['호꾸아이', 'fast', '슝! 화살 발사!', 'bow'], ['앤뚱맨', 'hi', '작아졌다! 앤뚱!', 'antenna2'],
+    ['닥터스뜨렌지', 'slow', '수리수리… 마법진!', 'magic'], ['블랙빤써', 'mid', '어흥! 빤써!', 'claw'],
+    ['그루뚜', 'slow', '나는… 그루뚜.', 'branch'], ['로꼬비', 'mid', '후후, 로꼬비 등장!', 'horns2'],
+    ['완다뿅', 'hi', '뿅! 마법 파워!', 'magic'], ['데드뿌울', 'fast', '안녕! 데드뿌울이야!', 'mask2'],
+    ['울버링', 'lo', '스컥! 발톱 나왔다!', 'claw'], ['실버뽀드', 'mid', '쓩~ 은빛 보드!', 'board'],
+    ['뽈콘', 'fast', '날개 펴고 슝!', 'wing2'], ['윈떠솔져', 'lo', '철팔 준비 완료.', 'metalarm'],
+    ['비쥔', 'mid', '이마 보석이 빛난다!', 'gem'], ['까모라', 'mid', '칼 준비! 까모라!', 'sword']],
   5: [['꼬북꼬북', 'mid', '꼬북꼬북!', 'shell'], ['빠이리', 'fast', '빠이리! 불꽃!', 'flametail'],
     ['이상해뽕', 'slow', '이상해뽕~', 'leaf2'], ['잠만뽀', 'slow', '쿨쿨… 잠만뽀…', 'sleep'],
     ['찌릿쭈', 'hi', '찌릿쭈!', 'bolt3'], ['이뿌이', 'hi', '이뿌이!', 'furtail'],
@@ -161,15 +161,15 @@ for (const [id, m] of Object.entries(HOST_META)) {
   // eslint-disable-next-line no-use-before-define
 }
 // 월드 대표 마스코트 (맵 배너용)
-export const WORLD_MASCOT = { 1: 'kongryong', 2: 'poopbot', 3: 'captainkorea', 4: 'superabbit', 5: 'ppika' };
-// (W3 히어로 시티 = 캡틴코리아, W4 프레스 스타트 = 슈퍼래빗뽀이)
+export const WORLD_MASCOT = { 1: 'kongryong', 2: 'poopbot', 3: 'superabbit', 4: 'captainkorea', 5: 'ppika' };
+// (W3 애니멀 타운 = 슈퍼래빗뽀이, W4 히어로 시티 = 캡틴코리아)
 
 // 월드 배경 팔레트 (동물의 숲톤: 부드럽고 자연스러운 색)
 export const WORLD_THEME = {
   1: { c1: '#e6f6d6', c2: '#9bd86a', accent: '#5fa838' },
   2: { c1: '#dbeafb', c2: '#7fb0ef', accent: '#4377cc' },
-  3: { c1: '#efe6ff', c2: '#b69bf0', accent: '#7a59d0' }, // 히어로 시티
-  4: { c1: '#ffe2dc', c2: '#ff9a8b', accent: '#e0604f' }, // 프레스 스타트
+  3: { c1: '#ffe2dc', c2: '#ff9a8b', accent: '#e0604f' }, // 애니멀 타운
+  4: { c1: '#efe6ff', c2: '#b69bf0', accent: '#7a59d0' }, // 히어로 시티
   5: { c1: '#fff1cf', c2: '#ffd368', accent: '#dba300' },
 };
 
