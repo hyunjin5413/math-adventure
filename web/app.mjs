@@ -8,10 +8,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202607312359';
-import { serverGet, serverPut } from './sync.mjs?v=202607312359';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202608010029';
+import { serverGet, serverPut } from './sync.mjs?v=202608010029';
 import './tts.mjs'; // 제스처 기반 오디오 언락 리스너 등록(효과음/iOS Web Speech용)
-import { sfx } from './sfx.mjs?v=202607312359';
+import { sfx } from './sfx.mjs?v=202608010029';
 
 // 기본 터치 효과음: 버튼/스테이지/카드 탭 시 톡톡이 (제스처 안이라 iOS도 항상 재생됨)
 if (typeof window !== 'undefined') {
@@ -38,9 +38,16 @@ function tap(handler) {
       delete el.dataset.tapDown;
       if (!started) return;
       if (e.pointerType === 'mouse' && e.button !== 0) return;
+      el.dataset.tapAt = String(Date.now()); // 뒤따라오는 click 억제용(요소별)
       handler(e);
     },
     onPointerCancel: (e) => { delete e.currentTarget.dataset.tapDown; },
+    // 키보드/보조기술/프로그램적 click 대응. 같은 요소에서 방금 pointerup 처리했으면 무시.
+    onClick: (e) => {
+      const at = Number(e.currentTarget.dataset.tapAt || 0);
+      if (Date.now() - at < 700) return;
+      handler(e);
+    },
   };
 }
 
@@ -416,8 +423,8 @@ function StagePlay({ stage, world, collectedIds, onDiscover, onExit, onComplete 
   const problem = stage.problems[idx];
   const total = stage.problems.length;
   const isBoss = !!problem.bossSegment;              // 마지막 5문제 = 보스 구간
-  // 보스: 20번째(보스 스테이지)는 월드 보스, 일반 스테이지는 대왕
-  const bossChar = stage.type === 'boss' ? (WORLD_BOSS[world] || 'daewang') : 'daewang';
+  // 보스 구간(마지막 5문제)은 항상 그 월드의 왕이 출제 (W1=티라노왕 …)
+  const bossChar = WORLD_BOSS[world] || 'daewang';
   const theme = isBoss ? bossChar : (problem.theme || (stage.themes && stage.themes[0]) || WORLD_MASCOT[world]);
   const ct = CHAR_THEME[theme] || WORLD_THEME[world];
 
@@ -998,7 +1005,8 @@ function App() {
         clearedCount++;
         for (const c of st.themes || []) add(c, `${WORLD_LABEL[st.world]}에서 만난 친구`);
         if (st.type === 'boss') add(WORLD_BOSS[st.world], `W${st.world} 보스 ${CHAR_NAME[WORLD_BOSS[st.world]]} 물리치기`);
-        else add('daewang', `스테이지 ${st.n} 대왕과의 대결 승리`);
+        // 다섯 월드 보스를 모두 물리치면 대왕이 나타난다
+        if ([1, 2, 3, 4, 5].every((w) => has(WORLD_BOSS[w]))) add('daewang', '다섯 보스를 모두 물리침!');
         // 실제 플레이와 동일한 발견 주기(월드 스페셜 수에 맞춰 좁혀짐)
         const ws = WORLD_SPECIALS[st.world] || [];
         const every = Math.max(2, Math.min(4, Math.floor(20 / Math.max(1, ws.length))));
@@ -1026,13 +1034,14 @@ function App() {
         return true;
       };
       if (result.stars > 0) {
-        // 보스 물리치기(최초 1회): 보스 스테이지=월드 보스, 일반=대왕
-        if (result.beatBoss) {
-          if (stage.type === 'boss') {
-            const b = WORLD_BOSS[stage.world];
-            add(b, `W${stage.world} 보스 ${CHAR_NAME[b]} 물리치기`);
-          } else {
-            add('daewang', `스테이지 ${stage.n} 대왕과의 대결 승리`);
+        // 보스 스테이지(20번째) 클리어 시 그 월드의 왕을 도감에 등록
+        if (result.beatBoss && stage.type === 'boss') {
+          const b = WORLD_BOSS[stage.world];
+          add(b, `W${stage.world} 보스 ${CHAR_NAME[b]} 물리치기`);
+          // 다섯 왕을 모두 물리치면 대왕이 나타난다
+          const owned = new Set(next.collected.map((c) => c.id));
+          if ([1, 2, 3, 4, 5].every((w) => owned.has(WORLD_BOSS[w]))) {
+            if (add('daewang', '다섯 보스를 모두 물리침!')) discovery = { id: 'daewang', reason: '다섯 보스를 모두 물리침!' };
           }
         }
         // 스페셜 친구 발견: 기본 4스테이지마다.
