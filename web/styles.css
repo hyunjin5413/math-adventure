@@ -195,6 +195,30 @@ button svg, button span, .stage-node svg, .stage-node span, .dex-card svg, .dex-
 .cmp .blk { width: clamp(26px, 5vw, 40px); flex: 1 1 0; min-height: 4px; max-height: 26px; background: var(--leaf); border-radius: 6px; }
 .cmp .blk.b2 { background: var(--sky); }
 
+/* ===== W6 큰 수 연산 시각 보조 ===== */
+/* 세로셈: 자리마다 같은 폭을 줘서 백/십/일이 위아래로 딱 맞게 */
+.colcalc { display: inline-block; background: #fff; border-radius: 14px; padding: clamp(6px,1.4vh,12px) clamp(10px,2vw,18px);
+  box-shadow: 0 3px 0 #e6dcc4; font-weight: 800; line-height: 1.15; }
+.colcalc .cline { display: flex; justify-content: flex-end; align-items: center; }
+.colcalc .cc { display: inline-block; width: clamp(20px,3.6vh,30px); text-align: center;
+  font-size: clamp(20px,3.6vh,30px); color: #4a4230; }
+.colcalc .cop { display: inline-block; width: clamp(18px,3vh,26px); text-align: center;
+  font-size: clamp(18px,3vh,26px); color: var(--leaf-d, #5fa838); }
+.colcalc .crule { height: 3px; background: #d8cfb5; border-radius: 2px; margin: 3px 0; }
+.colcalc .ans .cc { color: var(--sun-d, #dba300); }
+/* 100/10/1 묶음 칩 */
+.placechips { display: flex; gap: clamp(12px,3vw,28px); align-items: flex-end; flex-wrap: wrap; justify-content: center; }
+.placechips .pg { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.placechips .pgrow { display: flex; flex-wrap: wrap; gap: clamp(3px,.7vh,5px); max-width: 26vw; justify-content: center; align-items: flex-end; }
+.placechips .pglab { font-size: clamp(13px,2.1vh,18px); color: #8a8272; font-weight: 800; }
+.placechips .pc { display: inline-block; border-radius: 5px; box-shadow: 0 2px 0 rgba(0,0,0,.12); }
+.placechips .p100 { width: clamp(22px,4.4vh,34px); height: clamp(22px,4.4vh,34px); background: var(--leaf, #9bd86a); }
+.placechips .p10 { width: clamp(9px,1.7vh,13px); height: clamp(22px,4.4vh,34px); background: var(--sky, #7fb0ef); }
+.placechips .p1 { width: clamp(11px,2.1vh,16px); height: clamp(11px,2.1vh,16px); background: var(--sun, #ffd368); border-radius: 50%; }
+/* 세 자리 수 크기 비교: 자리 이름 + 두 수를 위아래로 */
+.cmpplace .lab .cc { font-size: clamp(11px,1.7vh,14px); color: #8a8272; }
+.cmpplace .cline:not(.lab) .cc { color: #4a4230; }
+
 /* ===== 게임 배경 데코 (언덕/구름) ===== */
 .play.theme::before, .login::before, .map::before {
   content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 22vh; pointer-events: none; z-index: 0;
@@ -231,7 +255,7 @@ button svg, button span, .stage-node svg, .stage-node span, .dex-card svg, .dex-
 .buddy.boss { filter: drop-shadow(0 0 16px rgba(138,109,240,.5)); }
 /* 시각 보조가 stage-main을 넘지 않도록 상한 */
 .stage-main .visual, .stage-main .array, .stage-main .tenframe, .stage-main .bond, .stage-main .cmp,
-.stage-main svg { max-height: 26vh; }
+.stage-main .colcalc, .stage-main .placechips, .stage-main svg { max-height: 26vh; }
 
 /* ===== 친구 발견 팝업 ===== */
 .discover { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center;

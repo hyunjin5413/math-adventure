@@ -8,10 +8,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import htm from 'https://esm.sh/htm@3.1.1';
-import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202608010054';
-import { serverGet, serverPut } from './sync.mjs?v=202608010054';
+import { Character, Item, Icon, WORLD_THEME, CHAR_THEME, CHAR_NAME, ROSTER, DEX, SPECIALS, WORLD_CHARS, WORLD_HOSTS, WORLD_SPECIALS, WORLD_LABEL, WORLD_MASCOT, WORLD_BOSS, WORLD_IDS, SPECIAL_SLOTS, VOICE, VOICE_STYLE, pickLine } from './characters.mjs?v=202608020037';
+import { serverGet, serverPut } from './sync.mjs?v=202608020037';
 import './tts.mjs'; // 제스처 기반 오디오 언락 리스너 등록(효과음/iOS Web Speech용)
-import { sfx } from './sfx.mjs?v=202608010054';
+import { sfx } from './sfx.mjs?v=202608020037';
 
 // 기본 터치 효과음: 버튼/스테이지/카드 탭 시 톡톡이 (제스처 안이라 iOS도 항상 재생됨)
 if (typeof window !== 'undefined') {
@@ -334,9 +334,56 @@ function Visual({ v, theme }) {
       return html`<${BaseTen} tens=${v.tens} ones=${v.ones} />`;
     case 'number_line':
       return html`<${NumberLine} />`;
+    // W6 큰 수 연산: 세로셈 형태로 자리를 맞춰 보여준다
+    case 'column':
+      return html`<${ColumnCalc} a=${v.a} b=${v.b} op=${v.op} sum=${v.sum} />`;
+    case 'place_chips':
+      return html`<${PlaceChips} h=${v.h} t=${v.t} o=${v.o} />`;
+    case 'compare_big':
+      return html`<${ComparePlace} a=${v.a} b=${v.b} />`;
     default:
       return null;
   }
+}
+
+// 세로셈 (백/십/일 자리를 맞춰 보여줌)
+function ColumnCalc({ a, b, op, sum }) {
+  const w = Math.max(String(a).length, String(b).length, String(sum ?? '').length);
+  const pad = (x) => String(x).padStart(w, ' ').split('');
+  const cells = (x, key) => pad(x).map((ch, i) => html`<span key=${key + i} class="cc">${ch === ' ' ? '' : ch}</span>`);
+  return html`<div class="colcalc">
+    <div class="cline">${cells(a, 'a')}</div>
+    <div class="cline"><span class="cop">${op}</span>${cells(b, 'b')}</div>
+    <div class="crule"></div>
+    <div class="cline ans">${sum != null ? cells(sum, 's') : html`<span class="cc">?</span>`}</div>
+  </div>`;
+}
+
+// 큰 수 비교: 백/십/일 자리를 맞춰 세로로 놓아 왼쪽부터 비교하게 돕는다
+function ComparePlace({ a, b }) {
+  const w = Math.max(String(a).length, String(b).length);
+  const cells = (x, key) => String(x).padStart(w, ' ').split('')
+    .map((ch, i) => html`<span key=${key + i} class="cc">${ch === ' ' ? '' : ch}</span>`);
+  const labels = ['백', '십', '일'].slice(3 - w);
+  return html`<div class="colcalc cmpplace">
+    <div class="cline lab">${labels.map((L, i) => html`<span key=${i} class="cc">${L}</span>`)}</div>
+    <div class="cline">${cells(a, 'a')}</div>
+    <div class="crule"></div>
+    <div class="cline">${cells(b, 'b')}</div>
+  </div>`;
+}
+
+// 100/10/1 묶음 칩 (세 자리 자리값)
+function PlaceChips({ h, t, o }) {
+  const grp = (n, cls, label) => html`<div class="pg">
+    <div class="pgrow">${range(n).map((i) => html`<span key=${i} class=${'pc ' + cls}></span>`)}</div>
+    <div class="pglab">${label}</div>
+  </div>`;
+  return html`<div class="placechips">
+    ${h > 0 ? grp(h, 'p100', '100') : null}
+    ${t > 0 ? grp(t, 'p10', '10') : null}
+    ${o > 0 ? grp(o, 'p1', '1') : null}
+  </div>`;
 }
 
 function NumberLine() {
@@ -728,19 +775,21 @@ function ResultScreen({ stage, result, world, discovery, onNext, onRetry, onMap 
 // 월드 맵
 // ===========================================================================
 // 진행 지정 다이얼로그 (몇 스테이지까지 완료로 볼지)
-function ProgressDialog({ cleared, onApply, onClose }) {
+function ProgressDialog({ cleared, total = 120, onApply, onClose }) {
   const [val, setVal] = useState(String(cleared || 0));
-  const n = Math.max(0, Math.min(100, parseInt(val, 10) || 0));
+  const n = Math.max(0, Math.min(total, parseInt(val, 10) || 0));
+  const chips = [];
+  for (let p = 20; p <= total; p += 20) chips.push(p);
   return html`<div class="dex-modal" onClick=${onClose}>
     <div class="dex-modal-card" style=${{ background: 'linear-gradient(180deg,#efe6ff,#fff)', maxWidth: '420px' }}
       onClick=${(e) => e.stopPropagation()}>
       <div class="dex-modal-name">진행 지정</div>
-      <div class="dex-modal-reason">몇 스테이지까지 완료로 할까요? (1~100)</div>
-      <input class="login-input" type="number" min="0" max="100" value=${val}
+      <div class="dex-modal-reason">몇 스테이지까지 완료로 할까요? (1~${total})</div>
+      <input class="login-input" type="number" min="0" max=${total} value=${val}
         style=${{ textAlign: 'center', fontSize: '28px' }}
         onInput=${(e) => setVal(e.target.value)} />
       <div style=${{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
-        ${[20, 40, 60, 80, 100].map((p) => html`<button key=${p} class="acc-chip" onClick=${() => setVal(String(p))}>${p}</button>`)}
+        ${chips.map((p) => html`<button key=${p} class="acc-chip" onClick=${() => setVal(String(p))}>${p}</button>`)}
       </div>
       <div style=${{ fontSize: '14px', color: 'var(--ink-soft)' }}>지금 ${cleared}스테이지 완료 → <b>${n}</b>스테이지까지로 설정</div>
       <div style=${{ display: 'flex', gap: '10px' }}>
@@ -778,7 +827,7 @@ function WorldMap({ data, progress, onPlay, user, onLogout, onCollection, onSetP
       </div>
     </div>
     ${menuOpen ? html`<div class="more-backdrop" onClick=${() => setMenuOpen(false)}></div>` : null}
-    ${dlgOpen ? html`<${ProgressDialog} cleared=${clearedN}
+    ${dlgOpen ? html`<${ProgressDialog} cleared=${clearedN} total=${data.stages.length}
       onApply=${(n) => { onSetProgress(n); setDlgOpen(false); }} onClose=${() => setDlgOpen(false)} />` : null}
     <div class="map">
       ${data.worlds.map((w) => {
@@ -856,7 +905,7 @@ function Collection({ progress, onBack }) {
       <div class="pill">${entries.size} / ${DEX.length}</div>
     </div>
     <div class="collection-scroll">
-      ${[1, 2, 3, 4, 5].flatMap((w) => {
+      ${WORLD_IDS.flatMap((w) => {
         const wt = WORLD_THEME[w];
         const hosts = WORLD_HOSTS[w];
         const specials = WORLD_SPECIALS[w];
@@ -1039,22 +1088,19 @@ function App() {
       const collected = [...(prev.collected || [])];
       const has = (id) => collected.some((c) => c.id === id);
       const add = (id, reason) => { if (id && !has(id)) collected.push({ id, reason }); };
-      let clearedCount = 0;
       for (const st of data.stages) {
         if (st.n > n) break;
         stars[st.n] = Math.max(stars[st.n] || 0, 3);
-        clearedCount++;
         for (const c of st.themes || []) add(c, `${WORLD_LABEL[st.world]}에서 만난 친구`);
         if (st.type === 'boss') add(WORLD_BOSS[st.world], `W${st.world} 보스 ${CHAR_NAME[WORLD_BOSS[st.world]]} 물리치기`);
-        // 다섯 월드 보스를 모두 물리치면 대왕이 나타난다
-        if ([1, 2, 3, 4, 5].every((w) => has(WORLD_BOSS[w]))) add('daewang', '다섯 보스를 모두 물리침!');
-        // 실제 플레이와 동일한 발견 주기(월드 스페셜 수에 맞춰 좁혀짐)
-        const ws = WORLD_SPECIALS[st.world] || [];
-        const every = Math.max(2, Math.min(4, Math.floor(20 / Math.max(1, ws.length))));
-        if (clearedCount % every === 0) {
-          const pool = ws.filter((id) => !has(id));
-          const cand = pool.length ? pool : [1, 2, 3, 4, 5].flatMap((w) => WORLD_SPECIALS[w]).filter((id) => !has(id));
-          if (cand.length) add(cand[0], `스테이지 ${clearedCount}개 완료 · 스페셜 친구!`);
+        // 모든 월드 보스를 물리치면 대왕이 나타난다
+        if (WORLD_IDS.every((w) => has(WORLD_BOSS[w]))) add('daewang', `${WORLD_IDS.length}명의 보스를 모두 물리침!`);
+        // 실제 플레이와 동일한 발견 규칙: 월드 내 2·5·8·11·14·17·20번째 스테이지
+        const slot = SPECIAL_SLOTS.indexOf(st.stageInWorld);
+        if (slot >= 0) {
+          const ws = WORLD_SPECIALS[st.world] || [];
+          const id = ws[slot];
+          if (id) add(id, `W${st.world} ${st.stageInWorld}스테이지 클리어 · 스페셜 친구!`);
         }
       }
       const next = { ...prev, stars, collected };
@@ -1079,27 +1125,26 @@ function App() {
         if (result.beatBoss && stage.type === 'boss') {
           const b = WORLD_BOSS[stage.world];
           add(b, `W${stage.world} 보스 ${CHAR_NAME[b]} 물리치기`);
-          // 다섯 왕을 모두 물리치면 대왕이 나타난다
+          // 모든 월드의 왕을 물리치면 대왕이 나타난다
           const owned = new Set(next.collected.map((c) => c.id));
-          if ([1, 2, 3, 4, 5].every((w) => owned.has(WORLD_BOSS[w]))) {
-            if (add('daewang', '다섯 보스를 모두 물리침!')) discovery = { id: 'daewang', reason: '다섯 보스를 모두 물리침!' };
+          if (WORLD_IDS.every((w) => owned.has(WORLD_BOSS[w]))) {
+            const reason = `${WORLD_IDS.length}명의 보스를 모두 물리침!`;
+            if (add('daewang', reason)) discovery = { id: 'daewang', reason };
           }
         }
-        // 스페셜 친구 발견: 기본 4스테이지마다.
-        // 단, 그 월드 스페셜이 많으면(예: W2는 9명) 주기를 좁혀 20스테이지 안에 모두 등장.
+        // 스페셜 친구 발견: 월드 내 2·5·8·11·14·17·20번째 스테이지를 처음 깰 때 한 명씩.
+        // (월드마다 스페셜 7명 → 슬롯과 1:1로 대응)
         if (firstClear) {
-          const clearedCount = Object.values(next.stars).filter((s) => s > 0).length;
+          const slot = SPECIAL_SLOTS.indexOf(stage.stageInWorld);
           const worldSpecials = WORLD_SPECIALS[stage.world] || [];
-          const every = Math.max(2, Math.min(4, Math.floor(20 / Math.max(1, worldSpecials.length))));
-          if (clearedCount % every === 0) {
+          if (slot >= 0 && worldSpecials[slot]) {
             const owned = new Set(next.collected.map((c) => c.id));
-            const pool = worldSpecials.filter((c) => !owned.has(c));
-            // 이 월드 스페셜을 다 모았으면 다른 월드에서라도 하나
-            const candidates = pool.length ? pool
-              : [1, 2, 3, 4, 5].flatMap((w) => WORLD_SPECIALS[w]).filter((c) => !owned.has(c));
-            if (candidates.length) {
-              const id = candidates[Math.floor(Math.random() * candidates.length)];
-              const reason = `스테이지 ${clearedCount}개 완료 · 스페셜 친구!`;
+            // 이미 가진 친구면(진행 지정 등) 그 월드에서 아직 없는 친구로 대체
+            const id = owned.has(worldSpecials[slot])
+              ? worldSpecials.find((c) => !owned.has(c))
+              : worldSpecials[slot];
+            if (id) {
+              const reason = `W${stage.world} ${stage.stageInWorld}스테이지 클리어 · 스페셜 친구!`;
               add(id, reason);
               discovery = { id, reason };
             }

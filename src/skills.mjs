@@ -598,19 +598,170 @@ export const SKILLS = {
       };
     },
   },
+
+  // ---- Phase 7: 큰 수 연산 (W6 심화) ----------------------------------------
+  // 두/세 자리 덧셈·뺄셈과 (두·세 자리)×(한 자리) 곱셈. 전부 세로셈 그림을 함께 보여준다.
+  place_value_3: {
+    phase: 7, label: '세 자리 자리값', inputs: ['choice', 'keypad'],
+    gen(p, rng) {
+      const h = ri(rng, 1, 9);
+      const t = ri(rng, 0, 9);
+      const o = ri(rng, 0, 9);
+      const answer = h * 100 + t * 10 + o;
+      return {
+        kind: 'num', operands: [h, t, o], operator: 'place_value3', answer,
+        promptText: `100이 ${h}개, 10이 ${t}개, 1이 ${o}개이면?`,
+        ttsText: `백이 ${numKo(h)}개, 십이 ${numKo(t)}개, 일이 ${numKo(o)}개이면 얼마일까요?`,
+        visual: { type: 'place_chips', h, t, o },
+        distractors: [o * 100 + t * 10 + h, h * 100 + o * 10 + t, answer + 100, answer - 10],
+        hintRef: 'base_ten',
+      };
+    },
+  },
+
+  big_add: {
+    phase: 7, label: '큰 수 덧셈', inputs: ['keypad', 'choice'],
+    gen(p, rng) {
+      const aMin = p.aMin ?? 100, aMax = p.aMax ?? 599;
+      const bMin = p.bMin ?? 100, bMax = p.bMax ?? 399;
+      const carry = p.carry; // true=일의 자리 받아올림 있음 / false=없음 / undefined=상관없음
+      let a = 0, b = 0;
+      for (let g = 0; g < 60; g++) {
+        a = ri(rng, aMin, aMax);
+        b = ri(rng, bMin, bMax);
+        if (carry === undefined || ((a % 10) + (b % 10) > 9) === carry) break;
+      }
+      const answer = a + b;
+      return {
+        kind: 'num', operands: [a, b], operator: '+', answer,
+        promptText: `${a} + ${b} = ?`,
+        ttsText: `${numKo(a)} 더하기 ${eunNeun(numKo(b))} 얼마일까요?`,
+        visual: { type: 'column', a, b, op: '+' },
+        distractors: [answer + 1, answer - 1, answer + 10, answer - 10, answer + 100, answer - 100],
+        hintRef: 'column_add',
+      };
+    },
+  },
+
+  big_sub: {
+    phase: 7, label: '큰 수 뺄셈', inputs: ['keypad', 'choice'],
+    gen(p, rng) {
+      const aMin = p.aMin ?? 300, aMax = p.aMax ?? 999;
+      const bMin = p.bMin ?? 100, bMax = p.bMax ?? 299;
+      const borrow = p.borrow; // true=일의 자리 받아내림 있음
+      let a = 0, b = 0;
+      for (let g = 0; g < 60; g++) {
+        a = ri(rng, aMin, aMax);
+        b = ri(rng, bMin, Math.min(bMax, a - 1));
+        if (b < bMin) continue;
+        if (borrow === undefined || ((a % 10) < (b % 10)) === borrow) break;
+      }
+      if (b >= a) b = Math.max(1, a - 1); // 안전장치: 음수 답 방지
+      const answer = a - b;
+      return {
+        kind: 'num', operands: [a, b], operator: '-', answer,
+        promptText: `${a} - ${b} = ?`,
+        ttsText: `${numKo(a)} 빼기 ${eunNeun(numKo(b))} 얼마일까요?`,
+        visual: { type: 'column', a, b, op: '−' },
+        distractors: [answer + 1, answer - 1, answer + 10, answer - 10, answer + 100],
+        hintRef: 'column_sub',
+      };
+    },
+  },
+
+  mul_by_one: {
+    phase: 7, label: '한 자리 수 곱하기', inputs: ['keypad', 'choice'],
+    gen(p, rng) {
+      const a = ri(rng, p.aMin ?? 11, p.aMax ?? 99);
+      const b = ri(rng, p.bMin ?? 2, p.bMax ?? 9);
+      const answer = a * b;
+      return {
+        kind: 'num', operands: [a, b], operator: '×', answer,
+        promptText: `${a} × ${b} = ?`,
+        ttsText: `${numKo(a)} 곱하기 ${eunNeun(numKo(b))} 얼마일까요?`,
+        visual: { type: 'column', a, b, op: '×' },
+        distractors: [answer + a, answer - a, answer + b, answer - b, answer + 10],
+        hintRef: 'column_mult',
+      };
+    },
+  },
+
+  big_mul_word: {
+    phase: 7, label: '큰 수 곱셈 문장제', inputs: ['keypad', 'choice'],
+    gen(p, rng) {
+      const per = ri(rng, p.aMin ?? 11, p.aMax ?? 40);
+      const groups = ri(rng, p.bMin ?? 2, p.bMax ?? 8);
+      const answer = per * groups;
+      const item = pick(rng, ['우주 대원', '별사탕', '로켓 부품', '광선검', '드로이드 나사']);
+      const unit = pick(rng, ['상자', '우주선', '기지', '줄']);
+      return {
+        kind: 'num', operands: [per, groups], operator: '×', answer,
+        promptText: `${iGa(item)} ${per}개씩 ${groups}${unit}, 모두 몇 개?`,
+        ttsText: `${iGa(item)} ${numKo(per)}개씩 ${numKo(groups)}${unit} 있어요. 모두 몇 개일까요?`,
+        visual: { type: 'column', a: per, b: groups, op: '×' },
+        distractors: [answer + per, answer - per, per + groups, answer + 10],
+        hintRef: 'column_mult',
+      };
+    },
+  },
+
+  big_missing: {
+    phase: 7, label: '큰 수 빈칸 채우기', inputs: ['keypad', 'fill_blank', 'choice'],
+    gen(p, rng) {
+      const known = ri(rng, p.min ?? 100, p.max ?? 499);
+      const answer = ri(rng, 10, 399);
+      const total = known + answer;
+      return {
+        kind: 'num', operands: [known, total], operator: '+missing', answer,
+        promptText: `${known} + □ = ${total}`,
+        ttsText: `${numKo(known)}에 얼마를 더하면 ${iGa(numKo(total))} 될까요?`,
+        visual: { type: 'column', a: known, b: '□', op: '+', sum: total },
+        distractors: [answer + 1, answer - 1, answer + 10, answer - 10, total - known + 100],
+        hintRef: 'column_add',
+      };
+    },
+  },
+
+  big_compare: {
+    phase: 7, label: '큰 수 크기 비교', inputs: ['choice'],
+    gen(p, rng) {
+      const max = p.max ?? 999;
+      let a = ri(rng, 100, max);
+      let b = ri(rng, 100, max);
+      if (a === b) b = Math.min(max, b + ri(rng, 1, 30));
+      const answer = a > b ? '>' : a < b ? '<' : '=';
+      return {
+        kind: 'sym', operands: [a, b], operator: 'compare', answer,
+        promptText: `${a} □ ${b}`,
+        ttsText: `${waGwa(numKo(a))} ${numKo(b)} 중 어느 것이 더 클까요?`,
+        visual: { type: 'compare_big', a, b },
+        choices: ['>', '<', '='],
+        hintRef: 'compare_place',
+      };
+    },
+  },
 };
 
 // =============================================================================
-// 한글 수 읽기 (0~99) — TTS 텍스트용 (숫자 단독은 보통 한자어 수사로 읽음)
+// 한글 수 읽기 (0~9999) — TTS 텍스트용 (숫자 단독은 보통 한자어 수사로 읽음)
 // =============================================================================
 const SINO = ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구'];
 export function numKo(n) {
   if (n == null) return '';
+  n = Number(n);
+  if (!Number.isFinite(n)) return String(n);
+  if (n < 0) return '마이너스 ' + numKo(-n);
   if (n < 10) return SINO[n];
-  if (n < 100) {
-    const t = Math.floor(n / 10);
-    const o = n % 10;
-    return (t === 1 ? '십' : SINO[t] + '십') + (o ? SINO[o] : '');
-  }
-  return String(n);
+  if (n > 9999) return String(n);
+  // 천/백/십 자리는 1을 읽지 않는다(1백 → 백, 1십 → 십)
+  const th = Math.floor(n / 1000);
+  const h = Math.floor((n % 1000) / 100);
+  const t = Math.floor((n % 100) / 10);
+  const o = n % 10;
+  let s = '';
+  if (th) s += (th === 1 ? '' : SINO[th]) + '천';
+  if (h) s += (h === 1 ? '' : SINO[h]) + '백';
+  if (t) s += (t === 1 ? '' : SINO[t]) + '십';
+  if (o) s += SINO[o];
+  return s;
 }

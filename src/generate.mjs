@@ -96,9 +96,12 @@ function choiceCount(phase) {
   return phase <= 0 ? 3 : phase <= 2 ? 3 : 4;
 }
 function choiceBounds(core) {
-  // 음수/비현실 보기 방지
-  if (['×', 'place_value'].includes(core.operator)) return { min: 0, max: 200 };
-  return { min: 0, max: 99 };
+  // 음수/비현실 보기 방지. 상한은 정답 크기에 맞춰 넓힌다(W6 세 자리 연산 대응).
+  const a = typeof core.answer === 'number' ? core.answer : 0;
+  if (['×', 'place_value', 'place_value3'].includes(core.operator)) {
+    return { min: 0, max: Math.max(200, a * 2) };
+  }
+  return { min: 0, max: Math.max(99, a * 2) };
 }
 function pickInput(stage, skill, rng) {
   const inputs = SKILLS[skill].inputs;

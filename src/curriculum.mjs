@@ -23,6 +23,7 @@ export const WORLDS = [
   { id: 3, name: 'W3 애니멀 타운', mood: '애니멀 타운', icon: '🐰', range: [41, 60] },
   { id: 4, name: 'W4 히어로 시티', mood: '히어로', icon: '🦸', range: [61, 80] },
   { id: 5, name: 'W5 몬스터 도감', mood: '수집형 몬스터', icon: '👾', range: [81, 100] },
+  { id: 6, name: 'W6 은하 원정대', mood: '우주 전사', icon: '🚀', range: [101, 120] },
 ];
 
 // 핵심 개념만 적은 압축 정의. 미니복습(10번째)·보스(20번째)는 자동 생성한다.
@@ -142,7 +143,32 @@ const W5 = [
   // 100: 최종 보스전
 ];
 
-const RAW = { 1: W1, 2: W2, 3: W3, 4: W4, 5: W5 };
+// W6 은하 원정대 — W1~W5 내용을 큰 수로 심화한다.
+// (두·세 자리 덧셈 / 두·세 자리 뺄셈 / 두·세 자리 × 한 자리 곱셈)
+const W6 = [
+  [101, '세 자리 수 자리값', 'place_value_3', {}, 'choice'],
+  [102, '두 자리 + 두 자리(받아올림) 복습', 'two_digit_add_two', { carry: true, max: 89 }, 'keypad'],
+  [103, '세 자리 + 한 자리', 'big_add', { aMin: 100, aMax: 899, bMin: 2, bMax: 9 }, 'keypad'],
+  [104, '세 자리 + 두 자리', 'big_add', { aMin: 100, aMax: 799, bMin: 10, bMax: 89 }, 'keypad'],
+  [105, '세 자리 + 세 자리(받아올림 없음)', 'big_add', { aMin: 101, aMax: 444, bMin: 101, bMax: 444, carry: false }, 'keypad'],
+  [106, '세 자리 + 세 자리(받아올림)', 'big_add', { aMin: 105, aMax: 599, bMin: 105, bMax: 399, carry: true }, 'keypad'],
+  [107, '두 자리 - 두 자리(받아내림)', 'big_sub', { aMin: 31, aMax: 99, bMin: 12, bMax: 89, borrow: true }, 'keypad'],
+  [108, '세 자리 - 두 자리', 'big_sub', { aMin: 110, aMax: 899, bMin: 11, bMax: 99 }, 'keypad'],
+  [109, '세 자리 덧셈·뺄셈 혼합', 'mixed', { pool: ['big_add', 'big_sub'] }],
+  // 110: 미니 복습 (자동)
+  [111, '세 자리 - 세 자리', 'big_sub', { aMin: 320, aMax: 999, bMin: 105, bMax: 299 }, 'keypad'],
+  [112, '두 자리 × 한 자리(받아올림 없음)', 'mul_by_one', { aMin: 11, aMax: 33, bMin: 2, bMax: 3 }, 'keypad'],
+  [113, '두 자리 × 한 자리(받아올림)', 'mul_by_one', { aMin: 14, aMax: 49, bMin: 3, bMax: 7 }, 'keypad'],
+  [114, '두 자리 × 한 자리 연습', 'mul_by_one', { aMin: 11, aMax: 99, bMin: 2, bMax: 9 }, 'keypad'],
+  [115, '세 자리 × 한 자리', 'mul_by_one', { aMin: 101, aMax: 333, bMin: 2, bMax: 3 }, 'keypad'],
+  [116, '큰 수 곱셈 문장제', 'big_mul_word', {}, 'keypad'],
+  [117, '큰 수 빈칸 채우기', 'big_missing', {}, 'fill_blank'],
+  [118, '세 자리 수 크기 비교', 'big_compare', {}, 'choice'],
+  [119, '큰 수 종합 연습', 'mixed', { pool: ['big_add', 'big_sub', 'mul_by_one'] }],
+  // 120: 최종 보스전 (자동)
+];
+
+const RAW = { 1: W1, 2: W2, 3: W3, 4: W4, 5: W5, 6: W6 };
 
 // 보스전이 종합 출제할 월드 핵심 스킬 풀 (PRD §4.5)
 const BOSS_POOL = {
@@ -151,6 +177,7 @@ const BOSS_POOL = {
   3: ['add_carry', 'sub_borrow'],
   4: ['two_digit_add_two', 'two_digit_sub', 'group_count', 'times_concept'],
   5: ['multiplication', 'mult_word', 'mult_concept'],
+  6: ['big_add', 'big_sub', 'mul_by_one', 'big_compare'],
 };
 
 import { SKILLS } from './skills.mjs';
@@ -204,7 +231,7 @@ export function buildCurriculum() {
     };
     const boss = {
       n: world.range[1], world: wid, stageInWorld: 20, type: 'boss',
-      title: wid === 5 ? '최종 보스전' : '보스전', concept: '월드 핵심 개념 종합',
+      title: wid === WORLDS[WORLDS.length - 1].id ? '최종 보스전' : '보스전', concept: '월드 핵심 개념 종합',
       phase: stages[stages.length - 1].phase,
       primary: { skill: 'mixed', params: { pool: BOSS_POOL[wid] }, input: 'mixed' },
       review: [], problemCount: 20, reviewRatio: 0,

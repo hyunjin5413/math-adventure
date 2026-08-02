@@ -28,28 +28,42 @@ export const CHAR_NAME = {
   clonetrooper: '끌론트루퍼봇', stormtrooper: '스똠트루퍼봇', darthbot: '따스베이더봇',
   roborabbit: '로보레빗보이', ultraviking: '울트라킹바이킹',
   poopoo: '응가똥', frozenbread: '꽁꽁꽁아저씨빵',
+  // W1 추가 스페셜
+  ptera: '프테라뽕', trike: '트리케라뿔',
+  // W3 애니멀 타운 추가 스페셜
+  dragonpal: '드래곤', nugget: '너깃', wisdomtree: '위즈덤트리',
+  // W6 은하 원정대 스페셜
+  mandal: '만딸로리안', babyyoda: '아기 요다', bb8: '삐삐에잇', darthmol: '따스몰',
+  jangofett: '짱고펫', wookieking: '우끼대장', deathstar: '데쓰스따',
   // 보스들
   daewang: '대왕',
   tyranno: '티라노왕', professorx: '프로뻬서엑스', shadowking: '그림자 대마왕',
-  darkmask: '다크마스크', wangmon: '왕몬',
+  darkmask: '다크마스크', wangmon: '왕몬', darkemperor: '빨빠띤 황제',
   gocheolking: '고철킹', blackwolf: '검은늑대',
 };
 
 // 월드별 보스 (각 월드 20번째 스테이지의 주인)
 // W3 애니멀 타운 = 그림자 대마왕, W4 히어로 시티 = 다크마스크(가면 악당)
-export const WORLD_BOSS = { 1: 'tyranno', 2: 'professorx', 3: 'shadowking', 4: 'darkmask', 5: 'wangmon' };
+export const WORLD_BOSS = {
+  1: 'tyranno', 2: 'professorx', 3: 'shadowking', 4: 'darkmask', 5: 'wangmon', 6: 'darkemperor',
+};
+// 월드 개수(월드를 늘리면 여기만 바꾸면 된다)
+export const WORLD_IDS = [1, 2, 3, 4, 5, 6];
 
 export const WORLD_LABEL = {
   1: '공룡 알 마을', 2: '변신 정비소', 3: '애니멀 타운', 4: '히어로 시티', 5: '몬스터 도감',
+  6: '은하 원정대',
 };
-// 월드별 스페셜 친구 5명(손그림, 4스테이지 클리어마다 발견)
+// 월드별 스페셜 친구 7명. 스테이지 2·5·8·11·14·17·20을 처음 클리어할 때 한 명씩 발견.
+export const SPECIAL_SLOTS = [2, 5, 8, 11, 14, 17, 20];
 export const WORLD_SPECIALS = {
-  1: ['kongryong', 'kkongryong', 'imagine', 'bbyeo', 'allog'],
-  2: ['poopbot', 'drill', 'bbabang', 'chulkung', 'ppiriri', 'clonetrooper', 'stormtrooper', 'darthbot', 'gocheolking'],
+  1: ['kongryong', 'kkongryong', 'imagine', 'bbyeo', 'allog', 'ptera', 'trike'],
+  2: ['poopbot', 'bbabang', 'ppiriri', 'clonetrooper', 'stormtrooper', 'darthbot', 'gocheolking'],
   // W3 애니멀 타운(슈퍼 래빗 보이 계열) / W4 히어로 시티
-  3: ['superabbit', 'roborabbit', 'blackwolf', 'syungsyung', 'salgeum', 'ultraviking'],
-  4: ['captainkorea', 'bulkkot', 'shadowcat', 'mujeokgom', 'balduncle', 'baboon'],
+  3: ['superabbit', 'roborabbit', 'blackwolf', 'dragonpal', 'nugget', 'wisdomtree', 'ultraviking'],
+  4: ['captainkorea', 'bulkkot', 'shadowcat', 'mujeokgom', 'balduncle', 'baboon', 'syungsyung'],
   5: ['ppika', 'ppokkattu', 'andongki', 'bugeul', 'mongsil', 'poopoo', 'frozenbread'],
+  6: ['mandal', 'babyyoda', 'bb8', 'darthmol', 'jangofett', 'wookieking', 'deathstar'],
 };
 
 // ---- 월드별 문제 담당 친구 20명(변형 생성) --------------------------------
@@ -81,23 +95,23 @@ const HOST_NAMES = {
   // [이름, 톤, 말버릇, 소품, (몸체), (색상 hue)]
   3: [['뽜워레드', 'mid', '뽜워레드!', 'visorR'], ['뽜워블루', 'mid', '뽜워블루!', 'visorB'],
     ['베이비레빗보이', 'hi', '뿅! 아기 토끼예요!', 'pacifier', 'rabbit', 45],
-    ['써니', 'hi', '반짝반짝!', 'sunray', 'sun', 48],
-    ['루', 'mid', '루루!', 'star2', 'blob', 200],
-    ['슈퍼 래빗 보이', 'fast', '슈퍼 점프!', 'cape2', 'rabbit', 212],
-    ['킹 바이킹', 'lo', '크하하! 내가 왕이다!', 'crown2', 'vikingking', 24],
-    ['퍼니', 'hi', '히히! 재밌지?', 'clownnose', 'clown', 340],
-    ['러니', 'fast', '달려달려!', 'speed', 'kid', 130],
-    ['딜리', 'slow', '딜리딜리~', 'flower', 'blob', 290],
-    ['노래하는 강아지', 'mid', '왈왈~ 노래할게!', 'note2', 'dog', 30],
-    ['카이라', 'mid', '카이라 준비 완료!', 'ponytail', 'kid', 320],
-    ['조디 레이서', 'fast', '부릉! 출발!', 'goggles', 'racer', 8],
+    ['싱잉 도그', 'mid', '왈왈~ 노래할게!', 'note2', 'dog', 30],
+    ['사이먼 더 헤지호그', 'fast', '가시 슝슝! 사이먼이야!', 'quills', 'hedgehog', 210],
+    ['실리아 더 크로커다일', 'lo', '어흥! 실리아다!', 'snout', 'croc', 140],
+    ['파워 프린세스', 'hi', '반짝! 파워 프린세스!', 'tiara', 'princess', 322],
+    ['슈퍼 언비터블 로봇', 'lo', '무적! 언비터블 로봇!', 'steelfist', 'bigrobot', 205],
+    ['프로그 나이트', 'mid', '개굴! 기사 프로그 나이트!', 'knightsword', 'frogknight', 105],
+    ['슈퍼 래빗 보스', 'lo', '내가 진짜 보스다!', 'bosscrown', 'rabbit', 350],
+    ['착한 킹 바이킹', 'mid', '허허! 착한 킹 바이킹이야!', 'crown2', 'vikingking', 30],
+    ['샤우팅 도그', 'lo', '와아앙! 크게 외쳐!', 'megaphone', 'dog', 18],
+    ['이블 사이먼 더 헤지호그', 'lo', '크크… 이블 사이먼이다!', 'evilquills', 'hedgehog', 282],
+    ['이블 실리아 더 크로커다일', 'lo', '으르렁… 이블 실리아!', 'evilsnout', 'croc', 265],
     ['퀸 스푸키', 'slow', '우우우… 무섭지?', 'ghostcrown', 'ghost', 270],
-    ['나니', 'hi', '나니나니!', 'ribbon', 'blob', 170],
-    ['코치 코니', 'lo', '자, 훈련 시작!', 'whistle', 'kid', 60],
-    ['럼피 범피', 'lo', '럼피! 범피!', 'lumps', 'lump', 100],
-    ['헬가', 'mid', '헬가가 간다!', 'braids', 'kid', 250],
-    ['에릭', 'mid', '안녕! 에릭이야!', 'cap', 'kid', 190],
-    ['슈퍼 래빗 보스', 'lo', '내가 진짜 보스다!', 'bosscrown', 'rabbit', 350]],
+    ['메가 몰 걸', 'fast', '파바박! 땅 파는 메가 몰 걸!', 'shovel', 'mole', 25],
+    ['미스 비즈니스', 'mid', '안녕하세요, 미스 비즈니스예요.', 'briefcase', 'business', 195],
+    ['톨버 더 위저드', 'slow', '수리수리… 톨버 더 위저드…', 'wizardhat', 'wizard', 255],
+    ['프린스 바이킹', 'hi', '나는 프린스 바이킹!', 'princehelm', 'vikingking', 48],
+    ['기가봇', 'lo', '기가— 봇! 기동 개시!', 'gigacore', 'bigrobot', 178]],
   4: [['아이옹맨', 'mid', '치이잉! 슈트 가동!', 'core'], ['스빠이더뽕', 'fast', '뿅! 거미줄 발사!', 'web'],
     ['헐끄', 'lo', '으라차차! 헐끄 화났다!', 'muscle'], ['또르', 'lo', '천둥이여! 또르!', 'hammer'],
     ['캡틴빵빵', 'mid', '방패 던지기! 빵!', 'shield'], ['블랙위도옹', 'mid', '조용히… 위도옹.', 'belt'],
@@ -118,6 +132,27 @@ const HOST_NAMES = {
     ['윤뻴라', 'mid', '윤뻴라… 집중!', 'psy'], ['딱꾸리', 'lo', '딱! 딱꾸리!', 'rock'],
     ['라이뚜', 'fast', '라이뚜! 번쩍!', 'bolt3'], ['리짜몽', 'lo', '크아앙! 리짜몽!', 'wing3'],
     ['개구뿍', 'mid', '개구뿍!', 'tongue'], ['몽지뿅', 'hi', '몽지뿅!', 'note']],
+  // W6 은하 원정대: 우주 전사 무드(발음을 우스꽝스럽게 비튼 오리지널 이름)
+  6: [['루끄', 'mid', '광선검 뽑았다! 루끄!', 'saberblue', 'jedi', 48],
+    ['레아 공주', 'hi', '나는 레아 공주야!', 'buns', 'princess', 330],
+    ['한쏠로', 'mid', '걱정 마, 한쏠로가 있잖아!', 'blaster', 'pilot', 30],
+    ['츄바까', 'lo', '우워어어! 츄바까!', 'furry', 'wookiee', 25],
+    ['아르뚜뚜', 'fast', '삐리릭 뚜뚜!', 'domelight', 'astrodroid', 200],
+    ['씨쓰리뽀', 'mid', '안녕하십니까, 씨쓰리뽀입니다.', 'goldshine', 'protodroid', 45],
+    ['요다 할아버지', 'slow', '배우는 것이다, 너는.', 'earsyoda', 'yoda', 108],
+    ['오비완', 'mid', '포스가 함께하길!', 'hood', 'jedi', 35],
+    ['빠드메', 'hi', '빠드메예요! 같이 가요!', 'royalgown', 'princess', 300],
+    ['아나낀', 'fast', '내가 제일 빨라!', 'podracer', 'jedi', 20],
+    ['맥쓰윈두', 'lo', '보라색 광선검, 맥쓰윈두다!', 'saberpurple', 'jedi', 275],
+    ['콰이곤', 'slow', '침착하게, 콰이곤이다.', 'beard', 'jedi', 132],
+    ['랜도', 'mid', '멋지지? 랜도야!', 'cape3', 'pilot', 300],
+    ['뽀바펫', 'lo', '사냥꾼 뽀바펫이다.', 'helmetT', 'bountyhunter', 150],
+    ['그리뿌스 장군', 'fast', '콜록! 그리뿌스 장군이다!', 'fourarms', 'cyborg', 62],
+    ['자빠 더 헛', 'slow', '호호호… 자빠 더 헛…', 'slugtail', 'slug', 75],
+    ['이웍이', 'hi', '유웁! 이웍이야!', 'hoodfur', 'ewok', 22],
+    ['뽀 다메론', 'fast', '엑스윙 발진! 뽀 다메론!', 'xwing', 'pilot', 10],
+    ['레이', 'mid', '나는 레이! 포스를 느껴봐!', 'staff', 'jedi', 38],
+    ['까일로 렌', 'lo', '크윽… 까일로 렌이다!', 'saberred', 'sith', 352]],
 };
 function hsl(h, s, l) { return `hsl(${h} ${s}% ${l}%)`; }
 // 20종이 확실히 다른 색을 갖도록 색상환을 크게 돌린다
@@ -128,7 +163,7 @@ function paletteFromHue(h) {
 // 월드별 20 호스트 생성 → id: h{w}_{i}
 export const WORLD_HOSTS = {};
 const HOST_META = {}; // id → { name, tone, world, idx, palette }
-for (let w = 1; w <= 5; w++) {
+for (const w of WORLD_IDS) {
   WORLD_HOSTS[w] = [];
   for (let i = 0; i < 20; i++) {
     const id = `h${w}_${i}`;
@@ -146,12 +181,12 @@ for (let w = 1; w <= 5; w++) {
 // 하위호환/공용: 월드 친구 = 스페셜(발견 보너스 풀)
 export const WORLD_CHARS = WORLD_SPECIALS;
 // 발견 가능한 전체 친구
-export const ROSTER = [1, 2, 3, 4, 5].flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]);
+export const ROSTER = WORLD_IDS.flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]);
 // 특별(보스) 친구: 대왕 + 월드 보스들
-export const SPECIALS = ['daewang', 'tyranno', 'professorx', 'shadowking', 'darkmask', 'wangmon'];
-// 도감 전체 목록: 월드별(호스트20+스페셜5) + 보스
+export const SPECIALS = ['daewang', ...WORLD_IDS.map((w) => WORLD_BOSS[w])];
+// 도감 전체 목록: 월드별(호스트20+스페셜7) + 보스
 export const DEX = [
-  ...[1, 2, 3, 4, 5].flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]),
+  ...WORLD_IDS.flatMap((w) => [...WORLD_HOSTS[w], ...WORLD_SPECIALS[w]]),
   ...SPECIALS,
 ];
 
@@ -161,7 +196,9 @@ for (const [id, m] of Object.entries(HOST_META)) {
   // eslint-disable-next-line no-use-before-define
 }
 // 월드 대표 마스코트 (맵 배너용)
-export const WORLD_MASCOT = { 1: 'kongryong', 2: 'poopbot', 3: 'superabbit', 4: 'captainkorea', 5: 'ppika' };
+export const WORLD_MASCOT = {
+  1: 'kongryong', 2: 'poopbot', 3: 'superabbit', 4: 'captainkorea', 5: 'ppika', 6: 'mandal',
+};
 // (W3 애니멀 타운 = 슈퍼래빗뽀이, W4 히어로 시티 = 캡틴코리아)
 
 // 월드 배경 팔레트 (동물의 숲톤: 부드럽고 자연스러운 색)
@@ -171,6 +208,7 @@ export const WORLD_THEME = {
   3: { c1: '#ffe2dc', c2: '#ff9a8b', accent: '#e0604f' }, // 애니멀 타운
   4: { c1: '#efe6ff', c2: '#b69bf0', accent: '#7a59d0' }, // 히어로 시티
   5: { c1: '#fff1cf', c2: '#ffd368', accent: '#dba300' },
+  6: { c1: '#dfe4f2', c2: '#8894c8', accent: '#404c7a' }, // 은하 원정대(밤하늘 톤)
 };
 
 // 캐릭터별 색/강조색 (이펙트, 도감 카드)
@@ -214,6 +252,21 @@ export const CHAR_THEME = {
   ultraviking:  { c2: '#c89a5a', c1: '#f0e0c8', accent: '#7a4f20' },
   poopoo:       { c2: '#a9714a', c1: '#e2c4a8', accent: '#6b4426' },
   frozenbread:  { c2: '#f0d9a8', c1: '#fdf3e0', accent: '#b8d8ee' },
+  // W1 추가
+  ptera:        { c2: '#7fc8e8', c1: '#dff0f8', accent: '#3d7fa8' },
+  trike:        { c2: '#c8a878', c1: '#f0e4d0', accent: '#8a6338' },
+  // W3 추가
+  dragonpal:    { c2: '#7bd88f', c1: '#dff5e4', accent: '#2f8f52' },
+  nugget:       { c2: '#ffd06a', c1: '#fff0cf', accent: '#c88a20' },
+  wisdomtree:   { c2: '#8fbf6a', c1: '#e4f2d8', accent: '#6b4a28' },
+  // W6 은하 원정대
+  mandal:       { c2: '#c8ccd8', c1: '#eef0f5', accent: '#4a5570' },
+  babyyoda:     { c2: '#a8d88f', c1: '#e8f5df', accent: '#5f8f42' },
+  bb8:          { c2: '#f6f2e8', c1: '#ffffff', accent: '#e07a2f' },
+  darthmol:     { c2: '#d8484a', c1: '#f8dcdc', accent: '#2b2b3a' },
+  jangofett:    { c2: '#8fa8c0', c1: '#e0e8f0', accent: '#2f4a68' },
+  wookieking:   { c2: '#a87a4a', c1: '#e8d8c0', accent: '#5f3f20' },
+  deathstar:    { c2: '#b8bcc8', c1: '#e8eaf0', accent: '#5a6070' },
   // 보스들
   tyranno:     { c2: '#6a9a48', c1: '#dff0d0', accent: '#3d6a22' },
   professorx:  { c2: '#7a6ad0', c1: '#e4dffa', accent: '#3f3080' },
@@ -222,6 +275,7 @@ export const CHAR_THEME = {
   shadowking:  { c2: '#3a2f52', c1: '#d9d2ee', accent: '#150f28' },
   darkmask:    { c2: '#7a4fd0', c1: '#e5dbf8', accent: '#48287e' },
   wangmon:     { c2: '#e05a8a', c1: '#fbdce8', accent: '#a82858' },
+  darkemperor: { c2: '#4a3a5a', c1: '#ddd4e8', accent: '#1a1020' },
 };
 // 호스트 20종 팔레트 등록
 for (const [id, m] of Object.entries(HOST_META)) CHAR_THEME[id] = m.palette;
@@ -257,6 +311,21 @@ export const VOICE = {
   mujeokgom:   { hi: ['쿵쿵! 무적곰이다!'], ok: ['무적의 정답!', '곰발바닥 도장 쾅! 정답!', '어흥! 완벽해!', '무적곰도 감탄!', '쿵쿵, 대단해!', '든든한 정답이야!'], no: ['어흥… 다시 가자!', '무적곰은 포기 안 해!', '쿵쿵, 재도전!', '괜찮아, 다시 어흥!'] },
   bugeul:      { hi: ['부글부글~ 부글이야!'], ok: ['부글! 시원한 정답!', '물방울 팡팡 정답!', '부글부글 완벽해!', '퐁당, 대단해!', '시원하게 정답!', '보글보글 최고!'], no: ['보글… 다시 해보자!', '괜찮아, 부글부글!', '퐁당, 재도전!', '한 번 더 부글!'] },
   mongsil:     { hi: ['둥실둥실~ 몽실이야!'], ok: ['구름 위로 붕~ 정답!', '몽실몽실 포근한 정답!', '둥실둥실 대단해!', '뭉게뭉게 완벽!', '포근한 정답이야!', '둥실! 최고야!'], no: ['비 오려 그래… 다시!', '둥실~ 한 번 더!', '몽실몽실 힘내!', '괜찮아, 둥실!'] },
+  // ---- W1 추가 스페셜 ----
+  ptera:       { hi: ['뽕! 하늘을 나는 프테라뽕이야!'], ok: ['뽕! 하늘까지 정답!', '날개 활짝, 대단해!', '구름 위에서도 보여, 정답!', '뽕뽕! 완벽해!'], no: ['뽕… 다시 날아보자!', '착륙하고 한 번 더!', '괜찮아, 뽕!'] },
+    trike:     { hi: ['쿵! 뿔 세 개, 트리케라뿔이다!'], ok: ['쿵! 뿔처럼 단단한 정답!', '세 뿔이 인정한다!', '쿵쿵, 대단해!', '튼튼한 정답이군!'], no: ['쿵… 다시 부딪혀보자!', '뿔 다듬고 한 번 더!', '괜찮아, 쿵!'] },
+  // ---- W3 추가 스페셜 ----
+  dragonpal:   { hi: ['크아앙! 나는 드래곤이야!'], ok: ['크아앙! 불꽃 정답!', '날개가 파닥파닥 신나!', '드래곤도 깜짝 놀랐어!', '뜨겁게 완벽해!'], no: ['크응… 다시 해볼까?', '불씨 모으고 한 번 더!', '괜찮아, 크아앙!'] },
+  nugget:      { hi: ['바삭! 나는 너깃이야!'], ok: ['바삭! 정답이야!', '고소하게 완벽해!', '너깃도 감탄!', '바삭바삭 최고야!'], no: ['눅눅… 다시 바삭하게!', '한 번 더 바삭!', '괜찮아 너깃!'] },
+  wisdomtree:  { hi: ['사각사각… 나는 위즈덤트리란다.'], ok: ['현명한 정답이구나.', '나뭇잎이 박수를 친단다.', '지혜가 자라는 소리가 들려.', '아주 훌륭하구나.'], no: ['천천히 생각해보렴.', '뿌리부터 다시 살펴보자.', '괜찮단다, 한 번 더.'] },
+  // ---- W6 은하 원정대 스페셜 ----
+  mandal:      { hi: ['이것이 길이다. 만딸로리안이다.'], ok: ['좋다. 임무 완수.', '역시 실력이 좋군.', '이것이 길이다!', '완벽한 조준이었어.'], no: ['다시 준비하자.', '길은 하나가 아니다. 한 번 더.', '괜찮다, 재시도.'] },
+  babyyoda:    { hi: ['우웅~ 아기 요다예요!'], ok: ['우웅! 마자써요!', '꺄아 신나요!', '포스가 느껴져요!', '우웅우웅 대단해요!'], no: ['우웅… 아까워요…', '한 번 더 해요!', '괜찮아요, 우웅~'] },
+  bb8:         { hi: ['삐리비릭! 데굴데굴 삐삐에잇!'], ok: ['삐릭! 정답 확인!', '데구르르 신난다!', '삐리비릭 완벽해!', '기록 저장 완료!'], no: ['삐… 다시 굴러가자!', '삐리릭, 재시도!', '괜찮아 삐릭!'] },
+  darthmol:    { hi: ['크윽… 두 갈래 검, 따스몰이다.'], ok: ['크윽, 인정하마.', '제법 날카롭군.', '실력이 늘었구나.', '좋다, 정답이다.'], no: ['어림없다!', '내 검은 두 개다!', '다시 덤벼라!'] },
+  jangofett:   { hi: ['현상금 사냥꾼, 짱고펫이다.'], ok: ['깔끔하군. 정답.', '표적 명중이다!', '좋은 솜씨야.', '보수를 줄 만하군!'], no: ['빗나갔다. 다시.', '조준을 가다듬어라.', '괜찮다, 한 번 더.'] },
+  wookieking:  { hi: ['우워어어! 털북숭이 대장, 우끼대장!'], ok: ['우워어! 정답이다!', '털이 부르르 떨릴 만큼 멋져!', '우끼우끼 대단해!', '숲이 환호한다!'], no: ['우웅… 다시 해보자!', '우워어, 한 번 더!', '괜찮아 우끼!'] },
+  deathstar:   { hi: ['위이잉… 나는 거대 요새, 데쓰스따다.'], ok: ['위이잉… 정답 확인.', '계산 회로가 감탄한다.', '거대 요새도 인정한다.', '완벽한 계산이군.'], no: ['오류 발생. 재계산.', '위잉… 다시 시도해라.', '아직 부족하다.'] },
   daewang:     {
     hi: ['크하하! 나는 대왕이다! 내 문제를 풀어보아라!'],
     ok: ['호오, 제법이군!', '크윽, 정답이라니!', '실력이 대단하구나!'],
@@ -340,6 +409,12 @@ export const VOICE = {
     no: ['부오오! 아직 멀었다!', '몬스터 왕은 쉽지 않지!'],
     win: ['부오오… 완벽하다! 이제 네가 몬스터 도감의 주인이다. 다음에 보자!'],
   },
+  darkemperor: {
+    hi: ['크흐흐… 은하의 황제, 빨빠띤이다. 큰 수의 힘을 보여주마!'],
+    ok: ['크윽?! 세 자리 계산을 해내다니!', '제법이구나, 어린 원정대원!', '흐음… 그 실력 인정하마.'],
+    no: ['크흐흐! 큰 수는 어렵지!', '아직 은하를 지킬 실력이 아니다!', '다시 계산해 보아라!'],
+    win: ['크흐흐… 완벽하다. 은하는 이제 네 것이다. 다음에 보자!'],
+  },
 };
 
 // 캐릭터별 목소리 스타일: pitch(음높이), rate(속도), v(선호 보이스 순번)
@@ -371,11 +446,22 @@ export const VOICE_STYLE = {
   ultraviking: { pitch: 0.45, rate: 0.88, v: 0 }, poopoo: { pitch: 1.25, rate: 1.0, v: 1 },
   frozenbread: { pitch: 0.6, rate: 0.75, v: 0 },
   professorx: { pitch: 0.55, rate: 0.78, v: 1 },
+  // W1 추가
+  ptera: { pitch: 1.8, rate: 1.3, v: 1 },       trike: { pitch: 0.5, rate: 0.9, v: 0 },
+  // W3 추가
+  dragonpal: { pitch: 0.72, rate: 0.95, v: 0 }, nugget: { pitch: 1.65, rate: 1.25, v: 1 },
+  wisdomtree: { pitch: 0.62, rate: 0.66, v: 0 },
+  // W6 은하 원정대
+  mandal: { pitch: 0.72, rate: 0.92, v: 0 },    babyyoda: { pitch: 1.95, rate: 0.95, v: 1 },
+  bb8: { pitch: 1.8, rate: 1.5, v: 0 },         darthmol: { pitch: 0.42, rate: 0.85, v: 1 },
+  jangofett: { pitch: 0.66, rate: 1.0, v: 0 },  wookieking: { pitch: 0.38, rate: 0.8, v: 1 },
+  deathstar: { pitch: 0.34, rate: 0.68, v: 0 },
   // 보스(굵고 낮고 느리게)
   daewang: { pitch: 0.35, rate: 0.82, v: 0 },   tyranno: { pitch: 0.32, rate: 0.85, v: 0 },
   gocheolking: { pitch: 0.4, rate: 0.72, v: 1 }, blackwolf: { pitch: 0.45, rate: 0.9, v: 0 },
   shadowking: { pitch: 0.3, rate: 0.7, v: 1 },  // 그림자 대마왕: 가장 낮고 느리게
   darkmask: { pitch: 0.5, rate: 0.8, v: 1 },    wangmon: { pitch: 0.34, rate: 0.92, v: 0 },
+  darkemperor: { pitch: 0.31, rate: 0.74, v: 1 },
 };
 
 // 호스트 20종: 이름을 넣은 다양한 대사 + 목소리 개성(인덱스로 분산)
@@ -411,90 +497,191 @@ const HOST_VOICE = {
     ok: ['뿅! 마자써요!', '우와아 대다내!', '베이비도 배웠어요!', '꺄아 신나요!', '짝짝짝! 잘해써요!'],
     no: ['에잉… 다시 해볼까요?', '으앙 아까워요!', '베이비랑 또 해요!'],
   },
-  '써니': {
-    hi: ['반짝반짝! 나는 써니!'],
-    ok: ['햇살처럼 반짝 정답!', '오늘도 맑음, 정답!', '눈부시게 잘했어!', '반짝반짝 최고야!', '따뜻한 정답이야!'],
-    no: ['구름이 조금 꼈네, 다시!', '괜찮아, 곧 맑아질 거야!', '햇살 모아서 한 번 더!'],
-  },
-  '루': {
-    hi: ['루루! 나는 루야!'],
-    ok: ['루루! 정답이야!', '별처럼 빛나는 답!', '루도 깜짝 놀랐어!', '반짝, 잘했어!', '루루 신난다!'],
-    no: ['루루… 다시 해볼까?', '괜찮아 루루!', '한 번 더 반짝!'],
-  },
-  '슈퍼 래빗 보이': {
-    hi: ['슈퍼 점프! 슈퍼 래빗 보이 등장!'],
-    ok: ['슈퍼 점프 성공!', '깡총! 완벽해!', '슈퍼 파워 정답!', '다음 단계로 가자!', '역시 내 친구!'],
-    no: ['다시 점프하면 돼!', '괜찮아, 한 번 더 도전!', '슈퍼 파워 충전 중!'],
-  },
-  '킹 바이킹': {
-    hi: ['크하하! 내가 왕이다! 킹 바이킹이 왔다!'],
-    ok: ['크윽! 맞혔다고?!', '제법이군, 꼬맹이!', '내 계산기보다 빠르군!', '크흠… 인정하마!'],
-    no: ['크하하! 어림없다!', '내 문제는 쉽지 않지!', '다시 덤벼보아라!'],
-  },
-  '퍼니': {
-    hi: ['히히! 재밌지? 나는 퍼니!'],
-    ok: ['히히! 정답이야!', '웃으면서 맞혔네!', '퍼니보다 똑똑해!', '재밌고 완벽해!', '까르르! 최고야!'],
-    no: ['히히, 다시 해볼까?', '틀려도 웃어! 히히!', '한 번 더 해보자!'],
-  },
-  '러니': {
-    hi: ['달려달려! 나는 러니!'],
-    ok: ['1등으로 정답!', '달리기보다 빠르네!', '슝! 완벽해!', '러니도 못 따라가!', '전력질주 정답!'],
-    no: ['숨 고르고 다시!', '괜찮아, 다시 달려!', '한 번 더 출발!'],
-  },
-  '딜리': {
-    hi: ['딜리딜리~ 천천히 가도 괜찮아~'],
-    ok: ['천천히 해도 정답이네~', '딜리딜리 잘했어~', '꽃처럼 예쁜 답이야~', '느긋하게 완벽~'],
-    no: ['괜찮아~ 천천히 다시~', '딜리딜리… 한 번 더~', '서두르지 않아도 돼~'],
-  },
-  '노래하는 강아지': {
-    hi: ['왈왈~ 노래하는 강아지야! 노래해줄게!'],
+  '싱잉 도그': {
+    hi: ['왈왈~ 노래하는 싱잉 도그야! 노래해줄게!'],
     ok: ['왈왈~ 정답 노래 불러줄게!', '라라라~ 잘했어!', '꼬리가 막 흔들려!', '멍멍! 최고야!', '신나는 정답이야!'],
     no: ['끼잉… 다시 해볼까?', '왈왈, 힘내!', '노래 부르며 한 번 더!'],
   },
-  '카이라': {
-    hi: ['카이라 준비 완료! 작전 시작!'],
-    ok: ['작전 성공!', '역시 믿음직해!', '카이라도 놀랐어!', '깔끔한 정답!', '완벽한 실력이야!'],
-    no: ['작전 재정비!', '괜찮아, 다시 가자!', '한 번 더 집중!'],
+  '사이먼 더 헤지호그': {
+    hi: ['가시 슝슝! 나는 사이먼 더 헤지호그!'],
+    ok: ['슝! 가시보다 빠른 정답!', '데굴데굴 완벽해!', '가시가 쫑긋 섰어!', '사이먼도 깜짝 놀랐어!'],
+    no: ['슝… 다시 굴러보자!', '가시 세우고 한 번 더!', '괜찮아, 또 슝!'],
   },
-  '조디 레이서': {
-    hi: ['부릉! 조디 레이서, 출발 준비!'],
-    ok: ['결승선 통과! 정답!', '부릉! 1등이야!', '스피드 완벽해!', '엔진이 신났어!', '기록 갱신이다!'],
-    no: ['잠깐 정비하고 다시!', '부릉… 재출발!', '한 바퀴 더 돌자!'],
+  '실리아 더 크로커다일': {
+    hi: ['어흥! 늪의 실리아 더 크로커다일이다!'],
+    ok: ['어흥! 정답이다!', '한입에 꿀꺽할 만한 정답!', '이빨이 반짝일 만큼 멋져!', '늪이 조용해질 정답이군!'],
+    no: ['어흠… 다시 해볼까?', '꼬리 한 번 치고 다시!', '괜찮다, 한 번 더!'],
+  },
+  '파워 프린세스': {
+    hi: ['반짝! 파워 프린세스 등장!'],
+    ok: ['반짝! 완벽한 정답!', '왕관이 빛나는 정답!', '공주님도 감탄했어!', '우아하게 정답!'],
+    no: ['괜찮아, 다시 반짝!', '공주는 포기하지 않아!', '한 번 더 해보자!'],
+  },
+  '슈퍼 언비터블 로봇': {
+    hi: ['무적! 슈퍼 언비터블 로봇, 기동 완료!'],
+    ok: ['계산 정확도 백 퍼센트!', '무적의 정답이다!', '데이터 저장 완료!', '삑— 완벽 판정!'],
+    no: ['오류 감지. 재계산!', '무적 로봇도 다시 한다!', '재부팅 후 도전!'],
+  },
+  '프로그 나이트': {
+    hi: ['개굴! 늪의 기사, 프로그 나이트 등장!'],
+    ok: ['개굴! 훌륭한 정답이오!', '방패도 뚫는 정답!', '기사도 인정하오!', '개굴개굴, 멋지오!'],
+    no: ['개굴… 다시 겨뤄보자!', '검을 고쳐 잡고 한 번 더!', '괜찮소, 재도전!'],
   },
   '퀸 스푸키': {
     hi: ['우우우… 무섭지? 나는 퀸 스푸키…'],
     ok: ['우우… 정답이라니 소름!', '유령도 놀랐어…', '무서울 만큼 똑똑해…', '우우우, 훌륭해…'],
     no: ['우우… 다시 해볼까…', '괜찮아, 무서운 거 아니야…', '한 번 더… 우우…'],
   },
-  '나니': {
-    hi: ['나니나니! 나니예요!'],
-    ok: ['나니! 정답이야!', '꺄앙 잘했어!', '나니도 기뻐!', '리본 흔들며 축하!', '나니나니 최고!'],
-    no: ['나니… 다시 해요?', '괜찮아요 나니!', '한 번 더 나니!'],
-  },
-  '코치 코니': {
-    hi: ['자, 훈련 시작! 코치 코니다!'],
-    ok: ['좋아! 합격이다!', '훈련한 대로 완벽해!', '삑! 호루라기 울린다!', '기록 갱신이야!', '훌륭한 대원이군!'],
-    no: ['자세 가다듬고 다시!', '포기하지 마라, 대원!', '한 번 더! 할 수 있다!'],
-  },
-  '럼피 범피': {
-    hi: ['럼피! 범피! 울퉁불퉁 럼피 범피다!'],
-    ok: ['럼피! 정답이다!', '울퉁불퉁 대단해!', '범피도 인정!', '쿵! 완벽하다!'],
-    no: ['럼피… 다시 해볼까?', '울퉁불퉁 괜찮아!', '한 번 더 쿵!'],
-  },
-  '헬가': {
-    hi: ['헬가가 간다! 준비됐어?'],
-    ok: ['헬가도 인정하는 정답!', '멋지게 해냈네!', '씩씩하게 잘했어!', '척척 정답이야!'],
-    no: ['괜찮아, 다시 해보자!', '헬가랑 한 번 더!', '기운 내!'],
-  },
-  '에릭': {
-    hi: ['안녕! 에릭이야! 같이 풀어보자!'],
-    ok: ['우와, 정답이야!', '나보다 잘하는데?', '에릭도 배웠어!', '같이 하니 신난다!'],
-    no: ['괜찮아, 같이 다시!', '에릭도 틀렸던 문제야!', '한 번 더 해보자!'],
-  },
   '슈퍼 래빗 보스': {
     hi: ['내가 진짜 보스다! 슈퍼 래빗 보스!'],
     ok: ['크흠, 훌륭하다!', '보스도 인정한다!', '이 정도면 합격이군!', '보스급 실력이야!'],
     no: ['아직 보스에겐 부족하다!', '다시 도전해라!', '보스는 기다려주지!'],
+  },
+  '착한 킹 바이킹': {
+    hi: ['허허! 착한 킹 바이킹이야. 같이 풀어볼까?'],
+    ok: ['허허, 훌륭하구나!', '왕관을 씌워주고 싶군!', '마을 사람들이 기뻐하겠어!', '착한 왕도 감탄했다!'],
+    no: ['괜찮다, 천천히 하렴.', '왕도 틀릴 때가 있지!', '한 번 더 해보자꾸나!'],
+  },
+  '샤우팅 도그': {
+    hi: ['와아앙! 크게 외치는 샤우팅 도그다!'],
+    ok: ['와아앙! 정답이다!', '온 마을에 소리쳐 알릴게!', '멍멍멍! 대단해!', '목청껏 축하한다!'],
+    no: ['왈… 조금 아깝다!', '크게 숨 쉬고 다시!', '괜찮아, 한 번 더 왈!'],
+  },
+  '이블 사이먼 더 헤지호그': {
+    hi: ['크크… 나쁜 가시, 이블 사이먼이다!'],
+    ok: ['크윽! 맞혔다고?!', '제법 날카롭군…', '내 가시보다 뾰족한 정답이군!', '크크, 인정하마.'],
+    no: ['크크크! 어림없다!', '가시에 찔렸군!', '다시 덤벼보아라!'],
+  },
+  '이블 실리아 더 크로커다일': {
+    hi: ['으르렁… 이블 실리아다. 도망칠 수 없다!'],
+    ok: ['으윽! 정답이라니!', '꼬리가 부르르 떨리는군!', '제법이다, 꼬마!', '으르렁… 인정한다.'],
+    no: ['으하하! 아직 멀었다!', '늪에서 헤엄쳐 나와봐라!', '다시 도전해라!'],
+  },
+  '메가 몰 걸': {
+    hi: ['파바박! 땅 파는 메가 몰 걸이야!'],
+    ok: ['파바박! 정답 발굴 성공!', '땅속에서도 보였어, 정답!', '삽질 백 번보다 값진 정답!', '메가 몰 걸도 놀랐어!'],
+    no: ['어라, 헛 팠네! 다시!', '한 삽 더 파보자!', '괜찮아, 다시 파바박!'],
+  },
+  '미스 비즈니스': {
+    hi: ['안녕하세요, 미스 비즈니스예요. 계약 시작할까요?'],
+    ok: ['계약 성립! 정답이에요.', '아주 정확한 계산이네요!', '서류에 도장 쾅! 완벽해요.', '이 정도면 사장님감이에요!'],
+    no: ['음… 다시 검토해볼까요?', '계산서를 한 번 더 볼게요.', '괜찮아요, 재도전!'],
+  },
+  '톨버 더 위저드': {
+    hi: ['수리수리… 나는 마법사 톨버 더 위저드…'],
+    ok: ['수리수리… 정답이로다!', '마법보다 놀라운 계산이군…', '지팡이가 반짝인다!', '훌륭하도다, 제자여…'],
+    no: ['주문이 빗나갔군… 다시!', '마나를 모아 한 번 더…', '괜찮다, 천천히 외워보렴…'],
+  },
+  '프린스 바이킹': {
+    hi: ['나는 프린스 바이킹! 바다로 나가자!'],
+    ok: ['멋져! 항해 성공!', '파도보다 시원한 정답!', '왕자도 인정!', '노를 힘차게 저었구나!'],
+    no: ['파도가 셌나 봐, 다시!', '돛을 다시 올리자!', '괜찮아, 한 번 더!'],
+  },
+  '기가봇': {
+    hi: ['기가— 봇! 기동 개시! 계산 회로 가동!'],
+    ok: ['기가— 정답 확인!', '연산 속도 초과 달성!', '기가봇 회로가 감탄한다!', '완벽 판정, 기가!'],
+    no: ['에러 코드 기가— 재시도!', '회로 점검 후 다시!', '괜찮다, 재부팅!'],
+  },
+  // ---- W6 은하 원정대 20명 ----
+  '루끄': {
+    hi: ['광선검 뽑았다! 나는 루끄!'],
+    ok: ['포스가 함께했구나, 정답!', '광선검처럼 날카로운 계산!', '멋져! 제다이감이야!', '슝! 완벽하게 베었어!'],
+    no: ['괜찮아, 포스를 느껴봐!', '검을 고쳐 잡고 다시!', '한 번 더 도전!'],
+  },
+  '레아 공주': {
+    hi: ['나는 레아 공주야! 은하를 함께 지키자!'],
+    ok: ['훌륭해, 대원!', '공주도 감탄한 계산이야!', '은하가 안전해졌어!', '아주 침착했어!'],
+    no: ['괜찮아, 다시 작전 시작!', '희망은 아직 있어!', '한 번 더 해보자!'],
+  },
+  '한쏠로': {
+    hi: ['걱정 마, 한쏠로가 있잖아!'],
+    ok: ['거봐, 내가 뭐랬어! 정답!', '운이 아니라 실력이군!', '멋진데? 나보다 낫잖아!', '깔끔하게 처리했어!'],
+    no: ['어이쿠, 살짝 빗나갔네!', '괜찮아, 이런 날도 있지!', '한 번 더 가보자!'],
+  },
+  '츄바까': {
+    hi: ['우워어어! 츄바까다!'],
+    ok: ['우워어! 정답이다!', '털이 부르르 떨릴 만큼 멋져!', '우워우워! 대단해!', '꽉 안아주고 싶은 정답!'],
+    no: ['우웅… 아깝다!', '우워, 한 번 더!', '괜찮아 우워어!'],
+  },
+  '아르뚜뚜': {
+    hi: ['삐리릭 뚜뚜! 아르뚜뚜 접속 완료!'],
+    ok: ['삐릭! 정답 저장 완료!', '뚜뚜~ 계산 정확!', '삐리비릭 대단해!', '데이터 전송 성공!'],
+    no: ['삐… 오류 발생, 다시!', '뚜… 재계산 중!', '괜찮아 삐리릭!'],
+  },
+  '씨쓰리뽀': {
+    hi: ['안녕하십니까, 통역 드로이드 씨쓰리뽀입니다.'],
+    ok: ['정답일 확률 100퍼센트입니다!', '오, 훌륭합니다!', '제 회로가 다 뿌듯하군요!', '완벽한 계산이에요!'],
+    no: ['오, 이런! 다시 해볼까요?', '걱정 마세요, 한 번 더!', '실패 확률은 낮습니다. 재도전!'],
+  },
+  '요다 할아버지': {
+    hi: ['배우는 것이다, 너는. 요다 할아버지란다.'],
+    ok: ['훌륭하다, 정답이니라.', '포스가 강하구나, 너는.', '잘했다, 어린 제자여.', '보았노라, 네 실력을.'],
+    no: ['괜찮다. 다시 하는 것이다.', '조급함은 어둠으로 가느니라.', '천천히, 다시 해보렴.'],
+  },
+  '오비완': {
+    hi: ['포스가 함께하길! 오비완이다.'],
+    ok: ['훌륭하다, 젊은이!', '아주 침착한 판단이군!', '포스가 함께했구나!', '스승도 감탄했다!'],
+    no: ['괜찮다, 다시 집중해보자.', '숨을 고르고 한 번 더!', '실수는 배움이란다.'],
+  },
+  '빠드메': {
+    hi: ['빠드메예요! 같이 가요!'],
+    ok: ['정말 훌륭해요!', '은하가 평화로워졌어요!', '빠드메도 깜짝 놀랐어요!', '멋지게 해냈네요!'],
+    no: ['괜찮아요, 다시 해봐요!', '포기하지 말아요!', '한 번 더 같이 해요!'],
+  },
+  '아나낀': {
+    hi: ['내가 제일 빨라! 아나낀이야!'],
+    ok: ['1등으로 정답!', '레이스보다 빠른 계산!', '슝! 완벽해!', '나보다 빠른데?!'],
+    no: ['앗, 코스를 벗어났어! 다시!', '엔진 점검하고 한 번 더!', '괜찮아, 재출발!'],
+  },
+  '맥쓰윈두': {
+    hi: ['보라색 광선검, 맥쓰윈두다!'],
+    ok: ['정확하다. 정답!', '보라색 검처럼 특별하군!', '흔들림 없는 계산이다!', '아주 훌륭하다.'],
+    no: ['집중해라. 다시!', '흔들리지 마라, 한 번 더!', '괜찮다, 재도전!'],
+  },
+  '콰이곤': {
+    hi: ['침착하게, 콰이곤이다.'],
+    ok: ['좋구나. 정답이다.', '순간에 집중했구나.', '차분한 힘이 느껴진다.', '훌륭하다, 젊은 대원.'],
+    no: ['서두르지 말고 다시.', '지금 이 순간에 집중하렴.', '괜찮다, 한 번 더.'],
+  },
+  '랜도': {
+    hi: ['멋지지? 나는 랜도야!'],
+    ok: ['이야, 멋진 정답인걸!', '나보다 멋진데?', '카드 게임보다 짜릿해!', '완벽해, 친구!'],
+    no: ['어라, 판을 잘못 읽었네!', '괜찮아, 다시 걸어보자!', '한 번 더 가자고!'],
+  },
+  '뽀바펫': {
+    hi: ['사냥꾼 뽀바펫이다. 표적을 찾았다.'],
+    ok: ['명중이다. 정답.', '깔끔한 솜씨군.', '표적 명중, 훌륭하다.', '보수를 줄 만하군.'],
+    no: ['빗나갔다. 다시 조준해라.', '기다려라, 한 번 더.', '괜찮다, 재도전.'],
+  },
+  '그리뿌스 장군': {
+    hi: ['콜록! 팔이 네 개, 그리뿌스 장군이다!'],
+    ok: ['콜록! 제법이구나!', '네 팔로 박수를 쳐주마!', '크윽, 정답이라니!', '인정하마, 꼬마 원정대원!'],
+    no: ['콜록콜록! 어림없다!', '내 검이 네 개다!', '다시 덤벼보아라!'],
+  },
+  '자빠 더 헛': {
+    hi: ['호호호… 나는 자빠 더 헛이니라…'],
+    ok: ['호호호… 훌륭하구나…', '내 보물보다 값진 정답이군…', '흐음, 마음에 든다…', '꿀꺽… 대단하구나…'],
+    no: ['호호호… 아직 멀었다…', '천천히… 다시 해보아라…', '괜찮다… 한 번 더…'],
+  },
+  '이웍이': {
+    hi: ['유웁! 나는 이웍이야!'],
+    ok: ['유웁! 마자써!', '숲이 다 같이 춤춰!', '이웍이도 신나!', '유웁유웁 최고야!'],
+    no: ['유웁… 아까워!', '한 번 더 해보자!', '괜찮아 유웁!'],
+  },
+  '뽀 다메론': {
+    hi: ['엑스윙 발진! 뽀 다메론이다!'],
+    ok: ['슝! 목표 명중, 정답!', '최고의 파일럿이군!', '기지로 귀환 성공!', '완벽한 비행이었어!'],
+    no: ['엔진 이상! 다시 발진!', '괜찮아, 한 바퀴 더!', '재정비하고 도전!'],
+  },
+  '레이': {
+    hi: ['나는 레이! 포스를 느껴봐!'],
+    ok: ['해냈어! 정답이야!', '포스가 느껴져!', '스스로 답을 찾았구나!', '정말 멋진 계산이야!'],
+    no: ['괜찮아, 다시 느껴봐!', '숨을 고르고 한 번 더!', '포기하지 마!'],
+  },
+  '까일로 렌': {
+    hi: ['크윽… 나는 까일로 렌이다. 계산으로 겨루자!'],
+    ok: ['크윽! 맞혔다고?!', '제법이군, 꼬마…', '인정한다. 훌륭하다.', '내 검이 흔들렸군!'],
+    no: ['크아악! 아직 멀었다!', '어둠은 그리 만만치 않다!', '다시 덤벼라!'],
   },
 };
 
@@ -946,8 +1133,181 @@ const DRAW = {
     <path d="M24 32 l4 -8 4 8Z" fill=${P.frozenbread.accent} opacity=".8" />
     <path d="M68 30 l4 -9 4 9Z" fill=${P.frozenbread.accent} opacity=".8" />
   </g>`,
+  // 프테라뽕: 하늘을 나는 익룡 (긴 날개 + 뒤로 뻗은 볏)
+  ptera: () => html`<g>
+    <path d="M34 52 q-32 -8 -32 14 q18 6 32 -2Z" fill=${P.ptera.c2} />
+    <path d="M66 52 q32 -8 32 14 q-18 6 -32 -2Z" fill=${P.ptera.c2} />
+    <ellipse cx="50" cy="58" rx="20" ry="22" fill=${P.ptera.c2} />
+    <ellipse cx="50" cy="66" rx="11" ry="10" fill=${P.ptera.c1} />
+    <path d="M56 30 q22 -4 26 8 q-16 2 -24 4Z" fill=${P.ptera.accent} />
+    <path d="M44 44 q-16 4 -20 10 q12 4 20 -2Z" fill=${P.ptera.c1} />
+    <circle cx="43" cy="44" r="5.5" fill="#fff" /><circle cx="57" cy="44" r="5.5" fill="#fff" />
+    <circle cx="44" cy="45" r="2.8" fill="#2b2b3a" /><circle cx="58" cy="45" r="2.8" fill="#2b2b3a" />
+    <circle cx="35" cy="60" r="3" fill="#ff9a9a" opacity=".5" /><circle cx="65" cy="60" r="3" fill="#ff9a9a" opacity=".5" />
+    <path d="M44 68 q6 5 12 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+  </g>`,
+  // 트리케라뿔: 뿔 셋 + 목 프릴
+  trike: () => html`<g>
+    <path d="M74 76 q18 -6 14 -20 q-6 10 -14 10Z" fill=${P.trike.c2} />
+    <path d="M50 20 q34 4 36 34 q-36 10 -72 0 q2 -30 36 -34Z" fill=${P.trike.c1} />
+    <ellipse cx="50" cy="60" rx="27" ry="25" fill=${P.trike.c2} />
+    <ellipse cx="50" cy="70" rx="15" ry="12" fill=${P.trike.c1} />
+    <polygon points="34,36 30,16 42,32" fill="#f0e4c8" stroke=${P.trike.accent} stroke-width="1.2" />
+    <polygon points="66,36 70,16 58,32" fill="#f0e4c8" stroke=${P.trike.accent} stroke-width="1.2" />
+    <polygon points="50,44 46,32 54,32" fill="#f0e4c8" stroke=${P.trike.accent} stroke-width="1.2" />
+    <circle cx="41" cy="56" r="5" fill="#fff" /><circle cx="59" cy="56" r="5" fill="#fff" />
+    <circle cx="42" cy="57" r="2.6" fill="#2b2b3a" /><circle cx="60" cy="57" r="2.6" fill="#2b2b3a" />
+    <path d="M43 72 q7 5 14 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <rect x="34" y="82" width="12" height="11" rx="4" fill=${P.trike.accent} /><rect x="54" y="82" width="12" height="11" rx="4" fill=${P.trike.accent} />
+  </g>`,
+  // 드래곤: 아기 초록 용 (날개 + 콧김)
+  dragonpal: () => html`<g>
+    <path d="M76 74 q20 -8 16 -24 q-6 12 -16 14Z" fill=${P.dragonpal.c2} />
+    <path d="M30 44 q-22 -14 -24 6 q14 10 26 4Z" fill=${P.dragonpal.c1} />
+    <path d="M70 44 q22 -14 24 6 q-14 10 -26 4Z" fill=${P.dragonpal.c1} />
+    <polygon points="40,20 45,32 35,32" fill=${P.dragonpal.accent} />
+    <polygon points="60,20 65,32 55,32" fill=${P.dragonpal.accent} />
+    <ellipse cx="50" cy="58" rx="27" ry="26" fill=${P.dragonpal.c2} />
+    <ellipse cx="50" cy="68" rx="15" ry="12" fill=${P.dragonpal.c1} />
+    <circle cx="42" cy="52" r="6" fill="#fff" /><circle cx="58" cy="52" r="6" fill="#fff" />
+    <circle cx="43" cy="53" r="3" fill="#2b2b3a" /><circle cx="59" cy="53" r="3" fill="#2b2b3a" />
+    <circle cx="44" cy="64" r="1.8" fill="#2b2b3a" /><circle cx="56" cy="64" r="1.8" fill="#2b2b3a" />
+    <path d="M42 70 q8 6 16 0 q-8 8 -16 0Z" fill="#ff8f7a" />
+    <path d="M62 66 q10 -2 14 -8" stroke="#ff8f3f" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7" />
+    <rect x="34" y="82" width="12" height="11" rx="5" fill=${P.dragonpal.c2} /><rect x="54" y="82" width="12" height="11" rx="5" fill=${P.dragonpal.c2} />
+  </g>`,
+  // 너깃: 바삭바삭 치킨 너깃 친구
+  nugget: () => html`<g>
+    <path d="M22 62 q-4 -26 20 -30 q10 -8 22 -2 q20 4 16 28 q4 20 -16 24 q-16 6 -30 -2 q-14 -6 -12 -18Z" fill=${P.nugget.c2} stroke=${P.nugget.accent} stroke-width="1.8" />
+    <g fill=${P.nugget.accent} opacity=".35"><circle cx="32" cy="46" r="2.4" /><circle cx="70" cy="42" r="2" /><circle cx="66" cy="74" r="2.6" /><circle cx="36" cy="76" r="2" /></g>
+    <ellipse cx="42" cy="56" rx="6" ry="7" fill="#fff" /><ellipse cx="60" cy="56" rx="6" ry="7" fill="#fff" />
+    <circle cx="43" cy="57" r="3" fill="#2b2b3a" /><circle cx="61" cy="57" r="3" fill="#2b2b3a" />
+    <circle cx="44" cy="55.5" r="1.1" fill="#fff" /><circle cx="62" cy="55.5" r="1.1" fill="#fff" />
+    <path d="M44 70 q7 6 14 0 q-7 8 -14 0Z" fill="#c8641e" />
+    <circle cx="30" cy="66" r="3.4" fill="#ff9a9a" opacity=".55" /><circle cx="72" cy="64" r="3.4" fill="#ff9a9a" opacity=".55" />
+  </g>`,
+  // 위즈덤트리: 지혜의 나무 할아버지
+  wisdomtree: () => html`<g>
+    <path d="M40 62 h20 l6 30 -32 0Z" fill=${P.wisdomtree.accent} />
+    <path d="M44 66 v22 M56 66 v22" stroke="#4a3018" stroke-width="1.6" opacity=".5" />
+    <path d="M20 92 q30 -8 60 0 l0 3 q-30 6 -60 0Z" fill="#6b4a28" opacity=".5" />
+    <ellipse cx="50" cy="40" rx="32" ry="26" fill=${P.wisdomtree.c2} />
+    <ellipse cx="28" cy="34" rx="14" ry="12" fill=${P.wisdomtree.c2} />
+    <ellipse cx="72" cy="34" rx="14" ry="12" fill=${P.wisdomtree.c2} />
+    <ellipse cx="50" cy="46" rx="18" ry="14" fill=${P.wisdomtree.c1} opacity=".75" />
+    <circle cx="42" cy="42" r="4.6" fill="#fff" /><circle cx="58" cy="42" r="4.6" fill="#fff" />
+    <circle cx="43" cy="43" r="2.4" fill="#2b2b3a" /><circle cx="59" cy="43" r="2.4" fill="#2b2b3a" />
+    <path d="M36 36 q7 -5 12 -1 M64 36 q-7 -5 -12 -1" stroke=${P.wisdomtree.accent} stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <path d="M43 52 q7 6 14 0 q-7 4 -14 0Z" fill=${P.wisdomtree.accent} />
+    <circle cx="24" cy="52" r="3" fill="#ff8f8f" /><circle cx="78" cy="50" r="3" fill="#ff8f8f" />
+  </g>`,
+  // 만딸로리안: 은빛 갑옷 + T자 바이저 + 제트팩
+  mandal: () => html`<g>
+    <path d="M70 46 q22 8 16 34 q-12 -6 -18 -14Z" fill="#8a6a4a" />
+    <rect x="72" y="40" width="12" height="24" rx="4" fill="#9aa8bc" />
+    <rect x="32" y="48" width="36" height="36" rx="8" fill=${P.mandal.c2} stroke="#a8b0c0" stroke-width="1.5" />
+    <rect x="21" y="50" width="11" height="24" rx="5" fill=${P.mandal.accent} />
+    <rect x="68" y="50" width="11" height="24" rx="5" fill=${P.mandal.accent} />
+    <rect x="36" y="62" width="28" height="6" rx="3" fill=${P.mandal.accent} />
+    <rect x="33" y="82" width="14" height="12" rx="4" fill=${P.mandal.accent} /><rect x="53" y="82" width="14" height="12" rx="4" fill=${P.mandal.accent} />
+    <path d="M32 32 q18 -20 36 0 l0 16 q-18 8 -36 0Z" fill=${P.mandal.c1} stroke="#a8b0c0" stroke-width="1.5" />
+    <path d="M43 28 h14 v9 l-3 12 -8 0 -3 -12Z" fill="#27324a" />
+    <path d="M45 30 h10" stroke="#7fe7ff" stroke-width="2" opacity=".7" />
+  </g>`,
+  // 아기 요다: 큰 귀 + 갈색 옷
+  babyyoda: () => html`<g>
+    <path d="M34 58 q16 -8 32 0 l6 34 -44 0Z" fill="#c8b48a" />
+    <path d="M34 58 q16 8 32 0" stroke="#a8946a" stroke-width="2" fill="none" />
+    <path d="M30 40 q-26 -8 -28 8 q20 10 28 2Z" fill=${P.babyyoda.c2} />
+    <path d="M70 40 q26 -8 28 8 q-20 10 -28 2Z" fill=${P.babyyoda.c2} />
+    <ellipse cx="50" cy="42" rx="21" ry="20" fill=${P.babyyoda.c2} />
+    <circle cx="41" cy="42" r="6.5" fill="#2b2b3a" /><circle cx="59" cy="42" r="6.5" fill="#2b2b3a" />
+    <circle cx="43" cy="40" r="2" fill="#fff" /><circle cx="61" cy="40" r="2" fill="#fff" />
+    <path d="M35 33 q7 -5 12 -1 M65 33 q-7 -5 -12 -1" stroke=${P.babyyoda.accent} stroke-width="2" fill="none" stroke-linecap="round" />
+    <path d="M45 53 q5 4 10 0" stroke="#4a6a32" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <circle cx="33" cy="49" r="3.2" fill="#ff9a9a" opacity=".5" /><circle cx="67" cy="49" r="3.2" fill="#ff9a9a" opacity=".5" />
+  </g>`,
+  // 삐삐에잇: 데굴데굴 구르는 공 드로이드
+  bb8: () => html`<g>
+    <circle cx="50" cy="66" r="27" fill=${P.bb8.c1} stroke="#d8d4c8" stroke-width="1.5" />
+    <circle cx="50" cy="66" r="12" fill="none" stroke=${P.bb8.accent} stroke-width="4" />
+    <circle cx="50" cy="66" r="5" fill=${P.bb8.accent} opacity=".55" />
+    <circle cx="30" cy="78" r="5" fill=${P.bb8.accent} opacity=".5" /><circle cx="70" cy="54" r="4" fill=${P.bb8.accent} opacity=".5" />
+    <path d="M28 38 a22 20 0 0 1 44 0 l0 4 -44 0Z" fill=${P.bb8.c1} stroke="#d8d4c8" stroke-width="1.5" />
+    <circle cx="44" cy="30" r="7" fill="#27324a" /><circle cx="44" cy="30" r="3" fill="#7fe7ff" />
+    <circle cx="60" cy="32" r="3.4" fill=${P.bb8.accent} />
+    <path d="M36 20 v-8 M64 22 v-6" stroke="#9aa8bc" stroke-width="2" stroke-linecap="round" />
+  </g>`,
+  // 따스몰: 붉은 얼굴 + 뿔 + 양날 검
+  darthmol: () => html`<g>
+    <path d="M28 48 q22 -12 44 0 l8 44 -60 0Z" fill="#25252f" />
+    <ellipse cx="50" cy="34" rx="19" ry="20" fill=${P.darthmol.c2} />
+    <g fill=${P.darthmol.accent}><path d="M34 20 l-2 -12 6 10Z" /><path d="M42 14 l0 -13 4 12Z" /><path d="M58 14 l0 -13 -4 12Z" /><path d="M66 20 l2 -12 -6 10Z" /></g>
+    <path d="M34 26 q8 22 16 0 M66 26 q-8 22 -16 0" fill="#2b2b3a" opacity=".55" />
+    <ellipse cx="42" cy="33" rx="5" ry="4" fill="#ffce4f" /><ellipse cx="58" cy="33" rx="5" ry="4" fill="#ffce4f" />
+    <circle cx="42" cy="33" r="2" fill="#2b2b3a" /><circle cx="58" cy="33" r="2" fill="#2b2b3a" />
+    <path d="M42 44 q8 5 16 0 q-8 6 -16 0Z" fill="#2b2b3a" />
+    <rect x="86" y="8" width="4" height="80" rx="2" fill="#ff5a5a" opacity=".9" />
+    <rect x="84" y="42" width="8" height="14" rx="3" fill="#9aa8bc" />
+  </g>`,
+  // 짱고펫: 푸른 갑옷 사냥꾼
+  jangofett: () => html`<g>
+    <rect x="70" y="40" width="14" height="26" rx="4" fill=${P.jangofett.accent} />
+    <path d="M30 50 q20 -8 40 0 l6 36 -52 0Z" fill=${P.jangofett.c2} />
+    <rect x="34" y="64" width="32" height="7" rx="3" fill=${P.jangofett.accent} />
+    <rect x="20" y="52" width="11" height="22" rx="5" fill=${P.jangofett.accent} />
+    <rect x="69" y="52" width="11" height="22" rx="5" fill=${P.jangofett.accent} />
+    <rect x="32" y="84" width="14" height="11" rx="4" fill=${P.jangofett.accent} /><rect x="54" y="84" width="14" height="11" rx="4" fill=${P.jangofett.accent} />
+    <path d="M32 34 q18 -20 36 0 l0 16 q-18 8 -36 0Z" fill=${P.jangofett.c1} />
+    <path d="M43 30 h14 v9 l-3 11 -8 0 -3 -11Z" fill="#27324a" />
+    <path d="M32 34 h36" stroke=${P.jangofett.accent} stroke-width="2.5" />
+  </g>`,
+  // 우끼대장: 털북숭이 대장 (어깨띠 + 훈장)
+  wookieking: () => html`<g>
+    <path d="M20 90 q-4 -44 30 -44 q34 0 30 44 q-30 8 -60 0Z" fill=${P.wookieking.c2} />
+    ${[...Array(9)].map((_, k) => html`<path key=${k} d=${`M${26 + k * 6} 58 l2 9`} stroke=${P.wookieking.accent} stroke-width="2" stroke-linecap="round" opacity=".55" />`)}
+    <path d="M30 54 l40 30 -6 8 -40 -30Z" fill="#5a4a3a" />
+    <circle cx="62" cy="74" r="6" fill="#ffce4f" stroke="#c8a020" stroke-width="1.5" />
+    <ellipse cx="50" cy="40" rx="21" ry="20" fill=${P.wookieking.c2} />
+    <ellipse cx="50" cy="50" rx="11" ry="9" fill=${P.wookieking.c1} />
+    <circle cx="50" cy="47" r="3.6" fill="#2b2b3a" />
+    <circle cx="42" cy="36" r="5.5" fill="#fff" /><circle cx="58" cy="36" r="5.5" fill="#fff" />
+    <circle cx="43" cy="37" r="2.8" fill="#2b2b3a" /><circle cx="59" cy="37" r="2.8" fill="#2b2b3a" />
+    <path d="M44 55 q6 4 12 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <path d="M34 16 L40 6 L46 14 L50 4 L54 14 L60 6 L66 16Z" fill="#ffce4f" stroke="#c8a020" stroke-width="1.5" stroke-linejoin="round" />
+  </g>`,
+  // 데쓰스따: 커다란 요새 (귀엽게 웃는 얼굴)
+  deathstar: () => html`<g>
+    <circle cx="50" cy="54" r="38" fill=${P.deathstar.c2} />
+    <path d="M12 54 a38 38 0 0 0 76 0Z" fill=${P.deathstar.accent} opacity=".18" />
+    <path d="M14 42 h72" stroke=${P.deathstar.accent} stroke-width="2" opacity=".55" />
+    <path d="M16 70 h68" stroke=${P.deathstar.accent} stroke-width="2" opacity=".45" />
+    <circle cx="34" cy="34" r="11" fill=${P.deathstar.c1} stroke=${P.deathstar.accent} stroke-width="1.5" />
+    <circle cx="34" cy="34" r="4.5" fill="#7fe7ff" />
+    <circle cx="62" cy="54" r="5.5" fill="#fff" /><circle cx="76" cy="54" r="4" fill="#fff" />
+    <circle cx="62" cy="55" r="2.8" fill="#2b2b3a" /><circle cx="76" cy="55" r="2.2" fill="#2b2b3a" />
+    <path d="M58 68 q10 7 20 0" stroke="#2b2b3a" stroke-width="2.4" fill="none" stroke-linecap="round" />
+    <g fill="#ffce4f" opacity=".8"><circle cx="10" cy="18" r="2" /><circle cx="92" cy="24" r="2.4" /><circle cx="86" cy="88" r="2" /></g>
+  </g>`,
 
   // ---- 월드 보스들 ----
+  // 빨빠띤 황제(W6): 후드 로브 + 번개 손 + 왕좌 느낌
+  darkemperor: () => html`<g>
+    <path d="M16 92 q34 -10 68 0 q-34 10 -68 0Z" fill="#1a1020" opacity=".5" />
+    <path d="M24 88 q-8 -34 12 -46 q-2 -16 14 -18 q16 2 14 18 q20 12 12 46 q-26 8 -52 0Z" fill=${P.darkemperor.c2} />
+    <path d="M28 44 q22 -20 44 0 q2 22 -22 26 q-24 -4 -22 -26Z" fill=${P.darkemperor.accent} />
+    <path d="M36 26 q14 -12 28 0 q-14 -5 -28 0Z" fill=${P.darkemperor.accent} />
+    <ellipse cx="50" cy="50" rx="17" ry="15" fill="#d8cdb8" />
+    <path d="M36 44 q7 -5 12 -1 M64 44 q-7 -5 -12 -1" stroke="#8a8070" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <ellipse cx="43" cy="50" rx="4.6" ry="3.6" fill="#ffe27a" /><ellipse cx="57" cy="50" rx="4.6" ry="3.6" fill="#ffe27a" />
+    <circle cx="43" cy="50" r="2" fill="#2b2b3a" /><circle cx="57" cy="50" r="2" fill="#2b2b3a" />
+    <path d="M42 60 q8 5 16 0 q-8 7 -16 0Z" fill="#5a4a40" />
+    <path d="M40 55 h6 M54 55 h6" stroke="#a89880" stroke-width="1.6" opacity=".6" />
+    <g stroke="#7fe7ff" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M18 62 l-8 6 6 3 -7 7" /><path d="M82 62 l8 6 -6 3 7 7" />
+    </g>
+    <circle cx="12" cy="52" r="3" fill="#7fe7ff" opacity=".75" /><circle cx="88" cy="52" r="3" fill="#7fe7ff" opacity=".75" />
+  </g>`,
   // 그림자 대마왕: 어둠의 후드 + 붉은 눈 + 그림자 촉수 + 왕관
   shadowking: () => html`<g>
     <path d="M18 92 q32 -10 64 0 q-32 10 -64 0Z" fill="#150f28" opacity=".55" />
@@ -1243,6 +1603,221 @@ const BODY_RENDER = {
     <ellipse cx="50" cy="66" rx="6" ry="7" fill="#2b2b3a" opacity=".8" />
     <circle cx="22" cy="40" r="3" fill=${p.c2} opacity=".6" /><circle cx="80" cy="46" r="4" fill=${p.c2} opacity=".5" />
   </g>`,
+  // 고슴도치 (가시 등 + 뾰족 주둥이)
+  hedgehog: (p) => html`<g>
+    ${[...Array(9)].map((_, k) => { const x = 20 + k * 7.5;
+      return html`<polygon key=${k} points=${`${x},48 ${x + 3.8},${20 + (k % 2) * 5} ${x + 7.6},48`} fill=${p.accent} />`; })}
+    <ellipse cx="50" cy="64" rx="30" ry="25" fill=${p.c2} />
+    <ellipse cx="50" cy="72" rx="21" ry="16" fill=${p.c1} />
+    <ellipse cx="50" cy="78" rx="7" ry="5.5" fill=${p.c1} />
+    <circle cx="50" cy="79" r="3.4" fill="#2b2b3a" />
+    ${eyes(12, 62, 5.5)} ${cheeks(22, 72, '#ff9a9a')}
+    <rect x="35" y="86" width="11" height="9" rx="4" fill=${p.accent} /><rect x="54" y="86" width="11" height="9" rx="4" fill=${p.accent} />
+  </g>`,
+  // 악어 (긴 주둥이 + 톱니 이빨 + 등지느러미)
+  croc: (p) => html`<g>
+    <path d="M74 78 q20 -6 16 -22 q-6 12 -16 12Z" fill=${p.accent} />
+    <path d="M30 40 l5 -10 5 10 5 -10 5 10 5 -10 5 10 5 -10 5 10Z" fill=${p.accent} />
+    <ellipse cx="50" cy="60" rx="28" ry="24" fill=${p.c2} />
+    <rect x="22" y="64" width="56" height="15" rx="7" fill=${p.c1} />
+    <path d="M26 71 l4 7 4 -7 M38 71 l4 7 4 -7 M54 71 l4 7 4 -7 M66 71 l4 7 4 -7" fill="#fff" />
+    <circle cx="27" cy="68" r="2.6" fill="#2b2b3a" />
+    ${eyes(13, 52, 6.5)}
+    <rect x="34" y="84" width="12" height="10" rx="4" fill=${p.accent} /><rect x="54" y="84" width="12" height="10" rx="4" fill=${p.accent} />
+  </g>`,
+  // 공주 (드레스 + 긴 머리)
+  princess: (p) => html`<g>
+    <polygon points="38,52 62,52 78,90 22,90" fill=${p.c2} />
+    <path d="M22 90 q28 8 56 0 l0 4 q-28 7 -56 0Z" fill=${p.c1} />
+    <path d="M28 40 q-6 30 4 44 M72 40 q6 30 -4 44" stroke=${p.accent} stroke-width="7" fill="none" stroke-linecap="round" />
+    <circle cx="50" cy="36" r="19" fill="#ffe0bd" />
+    <path d="M31 34 q19 -20 38 0 q-19 -8 -38 0Z" fill=${p.accent} />
+    <circle cx="43" cy="38" r="2.8" fill="#2b2b3a" /><circle cx="57" cy="38" r="2.8" fill="#2b2b3a" />
+    <circle cx="36" cy="43" r="3.2" fill="#ff9a9a" opacity=".6" /><circle cx="64" cy="43" r="3.2" fill="#ff9a9a" opacity=".6" />
+    <path d="M45 45 q5 4 10 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+  </g>`,
+  // 커다란 강철 로봇 (넓은 어깨 + 각진 몸통)
+  bigrobot: (p) => html`<g>
+    <rect x="14" y="42" width="14" height="30" rx="5" fill=${p.accent} />
+    <rect x="72" y="42" width="14" height="30" rx="5" fill=${p.accent} />
+    <rect x="22" y="36" width="56" height="44" rx="8" fill=${p.c2} />
+    <rect x="30" y="44" width="40" height="18" rx="5" fill="#27324a" />
+    <rect x="36" y="49" width="9" height="8" rx="2" fill="#7fe7ff" /><rect x="55" y="49" width="9" height="8" rx="2" fill="#7fe7ff" />
+    <path d="M38 68 h24" stroke=${p.accent} stroke-width="3.5" stroke-linecap="round" />
+    <rect x="42" y="26" width="16" height="10" rx="3" fill=${p.accent} />
+    <rect x="26" y="80" width="18" height="14" rx="4" fill=${p.accent} /><rect x="56" y="80" width="18" height="14" rx="4" fill=${p.accent} />
+  </g>`,
+  // 개구리 기사 (투구 + 갑옷)
+  frogknight: (p) => html`<g>
+    <ellipse cx="50" cy="66" rx="26" ry="24" fill=${p.c2} />
+    <path d="M30 70 q20 10 40 0 l0 12 q-20 8 -40 0Z" fill="#cfd6e0" />
+    <circle cx="36" cy="34" r="10" fill=${p.c2} /><circle cx="64" cy="34" r="10" fill=${p.c2} />
+    <circle cx="36" cy="34" r="5" fill="#fff" /><circle cx="64" cy="34" r="5" fill="#fff" />
+    <circle cx="37" cy="35" r="2.6" fill="#2b2b3a" /><circle cx="65" cy="35" r="2.6" fill="#2b2b3a" />
+    <ellipse cx="50" cy="48" rx="24" ry="16" fill=${p.c2} />
+    <path d="M38 52 q12 8 24 0" stroke="#2b2b3a" stroke-width="2.4" fill="none" stroke-linecap="round" />
+    <path d="M26 30 q24 -16 48 0 l0 6 q-24 -8 -48 0Z" fill="#b8c0cc" />
+    <rect x="47" y="14" width="6" height="14" rx="3" fill=${p.accent} />
+    <rect x="34" y="86" width="12" height="9" rx="4" fill=${p.accent} /><rect x="54" y="86" width="12" height="9" rx="4" fill=${p.accent} />
+  </g>`,
+  // 두더지 (큰 앞발 + 분홍 코)
+  mole: (p) => html`<g>
+    <ellipse cx="50" cy="62" rx="28" ry="26" fill=${p.c2} />
+    <ellipse cx="50" cy="72" rx="17" ry="13" fill=${p.c1} />
+    <ellipse cx="50" cy="66" rx="8" ry="6" fill="#ff9ab8" />
+    <circle cx="50" cy="66" r="3" fill="#d0568f" />
+    <path d="M38 58 q6 -3 11 0 M62 58 q-6 -3 -11 0" stroke="#2b2b3a" stroke-width="2.4" fill="none" stroke-linecap="round" />
+    <path d="M42 74 q8 5 16 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <g fill=${p.c1}><path d="M20 62 l-10 -8 3 10 -8 1 8 7 -2 8 9 -6Z" /><path d="M80 62 l10 -8 -3 10 8 1 -8 7 2 8 -9 -6Z" /></g>
+    <rect x="35" y="84" width="12" height="10" rx="4" fill=${p.accent} /><rect x="53" y="84" width="12" height="10" rx="4" fill=${p.accent} />
+  </g>`,
+  // 정장 차림 어른 (단발머리 + 셔츠깃)
+  business: (p) => html`<g>
+    <path d="M28 56 q22 -8 44 0 l6 34 -56 0Z" fill=${p.accent} />
+    <path d="M42 54 l8 12 8 -12 l-2 -4 -12 0Z" fill="#fff" />
+    <path d="M50 62 l4 6 -4 14 -4 -14Z" fill=${p.c2} />
+    <circle cx="50" cy="36" r="19" fill="#ffe0bd" />
+    <path d="M29 40 q0 -24 21 -24 q21 0 21 24 q-6 -12 -21 -12 q-15 0 -21 12Z" fill="#4a3a2a" />
+    <circle cx="43" cy="38" r="2.8" fill="#2b2b3a" /><circle cx="57" cy="38" r="2.8" fill="#2b2b3a" />
+    <circle cx="36" cy="43" r="3" fill="#ff9a9a" opacity=".5" /><circle cx="64" cy="43" r="3" fill="#ff9a9a" opacity=".5" />
+    <path d="M45 45 q5 3 10 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+  </g>`,
+  // 마법사 (긴 로브 + 하얀 수염)
+  wizard: (p) => html`<g>
+    <polygon points="40,44 60,44 76,90 24,90" fill=${p.c2} />
+    <g fill=${p.c1} opacity=".85"><circle cx="36" cy="72" r="2.6" /><circle cx="60" cy="66" r="2.2" /><circle cx="52" cy="82" r="2.4" /></g>
+    <circle cx="50" cy="38" r="17" fill="#ffe0bd" />
+    <path d="M34 44 q16 34 32 0 q-6 26 -16 26 q-10 0 -16 -26Z" fill="#f2f2f6" />
+    <circle cx="43" cy="36" r="2.6" fill="#2b2b3a" /><circle cx="57" cy="36" r="2.6" fill="#2b2b3a" />
+    <path d="M36 30 q7 -5 13 -1 M64 30 q-7 -5 -13 -1" stroke="#d8d8e0" stroke-width="3" fill="none" stroke-linecap="round" />
+    <rect x="78" y="30" width="4" height="56" rx="2" fill="#8a5a2b" />
+    <circle cx="80" cy="26" r="6" fill="#ffce4f" opacity=".9" />
+  </g>`,
+  // ---- W6 은하 원정대 몸체 ----
+  // 제다이: 로브 + 벨트 (광선검은 prop)
+  jedi: (p) => html`<g>
+    <path d="M34 48 q16 -8 32 0 l8 42 -48 0Z" fill=${p.c1} />
+    <path d="M34 48 q16 -8 32 0 l4 22 -40 0Z" fill=${p.c2} />
+    <rect x="30" y="70" width="40" height="6" rx="3" fill="#6b4420" />
+    <circle cx="50" cy="34" r="18" fill="#ffe0bd" />
+    <path d="M32 32 q18 -18 36 0 q-18 -7 -36 0Z" fill=${p.accent} />
+    <circle cx="43" cy="35" r="2.7" fill="#2b2b3a" /><circle cx="57" cy="35" r="2.7" fill="#2b2b3a" />
+    <path d="M45 43 q5 4 10 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <circle cx="36" cy="40" r="3" fill="#ff9a9a" opacity=".5" /><circle cx="64" cy="40" r="3" fill="#ff9a9a" opacity=".5" />
+  </g>`,
+  // 파일럿: 비행복 + 헬멧
+  pilot: (p) => html`<g>
+    <path d="M32 52 q18 -8 36 0 l6 38 -48 0Z" fill=${p.c2} />
+    <rect x="34" y="62" width="32" height="7" rx="3" fill=${p.accent} />
+    <rect x="38" y="72" width="10" height="8" rx="2" fill=${p.c1} /><rect x="52" y="72" width="10" height="8" rx="2" fill=${p.c1} />
+    <circle cx="50" cy="34" r="19" fill=${p.c1} />
+    <path d="M31 32 q19 -20 38 0 l0 5 q-19 -8 -38 0Z" fill=${p.accent} />
+    <rect x="33" y="34" width="34" height="12" rx="5" fill="#27324a" />
+    <rect x="36" y="37" width="28" height="6" rx="3" fill="#7fe7ff" opacity=".8" />
+    <path d="M44 52 q6 4 12 0" stroke="#2b2b3a" stroke-width="2" fill="none" stroke-linecap="round" />
+  </g>`,
+  // 털북숭이 거인 (덩치 큰 몸 + 어깨띠)
+  wookiee: (p) => html`<g>
+    <path d="M18 94 q-2 -42 32 -42 q34 0 32 42 q-32 8 -64 0Z" fill=${p.c2} />
+    ${[...Array(11)].map((_, k) => html`<path key=${k} d=${`M${22 + k * 5.4} ${64 + (k % 3) * 4} l2.5 9`}
+      stroke=${p.accent} stroke-width="2" stroke-linecap="round" opacity=".45" />`)}
+    <path d="M26 62 l44 30 -7 10 -44 -30Z" fill="#6b5442" />
+    <g fill="#c8a020"><rect x="38" y="68" width="7" height="7" rx="1.5" transform="rotate(34 41 71)" /><rect x="52" y="78" width="7" height="7" rx="1.5" transform="rotate(34 55 81)" /></g>
+    <ellipse cx="50" cy="40" rx="22" ry="21" fill=${p.c2} />
+    <path d="M28 34 q-8 -10 -2 -16 q6 6 8 14Z" fill=${p.c2} /><path d="M72 34 q8 -10 2 -16 q-6 6 -8 14Z" fill=${p.c2} />
+    <ellipse cx="50" cy="50" rx="11" ry="9" fill=${p.c1} />
+    <ellipse cx="50" cy="47" rx="4" ry="3.2" fill="#2b2b3a" />
+    ${eyes(11, 36, 5.5)}
+    <path d="M44 55 q6 4 12 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+  </g>`,
+  // 아스트로 드로이드: 원통 몸체 + 반구 머리
+  astrodroid: (p) => html`<g>
+    <rect x="30" y="42" width="40" height="46" rx="10" fill=${p.c1} stroke="#b8c0cc" stroke-width="1.5" />
+    <path d="M30 34 a20 20 0 0 1 40 0 l0 8 -40 0Z" fill=${p.c2} />
+    <circle cx="50" cy="30" r="6" fill="#27324a" /><circle cx="50" cy="30" r="2.6" fill="#7fe7ff" />
+    <rect x="36" y="50" width="28" height="10" rx="3" fill="#27324a" />
+    <circle cx="42" cy="55" r="2.6" fill=${p.accent} /><circle cx="58" cy="55" r="2.6" fill="#7fe7ff" />
+    <rect x="36" y="66" width="12" height="12" rx="2" fill=${p.accent} opacity=".8" />
+    <rect x="54" y="66" width="10" height="8" rx="2" fill="#b8c0cc" />
+    <path d="M22 60 l8 -6 0 34 -8 -6Z" fill="#9aa8bc" /><path d="M78 60 l-8 -6 0 34 8 -6Z" fill="#9aa8bc" />
+  </g>`,
+  // 프로토콜 드로이드: 금빛 사람 모양 로봇
+  protodroid: (p) => html`<g>
+    <rect x="34" y="52" width="32" height="34" rx="8" fill=${p.c2} stroke="#e0b840" stroke-width="1.5" />
+    <rect x="24" y="54" width="9" height="26" rx="4" fill=${p.c2} /><rect x="67" y="54" width="9" height="26" rx="4" fill=${p.c2} />
+    <circle cx="50" cy="64" r="5" fill=${p.accent} opacity=".7" />
+    <rect x="36" y="84" width="11" height="10" rx="3" fill=${p.accent} /><rect x="53" y="84" width="11" height="10" rx="3" fill=${p.accent} />
+    <ellipse cx="50" cy="32" rx="17" ry="18" fill=${p.c2} stroke="#e0b840" stroke-width="1.5" />
+    <ellipse cx="43" cy="30" rx="5" ry="6" fill="#fff5cc" /><ellipse cx="57" cy="30" rx="5" ry="6" fill="#fff5cc" />
+    <circle cx="43" cy="30" r="2.4" fill="#e0a400" /><circle cx="57" cy="30" r="2.4" fill="#e0a400" />
+    <rect x="42" y="42" width="16" height="4" rx="2" fill=${p.accent} />
+    <path d="M33 20 q17 -10 34 0" stroke="#fff5cc" stroke-width="2" fill="none" opacity=".7" />
+  </g>`,
+  // 작은 초록 스승: 큰 귀
+  yoda: (p) => html`<g>
+    <path d="M34 56 q16 -8 32 0 l6 34 -44 0Z" fill=${p.c1} />
+    <ellipse cx="50" cy="40" rx="19" ry="18" fill=${p.c2} />
+    <path d="M31 34 q-22 -6 -26 8 q18 8 26 2Z" fill=${p.c2} />
+    <path d="M69 34 q22 -6 26 8 q-18 8 -26 2Z" fill=${p.c2} />
+    <path d="M34 32 q8 -4 14 0 M66 32 q-8 -4 -14 0" stroke=${p.accent} stroke-width="2.4" fill="none" stroke-linecap="round" />
+    <circle cx="43" cy="40" r="3.4" fill="#2b2b3a" /><circle cx="57" cy="40" r="3.4" fill="#2b2b3a" />
+    <path d="M44 50 q6 4 12 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <path d="M38 44 h6 M56 44 h6" stroke=${p.accent} stroke-width="1.8" opacity=".5" />
+  </g>`,
+  // 현상금 사냥꾼: 갑옷 + 제트팩 + T자 바이저 투구
+  bountyhunter: (p) => html`<g>
+    <rect x="70" y="46" width="14" height="26" rx="5" fill=${p.accent} />
+    <path d="M74 72 q4 8 3 14 q-5 -4 -6 -12Z" fill="#ff8f3f" opacity=".8" />
+    <rect x="32" y="52" width="36" height="34" rx="8" fill=${p.c2} />
+    <rect x="21" y="54" width="11" height="22" rx="5" fill=${p.accent} /><rect x="68" y="54" width="11" height="22" rx="5" fill=${p.accent} />
+    <rect x="36" y="64" width="28" height="7" rx="3" fill=${p.accent} />
+    <rect x="33" y="84" width="14" height="11" rx="4" fill=${p.accent} /><rect x="53" y="84" width="14" height="11" rx="4" fill=${p.accent} />
+    <path d="M30 36 q20 -22 40 0 l0 14 q-20 8 -40 0Z" fill=${p.c1} stroke=${p.accent} stroke-width="1.5" />
+    <path d="M38 30 h24 v10 l-5 12 -14 0 -5 -12Z" fill="#27324a" />
+    <path d="M41 33 h18" stroke="#7fe7ff" stroke-width="2.4" opacity=".8" />
+    <path d="M50 46 v5" stroke="#7fe7ff" stroke-width="2" opacity=".6" />
+    <path d="M30 40 h40" stroke=${p.accent} stroke-width="2" opacity=".7" />
+  </g>`,
+  // 사이보그 장군: 뼈대 같은 몸 + 초록 눈
+  cyborg: (p) => html`<g>
+    <path d="M40 48 l20 0 6 40 -32 0Z" fill=${p.c2} />
+    <path d="M36 54 h28 M36 62 h28 M38 70 h24" stroke=${p.accent} stroke-width="2" opacity=".7" />
+    <path d="M40 50 l-22 6 4 6 20 -6Z" fill=${p.c2} /><path d="M60 50 l22 6 -4 6 -20 -6Z" fill=${p.c2} />
+    <path d="M40 58 l-24 14 4 5 22 -12Z" fill=${p.c2} opacity=".8" /><path d="M60 58 l24 14 -4 5 -22 -12Z" fill=${p.c2} opacity=".8" />
+    <path d="M34 30 q16 -16 32 0 l-2 16 q-14 8 -28 0Z" fill=${p.c1} />
+    <ellipse cx="43" cy="34" rx="5" ry="4" fill="#8fe870" /><ellipse cx="57" cy="34" rx="5" ry="4" fill="#8fe870" />
+    <circle cx="43" cy="34" r="2" fill="#1a4a12" /><circle cx="57" cy="34" r="2" fill="#1a4a12" />
+    <path d="M42 44 h16" stroke=${p.accent} stroke-width="2.4" stroke-linecap="round" />
+    <rect x="34" y="86" width="13" height="8" rx="3" fill=${p.accent} /><rect x="53" y="86" width="13" height="8" rx="3" fill=${p.accent} />
+  </g>`,
+  // 커다란 민달팽이 (느긋한 악당)
+  slug: (p) => html`<g>
+    <path d="M10 88 q0 -18 22 -22 q6 -22 26 -22 q22 0 24 22 q14 8 12 22 q-42 8 -84 0Z" fill=${p.c2} />
+    <path d="M20 84 q30 6 60 0 l0 5 q-30 6 -60 0Z" fill=${p.c1} opacity=".7" />
+    <circle cx="46" cy="52" r="6.5" fill="#fff" /><circle cx="64" cy="52" r="6.5" fill="#fff" />
+    <circle cx="47" cy="53" r="3" fill="#2b2b3a" /><circle cx="65" cy="53" r="3" fill="#2b2b3a" />
+    <path d="M44 66 q12 8 24 0 q-12 12 -24 0Z" fill="#7a4a2a" />
+    <circle cx="34" cy="62" r="4" fill=${p.accent} opacity=".35" /><circle cx="74" cy="70" r="5" fill=${p.accent} opacity=".3" />
+  </g>`,
+  // 이웍: 작은 털복숭이 (두건은 prop)
+  ewok: (p) => html`<g>
+    <ellipse cx="50" cy="66" rx="24" ry="24" fill=${p.c2} />
+    <ellipse cx="30" cy="48" rx="8" ry="9" fill=${p.c2} /><ellipse cx="70" cy="48" rx="8" ry="9" fill=${p.c2} />
+    <ellipse cx="50" cy="72" rx="14" ry="11" fill=${p.c1} />
+    <ellipse cx="50" cy="66" rx="4.4" ry="3.4" fill="#2b2b3a" />
+    ${eyes(10, 58, 5.5)}
+    <path d="M45 74 q5 4 10 0" stroke="#2b2b3a" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <rect x="36" y="86" width="11" height="9" rx="4" fill=${p.accent} /><rect x="53" y="86" width="11" height="9" rx="4" fill=${p.accent} />
+  </g>`,
+  // 시스: 검은 망토 + 가면
+  sith: (p) => html`<g>
+    <path d="M28 46 q22 -12 44 0 l8 44 -60 0Z" fill="#25252f" />
+    <path d="M40 46 q10 -6 20 0 l2 44 -24 0Z" fill=${p.c2} opacity=".35" />
+    <path d="M32 32 q18 -18 36 0 l0 18 q-18 10 -36 0Z" fill="#1a1a22" />
+    <rect x="36" y="36" width="28" height="8" rx="3" fill=${p.c2} opacity=".9" />
+    <path d="M40 46 q10 6 20 0" stroke=${p.accent} stroke-width="2" fill="none" opacity=".8" />
+    <circle cx="42" cy="40" r="2" fill="#ff5a5a" /><circle cx="58" cy="40" r="2" fill="#ff5a5a" />
+  </g>`,
   // 울퉁불퉁 덩치
   lump: (p) => html`<g>
     <path d="M20 82 q-4 -22 10 -30 q0 -14 14 -12 q4 -10 16 -4 q14 -4 16 10 q14 8 8 36 q-32 10 -64 0Z" fill=${p.c2} />
@@ -1348,11 +1923,75 @@ function hostProp(prop, p) {
       <rect x="76" y="72" width="4" height="12" rx="2" fill=${A} />
       <circle cx="24" cy="20" r="4" fill="#ffce4f" opacity=".8" />
     </g>`;
+    // ---- W3 애니멀 타운 신규 소품 ----
+    case 'quills': return html`<g><path d="M14 40 l-10 -8 12 -1Z" fill=${A} /><path d="M86 40 l10 -8 -12 -1Z" fill=${A} /><circle cx="18" cy="76" r="4" fill="#7fe7ff" opacity=".8" /></g>`;
+    case 'evilquills': return html`<g><path d="M14 38 l-11 -10 13 0Z" fill="#3a2f52" /><path d="M86 38 l11 -10 -13 0Z" fill="#3a2f52" /><path d="M36 48 l6 -6 6 6" stroke="#3a2f52" stroke-width="2.5" fill="none" /></g>`;
+    case 'snout': return html`<g><path d="M18 58 l-10 4 10 4Z" fill=${A} /><circle cx="84" cy="30" r="4" fill="#7bd88f" opacity=".7" /></g>`;
+    case 'evilsnout': return html`<g><path d="M16 56 l-11 5 11 5Z" fill="#3a2f52" /><path d="M34 44 l8 -6 M66 44 l-8 -6" stroke="#3a2f52" stroke-width="3" stroke-linecap="round" /></g>`;
+    case 'tiara': return html`<g><path d="M36 20 L42 8 L50 18 L58 8 L64 20Z" fill="#ffce4f" stroke="#e0a400" stroke-width="1.5" stroke-linejoin="round" /><circle cx="50" cy="14" r="3" fill="#ff8fc7" /><circle cx="80" cy="70" r="4" fill="#ffce4f" opacity=".8" /></g>`;
+    case 'steelfist': return html`<g><circle cx="16" cy="66" r="12" fill="#9aa8bc" stroke=${A} stroke-width="2" /><circle cx="84" cy="66" r="12" fill="#9aa8bc" stroke=${A} stroke-width="2" /><path d="M10 66 h12 M78 66 h12" stroke="#fff" stroke-width="2" opacity=".6" /></g>`;
+    case 'knightsword': return html`<g><rect x="82" y="24" width="4" height="38" rx="2" fill="#d8dce4" /><rect x="76" y="60" width="16" height="5" rx="2" fill="#c8a020" /><circle cx="84" cy="22" r="3" fill="#ffce4f" /></g>`;
+    case 'megaphone': return html`<g><path d="M74 56 l16 -10 0 26 -16 -10Z" fill="#ff8f3f" /><path d="M92 52 q6 8 0 16" stroke="#ff8f3f" stroke-width="2.5" fill="none" stroke-linecap="round" /><path d="M96 46 q10 14 0 28" stroke="#ff8f3f" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round" /></g>`;
+    case 'shovel': return html`<g><rect x="80" y="30" width="4" height="34" rx="2" fill="#8a5a2b" transform="rotate(18 82 47)" /><path d="M86 62 l10 4 -4 12 -10 -6Z" fill="#9aa8bc" /><circle cx="16" cy="30" r="3.5" fill="#c8a878" opacity=".7" /></g>`;
+    case 'briefcase': return html`<g><rect x="72" y="62" width="22" height="16" rx="3" fill="#6b4420" stroke=${A} stroke-width="1.5" /><path d="M79 62 v-4 h8 v4" stroke="#6b4420" stroke-width="2" fill="none" /><rect x="80" y="68" width="6" height="4" rx="1" fill="#ffce4f" /></g>`;
+    case 'wizardhat': return html`<g><path d="M28 24 L50 -8 L72 24Z" fill="#4a3a7a" /><path d="M24 24 q26 8 52 0 l0 6 q-26 8 -52 0Z" fill="#3a2f5a" /><polygon points="50,4 52,10 58,10 53,14 55,20 50,16 45,20 47,14 42,10 48,10" fill="#ffce4f" /></g>`;
+    case 'princehelm': return html`<g><path d="M32 22 q18 -14 36 0 l0 6 q-18 -7 -36 0Z" fill="#c8b078" /><path d="M32 22 q-12 -8 -6 -16 q9 5 10 14Z" fill="#f0e4c8" /><path d="M68 22 q12 -8 6 -16 q-9 5 -10 14Z" fill="#f0e4c8" /></g>`;
+    case 'gigacore': return html`<g><circle cx="50" cy="60" r="8" fill="#ff8f3f" opacity=".9" /><circle cx="50" cy="60" r="4" fill="#ffe27a" /><path d="M18 24 l6 6 M82 24 l-6 6" stroke=${A} stroke-width="3" stroke-linecap="round" /></g>`;
+    // ---- W6 은하 원정대 소품 ----
+    case 'saberblue': case 'saberpurple': case 'saberred': case 'sabergreen': {
+      const col = { saberblue: '#5bb8ff', saberpurple: '#b57aff', saberred: '#ff5a5a', saberground: '#7bd88f' }[prop] || '#7bd88f';
+      return html`<g><rect x="82" y="26" width="5" height="44" rx="2.5" fill=${col} opacity=".95" />
+        <rect x="83" y="26" width="3" height="44" rx="1.5" fill="#fff" opacity=".8" />
+        <rect x="80" y="68" width="9" height="16" rx="3" fill="#9aa8bc" stroke="#5a6b85" stroke-width="1.2" /></g>`;
+    }
+    case 'buns': return html`<g><circle cx="24" cy="36" r="10" fill=${A} /><circle cx="76" cy="36" r="10" fill=${A} /><circle cx="24" cy="36" r="5" fill=${A} opacity=".6" /><circle cx="76" cy="36" r="5" fill=${A} opacity=".6" /></g>`;
+    case 'blaster': return html`<g><rect x="76" y="60" width="20" height="6" rx="2" fill="#4a5570" /><rect x="80" y="66" width="6" height="10" rx="2" fill="#2b2b3a" /><circle cx="97" cy="63" r="2.5" fill="#ff8f3f" /></g>`;
+    case 'furry': return html`<g fill=${C}><path d="M20 62 q-10 2 -12 10 q8 0 12 -4Z" /><path d="M80 62 q10 2 12 10 q-8 0 -12 -4Z" /></g>`;
+    case 'domelight': return html`<g><circle cx="50" cy="18" r="4" fill="#7fe7ff" /><path d="M42 12 l-6 -6 M58 12 l6 -6" stroke="#7fe7ff" stroke-width="2" stroke-linecap="round" opacity=".8" /></g>`;
+    case 'goldshine': return html`<g opacity=".85"><path d="M20 20 l3 6 6 3 -6 3 -3 6 -3 -6 -6 -3 6 -3Z" fill="#ffe27a" /><circle cx="84" cy="24" r="3" fill="#ffe27a" /></g>`;
+    case 'earsyoda': return html`<g><path d="M22 60 q-14 8 -6 16 q10 -4 12 -10Z" fill=${A} opacity=".5" /></g>`;
+    // 후드: 얼굴은 가리지 않고 머리 위·옆 테두리만 감싼다
+    case 'hood': return html`<g fill=${A}>
+      <path d="M26 40 q0 -28 24 -28 q24 0 24 28 q-6 -18 -24 -18 q-18 0 -24 18Z" />
+      <path d="M26 40 q-4 8 0 14 q4 -6 4 -12Z" /><path d="M74 40 q4 8 0 14 q-4 -6 -4 -12Z" />
+    </g>`;
+    case 'royalgown': return html`<g><path d="M22 88 q28 -8 56 0 l0 6 q-28 8 -56 0Z" fill="#ffce4f" opacity=".8" /><circle cx="50" cy="58" r="4" fill="#ffce4f" /></g>`;
+    case 'podracer': return html`<g>
+      <rect x="6" y="78" width="18" height="9" rx="4.5" fill="#8a95a8" /><rect x="76" y="78" width="18" height="9" rx="4.5" fill="#8a95a8" />
+      <path d="M6 80 q-6 2 -6 7 q5 0 6 -3Z" fill="#ff8f3f" /><path d="M94 80 q6 2 6 7 q-5 0 -6 -3Z" fill="#ff8f3f" />
+      <g stroke=${A} stroke-width="2.5" stroke-linecap="round" opacity=".7"><path d="M24 82 h12 M64 82 h12" /></g>
+    </g>`;
+    case 'beard': return html`<g><path d="M34 44 q16 26 32 0 q-6 22 -16 22 q-10 0 -16 -22Z" fill="#c8b8a8" opacity=".9" /></g>`;
+    case 'cape3': return html`<g><path d="M26 50 q-14 24 2 38 q8 -18 12 -30Z" fill=${A} opacity=".85" /><circle cx="34" cy="50" r="4" fill="#ffce4f" /></g>`;
+    case 'helmetT': return html`<g><path d="M84 16 l6 8 -6 8 -6 -8Z" fill="#7bd88f" opacity=".8" /></g>`;
+    case 'fourarms': return html`<g><path d="M28 56 l-20 10 4 6 20 -8Z" fill=${A} /><path d="M72 56 l20 10 -4 6 -20 -8Z" fill=${A} /><rect x="2" y="66" width="14" height="4" rx="2" fill="#9aa8bc" /><rect x="84" y="66" width="14" height="4" rx="2" fill="#9aa8bc" /></g>`;
+    case 'slugtail': return html`<g><path d="M88 84 q10 -2 8 -12 q-6 6 -10 8Z" fill=${A} opacity=".8" /><ellipse cx="26" cy="42" rx="6" ry="4" fill=${A} opacity=".35" /></g>`;
+    // 이웍 두건: 머리 위를 덮는 갈색 두건 + 목 아래로 늘어진 천
+    case 'hoodfur': return html`<g fill=${A}>
+      <path d="M24 50 q2 -34 26 -34 q24 0 26 34 q-8 -20 -26 -20 q-18 0 -26 20Z" />
+      <path d="M24 50 q-4 12 2 20 q4 -10 4 -18Z" /><path d="M76 50 q4 12 -2 20 q-4 -10 -4 -18Z" />
+    </g>`;
+    case 'xwing': return html`<g stroke="#e8ecf2" stroke-width="3" stroke-linecap="round"><path d="M6 44 l16 8 M6 60 l16 -8 M94 44 l-16 8 M94 60 l-16 -8" /></g>`;
+    case 'staff': return html`<g><rect x="86" y="18" width="4" height="66" rx="2" fill="#8a5a2b" /><rect x="83" y="30" width="10" height="4" rx="2" fill="#6b4420" /></g>`;
     default: return null;
   }
 }
 
-const WORLD_HOST_RENDER = { 1: dinoHost, 2: robotHost, 3: rangerHost, 4: heroHost, 5: monsterHost };
+// W6 은하 원정대 기본 몸체(전용 body가 없을 때만 사용): 우주복 대원
+function spaceHost(p, i) {
+  return html`<g>
+    <path d="M32 50 q18 -8 36 0 l6 40 -48 0Z" fill=${p.c2} />
+    <rect x="34" y="64" width="32" height="6" rx="3" fill=${p.accent} />
+    <circle cx="50" cy="32" r="19" fill=${p.c1} />
+    <path d="M33 30 q17 -18 34 0 l0 6 q-17 -8 -34 0Z" fill=${p.accent} />
+    <rect x="34" y="30" width="32" height="13" rx="6" fill="#27324a" />
+    <rect x="37" y="33" width="26" height="7" rx="3.5" fill="#7fe7ff" opacity=".85" />
+    ${i % 2 ? html`<circle cx="50" cy="58" r="6" fill="#ffce4f" opacity=".8" />` : null}
+    <rect x="34" y="86" width="12" height="9" rx="4" fill=${p.accent} /><rect x="54" y="86" width="12" height="9" rx="4" fill=${p.accent} />
+  </g>`;
+}
+
+const WORLD_HOST_RENDER = { 1: dinoHost, 2: robotHost, 3: rangerHost, 4: heroHost, 5: monsterHost, 6: spaceHost };
 function variantChar(meta) {
   // 전용 몸체가 지정된 캐릭터는 그 형태로, 없으면 월드 기본 몸체로 그린다.
   const bodyFn = meta.body && BODY_RENDER[meta.body];
